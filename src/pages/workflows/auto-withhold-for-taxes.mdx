@@ -1,0 +1,46 @@
+---
+title: Auto-withhold for taxes in USDC
+description: Set up an automated system that receives tokens, converts a percentage into USDC for taxes, and forwards the rest to an operating account.
+---
+
+# Auto-withhold for taxes in USDC
+
+*Last update 11 November 2025*
+
+This guide explains how to set up an automated system that receives a variety of tokens, converts X% into USDC and sets aside for tax purposes, and forwards the remaining amount to a dedicated account.
+
+<video controls src="/images/auto-withhold-for-taxes/vid-1.mp4" />
+
+## Create new accounts
+
+In Splits ([teams.splits.org](http://teams.splits.org)) create two accounts: **`Tax`** and **`Operating`**.
+
+![](/images/auto-withhold-for-taxes/img-1.gif)
+
+## Create a [Diversifier](https://docs.splits.org/templates/diversifier)
+
+In the Splits Explorer, [create a new Diversifier on Base](https://app.splits.org/new/diversifier/?chainId=8453). Use the following parameters:
+
+- **Destination 1**<br />Share of income: 40%<br />Output token: USDC<br />Beneficiary: the address of the **`Tax`** account you created in step 1
+- **Destination 2**<br />Share of income: 60%<br />Output token: forward as is<br />Beneficiary: the address of the **`Operating`** account you created in step 1
+- **Owner**<br />Use the **`Operating`** account (or another Splits account using [Splits Connect](/getting-started/connecting-to-other-apps))
+
+![](/images/auto-withhold-for-taxes/img-2.gif)
+
+## Set Diversifier to receive revenue
+
+Tap the address at the top of the Diversifier page to copy it. Then you'll want to set that as the payout address for whatever you're building (e.g. if it's a Clanker, set the recipient on your token's [clanker.world](http://clanker.world) page).
+
+![](/images/auto-withhold-for-taxes/img-3.gif)
+
+## Process funds
+
+As your Diversifier accrues revenue, you'll periodically need to hit the `Swap` button as shown below when connected as the owner. That sends the funds to your **`Tax`** and **`Operating`** accounts.
+
+![](/images/auto-withhold-for-taxes/img-4.gif)
+
+## Funds appear in accounts
+
+You should see USDC appear in your **`Tax`** and all other tokens in the **`Operating`** account.
+
+![](/images/auto-withhold-for-taxes/img-5.gif)

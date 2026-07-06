@@ -1,0 +1,54 @@
+---
+title: Adding signers
+description: How passkeys work as transaction signers in Splits, how to choose a password manager, and troubleshooting tips.
+---
+
+# Adding signers
+
+*Last updated 17 December 2025*
+
+Passkeys are used to sign transactions in Splits. [Passkeys](https://www.dashlane.com/blog/what-is-a-passkey-and-how-does-it-work) are public-private key pairs that are saved in a password manager (e.g. iCloud, Google Password Manager, Yubikey, 1Password, etc) and require your biometrics or a PIN to activate.
+
+You can add as many passkeys to your profile as you wish. You can do so by going to *Settings > Personal > Passkeys > Add passkey.*
+
+![](/images/adding-signers/img-1.png)
+
+When you add a new passkey, the private key is stored in your password manager, and the public key is stored on our servers. **We never have access to your private key.** This is what gives you full custody over your assets, and prevents us from being able to access them.
+
+# Choosing a password manager
+
+Most password managers work across devices, allowing you to seamlessly move between your phone, laptop, tablet, etc. For example, if you save a passkey in iCloud, you will be able to login and sign transactions on both your iPhone and Macbook without having to connect a wallet or type in a password/seed phrase.
+
+In our experience, iCloud and Google Password Manager are the easiest and most reliable software providers. We also see folks using 1Password, BitWarden, LastPass and others.
+
+For higher-value accounts, we've found Yubikeys to be the most reliable.
+
+Browsers behave differently regarding the options and order of password managers. Often, you can find the right password manager by clicking the *Cancel* or *X* buttons in the dialog modal, which will then open other options.
+
+![In Chrome, click *Cancel* or *X* to find more options.](/images/adding-signers/img-2.gif)
+
+![In Safari, click *Other options* to find more options.](/images/adding-signers/img-3.gif)
+
+## Mobile passkeys
+
+We've found that using passkeys native to your devices (e.g. iCloud Keychain, Google Password Manager) is particularly helpful on mobile. This is because those passkeys behave natively in the OS, meaning you don't need to open a third-party app (e.g. 1Password) to sign transactions. They "just work".
+
+Unfortunately, we've run into issues where 1Password and Android are incompatible. For this reason, **we do not recommend using 1Password as a mobile signer**. This is because, when signing, Android does not always display third-party apps as an option (it seems to depend on your specific device).
+
+# Troubleshooting
+
+If you experience issues with a passkey provider, try [https://webauthn.io/](https://webauthn.io/) to see if they have the same issues. If the issue only happens on our site, then we know it's something we can fix. If it's happening on [https://webauthn.io/](https://webauthn.io/) too, then it's related to your provider and we may or may not be able to help.
+
+## Windows passkeys
+
+If your Windows passkey becomes very slow to use, try deleting your temporary files and rebooting. Instructions to delete temporary files:
+
+- Press `Windows + R`, type `%temp%`, and press Enter. Delete all files in the folder.
+- Press `Windows + R`, type `prefetch`, and press Enter. Delete all files in the folder. (Some files may not delete, which is normal).
+
+If you continue experiencing issues, please reach out to support@splits.org.
+
+# **Related articles**
+
+- [Passkey not opening](/faqs/passkey-not-opening)
+- [How we secure our assets](/outlook/how-we-secure-our-assets)

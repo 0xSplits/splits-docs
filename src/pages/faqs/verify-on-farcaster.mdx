@@ -1,0 +1,11 @@
+---
+title: How can I verify my Splits account on Farcaster?
+description: Verifying a Splits account on Farcaster requires a valid EIP-1271 signature on Ethereum mainnet and a deployed account.
+---
+
+# How can I verify my Splits account on Farcaster?
+
+Farcaster requires a valid [1271](https://eips.ethereum.org/EIPS/eip-1271) signature on Ethereum mainnet to [verify a Splits account](https://farcaster.xyz/~/settings/verified-addresses). Unfortunately, they do not support [6492](https://eips.ethereum.org/EIPS/eip-6492) (signatures from not-yet-deployed contracts). Therefore, to successfully prove ownership of one of your Splits accounts to Farcaster, you must:
+
+1. Enable mainnet
+2. Ensure the account is deployed. This happens on first transaction and can be verified via Etherscan's `contract` tab. If the tab isn't present, the contract hasn't been deployed yet to that network.

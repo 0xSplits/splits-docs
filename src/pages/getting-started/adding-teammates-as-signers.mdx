@@ -1,0 +1,57 @@
+---
+title: Adding teammates as signers
+description: A step-by-step guide to inviting teammates to your team and adding them as signers on an account.
+---
+
+# Adding teammates as signers
+
+*Last updated 08 May 2026*
+
+Adding someone as a signer on an account requires a few steps. We plan to make this easier in the future, but today this is a multi-step process and we'll walk you through it below.
+
+# Step 1: You invite them to your team
+
+The first step is to make them part of your team. If you're an Owner of your team, you can go to Settings > Members and select *Invite member*. They will receive an email with a link to join your team.
+
+![](/images/adding-teammates-as-signers/img-1.png)
+
+## Roles
+
+Roles are stored offchain and have no impact on whether that person is a signer on a specific account.
+
+- **Owners** can add/remove team members, complete KYB/C, mark tokens as spam, update general info (name, logo), and initiate recovery.
+- **Members** can view and create transactions (including on accounts they're not a signer on)
+
+You will receive an email once they accept your invitation. As part of their accepting your invitation, if they aren't already a customer of Splits they will be prompted to add passkeys.
+
+Once a member has accepted your invite, any Owner can upgrade a Member to an Owner, or vice versa.
+
+![](/images/adding-teammates-as-signers/img-2.png)
+
+# Step 2: They accept your invite
+
+The invitee will receive an email letting them know they've been invited to join your team. If they don't see it, we recommend they check their spam folder.
+
+![](/images/adding-teammates-as-signers/img-3.png)
+
+Once they join your team, they will be prompted to save a passkey. They can save multiple, but **they must save at least one** in order to be added as a signer on an account.
+
+# Step 3: Add them as a signer on an account
+
+You will receive an email once they accept your invite. You can then add them as a signer on an account. Navigate to the account's settings page (either [Settings > Accounts](https://teams.splits.org/settings/team/accounts/) > select the account, OR select the account from the left nav and click *Settings* in the top right), and click *Edit* in the Signers section (top right blue button). Select their passkey(s) and click *Done*. **There is one more step!**
+
+![](/images/adding-teammates-as-signers/img-4.png)
+
+Because account signers are saved onchain, this will require you to sign a message. The transaction will be titled "Update signers state", and you can approve it using whichever passkey(s) are needed to sign transactions for that account. It should appear immediately, but if not, navigate to your Dashboard and it should appear at the top of the transactions list.
+
+![](/images/adding-teammates-as-signers/img-5.png)
+
+Once you have approved that transaction you are all set. They will now be a signer on your account on every chain your team is active.
+
+---
+
+# Team members vs signers
+
+Team members and signers are very similar conceptually and there is often, but not always, 1:1 overlap between the two. The distinction is needed because team members are stored offchain while signers are stored onchain. team members are associated with a team, while signers are associated with an account (and an account is a subsidiary of a team).
+
+Right now all signers on your team's accounts must be members of your team. This is because being part of a team is what gives you access to view all the accounts, transactions, balances, and more.

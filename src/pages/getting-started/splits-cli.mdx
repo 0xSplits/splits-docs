@@ -1,0 +1,202 @@
+---
+title: Programmatic Access via Splits CLI
+description: Interact with your Splits accounts programmatically from the terminal, or connect the CLI to AI tools via MCP.
+---
+
+# Programmatic Access via Splits CLI
+
+*Last updated 4 May 2026*
+
+The Splits CLI is a command-line tool that lets you interact with your Splits accounts programmatically. You can query accounts, transactions, balances, contacts, and more directly from your terminal. It also works as an MCP server, so you can connect it to AI tools like Claude Code, Cursor, and Amp.
+
+This guide is organized by what you're trying to do. For an exhaustive reference of every flag, run `splits <command> --help` or `splits <command> --schema`.
+
+# Quick start
+
+Run the below to see the full command surface before installing:
+
+```bash
+npx @splits/splits-cli@latest --llms-full
+```
+
+# Get set up
+
+## Get an API key
+
+Navigate to **Settings \> API Keys** and create a new key with the correct scopes:
+
+- **Read** — query data only
+- **Write** — create and propose transactions; update transaction memos and properties
+- **Owner** — manage members and edit other organization settings
+
+Copy the key (it starts with `sk_`) and save it somewhere secure. You won't be able to see it again.
+
+## Install
+
+Install globally via npm:
+
+```bash
+npm install -g @splits/splits-cli@latest
+```
+
+Or run without installing:
+
+```bash
+npx @splits/splits-cli@latest <command>
+```
+
+## Sign in
+
+The easiest way to sign in is to just call the following command:
+
+```bash
+splits auth login --api-key sk_...
+```
+
+This will save your API key to a configuration file locally that `splits` can read from.
+
+Verify your connection:
+
+```bash
+splits auth whoami
+```
+
+This shows your team name, API key name, granted scopes, where the key came from (env vs. local config), and any local EOA signing key you've created.
+
+# Inspect your org
+
+Most of the CLI is read-only commands for understanding what's going on in your org. None of these require Write or Owner scope.
+
+**Accounts and balances**
+
+- `splits accounts list` — list all accounts in your team
+- `splits accounts get <address>` — details for a specific account
+- `splits accounts balances <address>` — token balances (filter with `--chainIds 1,8453`)
+- `splits accounts chains <address>` — list chains an account is deployed or synced on
+- `splits accounts signers <address>` — list passkey and EOA signers with the current threshold
+
+**Transactions**
+
+- `splits transactions list` — list recent transactions. Filter by `--chainId`, `--account` (single address or comma-separated), `--direction` (`inbound` / `outbound`), `--minAmount` / `--maxAmount` (inclusive USD bounds, sign-agnostic), date range via `--startDate` / `--endDate` (ISO 8601; end date exclusive) or `--period` shorthand (`thisWeek`, `thisMonth`, `thisYear`, `lastWeek`, `lastMonth`, `lastYear`, `last30Days`, `last90Days`, `last6Months`), `--memo` (case-insensitive substring, min 3 chars), and `--limit` (max 200). Use `--cursor` from a previous response to paginate — replay the same filters. Look up a single transaction with `--user-op-hash` or `--transaction-hash`.
+- `splits transactions get <id>` — details for a specific transaction
+
+**Reference data**
+
+- `splits contacts list` — your team's contacts (search with `--q`)
+- `splits contacts lookup --addresses 0x...,0x...` — batch lookup
+- `splits tokens metadata --address 0x... --chainId 1` — symbol, decimals, etc.
+- `splits tokens whitelist` / `splits tokens blocklist` — your team's token visibility lists
+- `splits chains list` / `splits chains get <chainId>` — supported networks
+- `splits members list` — members of your org
+- `splits members signers <userId>` — passkey IDs for a member (used by `accounts create`)
+- `splits settings get` — your team's settings
+- `splits automations list` — your team's automations
+
+# Transaction metadata
+
+- `splits transactions memo <id> --memo "text"` — set or clear a memo (max 500 chars).
+- `splits transactions properties set <id> --properties '{"k":"v"}'` — shallow-merge custom JSON metadata onto a transaction (≤ 500 chars minified).
+- `splits transactions properties replace <id> --properties '{"k":"v"}'` — atomically replace all custom JSON metadata.
+- `splits transactions properties clear <id>` — remove all custom JSON metadata.
+
+# Propose transactions
+
+These commands create proposals that still need to be signed — either in the web UI, or with `transactions sign` if you've registered an EOA. All require the **Write** scope.
+
+- `splits transactions create transfer --account 0x... --chainId 8453 --recipient 0x... --token 0x... --amount 100` — token transfer proposal. Amount is in human-readable units (e.g. `100` for 100 USDC, `0.5` for 0.5 ETH). Use `0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE` for native ETH. Optional `--name`, `--memo`.
+- `splits transactions create custom --account 0x... --chainId 8453 --calls '[{"to":"0x...","data":"0x..."}]'` — proposal with raw EVM calls. Use for any on-chain action: contract calls, approvals, swaps. Optional `--name`, `--memo`, `--validUntil`.
+- `splits transactions cancel <id>` — cancel a pending proposal (only works on `CREATED` or `DRAFTED`).
+- `splits transactions update-gas-estimation <id>` — refresh gas estimates. For multisig, run this when exactly one signer remains.
+
+# Sign locally with an EOA
+
+By default, signing happens in the web UI with a passkey. To let an agent or automation operate headlessly, you can register a local EOA and sign from the CLI.
+
+The flow is: create or import a private key locally → register the address with the backend → attach it to a subaccount → sign proposals.
+
+**Manage the local key**
+
+- `splits auth create-key` — generate a new local Ethereum EOA in `~/.splits/config.json`. Pass `--register` to also register the address with the backend in one call. Refuses if a key already exists.
+- `splits auth import-key` — import an existing private key. Prefer stdin: `echo $PRIVATE_KEY | splits auth import-key`. The `--privateKey` flag is refused under MCP mode so it doesn't land in tool-call transcripts.
+- `splits auth delete-key` — remove the local key. Does **not** revoke it on-chain — use `accounts update-signers` (or the web app) to detach it from any subaccounts.
+
+**Register and attach**
+
+- `splits auth register-signer <address>` — register an EOA address with the backend so it can be attached as a signer. Idempotent — re-running with the same address returns the same id.
+- `splits auth signers` — list EOA signers registered under the acting user. Returns the ids needed by `accounts update-signers`.
+- `splits accounts update-signers <address> --addEoaSignerIds id1,id2 --threshold 2` — propose adding/removing signers (passkeys and/or EOAs) and/or changing the threshold on a subaccount. The proposal must be approved and signed in the web UI via the returned `signUrl`. Updates apply to every active network on the org automatically. Recovery / resetting signers stays web-only. Requires the **Owner** scope.
+
+**Sign**
+
+- `splits transactions sign <id>` — sign a pending multisig transaction with the local EOA. Fetches the transaction's signing hash, produces a `personal_sign` signature locally, and submits it. Auto-submits the UserOp once threshold is met; pass `--noSubmit` to record the signature only. Retries once on a stale signer nonce. Requires the **Write** scope and a registered EOA attached to the account.
+
+# Manage subaccounts and the org
+
+All commands in this section require the **Owner** scope.
+
+- `splits accounts create --name "Name" --threshold 2` — create a new subaccount. Add signers with `--passkeyIds` and/or `--eoaAddresses`.
+- `splits accounts rename <address> --name "New Name"`
+- `splits accounts archive <address>` / `splits accounts unarchive <address>` — archive fails if the account has pending state changes.
+- `splits org create --email you@example.com` — start creating a new org. Sends a setup link to the email; complete creation in the web UI. (For a new account inside an existing org, use `accounts create` instead.)
+
+# Tune output for agents
+
+The CLI was designed to feed AI tools as well as humans. By default it prints human-readable tables; when piped to another command or run under MCP, it prints JSON. A handful of global flags let you reshape output further:
+
+- `--format <toon|json|yaml|md|jsonl>` — pick a serialization. `toon` is a token-efficient format optimized for LLM context.
+- `--filter-output <keys>` — project specific paths from the output, e.g. `--filter-output "items[0,3].address,nextCursor"`.
+- `--token-count` / `--token-limit <n>` / `--token-offset <n>` — measure or budget output tokens. Useful when chaining results into a model with a context limit.
+- `--verbose` — show the full output envelope (metadata, pagination, etc.) instead of just the data.
+- `--schema` — print the JSON Schema for the current command's input. Helpful for code-generation and self-describing tool calls.
+- `--llms` / `--llms-full` — print an LLM-readable manifest of the entire CLI surface. Useful for bootstrapping new agents.
+
+# Connect to AI tools (MCP)
+
+MCP (Model Context Protocol) lets AI tools call the CLI on your behalf. Once connected, you can ask your AI assistant questions like "what are my account balances on Base?" and it will query the CLI automatically. **Every CLI command is automatically exposed as an MCP tool**, including any new commands added later.
+
+## Claude Code, Cursor, and other clients
+
+The fastest way to connect is to let the CLI auto-detect your client:
+
+```bash
+splits mcp add
+```
+
+This works for Claude Code, Cursor, and other supported clients. To register manually with Claude Code:
+
+```bash
+claude mcp add splits -e SPLITS_API_KEY=sk_... -- npx @splits/splits-cli --mcp
+```
+
+For any tool that supports MCP over stdio, run the CLI with the `--mcp` flag and pass the API key via `SPLITS_API_KEY`:
+
+```bash
+SPLITS_API_KEY=sk_... npx @splits/splits-cli --mcp
+```
+
+## Skills and shell completions
+
+- `splits skills add` — sync ready-made skill files (e.g. for Claude Code) so your agent has guidance for using the CLI effectively.
+- `splits completions` — generate a shell completion script. Source the output from your shell rc file.
+
+## Verify the connection
+
+Once connected, ask your AI tool to run `splits auth whoami` to confirm. You should see your team name and API key scopes.
+
+# Examples
+
+Things to try once everything is wired up:
+
+- "Show me the balances for all my accounts on Base"
+- "What transactions happened in the last week?"
+- "Add a memo to transaction X saying 'Q1 contractor payment'"
+- "Tag the last 5 outbound transfers with property `category=payroll`"
+- "Which chains is this account deployed on?"
+- "Look up the metadata for this token address"
+- "Create a new subaccount called 'Treasury' with a 2-of-3 threshold"
+- "Send 100 USDC from my account on Base to 0x..."
+- "Create a proposal to call the distribute function on this contract"
+- "Set up a new org for [my-email@example.com](mailto:my-email@example.com)"
+- "Find all outbound payments to Acme between $4,500 and $5,500 last month"
+- "Add my local EOA as a signer on the Treasury subaccount with a 2-of-3 threshold"
+- "Sign the pending transfer proposal with my local key"

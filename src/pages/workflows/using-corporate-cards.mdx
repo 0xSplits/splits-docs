@@ -1,0 +1,76 @@
+---
+title: Using corporate cards with Splits
+description: How to use Splits to fund and manage collateral for Rain Spend, a corporate card program backed by stablecoins.
+---
+
+# Using corporate cards with Splits
+
+*Last updated 18 December 2025*
+
+We recommend using [*Rain Spend*](https://www.rain.xyz/rain-spend), a corporate card program backed by stablecoins. This guide covers how to use Splits to fund and manage collateral in *Rain Spend*. For card issuance, controls, and other *Rain Spend* features, contact *Rain Spend's* support.
+
+### How *Rain Spend* works
+
+[*Rain Spend*](https://www.rain.xyz/rain-spend) uses onchain stablecoins as collateral to set monthly spend limits on your company credit card accounts.
+
+You deposit stablecoins up front. At the end of each billing cycle, the amount you spent is deducted from your account's collateral. Any remaining balance carries forward as your available spend for the next month.
+
+### Set up a *Rain Spend* account
+
+**Recommended:** For clean accounting create a dedicated account in Splits for *Rain Spend* collateral and use this account only for *Rain Spend* funding.
+
+![](/images/using-corporate-cards/img-1.png)
+
+Go to [use.rain.xyz/signup](https://use.rain.xyz/signup) and complete *Rain Spend*'s KYB process. Have your company documents (EIN, formation) ready before starting.
+
+![](/images/using-corporate-cards/img-2.png)
+
+## Adding your Splits account to *Rain Spend*
+
+In *Rain Spend*, select your profile in the top right and open wallet settings.
+
+![](/images/using-corporate-cards/img-3.png)
+
+Select *Link account* and choose *WalletConnect*.
+
+**Note:** *Rain Spend*, for reasons we don't yet understand, doesn't handle [*SplitsConnect*](/getting-started/connecting-to-other-apps) well during setup. If you encounter connection or account-selection issues, removing and re-linking your Splits account should resolve the problem.
+
+![](/images/using-corporate-cards/img-4.png)
+
+Return to your team account and sign the message verifying your account.
+
+### Add your Rain card to your Splits account
+
+In your *Rain Spend* account page, select *Smart Contracts*. Copy the Base smart contract address.
+
+![](/images/using-corporate-cards/img-5.png)
+
+In Splits, navigate to *Cards*, and add your *Rain* collateral address.
+
+![](/images/using-corporate-cards/img-6.png)
+
+Your Rain card collateral as well as spending and deposits are now viewable in Splits.
+
+![](/images/using-corporate-cards/img-7.png)
+
+### Deposit Rain collateral from Splits
+
+Select *Deposit* from the *Cards* page.
+
+![](/images/using-corporate-cards/img-8.png)
+
+From the *Send* page, select the appropriate From account and Base USDC.
+
+*Important note: Rain collateral addresses are network and token specific. Sending any token other than Base USDC to the collateral account will result in lost funds.*
+
+![](/images/using-corporate-cards/img-9.png)
+
+Once confirmed, the collateral will appear in both your Cards feed in Splits as well as your *Rain Spend* under *Recent transactions*, with your card's monthly spend limit increased.
+
+![](/images/using-corporate-cards/img-10.png)
+
+![](/images/using-corporate-cards/img-11.png)
+
+### Notes
+
+*Rain Spend* controls card behavior, limits, fees, and liquidation mechanics. Splits only facilitates wallet connection and USDC transfers. For card issues or KYB questions, contact *Rain Spend* support.

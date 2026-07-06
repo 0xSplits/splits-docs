@@ -1,0 +1,16 @@
+---
+title: Can I import an existing account?
+description: Why Splits doesn't support importing existing smart contract accounts like Gnosis Safe, and the UX limitations behind that decision.
+---
+
+# Can I import an existing account?
+
+Not today. Ethereum won't [revolutionize finance](https://splits.org/blog/unbreakable-agreements/) until it's easy to use, so our top priority with Splits is delivering a great user experience. Early on, we tried building on top of existing smart contracts like Gnosis Safe and ZeroDev's Kernel. Ultimately, we weren't able to deliver the user experience we wanted atop existing providers.
+
+Here are the main UX limitations we faced with existing accounts:
+
+- We wanted to secure our accounts with passkeys in addition to seed phrases. Passkeys are public-private key pairs that all major internet platforms are pushing forward, and we believe they are the future of transaction authorization.
+- We wanted to use sub-accounts to permission spend and automate accounting. Today, our onchain activity is safely and effortlessly spread across 8 multichain accounts with different operational purposes, security parameters, and accounting rules. All of it rolls up into one simple interface.
+- We wanted to keep signers in sync across multiple chains, without having to do so manually. Our team operates seamlessly between chains. Today, that's mostly Optimism, Base, and Ethereum.
+
+Importing existing accounts, even in read-only mode, is not planned at this time. We do see a number of teams successfully use Safe in conjunction with Splits, with Splits being used as their day-to-day checking account(s).

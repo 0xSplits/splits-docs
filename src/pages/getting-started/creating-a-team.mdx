@@ -1,0 +1,80 @@
+---
+title: Creating a team
+description: How to create a new team in Splits, including the Team, User, Owners, Treasury, Recovery, and Review setup steps.
+---
+
+# Creating a team
+
+*Last updated 08 May 2026*
+
+You can create and be part of as many teams as you wish. Creating a new team takes under a minute, and with the exception of the Recovery step, everything about your team (name, icon, owners, etc) can be changed after setup.
+
+:::note
+**Create a demo team in about 30 seconds** by skipping the Owners and Treasury step (use the pre-filled default options), and on the Recovery step select *1 signer* and then paste in any address or ENS (e.g. example.eth). Once you're ready to set up your team with the right Recovery configuration, you can easily create a new team.
+:::
+
+Since you must be part of a team to use the product, if you just registered you will be guided through creating a team.
+
+If you're already part of an existing team, you can create a new one by clicking your team's name in the top left and selecting *Create a team*.
+
+![](/images/creating-a-team/img-1.png)
+
+This will prompt you to enter a team name, and then bring you through the new team creation flow.
+
+![](/images/creating-a-team/img-2.png)
+
+# Team
+
+Enter a name for your team, and optionally upload a logo.
+
+![](/images/creating-a-team/img-3.png)
+
+# User
+
+If you're already part of an existing team, you will see your personal details shown here. This includes your name, photo, all your passkeys (used to sign transaction), and your preferred passkey (used on your Treasury account). **You must add at least 1 passkey to continue.**
+
+![](/images/creating-a-team/img-4.png)
+
+See our list of [preferred passkey providers](/faqs/passkey-not-opening).
+
+# Owners
+
+*Skip this step if you're setting up a test team or using this without teammates.*
+
+Owners will automatically be added a signers on your Treasury account (you can change this later), and have the ability to invite other team members. You can add or remove owners after setup.
+
+![](/images/creating-a-team/img-5.png)
+
+# Treasury
+
+*Skip this step if you're setting up a test team or using this without teammates.*
+
+We automatically create a Treasury account for you. This account is intended to store the bulk of your assets, since it is technically (i.e. onchain) the owner of all other accounts you create. You can specify how many owners need to approve each outgoing transaction.
+
+![](/images/creating-a-team/img-6.png)
+
+# Recovery
+
+*If you're setting up a test team or using this without teammates, select *1 signer* and enter in any address or ENS.*
+
+Recovery is how you regain assets in case you lose access to your passkeys (e.g. a password manager is compromised or [splits.org](http://splits.org) goes offline). Right now, Recovery uses EOA signers. We recommend adding multiple signers, but you can configure this however you wish. [Read more about Recovery](/faqs/change-recovery-signers).
+
+![](/images/creating-a-team/img-7.png)
+
+At Splits, we rely on a [2-of-3 using hardware wallets](/outlook/how-we-secure-our-assets).
+
+# Review
+
+Before hitting *Finish*, double check everything looks right. **The only piece that cannot change after setup is Recovery.**
+
+![](/images/creating-a-team/img-8.png)
+
+We activate a few networks for you by default. Active networks will keep signer-state in sync (i.e. onchain signer authority, rules for how transactions are executed onchain). Click *Change* to select different networks. **We do not automatically activate Ethereum due to potentially high network fees.**
+
+![](/images/creating-a-team/img-9.png)
+
+Once everything looks good, hit *Finish* and you will be brought to your new team dashboard page.
+
+![](/images/creating-a-team/img-10.png)
+
+From there you can deposit funds, create new accounts, connect your bank for on/offramping, add teammates, and more.

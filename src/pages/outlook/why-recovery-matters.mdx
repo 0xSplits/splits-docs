@@ -1,0 +1,34 @@
+---
+title: Why recovery matters
+description: Why a recovery account matters for self-custody, and how it compares to Apple's recovery key approach.
+---
+
+# Why recovery matters
+
+The idea of a recovery account may sound familiar. It's [Apple's highest level of account security](https://support.apple.com/en-us/109345) and their response to the increasingly sophisticated attackers going after their users.
+
+### How Apple does it
+
+By default, Apple gives you access to their standard "account recovery process". This is your typical "reset password" experience with a few 2FA elements baked in. Since Apple can reset your password, it means they have ultimate custody. It would be really problematic for Apple if they accidentally let an attacker reset your password. And as attackers become increasingly sophisticated, Apple needed a solution to transfer custody from them to you. Their \$3.5 trillion dollar response? A 28-character secret code.
+
+> A recovery key is a secret 28-character code that you can use, along with a trusted phone number and an Apple device, to recover your account and data.<br />When you set up a recovery key, you turn off Apple's standard [account recovery process](https://support.apple.com/en-us/118574).<br />Instead, access to a trusted device or your recovery key will be required to reset your Apple Account password and sign in to your account if you ever lose access.<br />This gives you more control of your account recovery methods and can help prevent an attacker from gaining access to and taking control of your account. However, if you lose your recovery key and can't access one of your trusted devices, **you'll be locked out of your account permanently**.
+
+### Why recovery is important
+
+Unlike Apple, we at Splits never take custody of your assets. This is important to us, at both a philosophical and operational level. (If we took custody of you're assets, we'd look a lot like Coinbase or a bank.)
+
+Essentially Apple is saying, "We'll take custody of your account, but if you want ultimately custody, write down this 28-character code—but if you lose that code, you're screwed."
+
+![](/images/why-recovery-matters/img-1.png)
+
+### Why recovery matters
+
+One of the primary considerations when scoping out the MVP of Teams was ensuring funds were 100% in your control, 100% of the time. Entirely self-custodial, full stop.
+
+Passkeys are wonderful for day-to-day things, but one of their greatest strengths, phishing resistance, is also a weakness when it comes to custody. **Passkeys are phishing resistant because they are inextricably linked to the issuing domain.** The benefit: passkeys created on [splits.org](http://splits.org) cannot be used on [spIits.org](http://spiits.org) (read that carefully—that's not our domain!). The issue: if splits.org goes offline (we're working very hard to ensure this doesn't happen) your passkeys become worthless, which, without Recovery, would leave you unable to access your funds.
+
+This is where Recovery comes in. Recovery acts as the "master key" for your team, allowing you to reset
+
+## What is recovery?
+
+During setup you are required to choose your Recovery signers. These are Ethereum addresses that will be used to reset your accounts' passkey signers in case of emergency (e.g., your passkey manager is compromised, [splits.org](http://splits.org) goes down, etc).

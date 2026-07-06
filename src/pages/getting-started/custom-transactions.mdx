@@ -1,0 +1,54 @@
+---
+title: Custom transactions
+description: Call any writable function on any Ethereum contract directly in Splits using the custom transaction builder.
+---
+
+# Custom transactions
+
+*Last updated 26 January 2026*
+
+You can call any writable function on any Ethereum contract directly in Splits, as long as the contract is deployed on a [supported network](/getting-started/network-support).
+
+# Open the custom transaction builder
+
+Navigate to any account you're a signer on, and click *Custom txn* in the top-right corner. You can also hit the `X` key or use the command menu (`CMD K`).
+
+![](/images/custom-transactions/img-1.png)
+
+Then paste the contract address.
+
+![](/images/custom-transactions/img-2.png)
+
+The network will be auto-deteced, but if the contract exists on multiple networks (e.g. WETH), you'll need to select a network in the dropdown.
+
+![](/images/custom-transactions/img-3.png)
+
+# Build the transaction
+
+If your contract has a valid ABI, you can select from a list of the writable functions.
+
+![](/images/custom-transactions/img-4.png)
+
+A form will appear with the input parameters for the function you selected.
+
+![](/images/custom-transactions/img-5.png)
+
+If the function is payable, you'll see an *Amount to pay* input, denominated in ETH.
+
+![](/images/custom-transactions/img-6.png)
+
+## Non-verified contracts
+
+If your contract's ABI is not found, you'll need to enter raw calldata.
+
+![](/images/custom-transactions/img-7.png)
+
+If entering raw calldata, you will alway see an *Amount to pay* input. You can choose to send some ETH or not, depending on if the function you're calling is payable.
+
+![](/images/custom-transactions/img-8.png)
+
+# Review and submit
+
+Click the *Review* button to see a visual preview of the transaction. You can click *Show calls* to see the full calldata summary, or *Details* to view a Tenderly simulation.
+
+![](/images/custom-transactions/img-9.png)

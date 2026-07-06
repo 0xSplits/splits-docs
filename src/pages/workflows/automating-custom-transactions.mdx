@@ -1,0 +1,24 @@
+---
+title: Automating custom transactions
+description: How to programmatically execute transactions from your Splits accounts using the module system and an Executor key.
+---
+
+# Automating custom transactions
+
+*Last updated 3 March 2026*
+
+*If you only want to automate token transfers, see [Automating token transfers](/workflows/automating-token-transfers).*
+
+You can programmatically execute transactions from your Splits accounts using our [module system](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vaults/src/utils/ModuleManager.sol). This allows you to make custom calls to permissioned contracts that rely on `msg.sender` (e.g. LP fee withdrawals) while still managing those tokens in Splits once received.
+
+**Note:** you are granting this module full access to the account, so we strongly encourage using a subaccount rather than your Treasury.
+
+First, create a new private key that your server will use to execute transactions (the "Executor"). This key will be able to control your subaccount and should be secured appropriately, commensurate with the funds at risk (both in the account and in any other contract for which the account has special privileges). This is trivial to do with Claude or an LLM of your choice.
+
+Next, create a dedicated subaccount if you haven't already. Once created, in the top right click *Custom txn* on that account's page. Then paste in **the subaccount's address in the *Contract address* input**. (You are doing a "self call", into the subaccount from the subaccount.)
+
+Select the network and in the *Function to call* select `enableModule`. Then paste your Executor's public key (i.e. Claude's address).
+
+![](/images/automating-custom-transactions/img-1.png)
+
+Once executed, you have successfully granted the Executor the ability to execute transactions through the subaccount account via [the `executeFromModule` functions](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vaults/src/utils/ModuleManager.sol#L130-L160).

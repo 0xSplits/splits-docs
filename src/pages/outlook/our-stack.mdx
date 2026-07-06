@@ -1,0 +1,53 @@
+---
+title: Our stack
+description: The financial tools we use to run our business, from banking and accounting to cards and payroll.
+---
+
+# Our stack
+
+*Last updated 15 October 2025*
+
+Here are the financial tools we use to run our business. For context we're a 10-person, VC-backed team structured as a US C-Corp.
+
+# Banking
+
+- [Splits](https://teams.splits.org/) - we keep about \~20% of our company's assets onchain, about half of which is [earning interest](/getting-started/earning-interest) at rates higher than what we would get offchain. All of our onchain assets are stored here, spread out across multiple different dedicated accounts. See [How we secure our assets](/outlook/how-we-secure-our-assets) for more details. A few thoughts:
+  - We don't feel comfortable moving 100% of our assets onchain, since we benefit from accessing the peace of mind that comes with FDIC insurance and custodians.
+  - That said, the percent of our assets we're storing onchain *is* growing, primarily because (1) yield is higher, and (2) we can move money faster.
+- [Mercury](https://mercury.com/r/0xsplits)\* - best in class UX. We keep a nominal balance here, and use it if we need to pay invoices and move other relatively small amounts.
+- [Meow](https://www.meow.com/)\* - higher yield than Mercury, but worse UX. All our big expenses (payroll, credit card, health insurance, etc) pull from these accounts. We rarely interface with this product—it's almost entirely "set and forget" (except when they have bugs that require us to manually move funds to cover payroll, ugh). We set this up because we had recently raised outside capital and the yield we could earn was considerably higher than what we were earning in Mercury.
+
+*\* As with all custody products, a legal entity is required. So these are not applicable for unincorporated projects and, in many cases, entities outside the US.*
+
+# Accounting
+
+- [Splits](https://teams.splits.org/) - provides our accounting team with historical prices of all our transactions across all of our accounts. **We rely heavily on the memo field**, as to reduce the back and forth needed with our accounting team to close our books.
+- [Acuity](https://acuity.co/) - third party firm that handles monthly bookkeeping, taxes, etc. We got started with them as a small company and, for the most part, they've kept up so we haven't felt compelled to change. In hindsight, we would have rather worked with a part-time dedicated bookkeeper vs going with a larger firm.
+- [Xero](https://www.xero.com) - we interact with this very infrequently. We do pay for it because our accountants use it. This is our source of truth for our Chart of Accounts, which our accountants modify as operational complexity grows.
+- [Integral](https://integral.xyz/) - we interact with this very infrequently. It's a sub-ledger that tracks cost basis for our onchain transactions and syncs to Xero's Chart of Accounts.
+  - Good product but very expensive (minimum \$7200/year) and pricing is based on transaction count, which we fundamentally disagree with. Our goal is to bring this functionality into Splits in the next few quarters.
+
+# Cards
+
+- [Ramp](https://ramp.com/) - we started using this prior to Mercury having a card offering of their own. It's not clear we would use Ramp today if we were just getting started.
+  - Corporate cards tied to an onchain balance is one of the most requested features from current customers (e.g. pay AWS, Figma, Notion, etc using USDC in a Splits account). Our goal is to offer this in H1 2026.
+
+# Payroll
+
+- [Splits](https://teams.splits.org/) - we run payroll twice monthly for non-US folks who are amenable to receiving USDC onchain.
+- [Gusto](https://gusto.com/) - we've been using this to run payroll and benefits since 2021, so far no issues and customer service has been great.
+- [Deel](https://www.deel.com/) - a few of our team members are not US-based and prefer not to be paid in USDC (because of local conversion and offramping issues), so we use Deel instead of Gusto for these folks.
+
+# Miscellaneous
+
+- [Carta](https://carta.com/) - cap table management
+- [Clerky](https://www.clerky.com/) - "fill in the blank" legal docs (e.g. contractor agreements, employment offers, etc)
+- Very Expensive Law Firm - we avoid engaging them unless it's Very Important
+
+# Outlook
+
+This might look like a lot but it's actually fairly manageable day-to-day, especially when you consider what we [were previously using](https://splits.org/blog/onchain-team-security/). Notably, we no longer use any centralized exchanges (Coinbase, Gemini, etc), Gnosis Safes, or individual software wallets (MetaMask, Rainbow, etc). All of these were huge headaches for us as our team scaled.
+
+You'll noticed that [Cards](#cards) is the only section in which we're not dogfooding our own product. Right now that's blocked by our provider (Stripe), and we expect that to change in 2026. From there, we will continue to push the frontier until we're operating \~entirely on Splits.
+
+And, being an "offchain first company", we're already discovering instances where keeping a large onchain balance is net beneficial for us. Beyond the obvious aspects of international payments, we found it's actually faster to use onchain funds earning interest offchain than offchain funds earning interest offchain. We had an instance where a Meow bug resulted in us missing payroll, and the fastest way to remedy this was to offramp USDC (earning 6%+) from Splits to Meow.

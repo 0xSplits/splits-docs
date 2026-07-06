@@ -1,0 +1,44 @@
+---
+title: Accounting
+description: How to view, filter, and export transactions on the Accounting page, add memos, and see historical balances.
+---
+
+# Accounting
+
+*Last updated 3 April 2026*
+
+The *Accounting* page lets you view and filter all your inbound and outbound transactions across your accounts. From there you can export to CSV. Right now the table is fairly basic, but over time we intend to make this [more full-featured](https://www.notion.so/263f7c3c8eff80379565eeee35a0ae94#268f7c3c8eff80f5a129df215c679fb7) and allow you to forgo using a subledger entirely.
+
+![](/images/accounting/img-1.png)
+
+# Adding transaction memos
+
+Until we build more accounting-specific workflows (i.e. integrate directly into Xero and map transactions to categories), we rely heavily in transaction memos. We prefer adding memos when creating transactions, but you can do so retroactively as well (especially helpful for inbound transactions). Click on the 3 dots and select *Add memo*. You can also do this from any transaction feed (e.g. on the Dashboard or account page).
+
+![](/images/accounting/img-2.png)
+
+# Filtering
+
+You can filter transactions via the row of buttons above the table. Right now you can filter by memo, date, account(s), direction, and amount (min and max). You can also export a CSV of all transactions that match the filters you've set.
+
+![](/images/accounting/img-3.png)
+
+# Historical balances
+
+Set a date range using the "date" filter and you'll see the starting balance, ending balance, and net change for that period. Combine it with the account(s) filter to see a granular view into one or more of your Account balances over time.
+
+![](/images/accounting/img-4.png)
+
+Hover over the starting or ending balance to see a list of tokens in the account(s) on that date.
+
+![](/images/accounting/img-5.png)
+
+# Roadmap
+
+- General ledger mapping and sync with accounting software (e.g. Quickbooks, Xero, etc)
+- Create rules at the account level to auto-categorize transactions
+- Track cost basis
+- View transfers associated with each transaction (i.e. swap + send)
+- More filters (e.g. network, internal)
+- Tax form creation to import to third parties (e.g. TurboTax)
+- Transaction tags

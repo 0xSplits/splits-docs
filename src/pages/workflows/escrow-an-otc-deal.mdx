@@ -1,0 +1,92 @@
+---
+title: Using Splits to escrow an OTC deal
+description: How to use a Splits account as a neutral, onchain escrow for over-the-counter (OTC) deals with a 2-of-3 signer set.
+---
+
+# Using Splits to escrow an OTC deal
+
+*Last updated 09 June 2026*
+
+Splits offers a neutral, onchain escrow for over-the-counter (OTC) deals. One account holds the Buyer's funds, the Seller's asset, and a collateral bond (if necessary), then releases everything atomically in a single transaction. A neutral third party (the "Arbiter") holds a tie-breaking key for dispute resolution, no custody required.
+
+This guide covers the Splits mechanics only. Asset, quantity, price, collateral, and delivery timelines are negotiated offchain between Buyer and Seller.
+
+:::note
+Setting up an OTC escrow on Splits? Reach out to **support@splits.org**, we're happy to help you get the account configured correctly so your first deal goes smoothly.
+:::
+
+![](/images/escrow-an-otc-deal/img-1.png)
+
+## How it works
+
+You create one team with a single escrow account, controlled by a 2-of-3 signer set: a Buyer representative, a Seller representative, and an Arbiter representative. Because every transfer needs two of the three signatures, no party has custody or can move assets unilaterally.
+
+Settlement is two (sometimes three) deposits and one release:
+
+- Optional: Seller posts collateral (USDC) as a good-faith bond.
+- Buyer deposits the full purchase amount (USDC).
+- Seller delivers the asset (Token A) when ready.
+
+Once all three are in the account, you assemble a single batch transaction that sends the asset to the Buyer, the purchase amount to the Seller, and the collateral back to the Seller. The Buyer and Seller co-sign, and everything moves together — or nothing moves.
+
+## Before you start
+
+Agree on the three signers:
+
+- A representative from the Buyer
+- A representative from the Seller
+- A neutral third party trusted by both sides to be the Arbiter, in case the Buyer or Seller tries to later reneg
+
+Have each signer's email ready, along with the finalized terms: asset, quantity, price, collateral amount, and delivery deadline.
+
+## Set up the escrow
+
+1. Create a new team in Splits.
+2. Add the Buyer rep, Seller rep, and Arbiter rep as signers using their email addresses.
+3. Set the team's recovery threshold to 2-of-3.
+4. Set the escrow account (the Treasury) to a 2-of-3 threshold as well, so any transfer requires two of the three signatures.
+
+  ![](/images/escrow-an-otc-deal/img-2.png)
+
+## Fund the escrow
+
+Send the assets into the escrow account.
+
+1. **If necessary, Seller posts collateral.** Seller deposits the agreed collateral. Once in, it can't be withdrawn without two of the three signatures.
+2. **Buyer deposits the purchase amount.** With terms and collateral locked, Buyer deposits the full purchase amount into the same account.
+3. **Seller delivers the asset.** When ready to fulfill, Seller transfers the asset (Token A) into the account.
+
+The account now holds everything: Buyer's purchasing amount, Seller's asset, and Seller's collateral.
+
+![](/images/escrow-an-otc-deal/img-3.png)
+
+## Settle the deal
+
+With all assets in the account, build settlement as [one batch transaction](/getting-started/batch-transactions):
+
+1. Click "Send" to initiate a transfer the asset (Token A) to Buyer's chosen address and click *Add to batch*.
+2. Click "Send" to initiate a transfer of the full purchase amount to Seller's chosen address. Click *Add to batch*.
+3. Click "Send" to initiate a transfer returning the collateral to Seller. Click *Add to batch*.
+4. Buyer and Seller each sign the batch (2 of 3).
+
+The transfers execute together and the deal settles. In the happy path, the third party never has to sign.
+
+![](/images/escrow-an-otc-deal/img-4.png)
+
+## If a party reneges
+
+The third party Arbiter is the tiebreaker for the failure case.
+
+If one side fails to deliver — Seller never sends the asset, or Buyer never funds — the other party contacts the Arbiter. Together they sign a 2-of-3 transaction that unwinds the deal according to the appropriate terms.
+
+If Buyer reneges after Seller has posted collateral, the collateral is return to Seller.
+
+If Seller reneges: Buyer's funds are returned, and Seller's collateral is released to Buyer as compensation for the broken commitment.
+
+![](/images/escrow-an-otc-deal/img-5.png)
+
+Because no single party can unilaterally access funds, neither side can drain the escrow or hold the assets hostage. The worst case is a standoff the Arbiter resolves, but clearly defined terms and the neutral third party as Arbiter should make this very rare.
+
+## Notes
+
+Splits provides the tooling and infrastructure. It does not arbitrate disputes, custody keys, or enforce offchain agreements — that's the job of the signers and the neutral third party. Settle only after confirming the deposited amounts and every destination address in the batch. Onchain transfers are irreversible.

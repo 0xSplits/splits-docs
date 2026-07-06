@@ -1,0 +1,65 @@
+---
+title: Invoicing
+description: How to create, share, pay, and track onchain invoices in Splits.
+---
+
+# Invoicing
+
+Onchain invoicing is now flexible, secure, and free. In this guide, we'll walk through the process of creating, sharing, and paying an invoice.
+
+# Create an invoice
+
+Head to the *Invoices* tab in Splits and click *Create* in the top right corner to get started.
+
+Fill out the first block of inputs. If you want the client to receive the invoice via email, add it here:
+
+![](/images/invoicing/img-1.png)
+
+Next, select the tokens you want to receive. You can request any token on any network that your account has turned on in *Settings*. Pick an issue date and due date, and click *Create* to finish.
+
+### Pay by bank
+
+To allow your invoicee to pay with a bank account, you'll need to first set up bank transfers by going to *Settings \> Banks*. Then, in the *Create invoice* form, set the token to a valid stablecoin:
+
+- **USDC** on any network if your bank account is US-based
+- **EURC** on Mainnet or Base if your bank account is EU-based
+
+Then, turn on the *Allow pay by bank* toggle that appears.
+
+:::note
+Note that if an invoicee pays by bank, funds will flow to the account on the network in your **Bank settings**, even if you specify a different account or network on the form.
+:::
+
+![](/images/invoicing/img-2.png)
+
+### Make an invoice recurring
+
+Just toggle the *Make recurring* switch on, fill in a few details, and your invoice will reoccur on a schedule. If you've entered a customer email, each new invoice will be sent to them.
+
+![](/images/invoicing/img-3.png)
+
+To see and edit recurring invoices after you've created them, go to the *Schedules* tab on the *Invoices* page:
+
+![](/images/invoicing/img-4.png)
+
+# Pay an invoice
+
+To pay an invoice, you have a few options. The easiest is to just tap *Connect wallet to pay* on the invoice page. As soon as you connect your wallet, the transaction will appear on your screen.
+
+You can also manually send funds by copying the payment address just below *Connect wallet to pay*. Make sure to send on the correct network!
+
+Finally, if bank payments are enabled, you'll see a tab called *Bank* which includes the details to send funds directly to the recipient's bank account.
+
+![](/images/invoicing/img-5.png)
+
+![](/images/invoicing/img-6.png)
+
+# Track payments
+
+If someone pays an invoice by clicking *Connect wallet to pay* and then completing the transaction that appears, the invoice will be automatically marked as paid in Splits. Otherwise, you'll need to mark the invoice as paid by clicking *Mark paid* dropdown on the *Invoices* page:
+
+![](/images/invoicing/img-7.png)
+
+When you do so, you have the option to attach one or more transactions to the invoice for bookkeeping purposes. Just click the ones you want to select, and hit *Confirm*. Note that if the invoicee used *Connect to pay* on the invoice page, the transaction is automatically attached.
+
+![](/images/invoicing/img-8.png)

@@ -1,0 +1,40 @@
+---
+title: Raising capital onchain
+description: An outline of the various onchain-native funding mechanisms teams use in conjunction with Splits, including Clanker, Noice, Echo, and Tally.
+---
+
+# Raising capital onchain
+
+*Last updated 16 December 2025*
+
+This doc aims to outline the various onchain-native funding mechanisms we're seeing folks use in conjunction with Splits. If you're looking to do an offchain raise (i.e. traditional SAFE etc) and want to just receive USDC, see [Receiving investor funding onchain](/workflows/receiving-investor-funding-onchain).
+
+:::note
+We recommend installing our [browser extension](/getting-started/connecting-to-other-apps), which makes it easy to connect your Splits accounts with any of the third party apps listed below.
+:::
+
+## Clanker
+
+[Clanker](https://clanker.world/) is the most popular token launcher within our sphere today. Most builders launch their appcoins using Clanker, and use their Splits accounts for day-to-day token management (e.g. vesting/lockups, swaps, payments, offramps, etc).
+
+Clanker creators earn rewards based on trading volume of their token(s). When a token is launched, Clanker automatically sets up a single-sided Uniswap pool and directs earnings to the creator's account. You can use your Splits accounts to create and claim earnings, receive vesting streams, etc.
+
+Once you've created your token and fees are available to claim, you can claim your fees by connecting your account to [clanker.world](http://clanker.world) and opening the token admin page. From there, you will see a button that allows you to claim fees. To learn more, check out their [docs](https://clanker.gitbook.io/clanker-documentation/).
+
+## Noice
+
+[Noice](https://noice.so/) helps teams form capital and distribute tokens. [Here is a recent example](https://noice.so/roof). Once you're accepted (it's permissioned, so you need to apply), they will help get a fundraise campaign and page set up for you.
+
+Noice partners with Splits, so the Noice team will also help get your Splits accounts created so that you can more easily manage the funds once they're raised as well as your token positions (Uniswap pools etc). To learn more, check our their [docs](https://docs.noice.so/).
+
+## Echo
+
+[Echo](https://echo.xyz/), now part of Coinbase, is similar to "AngelList using USDC". They offer two types of raises: private and public. Private raises, once accepted, will pair you with a "deal lead" who will help manage your raise. You define the amount and terms, and your deal lead will handle the logistics of the raise. These raises are done on a SAFE note via a Cayman entity (Echo will set up the Cayman entity for investors to buy into), and tokens are dealt with via a side letter.
+
+Public raises are different and look more like a "permissioned token sale", where Echo handles the entity verification (i.e. KYC/B) and you handle the rest (website, contracts, etc). To learn more, check out their [docs](https://docs.echo.xyz/).
+
+## Tally
+
+[Tally](https://tally.xyz/) began with onchain governance for DAOs (i.e. proposals, voting, membership, etc). [Here is an example](https://www.tally.xyz/gov/arbitrum). They've now expanded to cover token sales and distributions as well (i.e. airdrop, ICO, and vesting).
+
+Tally's token launcher tools are similar to Clanker (define symbol, network, etc), but geared towards more established teams. They'll create a white-labelled site, provide more granular types of token sales (e.g. fixed-price, continuous clearing auctions, and liquidity bootstrapping pools), and offer governance tools post-ICO. To learn more, check out their [docs](https://docs.tally.xyz/).

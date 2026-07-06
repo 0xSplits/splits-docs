@@ -1,0 +1,70 @@
+---
+title: Earning interest
+description: How to earn interest on USDC with the Earn feature, how it works under the hood with Aave on Base, and the risks involved.
+---
+
+# Earning interest
+
+*Last updated 22 September 2025*
+
+Our Earn feature lets you earn interest on USDC in your accounts. There is no minimum amount or lockup duration required. And unlike traditional banks, you can use your Earn balance when sending funds without any delay.
+
+To get started, click *Earn* on the Dashboard or an account page and specify the amount of USDC do deposit.
+
+![](/images/earning-interest/img-1.png)
+
+Once you make a deposit, a Positions section will appear in the Balances on your account page. Your position automatically compounds according to the APY, so you never need to "claim" your earnings.
+
+![](/images/earning-interest/img-2.png)
+
+# How it works
+
+Behind the scenes your deposit flows into the [**Aave USDC Base Vault**](https://app.aave.com/reserve-overview/?underlyingAsset=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&marketName=proto_base_v3)—an ERC‑4626 vault that plugs directly into the Aave v3 Pool on Base. Instead of handling aUSDC yourself, you receive **vault shares** that represent your portion of the pooled USDC.
+
+What this means for you:
+
+- **Auto‑compounding yield.** The vault periodically harvests the interest earned in Aave and re‑supplies it, so your balance grows automatically.
+- **One token to track.** Because the vault is ERC‑4626 compliant, each share always maps to a clear amount of USDC. There are no rebasing tokens or hidden wrappers—just a single balance that increases in value over time.
+- **Lower gas usage.** Deposits, harvests, and withdrawals are batched, keeping network fees minimal.
+
+Everything happens natively on Base—no bridges, no wrapped assets—giving you direct exposure to Aave's proven lending market. For a deeper look under the hood see the [Aave Vault docs](https://aave.com/docs/developers/aave-vaults).
+
+# Automated Earn
+
+Automated Earn puts your idle USDC to work. When enabled, any Base USDC balance in your account is automatically deposited into Aave.
+
+### How to enable
+
+Navigate to the account you want to use, then toggle *Earn on Base USDC* to on.
+
+![](/images/earning-interest/img-3.png)
+
+### How it works
+
+When you enable Automated Earn, you authorize our [Automated Earn Module contract](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vault-modules/src/AutoEarnModule.sol) to deposit USDC from your account directly into Aave. Here is the deployed Auto Earn Module contract on [Basescan](https://basescan.org/address/0x204DDc725f37786072a4D4102CBF3945F3597D13#code).
+
+The check runs every 5 minutes, and whenever your USDC balance exceeds $1, a deposit is triggered automatically.
+
+# Why Aave USDC on Base?
+
+We chose USDC on Base because this is the token most used by Splits customers today. We chose Aave because it is the most battle-tested lending protocol on Ethereum with $50B in net deposits. We plan to roll out support for other assets and yield-bearing protocols soon—please reach out if there are specific ones you're interested in.
+
+# What about ETH?
+
+If you want yield on your ETH today, we recommend swapping into Lido's Wrapped Staked ETH (wstETH). It is available on Ethereum Mainnet, as well as [most L2s](https://lido.fi/lido-multichain). The token accrues value as Lido's distributed validators receive staking rewards for securing the Ethereum network.
+
+# What is the risk?
+
+Depositing into Aave is still lending, and lending carries risk. Key considerations:
+
+- **Smart-contract risk.** Aave has a long track record, but a critical bug in Aave or the underlying vault could freeze or drain funds.
+- **Oracle & liquidation risk.** Aave relies on Chainlink oracles. If USDC suddenly de-pegs and the oracle lags, bad debt can accrue and depositors are at risk.
+- **Interest‑rate variability.** Your yield isn't guaranteed since Aave's variable rate can fall to nearly zero if demand drops.
+- **Governance risk.** Aave governance can change parameters (e.g., collateral factors) that affect your position without notice.
+- **Liquidity exhaustion.** If utilization spikes to 100 % the pool can't satisfy new withdrawals until borrowers repay. While this is rare—because soaring borrow rates (see chart below) incentivize market‑makers to supply fresh USDC—it can temporarily "freeze" withdrawals.
+
+  ![When utilization approaches the 90 % "optimal" point, borrow APR rises sharply—encouraging arbitrageurs to deposit and restore liquidity. Still, there can be short windows where exits are delayed.](/images/earning-interest/img-4.png)
+
+# Accounting and tax implications
+
+Because we're just making it easier for you to deposit and withdraw from an Aave position behind the scenes, most accounting tools should "just work" with this. We'll do a deeper dive with our accountants and add more info here soon.
