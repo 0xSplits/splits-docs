@@ -8,6 +8,16 @@ type Page =
   | { path: '/about/mission-and-vision'; render: 'static' }
   | { path: '/about/values-and-culture'; render: 'static' }
   | { path: '/about/writing-culture'; render: 'static' }
+  | { path: '/accounting'; render: 'static' }
+  | { path: '/accounting/spam'; render: 'static' }
+  | { path: '/accounts/earn'; render: 'static' }
+  | { path: '/accounts'; render: 'static' }
+  | { path: '/accounts/modules'; render: 'static' }
+  | { path: '/accounts/recovery'; render: 'static' }
+  | { path: '/accounts/signers'; render: 'static' }
+  | { path: '/accounts/thresholds'; render: 'static' }
+  | { path: '/banking'; render: 'static' }
+  | { path: '/banking/paying-vendors'; render: 'static' }
   | { path: '/faqs/change-recovery-signers'; render: 'static' }
   | { path: '/faqs/import-existing-account'; render: 'static' }
   | { path: '/faqs/onramp-jurisdictions'; render: 'static' }
@@ -15,27 +25,16 @@ type Page =
   | { path: '/faqs/refer-friends'; render: 'static' }
   | { path: '/faqs/sponsored-fees'; render: 'static' }
   | { path: '/faqs/verify-on-farcaster'; render: 'static' }
-  | { path: '/getting-started/accounting'; render: 'static' }
-  | { path: '/getting-started/adding-signers'; render: 'static' }
-  | { path: '/getting-started/adding-teammates-as-signers'; render: 'static' }
-  | { path: '/getting-started/asset-support'; render: 'static' }
-  | { path: '/getting-started/automations'; render: 'static' }
-  | { path: '/getting-started/batch-transactions'; render: 'static' }
-  | { path: '/getting-started/connecting-to-other-apps'; render: 'static' }
-  | { path: '/getting-started/creating-a-team'; render: 'static' }
-  | { path: '/getting-started/custom-transactions'; render: 'static' }
-  | { path: '/getting-started/earning-interest'; render: 'static' }
-  | { path: '/getting-started/invoicing'; render: 'static' }
-  | { path: '/getting-started/network-support'; render: 'static' }
-  | { path: '/getting-started/on-offramping'; render: 'static' }
-  | { path: '/getting-started/schedules'; render: 'static' }
-  | { path: '/getting-started/showing-hiding-tokens'; render: 'static' }
-  | { path: '/getting-started/splits-cli'; render: 'static' }
-  | { path: '/getting-started/splits-for-teams-of-one'; render: 'static' }
-  | { path: '/getting-started/swapping'; render: 'static' }
-  | { path: '/getting-started/the-basics'; render: 'static' }
-  | { path: '/getting-started/verifying-signers'; render: 'static' }
   | { path: '/'; render: 'static' }
+  | { path: '/introduction/agents'; render: 'static' }
+  | { path: '/introduction/core-concepts'; render: 'static' }
+  | { path: '/introduction/extension'; render: 'static' }
+  | { path: '/introduction/networks-and-assets'; render: 'static' }
+  | { path: '/introduction/personal-usage'; render: 'static' }
+  | { path: '/invoicing'; render: 'static' }
+  | { path: '/invoicing/paying'; render: 'static' }
+  | { path: '/invoicing/recurring'; render: 'static' }
+  | { path: '/invoicing/tracking'; render: 'static' }
   | { path: '/outlook/contract-security'; render: 'static' }
   | { path: '/outlook/how-we-got-here'; render: 'static' }
   | { path: '/outlook/how-we-make-money'; render: 'static' }
@@ -43,6 +42,18 @@ type Page =
   | { path: '/outlook/our-stack'; render: 'static' }
   | { path: '/outlook/who-has-control'; render: 'static' }
   | { path: '/outlook/why-recovery-matters'; render: 'static' }
+  | { path: '/resources/brand-assets'; render: 'static' }
+  | { path: '/teams'; render: 'static' }
+  | { path: '/teams/members'; render: 'static' }
+  | { path: '/teams/permissions'; render: 'static' }
+  | { path: '/teams/settings'; render: 'static' }
+  | { path: '/transactions/batch'; render: 'static' }
+  | { path: '/transactions/custom'; render: 'static' }
+  | { path: '/transactions'; render: 'static' }
+  | { path: '/transactions/memos'; render: 'static' }
+  | { path: '/transactions/schedules'; render: 'static' }
+  | { path: '/transactions/sends'; render: 'static' }
+  | { path: '/transactions/swaps'; render: 'static' }
   | { path: '/workflows/auto-withhold-for-taxes'; render: 'static' }
   | { path: '/workflows/automating-custom-transactions'; render: 'static' }
   | { path: '/workflows/automating-token-transfers'; render: 'static' }
@@ -53,7 +64,6 @@ type Page =
   | { path: '/workflows/raising-capital-onchain'; render: 'static' }
   | { path: '/workflows/receiving-investor-funding-onchain'; render: 'static' }
   | { path: '/workflows/recover-assets-from-unsupported-networks'; render: 'static' }
-  | { path: '/workflows/recovering-your-accounts'; render: 'static' }
   | { path: '/workflows/repaying-loans-from-clanker-fees'; render: 'static' }
   | { path: '/workflows/suggested-security-settings'; render: 'static' }
   | { path: '/workflows/transforming-appcoins-into-working-capital'; render: 'static' }

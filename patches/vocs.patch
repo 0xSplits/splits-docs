@@ -1,0 +1,32 @@
+diff --git a/dist/react/internal/Sidebar.js b/dist/react/internal/Sidebar.js
+index 242cf4f6f5babe929912b71b3a6476bf66c3be57..aa599660d3434590b31345e3ee086502f4d262d4 100644
+--- a/dist/react/internal/Sidebar.js
++++ b/dist/react/internal/Sidebar.js
+@@ -235,14 +235,16 @@ function Section(props) {
+             return false;
+         if (hasActiveChildItem)
+             return false;
++        if (groupLinkIsActive)
++            return false;
+         if (props.disabled)
+             return false;
+         return Boolean(props.collapsed);
+     });
+     React.useEffect(() => {
+-        if (hasActiveChildItem)
++        if (hasActiveChildItem || groupLinkIsActive)
+             setCollapsed(false);
+-    }, [hasActiveChildItem]);
++    }, [hasActiveChildItem, groupLinkIsActive]);
+     const collapsable = typeof props.collapsed === 'boolean' && !props.disabled;
+     const onCollapseInteraction = React.useCallback((event) => {
+         if ('key' in event && event.key !== 'Enter')
+@@ -252,7 +254,7 @@ function Section(props) {
+     if (items)
+         return (_jsxs("section", { "data-collapsed": collapsed, "data-v-sidebar-section": true, children: [(() => {
+                     if (text && link)
+-                        return (_jsxs("div", { className: depth > 0 ? Section.childHeaderClassName : Section.rootHeaderClassName, "data-condensed": condensed && depth > 1, "data-collapsed": collapsed, "data-collapsable": collapsable, "data-v-sidebar-section-header": true, ...(groupLinkIsActive && { 'data-active': true }), children: [_jsx(Link, { className: Section.headerLinkClassName, onClick: onNavigate, to: link, children: _jsxs("span", { className: "vocs:inline-flex vocs:items-center vocs:gap-1", children: [text, groupLinkIsExternal && _jsx(LucideArrowUpRight, { className: "vocs:size-3" })] }) }), badge && _jsx(ItemBadge, { badge: badge }), collapsable && (_jsx("button", { "aria-expanded": !collapsed, "aria-label": `Toggle ${text} section`, className: "vocs:ml-2 vocs:-mr-1 vocs:shrink-0 vocs:rounded-md vocs:p-1 vocs:text-secondary/80 vocs:hover:text-heading", onClick: () => setCollapsed((x) => !x), type: "button", children: _jsx(LucideChevronRight, { className: "vocs:data-collapsed:rotate-90 vocs:transition-transform vocs:duration-200 vocs:ease-in-out", ...(!collapsed ? { 'data-collapsed': false } : {}) }) }))] }));
++                        return (_jsxs("div", { className: depth > 0 ? Section.childHeaderClassName : Section.rootHeaderClassName, "data-condensed": condensed && depth > 1, "data-collapsed": collapsed, "data-collapsable": collapsable, "data-v-sidebar-section-header": true, ...(groupLinkIsActive && { 'data-active': true }), children: [_jsx(Link, { className: Section.headerLinkClassName, onClick: (event) => { setCollapsed(false); onNavigate?.(event); }, to: link, children: _jsxs("span", { className: "vocs:inline-flex vocs:items-center vocs:gap-1", children: [text, groupLinkIsExternal && _jsx(LucideArrowUpRight, { className: "vocs:size-3" })] }) }), badge && _jsx(ItemBadge, { badge: badge }), collapsable && (_jsx("button", { "aria-expanded": !collapsed, "aria-label": `Toggle ${text} section`, className: "vocs:ml-2 vocs:-mr-1 vocs:shrink-0 vocs:rounded-md vocs:p-1 vocs:text-secondary/80 vocs:hover:text-heading", onClick: () => setCollapsed((x) => !x), type: "button", children: _jsx(LucideChevronRight, { className: "vocs:data-collapsed:rotate-90 vocs:transition-transform vocs:duration-200 vocs:ease-in-out", ...(!collapsed ? { 'data-collapsed': false } : {}) }) }))] }));
+                     // Non-link item is a header.
+                     if (text)
+                         return (_jsxs("div", { className: depth > 0 ? Section.childHeaderClassName : Section.rootHeaderClassName, "data-condensed": condensed && depth > 1, "data-collapsed": collapsed, "data-collapsable": collapsable, "data-v-sidebar-section-header": true, ...(collapsable

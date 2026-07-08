@@ -1,0 +1,56 @@
+---
+title: Permissions
+description: The authoritative reference for what each role (Owner, Member) and each API key scope (read, write, owner) can do in Splits.
+---
+
+# Permissions [What each role and API key scope can do]
+
+Splits has two permission systems:
+
+1. **Roles** — every team member is an **Owner** or a **Member**. Roles are stored offchain and govern what a person can see and do in the app.
+2. **Signers** — onchain signer sets on each account govern who can approve transactions. Roles never grant signing authority; see [Signers](/accounts/signers).
+
+A third, related surface (**API key scopes**) governs what programmatic clients can do; see [below](#api-key-scopes).
+
+## What each role can do
+
+| Capability | Owner | Member |
+| --- | --- | --- |
+| View accounts, balances, and transactions | ✅ | ✅ |
+| Propose transactions from an account | ✅ any account | Only accounts they're a signer on |
+| Sign transactions | Only if a signer on that account | Only if a signer on that account |
+| Reject pending transactions | ✅ | Only if a signer on that account |
+| Create new accounts | ✅ | ❌ |
+| Edit account settings (name, signers, threshold) | ✅ | ❌ |
+| Invite, remove, and change roles of members | ✅ | ❌ |
+| Edit team name and logo | ✅ | ❌ |
+| Toggle *Require memos* — applies to transactions, automations, invoices, and schedules | ✅ | ❌ |
+| Create invoices | ✅ | ❌ |
+| Create and manage automations and schedules | ✅ | ❌ |
+| Onramp / offramp | ✅ | ❌ |
+| Complete legal entity verification (KYB/KYC) and manage payment info | ✅ | ❌ |
+| Manage recovery | ✅ | ❌ |
+
+## Settings visibility by role
+
+| Settings section | Owners | Members |
+| --- | --- | --- |
+| General | ✅ | ✅ |
+| Members | ✅ | ✅ |
+| API Keys | ✅ | ✅ |
+| Networks | ✅ | ❌ |
+| Recovery | ✅ | ❌ |
+| Tokens | ✅ | ❌ |
+| Banks | ✅ | ❌ |
+
+## API key scopes
+
+API keys power the [CLI and MCP](/introduction/agents). Each key is scoped at creation:
+
+| Scope | Grants | Who can create a key with it |
+| --- | --- | --- |
+| `read` | List accounts, transactions, balances, and other team data | Any member |
+| `write` | Read, plus propose transactions and update memos/properties | Any member |
+| `owner` | Admin operations (manage accounts and org settings) | Owners only |
+
+Like roles, API key scopes never grant onchain signing authority by themselves: signing programmatically requires a [registered EOA signer](/introduction/agents#sign-locally-with-an-eoa) on the account.

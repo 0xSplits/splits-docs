@@ -1,47 +1,35 @@
 ---
-title: Splits Guidebook
-description: Guides, workflows, and FAQs for using Splits.
+title: Introduction
+description: Splits is the onchain operations platform for builders. Manage assets, process revenue, move money, and run operations instantly, via the app, API, or CLI.
 ---
 
-# Splits Guidebook
+# Introduction [What Splits is, who it's for, and how to start]
+
+**Splits is the onchain operations platform for builders.** Manage assets, process revenue, move money, and run operations instantly, via [the app](https://app.splits.org) or [API/CLI](/introduction/agents).
+
+Key properties:
+
+- **Self-custodied.** Signers are passkeys or EOAs held by your people — Splits never has access to private keys and cannot move your funds.
+- **Isolated by account.** Create as many [accounts](/accounts) as you need — each one is a labeled sub-ledger with its own signers and thresholds, isolating a revenue source, program, campaign, partner, or temporary operation while everything stays in one workspace.
+- **Cross-chain by default.** Every account has the same address on all [supported networks](/introduction/networks-and-assets), and assets can be [swapped and bridged](/transactions/swaps) across chains in a single transaction.
+- **Integrated fiat.** Move between tokens and fiat — [on/offramps](/banking) to your bank accounts, invoices [payable by bank transfer](/invoicing#pay-by-bank), and [vendor payments](/banking/paying-vendors).
+- **Composable.** Connect your multi-signature accounts to any app in the ecosystem via the [browser extension](/introduction/extension) or WalletConnect.
+- **Professional workflows.** [Accounting](/accounting) with filters and exports, [invoicing](/invoicing), [bill pay](/banking/paying-vendors), payroll via [schedules](/transactions/schedules), [tax withholding](/workflows/auto-withhold-for-taxes), and compliant payments (collect W9s/W8s, issue 1099s).
+- **Recoverable.** Recovery signers can regain control of everything if passkeys are lost.
+- **Agent-ready.** Everything is scriptable via the [CLI and MCP](/introduction/agents), and every docs page is available as markdown — append `.md` to any URL, or fetch `/llms.txt` / `/llms-full.txt`.
+
+## Who it's for
+
+- **Teams and companies operating onchain** — shared treasury with per-account signer sets, roles, and approvals.
+- **Solo builders** — the same setup works for [teams of one](/introduction/personal-usage): resilient multisigs, clean books, separation of project and personal funds.
+- **Agents** — AI tools operating on a team's behalf via API keys, with scoped permissions and optional headless signing.
+
+## Start here
+
+1. Read [Core concepts](/introduction/core-concepts) — Team, Member, and Account, the three ideas everything else builds on.
+2. [Create a team](/teams).
+3. Working from an AI tool? Connect it via [Agents](/introduction/agents).
 
 :::note
-For support please email us at **support@splits.org**
+For support, email us at **support@splits.org**
 :::
-
-<details>
-<summary>Message us if you'd like access to any of these beta features:</summary>
-
-- [Compliant payments and tax docs issuance](https://splits.org/changelog/splits-changelog-compliant-payments-live/) (collect W9/W8 and issue 1099s)
-
-</details>
-
-## Guides
-
-New to Splits? [The basics - start here](/getting-started/the-basics), then browse the **Getting started** guides in the sidebar for everything from [creating a team](/getting-started/creating-a-team) and [adding signers](/getting-started/adding-signers) to [earning interest](/getting-started/earning-interest), [swapping](/getting-started/swapping), and [automations](/getting-started/automations).
-
-## Workflows
-
-Step-by-step walkthroughs for common jobs — like [escrowing an OTC deal](/workflows/escrow-an-otc-deal), [incorporating and banking in the US](/workflows/incorporating-and-banking-in-the-us), [receiving investor funding onchain](/workflows/receiving-investor-funding-onchain), and [recovering your accounts](/workflows/recovering-your-accounts).
-
-## FAQs
-
-Quick answers to common questions, from [sponsored transaction fees](/faqs/sponsored-fees) to [importing an existing account](/faqs/import-existing-account).
-
-## Our outlook & usage patterns
-
-How we think about [our stack](/outlook/our-stack), [contract security](/outlook/contract-security), [securing our assets](/outlook/how-we-secure-our-assets), and [how we make money](/outlook/how-we-make-money).
-
-## About us
-
-- [Mission & vision](/about/mission-and-vision)
-- [Values & culture](/about/values-and-culture)
-- [Writing culture](/about/writing-culture)
-
-## Links
-
-- [Splits audit report](https://github.com/0xSplits/splits-contracts-monorepo/tree/main/audits)
-- [Splits technical overview](https://www.notion.so/49f2fbf6196f4a2b95513a9819736212)
-- [Github](https://github.com/0xSplits)
-- [Farcaster](https://warpcast.com/~/channel/splits)
-- [Email](mailto:support@splits.org)

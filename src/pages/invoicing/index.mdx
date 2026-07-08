@@ -1,0 +1,29 @@
+---
+title: Invoicing
+description: "Onchain invoicing in Splits: issuing an invoice, requesting tokens, enabling pay-by-bank, plus recurring invoices, payment, and tracking."
+---
+
+# Invoicing [Request payment into your accounts, in crypto or by bank transfer]
+
+Invoices let you request payment into your accounts, payable in crypto or, if enabled, by bank transfer. Invoicing is free. This page covers issuing an invoice; see also [Recurring](/invoicing/recurring), [Paying](/invoicing/paying), and [Tracking](/invoicing/tracking).
+
+## Issuing
+
+Head to the *Invoices* tab and click *Create* in the top right corner.
+
+1. Fill out the first block of inputs. To send the invoice to the client by email, add their email here.
+2. Select the tokens you want to receive — any token on any network your account has turned on in *Settings*. The receiving account can be any of your accounts, including an [automation](/accounts#automation-accounts)'s deposit address.
+3. Pick an issue date and due date, and click *Create*.
+
+## Pay-by-bank
+
+To let the invoicee pay from a bank account, first set up bank transfers in *Settings > Banks*. Then, in the *Create invoice* form, set the token to a valid stablecoin:
+
+- **USDC** on any network if your bank account is US-based
+- **EURC** on Mainnet or Base if your bank account is EU-based
+
+Then turn on the *Allow pay by bank* toggle that appears.
+
+:::note
+If an invoicee pays by bank, funds flow to the account and network in your **Bank settings**, even if the form specifies a different account or network.
+:::

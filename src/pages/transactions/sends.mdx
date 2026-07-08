@@ -1,0 +1,32 @@
+---
+title: Sends
+description: "How to send tokens from a Splits account: recipient, token, amount, memos, batching, and signing."
+---
+
+# Sends [Move tokens from an account to any recipient]
+
+*Last updated 7 July 2026*
+
+Sends move tokens from one of your accounts to any recipient. Click *Send* from the Dashboard or an account page, specify the recipient, then the token and amount **the recipient receives**.
+
+You can send a token you don't currently hold: as long as the account has enough value to cover it, we combine a swap and send into a single transaction. See [just in time swaps](/transactions/swaps#just-in-time-swaps).
+
+## Memos
+
+We recommend adding a [memo](/transactions/memos) when creating the send: it makes your [accounting](/accounting) dramatically easier later.
+
+## Batching
+
+Instead of submitting right away, you can click the dropdown to the right of *Submit* and select *Add to batch* to group multiple sends (or any transactions) into one signature. See [Batch transactions](/transactions/batch).
+
+## Signing
+
+Like every transaction, a send must be approved by the account's signers according to its [threshold](/accounts/signers). On a 1-of-n account it executes as soon as you sign; on higher thresholds it waits for the remaining signatures.
+
+## Recurring sends
+
+To pay out pre-defined amounts on a set interval (e.g. payroll), use [Schedules](/transactions/schedules).
+
+## Sending programmatically
+
+Agents and scripts can propose transfers via the CLI: `splits transactions create transfer`. See [Agents](/introduction/agents#propose-transactions).

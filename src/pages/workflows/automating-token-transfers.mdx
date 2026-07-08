@@ -29,7 +29,7 @@ Before approving the ERC20, it is helpful to transfer some of that token to the 
 
 Next, we will give a third party account (i.e. the spender) the ability to transfer USDC from the "App Distributions" account.
 
-We will do this by writing to the USDC contract directly using [Custom transactions](/getting-started/custom-transactions). Copy the token's contract address to your clipboard, and then click *Custom txn* in the top right.
+We will do this by writing to the USDC contract directly using [Custom transactions](/transactions/custom). Copy the token's contract address to your clipboard, and then click *Custom txn* in the top right.
 
 ![](/images/automating-token-transfers/img-4.png)
 
@@ -54,7 +54,7 @@ You have now granted the **spender approval to transfer your tokens**. Now, you 
 
 In the above walkthrough, we granted another Splits account the ability to transfer from the "App Distributions" account. So to confirm this works as expected, we can initiate a transfer.
 
-We'll again use [Custom transactions](/getting-started/custom-transactions) to call the `transferFrom` function on the USDC contract.
+We'll again use [Custom transactions](/transactions/custom) to call the `transferFrom` function on the USDC contract.
 
 ![](/images/automating-token-transfers/img-8.png)
 

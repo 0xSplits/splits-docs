@@ -1,0 +1,30 @@
+/*
+ * Site title ("Splits") in the top-left. Vocs renders it in Geist at
+ * font-weight 700 (bold), which reads too heavy — bring it to 500 to match
+ * the weight scale of the rest of the UI (sidebar headers 500, body 450).
+ */
+[data-v-logo-text] {
+  font-weight: 600;
+}
+
+/*
+ * Active state for sidebar section-header links (e.g. Teams, Accounting, Invoicing
+ * landing pages). Vocs sets data-active on the header when its link matches the
+ * current path, but only child items ship styling for it — root headers don't.
+ * Mirrors the child-item active styles (bg-accenta3 / text-accent8).
+ */
+[data-v-sidebar-section-header][data-active] {
+  background: var(--color-accenta3, oklch(from var(--vocs-color-accent) 0.64 c h / 12%));
+  color: var(--color-accent8) !important;
+}
+
+/*
+ * Hover affordance for interactive section headers. Vocs only gives them
+ * cursor-pointer; without a visual change the row reads as static text.
+ * One step softer than the active state (accenta2 vs accenta3) so
+ * hover → active reads as a progression.
+ */
+[data-v-sidebar-section-header][data-collapsable='true']:not([data-active]):hover {
+  background: var(--color-accenta2, oklch(from var(--vocs-color-accent) 0.68 c h / 8%));
+  color: var(--text-color-heading, light-dark(black, white));
+}

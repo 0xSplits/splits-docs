@@ -1,45 +1,97 @@
 import { defineConfig } from 'vocs/config'
 
 export default defineConfig({
-  title: 'Splits Guidebook',
+  title: 'Splits',
   description: 'Guides, workflows, and FAQs for using Splits.',
+  iconUrl: {
+    light: '/splits_compressed.svg',
+    dark: '/splits_compressed_dark.svg',
+  },
   topNav: [
     { text: 'splits.org', link: 'https://splits.org' },
-    { text: 'GitHub', link: 'https://github.com/0xSplits' },
+    { text: 'Changelog', link: 'https://splits.org/changelog' },
+  ],
+  socials: [
+    { icon: 'github', link: 'https://github.com/0xSplits' },
+    { icon: 'x', link: 'https://x.com/0xSplits' },
   ],
   sidebar: [
     {
-      text: 'Welcome',
+      text: 'Introduction',
       link: '/',
+      collapsed: false,
+      items: [
+        { text: 'Core concepts', link: '/introduction/core-concepts' },
+        { text: 'Agents', link: '/introduction/agents' },
+        { text: 'Browser extension', link: '/introduction/extension' },
+        { text: 'Networks & assets', link: '/introduction/networks-and-assets' },
+        { text: 'Personal usage', link: '/introduction/personal-usage' },
+      ],
     },
     {
-      text: 'Getting started',
+      text: 'Teams',
+      link: '/teams',
+      collapsed: true,
       items: [
-        { text: 'The basics - start here', link: '/getting-started/the-basics' },
-        { text: 'Creating a team', link: '/getting-started/creating-a-team' },
-        { text: 'Adding signers', link: '/getting-started/adding-signers' },
-        { text: 'Adding teammates as signers', link: '/getting-started/adding-teammates-as-signers' },
-        { text: 'Connecting to other apps', link: '/getting-started/connecting-to-other-apps' },
-        { text: 'Earning interest', link: '/getting-started/earning-interest' },
-        { text: 'Swapping', link: '/getting-started/swapping' },
-        { text: 'On/offramping', link: '/getting-started/on-offramping' },
-        { text: 'Showing/hiding tokens (spam)', link: '/getting-started/showing-hiding-tokens' },
-        { text: 'Accounting', link: '/getting-started/accounting' },
-        { text: 'Schedules', link: '/getting-started/schedules' },
-        { text: 'Network support', link: '/getting-started/network-support' },
-        { text: 'Asset support', link: '/getting-started/asset-support' },
-        { text: 'Verifying signers', link: '/getting-started/verifying-signers' },
-        { text: 'Custom transactions', link: '/getting-started/custom-transactions' },
-        { text: 'Invoicing', link: '/getting-started/invoicing' },
-        { text: 'Automations', link: '/getting-started/automations' },
-        { text: 'Programmatic Access via Splits CLI', link: '/getting-started/splits-cli' },
-        { text: 'Batch transactions', link: '/getting-started/batch-transactions' },
-        { text: 'Splits for teams of one', link: '/getting-started/splits-for-teams-of-one' },
+        { text: 'Members', link: '/teams/members' },
+        { text: 'Permissions', link: '/teams/permissions' },
+        { text: 'Settings', link: '/teams/settings' },
+      ],
+    },
+    {
+      text: 'Accounts',
+      link: '/accounts',
+      collapsed: true,
+      items: [
+        { text: 'Signers', link: '/accounts/signers' },
+        { text: 'Thresholds', link: '/accounts/thresholds' },
+        { text: 'Modules', link: '/accounts/modules' },
+        { text: 'Recovery', link: '/accounts/recovery' },
+        { text: 'Earn', link: '/accounts/earn' },
+      ],
+    },
+    {
+      text: 'Transactions',
+      link: '/transactions',
+      collapsed: true,
+      items: [
+        { text: 'Sends', link: '/transactions/sends' },
+        { text: 'Swaps', link: '/transactions/swaps' },
+        { text: 'Custom', link: '/transactions/custom' },
+        { text: 'Batch', link: '/transactions/batch' },
+        { text: 'Schedules', link: '/transactions/schedules' },
+        { text: 'Memos', link: '/transactions/memos' },
+      ],
+    },
+    {
+      text: 'Accounting',
+      link: '/accounting',
+      collapsed: true,
+      items: [
+        { text: 'Spam & tokens', link: '/accounting/spam' },
+      ],
+    },
+    {
+      text: 'Invoicing',
+      link: '/invoicing',
+      collapsed: true,
+      items: [
+        { text: 'Recurring', link: '/invoicing/recurring' },
+        { text: 'Paying', link: '/invoicing/paying' },
+        { text: 'Tracking', link: '/invoicing/tracking' },
+      ],
+    },
+    {
+      text: 'Banking',
+      link: '/banking',
+      collapsed: true,
+      items: [
+        { text: 'Paying vendors', link: '/banking/paying-vendors' },
       ],
     },
     {
       text: 'Workflows',
-      collapsed: false,
+      collapsed: true,
       items: [
         { text: 'Using Splits to escrow an OTC deal', link: '/workflows/escrow-an-otc-deal' },
         { text: 'Use an ENS name with Splits', link: '/workflows/use-an-ens-name' },
@@ -52,7 +104,6 @@ export default defineConfig({
         { text: 'Auto-withhold for taxes in USDC', link: '/workflows/auto-withhold-for-taxes' },
         { text: 'Automating token transfers', link: '/workflows/automating-token-transfers' },
         { text: 'Automating custom transactions', link: '/workflows/automating-custom-transactions' },
-        { text: 'Recovering your accounts', link: '/workflows/recovering-your-accounts' },
         { text: 'Transforming appcoins into working capital', link: '/workflows/transforming-appcoins-into-working-capital' },
         { text: 'Repaying loans from Clanker fees', link: '/workflows/repaying-loans-from-clanker-fees' },
         { text: 'Raising capital onchain', link: '/workflows/raising-capital-onchain' },
@@ -64,7 +115,7 @@ export default defineConfig({
     },
     {
       text: 'FAQs',
-      collapsed: false,
+      collapsed: true,
       items: [
         { text: 'Can I refer my friends?', link: '/faqs/refer-friends' },
         { text: 'What jurisdictions are supported for on/offramps?', link: '/faqs/onramp-jurisdictions' },
@@ -77,7 +128,7 @@ export default defineConfig({
     },
     {
       text: 'Our outlook & usage patterns',
-      collapsed: false,
+      collapsed: true,
       items: [
         { text: 'Our stack', link: '/outlook/our-stack' },
         { text: 'How we think about contract security', link: '/outlook/contract-security' },
@@ -90,11 +141,20 @@ export default defineConfig({
     },
     {
       text: 'About us',
-      collapsed: false,
+      collapsed: true,
       items: [
         { text: 'Mission & vision', link: '/about/mission-and-vision' },
         { text: 'Values & culture', link: '/about/values-and-culture' },
         { text: 'Writing culture', link: '/about/writing-culture' },
+      ],
+    },
+    {
+      text: 'Resources',
+      collapsed: true,
+      items: [
+        { text: 'Brand assets', link: '/resources/brand-assets' },
+        { text: 'Audit reports', link: 'https://github.com/0xSplits/splits-contracts-monorepo/tree/main/audits' },
+        { text: 'Technical overview', link: 'https://www.notion.so/49f2fbf6196f4a2b95513a9819736212' },
       ],
     },
   ],

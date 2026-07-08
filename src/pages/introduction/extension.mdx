@@ -1,0 +1,28 @@
+---
+title: Browser extension
+description: Connect your Splits accounts to third-party apps using the Splits Connect browser extension, or WalletConnect as a fallback.
+---
+
+# Browser extension [Use your Splits accounts inside third-party apps]
+
+[Splits Connect](https://chromewebstore.google.com/detail/splits/ghfacfafnbcgkielpaeifdpoggfeakif) is our browser extension. It lets you use your Splits accounts inside third-party apps: the app sees Splits as a wallet, and you sign transactions with your passkey. If your browser doesn't support the extension (e.g. Safari), [WalletConnect](#walletconnect) works as a fallback. The extension works on all [fully supported networks](/introduction/networks-and-assets).
+
+## Connecting
+
+1. Install the latest version of the [Splits Connect](https://chromewebstore.google.com/detail/splits/ghfacfafnbcgkielpaeifdpoggfeakif) extension.
+2. Open the third-party app and select Splits as the wallet.
+3. Select the team and account you want to connect and hit *Connect*. The dialog closes on its own and the account appears in the third-party app.
+
+## Signing
+
+When you perform a transaction in the connected app, the Splits dialog opens and you sign with your passkey, the same way you'd sign any transaction in the Splits app. You can also add transactions from external apps to a [batch](/transactions/batch).
+
+## WalletConnect
+
+To connect via WalletConnect instead: in the third-party app, choose WalletConnect and copy the pairing URI, then paste it into the WalletConnect section on the account's page in Splits and approve the connection. Transaction requests from the app then appear in Splits for you to sign.
+
+## Connection issues
+
+If an app doesn't show Splits as a wallet option, the likely cause is that the app doesn't support [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963) provider discovery. Use [WalletConnect](#walletconnect) instead, and ask the app's team whether they support EIP-6963.
+
+Known apps that require WalletConnect: Monerium.

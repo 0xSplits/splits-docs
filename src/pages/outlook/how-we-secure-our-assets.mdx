@@ -23,7 +23,7 @@ Across our accounts, we hold about \~\$800k in assets—a mix of stables, ETH, p
 
 We currently have the following accounts: Treasury, Operating, Payroll, Eng Testing, and TWIF. Treasury is where the bulk of our assets are held. Operating is for day-to-day general expenses. Eng Testing is a shared account for all engineers, Payroll is self explanatory, and TWIF is a growth experiment we're running.
 
-At the [root](https://www.pcmag.com/encyclopedia/term/root-level#:~:text=The%20highest%20authority%20or%20privilege,user%22%20or%20%22superuser.%22) of all this is our "Recovery" account. This account is unique. It doesn't hold assets and it's not something we interact with day-to-day. It exists for the *sole purpose* of being able to [regain access in the off chance](/workflows/recovering-your-accounts) we lose access to our Treasury. Recovery is a 2-of-3 that uses company-issued hardware wallets as the signers.
+At the [root](https://www.pcmag.com/encyclopedia/term/root-level#:~:text=The%20highest%20authority%20or%20privilege,user%22%20or%20%22superuser.%22) of all this is our "Recovery" account. This account is unique. It doesn't hold assets and it's not something we interact with day-to-day. It exists for the *sole purpose* of being able to [regain access in the off chance](/accounts/recovery) we lose access to our Treasury. Recovery is a 2-of-3 that uses company-issued hardware wallets as the signers.
 
 The Recovery account/mechanism exists because passkeys are tied to our domain (splits.org), which means if our domain goes down, passkeys become inoperable. So to mitigate this risk, we use traditional Ethereum signers as our escape hatch. This prevent any lock-in risk to our domain.
 

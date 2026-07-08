@@ -1,0 +1,34 @@
+---
+title: Banking
+description: "Banking in Splits: verify your entity (KYB/KYC) to move between crypto and fiat by onramping, offramping, and paying vendors."
+---
+
+# Banking [Verify your entity to move between crypto and fiat]
+
+Banking is an opt-in feature that connects your team to the fiat world. Once your team completes legal entity verification, you can move between crypto and fiat directly within Splits: [onramping](#onramping), [offramping](#offramping), and [paying vendors](/banking/paying-vendors).
+
+On/offramps cost 0.25%, deducted from the transaction amount.
+
+## Getting verified
+
+Go to [Settings > Banks](https://app.splits.org/settings/team/banks/) and select *KYB* (for businesses, including solo-member pass-through LLCs) or *KYC* (for individuals). You'll be brought through an entity verification flow powered by [Bridge](https://www.bridge.xyz/). **Each team can only have one verified entity.**
+
+KYC is typically near-instant; KYB typically takes 5-7 business days. Bridge will email you directly if additional documentation is needed. For supported jurisdictions, see [Onramp jurisdictions](/faqs/onramp-jurisdictions).
+
+## Onramping
+
+Once your entity is verified, you can onramp funds to your team via ACH or wire. Click *Onramp* from the Dashboard, or find the account info in Settings > Banks.
+
+By default, funds arrive in your Treasury account as USDC on Base. You can change this at any time.
+
+## Offramping
+
+Before you can offramp, connect a bank account using [Plaid](https://plaid.com/) from Settings > Banks. You can connect as many bank accounts as you wish ([check institution support](https://plaid.com/docs/institutions/)).
+
+Then offramp either by clicking *Offramp* on the Dashboard, or from Settings > Banks: click the three dots on the target bank account and select *Offramp*.
+
+### How long does offramping take?
+
+In the US, we send via [Same Day ACH, which settles in batches throughout the day](https://apidocs.bridge.xyz/platform/orchestration/more/cutoffs#processing-windows-and-cutoff-times). In Eastern Time, settlement occurs at 1:00 pm, 5:00 pm, and 6:00 pm, with corresponding cutoffs at 9:15 am, 1:30 pm, and 3:30 pm (we've added a 15m buffer relative to Bridge's documentation, which has been necessary in our experience). Offramps sent after 3:30 pm ET arrive the following business day.
+
+For IBAN banks supporting SEPA Instant, settlement occurs in under 30 seconds.

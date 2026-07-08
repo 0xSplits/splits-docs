@@ -1,28 +1,10 @@
 ---
 title: Can I change Recovery signers?
-description: Why changing Recovery signers results in new account addresses, and how to migrate to a new team.
+description: Changing recovery signers changes your account addresses; the practical path is creating a new team.
 ---
 
 # Can I change Recovery signers?
 
-*Last updated 27 August 2025*
+Yes, but because account addresses are derived from your recovery configuration, changing recovery signers changes your account addresses. The practical path today is creating a new team.
 
-Since your team's account addresses are derived from your Recovery signers, changing your Recovery signers will result in new addresses for your accounts.
-
-Right now, the easiest way to change Recovery signers is to create a new Team. You can do this by clicking on your team selector in the top left and then *Create a team*.
-
-Reach out to us at [`support@splits.org`](mailto:support@splits.org) if you'd like to migrate all your existing offchain data (e.g. team members, contacts, on/offramp info, schedules, etc) to your new team.
-
-![](/images/change-recovery-signers/img-1.png)
-
-:::note
-If you migrate teams, remember to update any revenue/funding sources (e.g. smart contracts, invoices, etc) to your new team's accounts.
-:::
-
-# Technical explanation
-
-Each account you create in Splits will have the same address on every [supported network](/getting-started/network-support). We do this for you by using [`CREATE2`](https://docs.openzeppelin.com/cli/2.8/deploying-with-create2), which requires input parameters in order to determine these addresses.
-
-To ensure 1) your assets are 100% in your custody, and 2) your accounts will have the same address on every chain (including future chains we don't currently support!) we need to pass in your Recovery configuration as parameters to `CREATE2` when creating new accounts.
-
-If you were to change your Recovery signers *and then add a new network*, you would need to sign a message with the *original Recovery signers* on the new network. This creates potential for loss-of-funds, which is a foot-gun we're working very hard to eliminate.
+See [Recovery](/accounts/recovery#changing-recovery-signers) for the full explanation and migration steps.

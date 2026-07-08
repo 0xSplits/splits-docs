@@ -1,0 +1,24 @@
+---
+title: Memos
+description: Attach memos to transactions in Splits (when creating a transaction or retroactively) to annotate activity for accounting.
+---
+
+# Memos [Annotate transactions for clean books]
+
+*Last updated 7 July 2026*
+
+Memos are short notes attached to transactions. Until we build more accounting-specific workflows (i.e. integrate directly into Xero and map transactions to categories), we rely heavily on transaction memos to keep books clean.
+
+## Adding a memo
+
+We prefer adding memos when creating transactions, but you can do so retroactively as well (especially helpful for inbound transactions). Click on the 3 dots next to a transaction and select *Add memo*. You can do this from any transaction feed (e.g. on the Dashboard, an account page, or the [Accounting page](/accounting)).
+
+![](/images/accounting/img-2.png)
+
+## Where memos show up
+
+Memos appear alongside transactions throughout the app, and you can filter by memo on the [Accounting page](/accounting) and include them in CSV exports.
+
+## Memos programmatically
+
+Agents and scripts can set or clear memos via the CLI: `splits transactions memo <id> --memo "text"` (max 500 characters). For structured metadata beyond a memo, transactions also support custom JSON properties. See [Agents](/introduction/agents#transaction-metadata).

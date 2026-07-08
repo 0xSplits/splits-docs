@@ -1,0 +1,53 @@
+---
+title: Signers
+description: "Signers are the keys that approve transactions from accounts: two types, passkeys and EOAs, held by members and never by Splits."
+---
+
+# Signers [The keys that approve transactions from accounts]
+
+A signer is a key belonging to a [member](/teams/members) that can approve transactions from an [account](/accounts), counted against the account's [threshold](/accounts/thresholds). There are two types: **passkeys** and **EOAs**. In both, the public key is stored onchain and the private key stays with the member. **Splits never has access to private keys.**
+
+To add or remove signers on an account, see [Managing signers](/accounts/thresholds#changing-signers-and-thresholds).
+
+## Passkeys
+
+[Passkeys](https://www.dashlane.com/blog/what-is-a-passkey-and-how-does-it-work) are key pairs saved in a password manager, activated by biometrics or a PIN. Add them at *Settings > Personal > Passkeys*; they work across every team you're in.
+
+### Password managers
+
+- **iCloud Keychain and Google Password Manager** are the most reliable. 1Password, BitWarden, and LastPass also work.
+- **Yubikeys** are the most reliable for higher-value accounts.
+- **On mobile, use OS-native passkeys** — they sign without opening a third-party app. **Don't use 1Password as a mobile signer**: Android doesn't always show third-party apps when signing.
+
+Browsers order password manager options differently. If yours doesn't appear, click *Cancel*/*X* (Chrome) or *Other options* (Safari) to reveal the rest.
+
+## EOAs
+
+An EOA (externally owned account, a standard Ethereum keypair) can be [registered via the CLI](/introduction/agents#sign-locally-with-an-eoa) and added as a signer, letting agents and servers sign headlessly. [Recovery signers](#recovery-signers) are also EOAs.
+
+## Recovery signers
+
+Recovery signers are EOAs that control the [Root account](/accounts#root), at the recovery threshold set during [team setup](/teams). Because the Root owns every other account, recovery signers can regain control of all of them if your team's passkeys are lost: they are the backstop beneath your day-to-day signers. Changing them generates new account addresses ([why](/accounts/recovery#changing-recovery-signers)). To use them, see [Recovering your accounts](/accounts/recovery).
+
+## Verifying signers
+
+Confirm you still control a signer's private key without moving funds: Splits has the key sign a test message.
+
+- **Passkeys**: *Settings > Personal > Passkeys* → three dots → *Verify access…*. Each passkey shows when it was last verified or used.
+- **Recovery signers**: *Settings > Recovery* → three dots → *Verify signer*. Requires connecting the wallet.
+
+## Troubleshooting
+
+**Passkey won't open.** Usually the password manager: 1Password and Bitwarden are finicky, especially in newer browsers (e.g. Arc/Dia), and 1Password's prompt appears in the browser's top-right corner. Isolate the passkey by [verifying it](#verifying-signers), toggle the manager's extension off and on, and hard-refresh. Test at [webauthn.io](https://webauthn.io/): reproduces there → the provider; only on our site → support@splits.org. Slow Windows passkeys: delete temporary files (`%temp%` and `prefetch` via `Windows + R`) and reboot. If a passkey is unrecoverable, see [Recovery](/accounts/recovery).
+
+**Wallet won't connect or disconnect.** MetaMask can't reliably connect a Ledger; use Rabby. If a wallet won't disconnect, navigate to another page and back, or disconnect from app.splits.org in the wallet extension.
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits accounts signers <address>` — an account's signers and threshold (**Read** scope)
+- `splits members signers <userId>` — a member's passkey IDs (**Read** scope)
+- `splits auth register-signer <address>` — register an EOA so it can be added as a signer
+
+For the full headless flow (create key → register → attach → sign), see [Sign locally with an EOA](/introduction/agents#sign-locally-with-an-eoa).

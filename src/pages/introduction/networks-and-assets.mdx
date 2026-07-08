@@ -1,0 +1,48 @@
+---
+title: Networks and assets
+description: Networks and asset types supported by Splits. Full and partial support, how to enable networks, and how to request more.
+---
+
+# Networks and assets [Supported networks and asset types, and how to request more]
+
+Splits supports some networks fully (every feature) and a longer tail partially (sending and asset recovery only). Owners turn networks on and off per team in [Settings > Networks](https://app.splits.org/settings/team/networks/) (see [Settings](/teams/settings)).
+
+## Fully supported networks
+
+Every feature works on these networks, including the [browser extension](/introduction/extension) and in-app WalletConnect:
+
+- Ethereum Mainnet
+- Base
+- Optimism
+- Arbitrum
+- Celo
+- World Chain
+- Tempo
+- Polygon (PoS)
+- BNB Smart Chain
+- HyperEVM
+
+## Partially supported networks
+
+| Network | Send | Asset recovery |
+| --- | --- | --- |
+| Linea | **✅** | **✅** |
+| Zora | **✅** | **✅** |
+| Monad | **✅** | **✅** |
+| Scroll | **✅** | **✅** |
+| Solana | **✅** | |
+| EVM [Relay networks](https://docs.relay.link/references/api/api_resources/supported-chains) | **✅** | |
+
+- **Send** — you can bridge and send tokens to an external address on this network.
+- **Asset recovery** — if tokens are sent to your Splits account's address on this network, you can bridge them back to a fully supported network.
+
+To request another network, email support@splits.org. We can support most EVM-equivalent networks, pending support from our underlying providers.
+
+## Supported assets
+
+- Native tokens (e.g. ETH)
+- ERC-20
+- ERC-721
+- ERC-1155
+
+All supported assets work on all supported networks. To request another asset type, email support@splits.org. If you send an unsupported asset to a Splits account, contact us and we will attempt to recover it.
