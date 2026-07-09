@@ -3,6 +3,7 @@ import { defineConfig } from 'vocs/config'
 export default defineConfig({
   title: 'Splits',
   description: 'Guides, integrations, and resources for using Splits.',
+  accentColor: 'light-dark(#2143FA, #5B78FF)',
   iconUrl: {
     light: '/splits_compressed.svg',
     dark: '/splits_compressed_dark.svg',

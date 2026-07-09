@@ -1,21 +1,99 @@
 /*
+ * Splits brand theme, mirroring 0xSplits/website: slate grays, near-black
+ * text, a light weight scale (body 425, headings ~480/520 vs vocs' 500/600),
+ * and near-square corners. The accent blue (#2143FA / #5B78FF) is set via
+ * accentColor in vocs.config.ts.
+ *
+ * Vocs compiles its theme tokens with a --vocs- prefix (e.g. theme.css's
+ * --text-color-secondary is --vocs-text-color-secondary at runtime), so
+ * overrides must use the prefixed names. Doubled :root wins the specificity
+ * tie with vocs' own :root declarations.
+ */
+:root:root {
+  --vocs-text-color-heading: light-dark(#1e1e1e, #ffffff);
+  --vocs-text-color-primary: light-dark(#1e1e1e, #e2e8f0);
+  --vocs-text-color-secondary: light-dark(#64748b, #cbd5e1);
+  --vocs-text-color-muted: light-dark(#94a3b8, #64748b);
+  --vocs-border-color-primary: light-dark(#e2e8f0, #1e293b);
+  --vocs-border-color-secondary: light-dark(#f1f5f9, #172033);
+  --vocs-background-color-primary: light-dark(#fbfcff, var(--vocs-color-gray2));
+  --vocs-background-color-code-block: light-dark(#fbfcff, var(--vocs-color-gray2));
+  --vocs-background-color-inline-code: light-dark(#fbfcff, var(--vocs-color-gray2));
+
+  --vocs-font-weight-medium: 480;
+  --vocs-font-weight-semibold: 520;
+
+  /*
+   * Soften the accent tints used for active/hover states in the sidebar;
+   * vocs' 12%/8% alphas read too strong with the brand blue on the slate
+   * page background.
+   */
+  --vocs-color-accenta3: oklch(from var(--vocs-color-accent) 0.64 c h / 7%);
+  --vocs-color-accenta2: oklch(from var(--vocs-color-accent) 0.68 c h / 4%);
+}
+
+body {
+  font-weight: 425;
+}
+
+/*
+ * Near-square corners (the website's radius knob is 0.3rem). Content-level
+ * overrides are scoped to md+ because vocs squares these off edge-to-edge on
+ * mobile already.
+ */
+@media (min-width: 768px) {
+  div[data-v-table-wrapper],
+  pre[data-v],
+  aside[data-v][data-v-callout] {
+    border-radius: 0.3rem;
+  }
+
+  [data-v-code-header] {
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+  }
+}
+
+:not(pre) > code[data-v] {
+  border-radius: 0.15rem;
+}
+
+/* Chrome-level big radii: search trigger/dialog (rounded-xl/2xl utilities). */
+.vocs\:rounded-xl,
+.vocs\:rounded-2xl {
+  border-radius: 0.45rem;
+}
+
+/* The content surface's top-left corner (vocs sets 1rem at lg+). */
+@media (min-width: 1024px) {
+  [data-v-topnav] > [data-v-surface-bg] {
+    border-top-left-radius: 0.45rem;
+  }
+}
+
+/* Tabular, slashed-zero numerals so numbers align in tables. */
+table[data-v] {
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+/*
  * Site title ("Splits") in the top-left. Vocs renders it in Geist at
- * font-weight 700 (bold), which reads too heavy — bring it to 500 to match
- * the weight scale of the rest of the UI (sidebar headers 500, body 450).
+ * font-weight 700 (bold), which reads too heavy — bring it to 600 to sit a
+ * step above the heading scale.
  */
 [data-v-logo-text] {
   font-weight: 600;
 }
 
 /*
- * Active state for sidebar section-header links (e.g. Teams, Accounting, Invoicing
- * landing pages). Vocs sets data-active on the header when its link matches the
- * current path, but only child items ship styling for it — root headers don't.
- * Mirrors the child-item active styles (bg-accenta3 / text-accent8).
+ * Active state for sidebar section-header links (e.g. Teams, Accounting
+ * landing pages). Vocs sets data-active on the header when its link matches
+ * the current path, but only child items ship styling for it — root headers
+ * don't. Mirrors the child-item active styles (bg accenta3 / text accent8).
  */
 [data-v-sidebar-section-header][data-active] {
-  background: var(--color-accenta3, oklch(from var(--vocs-color-accent) 0.64 c h / 12%));
-  color: var(--color-accent8) !important;
+  background: var(--vocs-color-accenta3);
+  color: var(--vocs-color-accent8) !important;
 }
 
 /*
@@ -25,8 +103,8 @@
  * hover → active reads as a progression.
  */
 [data-v-sidebar-section-header][data-collapsable='true']:not([data-active]):hover {
-  background: var(--color-accenta2, oklch(from var(--vocs-color-accent) 0.68 c h / 8%));
-  color: var(--text-color-heading, light-dark(black, white));
+  background: var(--vocs-color-accenta2);
+  color: var(--vocs-text-color-heading);
 }
 
 /*
@@ -38,26 +116,15 @@
   display: none;
 }
 
-/*
- * Right-rail GitHub edit link (src/pages/_slots.tsx). It reuses the
+/* Right-rail GitHub edit link (src/pages/_slots.tsx). It reuses the
  * copy-for-AI button's vocs utility classes; vocs wraps the slot with mt-6,
- * which reads as too much gap under the copy link — tighten it.
- */
+ * which reads as too much gap under the copy link — tighten it. */
 [data-v-outline-footer] {
   margin-top: 12px !important;
 }
 
 .outline-edit-link {
   text-decoration: none;
-}
-
-/*
- * Keep table first columns (row labels) on one line. Tables sit in an
- * overflow-x-auto wrapper, so a wide table scrolls instead of breaking layout.
- */
-table[data-v] td:first-child,
-table[data-v] th:first-child {
-  white-space: nowrap;
 }
 
 /* End-of-page row: last-updated left, copy-support-email button right. */
@@ -67,7 +134,7 @@ table[data-v] th:first-child {
   align-items: center;
   margin-top: 3rem;
   font-size: 0.875rem;
-  color: var(--text-color-secondary);
+  color: var(--vocs-text-color-secondary);
 }
 
 .page-footer-row button {
@@ -81,5 +148,14 @@ table[data-v] th:first-child {
 }
 
 .page-footer-row button:hover {
-  color: var(--text-color-heading, light-dark(black, white));
+  color: var(--vocs-text-color-heading);
+}
+
+/*
+ * Keep table first columns (row labels) on one line. Tables sit in an
+ * overflow-x-auto wrapper, so a wide table scrolls instead of breaking layout.
+ */
+table[data-v] td:first-child,
+table[data-v] th:first-child {
+  white-space: nowrap;
 }
