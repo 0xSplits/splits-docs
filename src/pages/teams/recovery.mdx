@@ -13,7 +13,7 @@ Splits never has custody of your assets, so there must be a way to regain them t
 
 ## Recovering your accounts
 
-Recovery is the last resort: first confirm the passkeys are actually lost. [Verify your own](/accounts/signers#verifying-signers) at *Settings > Personal > Passkeys*, and check teammates' passkeys by hovering over the key icon on their row in *Settings > Members*.
+Recovery is the last resort: first confirm the passkeys are lost. [Verify your own](/accounts/signers#verifying-signers) at *Settings > Personal > Passkeys*, and check teammates' passkeys by hovering over the key icon on their row in *Settings > Members*.
 
 1. Go to *Settings > Recovery* and select the account marked with a star (★) in the left nav: the owner of all sub-accounts, usually the Treasury.
 2. Click *Recover account* and designate the account's new signers and threshold.
@@ -23,9 +23,9 @@ Recovery is the last resort: first confirm the passkeys are actually lost. [Veri
 
 Account addresses are derived from your recovery configuration using [`CREATE2`](https://docs.openzeppelin.com/cli/2.8/deploying-with-create2). That's what makes every account's address identical on every network (including networks added later) while keeping custody fully yours. The consequence: **changing recovery signers changes your account addresses.**
 
-The practical way to change them today is to create a new team. Email support@splits.org to migrate your offchain data (members, contacts, on/offramp info, schedules), and remember to update any revenue or funding sources (smart contracts, invoices) to the new team's addresses.
+The practical way to change them today is to create a new team. Email support to migrate your offchain data (members, contacts, on/offramp info, schedules), and remember to update any revenue or funding sources (smart contracts, invoices) to the new team's addresses.
 
 ## Keeping recovery healthy
 
 - [Verify recovery signers](/accounts/signers#verifying-signers) periodically from *Settings > Recovery*; each shows when it was last verified.
-- Use multiple signers on hardware wallets; at Splits we use a [2-of-3 with hardware wallets](/resources/workspace-setup).
+- Use multiple signers on hardware wallets; at Splits we use a [2-of-3 with hardware wallets](/resources/how-we-work#our-workspace).

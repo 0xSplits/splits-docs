@@ -28,3 +28,58 @@
   background: var(--color-accenta2, oklch(from var(--vocs-color-accent) 0.68 c h / 8%));
   color: var(--text-color-heading, light-dark(black, white));
 }
+
+/*
+ * The built-in "Last updated" line is re-rendered by the page footer row
+ * (src/pages/_mdx-wrapper.tsx) alongside the support email, so hide the
+ * original.
+ */
+[data-v-last-updated] {
+  display: none;
+}
+
+/*
+ * Right-rail GitHub edit link (src/pages/_slots.tsx). It reuses the
+ * copy-for-AI button's vocs utility classes; vocs wraps the slot with mt-6,
+ * which reads as too much gap under the copy link — tighten it.
+ */
+[data-v-outline-footer] {
+  margin-top: 12px !important;
+}
+
+.outline-edit-link {
+  text-decoration: none;
+}
+
+/*
+ * Keep table first columns (row labels) on one line. Tables sit in an
+ * overflow-x-auto wrapper, so a wide table scrolls instead of breaking layout.
+ */
+table[data-v] td:first-child,
+table[data-v] th:first-child {
+  white-space: nowrap;
+}
+
+/* End-of-page row: last-updated left, copy-support-email button right. */
+.page-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+  font-size: 0.875rem;
+  color: var(--text-color-secondary);
+}
+
+.page-footer-row button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color 150ms;
+}
+
+.page-footer-row button:hover {
+  color: var(--text-color-heading, light-dark(black, white));
+}

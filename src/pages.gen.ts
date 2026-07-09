@@ -5,12 +5,13 @@ import type { PathsForPages } from 'waku/router'
 
 // prettier-ignore
 type Page =
+  | { path: '/_mdx-wrapper'; render: 'static' }
+  | { path: '/_slots'; render: 'static' }
   | { path: '/accounting'; render: 'static' }
   | { path: '/accounting/spam'; render: 'static' }
   | { path: '/accounts/earn'; render: 'static' }
   | { path: '/accounts'; render: 'static' }
   | { path: '/accounts/modules'; render: 'static' }
-  | { path: '/accounts/recovery'; render: 'static' }
   | { path: '/accounts/signers'; render: 'static' }
   | { path: '/accounts/thresholds'; render: 'static' }
   | { path: '/banking'; render: 'static' }
@@ -40,14 +41,13 @@ type Page =
   | { path: '/invoicing/recurring'; render: 'static' }
   | { path: '/invoicing/tracking'; render: 'static' }
   | { path: '/resources/brand-assets'; render: 'static' }
-  | { path: '/resources/bug-bounty'; render: 'static' }
-  | { path: '/resources/incorporating'; render: 'static' }
-  | { path: '/resources/ops-stack'; render: 'static' }
-  | { path: '/resources/raising-capital'; render: 'static' }
-  | { path: '/resources/workspace-setup'; render: 'static' }
+  | { path: '/resources/how-we-work'; render: 'static' }
+  | { path: '/resources/incorporating-and-raising-capital'; render: 'static' }
+  | { path: '/resources/security'; render: 'static' }
   | { path: '/teams'; render: 'static' }
   | { path: '/teams/members'; render: 'static' }
   | { path: '/teams/permissions'; render: 'static' }
+  | { path: '/teams/recovery'; render: 'static' }
   | { path: '/teams/settings'; render: 'static' }
   | { path: '/transactions/batch'; render: 'static' }
   | { path: '/transactions/custom'; render: 'static' }

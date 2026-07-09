@@ -1,3 +1,16 @@
+diff --git a/dist/react/internal/Outline.js b/dist/react/internal/Outline.js
+index 4c3f4b9d933367f73b745288ae77e8f46d547932..11399b6155758f157599ec66a0e7841f33a1320d 100644
+--- a/dist/react/internal/Outline.js
++++ b/dist/react/internal/Outline.js
+@@ -196,7 +196,7 @@ function Items(props) {
+         const observer = new ResizeObserver(measurePositions);
+         observer.observe(container);
+         return () => observer.disconnect();
+-    }, []);
++    }, [items]);
+     const indicatorStyle = React.useMemo(() => {
+         if (activeIds.size === 0 || positions.size === 0)
+             return { transform: 'translateY(0)', height: 0 };
 diff --git a/dist/react/internal/Sidebar.js b/dist/react/internal/Sidebar.js
 index 242cf4f6f5babe929912b71b3a6476bf66c3be57..aa599660d3434590b31345e3ee086502f4d262d4 100644
 --- a/dist/react/internal/Sidebar.js

@@ -27,7 +27,7 @@ An EOA (externally owned account, a standard Ethereum keypair) can be [registere
 
 ## Recovery signers
 
-Recovery signers are EOAs that control the [Root account](/accounts#root), at the recovery threshold set during [team setup](/teams). Because the Root owns every other account, recovery signers can regain control of all of them if your team's passkeys are lost: they are the backstop beneath your day-to-day signers. Changing them generates new account addresses ([why](/accounts/recovery#changing-recovery-signers)). To use them, see [Recovering your accounts](/accounts/recovery).
+Recovery signers are EOAs that control the [Root account](/accounts#root), at the recovery threshold set during [team setup](/teams). Because the Root owns every other account, recovery signers can regain control of all of them if your team's passkeys are lost: they are the backstop beneath your day-to-day signers. Changing them generates new account addresses ([why](/teams/recovery#changing-recovery-signers)). To use them, see [Recovering your accounts](/teams/recovery).
 
 ## Verifying signers
 
@@ -38,7 +38,7 @@ Confirm you still control a signer's private key without moving funds: Splits ha
 
 ## Troubleshooting
 
-**Passkey won't open.** Usually the password manager: 1Password and Bitwarden are finicky, especially in newer browsers (e.g. Arc/Dia), and 1Password's prompt appears in the browser's top-right corner. Isolate the passkey by [verifying it](#verifying-signers), toggle the manager's extension off and on, and hard-refresh. Test at [webauthn.io](https://webauthn.io/): reproduces there → the provider; only on our site → support@splits.org. Slow Windows passkeys: delete temporary files (`%temp%` and `prefetch` via `Windows + R`) and reboot. If a passkey is unrecoverable, see [Recovery](/accounts/recovery).
+**Passkey won't open.** Usually the password manager: 1Password and Bitwarden are finicky, especially in newer browsers (e.g. Arc/Dia), and 1Password's prompt appears in the browser's top-right corner. Isolate the passkey by [verifying it](#verifying-signers), toggle the manager's extension off and on, and hard-refresh. Test at [webauthn.io](https://webauthn.io/): reproduces there → the provider; only on our site → email support. Slow Windows passkeys: delete temporary files (`%temp%` and `prefetch` via `Windows + R`) and reboot. If a passkey is unrecoverable, see [Recovery](/teams/recovery).
 
 **Wallet won't connect or disconnect.** MetaMask can't reliably connect a Ledger; use Rabby. If a wallet won't disconnect, navigate to another page and back, or disconnect from app.splits.org in the wallet extension.
 

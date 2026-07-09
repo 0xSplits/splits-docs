@@ -1,15 +1,35 @@
 ---
-title: Our ops stack
-description: The financial tools the Splits team uses to run its business, from banking and accounting to cards and payroll.
+title: How we work
+description: "How the Splits team runs itself: our own workspace (accounts, signers, thresholds) and the financial tools around it, from banking to payroll."
 ---
 
-# Our ops stack [The financial tools we use to run our business]
+# How we work [Our own workspace, and the financial tools around it]
 
-Here are the financial tools we use to run our business. For context we're a 10-person, VC-backed team structured as a US C-Corp.
+How we run our own team, as of today: the Splits workspace itself, and the financial stack around it. For context, we're a 10-person, VC-backed team structured as a US C-Corp.
+
+## Our workspace
+
+Everything we hold onchain (a mix of stablecoins, ETH, project tokens, and NFTs, plus our ENS `splits.eth` and the recovery keys for our Farcaster account) lives in a handful of purpose-specific [accounts](/accounts), signed with passkeys day-to-day and backstopped by [recovery signers](/accounts/signers#recovery-signers) on hardware wallets.
+
+| Account | Threshold | Purpose |
+| --- | --- | --- |
+| Treasury | 2-of-3 | The bulk (~90%) of our assets, and our ENS. Signers are company-issued YubiKeys held by different senior people. |
+| Operating | 1-of-3 | Day-to-day expenses; funds the other accounts. Same signers as the Treasury. |
+| Payroll | 1-of-n | Contractor payments. Holds at most a month of payments, topped up from Operating, with limited signing privileges. |
+| Eng testing | 1-of-n | Shared by all engineers, holding roughly $1k so no one is ever blocked. |
+| Per-project | varies | Carve-outs for experiments and external collaborators, archived when done. |
+
+Beneath these sits Recovery: a 2-of-3 of company-issued hardware wallets that holds no assets and exists solely to [reset accounts](/teams/recovery) if our passkeys ever become unusable.
+
+Why this shape works for us:
+
+- **No unilateral access to the Treasury.** Two approvals move the bulk of the assets, and a lost YubiKey is replaced by the other two signers.
+- **Low-threshold accounts hold bounded balances.** A leaked key or rage-quit is capped at that account's balance, and because every signature is a specific person's key, every transaction is attributable.
+- **Accounts double as accounting.** [Memos are required](/transactions/memos), and each account maps to categorization rules, so books mostly close themselves.
 
 ## Banking
 
-- [Splits](https://app.splits.org/) - we keep about \~20% of our company's assets onchain, about half of which is [earning interest](/accounts/earn) at rates higher than what we would get offchain. All of our onchain assets are stored here, spread out across multiple different dedicated accounts. See [Our workspace setup](/resources/workspace-setup) for more details. A few thoughts:
+- [Splits](https://app.splits.org/) - we keep about \~20% of our company's assets onchain, about half of which is [earning interest](/accounts/earn) at rates higher than what we would get offchain. All of our onchain assets are stored here, spread out across the dedicated accounts [above](#our-workspace). A few thoughts:
   - We don't feel comfortable moving 100% of our assets onchain, since we benefit from accessing the peace of mind that comes with FDIC insurance and custodians.
   - That said, the percent of our assets we're storing onchain *is* growing, primarily because (1) yield is higher, and (2) we can move money faster.
 - [Mercury](https://mercury.com/r/0xsplits)\* - best in class UX. We keep a nominal balance here, and use it if we need to pay invoices and move other relatively small amounts.

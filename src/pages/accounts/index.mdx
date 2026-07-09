@@ -16,11 +16,11 @@ An account is where assets are stored within a team. Every account exists at the
 
 Accounts form an ownership chain (Root → Treasury → operating and automation accounts) in which each account is the onchain owner of those below it.
 
-Ownership carries the powers signers don't have. An account's signers can change the account's own signer set and threshold, but **only its owner can upgrade the account's contract implementation or transfer its ownership**, and the owner can execute from the account directly, which is how [recovery](/accounts/recovery) resets a child account's signers. A rogue signer on a low-threshold account can therefore reach at most that account's balance, never its ownership or code. The Root has no external owner and owns itself: owner actions on it fall to its own signers, the recovery signers, at the recovery threshold.
+Ownership carries the powers signers don't have. An account's signers can change the account's own signer set and threshold, but **only its owner can upgrade the account's contract implementation or transfer its ownership**, and the owner can execute from the account directly, which is how [recovery](/teams/recovery) resets a child account's signers. A rogue signer on a low-threshold account can therefore reach at most that account's balance, never its ownership or code. The Root has no external owner and owns itself: owner actions on it fall to its own signers, the recovery signers, at the recovery threshold.
 
 ## Root
 
-The Root is created from your recovery signers during [team setup](/teams), with your recovery threshold. It never appears in the app: you can't view it or transact from it. It exists so your recovery signers can regain control of everything below it if you lose your passkeys, and its composition determines every address derived beneath it, which is why changing recovery signers changes your account addresses ([more](/accounts/recovery#changing-recovery-signers)).
+The Root is created from your recovery signers during [team setup](/teams), with your recovery threshold. It never appears in the app: you can't view it or transact from it. It exists so your recovery signers can regain control of everything below it if you lose your passkeys, and its composition determines every address derived beneath it, which is why changing recovery signers changes your account addresses ([more](/teams/recovery#changing-recovery-signers)).
 
 ## Treasury
 
@@ -54,7 +54,7 @@ An account's page also shows **positions**: claimable balances the account holds
 
 ## Importing existing accounts
 
-**Existing smart accounts (e.g. a Safe) can't be imported into Splits, even read-only.** Accounts must be created in Splits: passkey signing, identical addresses and synced signers across networks, and the [ownership chain](#root) that makes [recovery](/accounts/recovery) work are properties of the Splits account contract, and don't exist on external contracts. Teams with an existing Safe typically keep it alongside Splits and run day-to-day operations from Splits.
+**Existing smart accounts (e.g. a Safe) can't be imported into Splits, even read-only.** Accounts must be created in Splits: passkey signing, identical addresses and synced signers across networks, and the [ownership chain](#root) that makes [recovery](/teams/recovery) work are properties of the Splits account contract, and don't exist on external contracts. Teams with an existing Safe typically keep it alongside Splits and run day-to-day operations from Splits.
 
 ## Programmatic access
 
