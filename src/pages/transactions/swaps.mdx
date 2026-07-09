@@ -1,58 +1,34 @@
 ---
 title: Swaps
-description: How swaps work in Splits, including just in time swaps, dedicated swap flows, expiring quotes, and slippage.
+description: "How swaps work in Splits: multi-provider routing with no fees, bridging across networks, just-in-time swaps inside sends, slippage, and expiring quotes on multisigs."
 ---
 
 # Swaps [Trade and bridge tokens with no fees from Splits]
 
-*Updated 5 September 2025*
+A swap trades one token for another, including across networks: moving ETH on Base to ETH on Optimism is a swap. Splits charges no fees on swaps. Each quote is routed across multiple swap providers (currently 0x, KyberSwap, Velora, Relay, and Fabric; Relay handles cross-network swaps) and the best result is used.
 
-Swaps are integrated into the product in a number of ways. Regardless of which swap approach you use, they all follow the same principles:
+Start a swap from the Dashboard or an account page. Any ERC-20 can be swapped: if a token isn't listed, paste its address with the right network selected.
 
-- We charge no fees on swaps
-- To ensure you get competitive prices, we use a number of providers under the hood: 0x, KyberSwap, ParaSwap
-- Bridging is a contained within swaps (i.e. we consider moving between ETH on Base and ETH on Optimism a swap)
+## Just-in-time swaps
 
-## Just in time swaps
+[Sends](/transactions/sends) let you pay in a token the account doesn't hold. Specify the token the recipient receives, then pick which held token to sell; the swap and the send execute as a single transaction, and the recipient receives the exact amount specified.
 
-Our goal with Splits is to save you time by speeding up your operations. One way we do this by allowing you to **send a token you don't currently have**. As long as you have the money in your account to cover the send, you can send any token regardless of whether you have it. We do this by combining a swap and send into a single transaction.
+## Slippage
 
-Click the *Send* button from either the Dashboard page of the account page, specify the Recipient, and then specify the **token the recipient receives**. Once you enter an amount, you will see the tokens you do have that you can sell to cover the send.
+Every swap has a slippage tolerance you can edit before submitting. The default depends on the pair: 0.1% between stablecoins, 0.5% between major tokens, 1.5% otherwise.
 
-![](/images/swapping/img-1.png)
+## Quotes and multisigs
 
-In the image above, I don't have $1 of ETH, but since I have $1 of other tokens, I can select which token I want to swap into ETH and send to the recipient.
+Swap quotes are signed by the provider and expire quickly, often before an account with a threshold above 1 collects its signatures. An expired quote is rejected onchain, and the transaction has to be recreated. Ways to avoid this:
 
-## Dedicated swap flows
+1. Swap from a 1-of-n [operating account](/accounts#operating-accounts), funded from your higher-threshold accounts.
+2. If you always swap into the same output token, use an [automation account](/accounts#automation-accounts) instead and just transfer funds in.
+3. Use the [browser extension](/introduction/extension) with a swap app that tolerates slow signing (e.g. CoW Swap).
 
-If you have a token you're looking to buy or sell, you can do so from the Dashboard or Account page. This should feel familiar to other "wallets".
+## Asset recovery
 
-### Swapping from the Dashboard
+Tokens received on [partially supported networks](/introduction/networks-and-assets#partially-supported-networks) can be bridged back to a fully supported one from *Asset recovery* in the account's settings, which lists the account's balances on those networks and opens the same swap flow with the source network fixed.
 
-On the Dashboard page, click the *Swap* button at the top. From there, you can select the account from which you wish to swap, and then select the tokens you're swapping between.
+## Programmatic access
 
-![](/images/swapping/img-2.png)
-
-You can paste in the address of any ERC20 token to find a token that isn't already listed. Ensure you have the right network selected when doing this. In the image below, I pasted in the [VV token address on Base](https://basescan.org/address/0xd2969cc475A49e73182Ae1c517AdD57dB0F1c2AC).
-
-![](/images/swapping/img-3.png)
-
-### Swapping from the Account page
-
-On the account page, in the Balances section on the right side click on a token you hold and select *Swap*. From here the flow will be the same as above, with the account pre-selected. In the image below, I am swapping to/from the Operations account, because I am viewing that account's page.
-
-![](/images/swapping/img-4.png)
-
-### Expiring quotes
-
-Swapping from multisig accounts can be challenging given how quickly quotes expire. This is a known issue we are addressing. In the meantime, a few ways to circumvent this today:
-
-1. Setup a 1-of-n sub account for swapping and transfer funds in from the higher threshold accounts.
-2. If you're always always swapping to the same output token, setup an [Automation](/accounts#automation-accounts) (e.g. 100% to EURC) and just transfer funds in.
-3. Use the [browser extension](/introduction/extension) to connect to Cowswap, which is more forgiving with the expiration timing.
-
-### Slippage
-
-You can manually edit the the amount of slippage you are willing to tolerate on the swap by editing the percentage.
-
-![](/images/swapping/img-5.png)
+The [CLI / MCP](/introduction/agents) has no dedicated swap command. Agents can propose swaps as raw calls via `splits transactions create custom` (**Write** scope).

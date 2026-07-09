@@ -1,42 +1,14 @@
 ---
-title: Batch transactions
-description: Add multiple transactions to a batch and sign them all at once, in the Splits app or in external apps.
+title: Batch
+description: Batches group multiple transactions into one signature, from inside the Splits app or from external apps via the browser extension and WalletConnect.
 ---
 
-# Batch transactions [Group multiple transactions into one signature]
+# Batch [Group multiple transactions into one signature]
 
-*Last updated June 9 2026*
+A batch collects multiple transactions and executes them under a single signature. Prepare any transaction and, in the review dialog, select *Add to batch* instead of *Submit*; keep adding, then open the batch (at the top of the transaction feed) and submit once. Before signing, you can inspect each transaction's calls, view a simulation, or remove it from the batch.
 
-Splits offers native transaction batching. Instead of creating and signing a list of transactions one by one, you can add them to a batch and sign them all at once. Batching works anywhere in the Splits app, as well as in external apps using our [Chrome extension](https://chromewebstore.google.com/detail/splits/ghfacfafnbcgkielpaeifdpoggfeakif) or WalletConnect.
+Each team has **one active batch at a time, on a single account and network**; *Add to batch* is disabled elsewhere while a batch is open. A batch holds up to 50 transactions.
 
-## Batching in our app
+## Batching from external apps
 
-To get started, prepare a transaction in Splits. When you reach the review dialog, click the dropdown to the right of *Submit* and then click *Add to batch*.
-
-![](/images/batch-transactions/img-1.png)
-
-Continue adding transactions until you're ready to sign them all. When you're done, you can find the batch at the top of the transaction feed on the dashboard or corresponding account page:
-
-![](/images/batch-transactions/img-2.png)
-
-At the top of the dialog, you'll see a collapsible list of transactions in the batch. You can inspect the calls being made, see a Tenderly simulation, or remove any transaction in the batch.
-
-![](/images/batch-transactions/img-3.png)
-
-![](/images/batch-transactions/img-4.png)
-
-When you're finished adding transactions, click *Submit* and sign the transaction.
-
-:::note
-Note: currently, each organization can have one active batch at a time, on one account and chain. You'll see a disabled *Add to batch* button if yours has an active batch already.
-:::
-
-## Batching in other apps
-
-You can also use Splits Connect or WalletConnect to add transactions from external apps to a batch. You'll see a similar dropdown when reviewing transactions in external apps.
-
-![](/images/batch-transactions/img-5.png)
-
-When you see the confirmation below, the transaction was successfully added to your batch. Note that external apps in this case may not display the transaction as pending in their UI.
-
-![](/images/batch-transactions/img-6.png)
+Transactions initiated in external apps through the [browser extension](/introduction/extension) or [WalletConnect](/integrations/walletconnect) offer the same *Add to batch* option in the Splits signing dialog. The external app may not show the transaction as pending until the batch executes.

@@ -1,10 +1,22 @@
 ---
 title: Paying vendors
-description: How to pay third-party vendors from Splits once banking is set up, moving from crypto to fiat payouts.
+description: "Pay third parties in fiat from your Splits accounts: add a vendor's bank account as an external account, then send stablecoins to its deposit address."
 ---
 
-# Paying vendors [Pay third parties in fiat from your Splits accounts]
+# Paying vendors [Pay third parties in fiat from your accounts]
 
-:::note
-Stub: content to be written. Once [banking](/banking) is enabled for a team, you can pay third-party vendors in fiat. Cover: prerequisites (legal entity verification), adding a vendor/payee, initiating a payout, and how it settles.
-:::
+A vendor payment is an offramp to someone else's bank account. Each vendor bank account you add gets a dedicated onchain deposit address; paying the vendor is a normal [send](/transactions/sends) of stablecoins to that address, which Bridge converts and delivers to the vendor's bank.
+
+Prerequisites: [banking](/banking) set up with a verified entity. Adding and managing vendor accounts requires the [Owner](/teams/permissions) role.
+
+## Adding a vendor
+
+In [Settings > Banks](https://app.splits.org/settings/team/banks/), add the vendor's bank account as an **external account**: US accounts by routing and account number, EU accounts by IBAN, along with the account owner's name and address. External accounts are listed separately from your own (internal) bank accounts.
+
+## Paying
+
+Send **USDC** (US vendors) or **EURC** (EU vendors) to the vendor account's deposit address; bank-account recipients also appear directly in the send flow. The payment is a transaction like any other: proposed from an account, approved at its threshold, visible in your feed and [accounting](/accounting).
+
+Delivery is via Same Day ACH (US) or SEPA (EU), with the same 0.25% fee and [settlement timing](/banking#how-long-does-offramping-take) as other offramps, deducted from the amount sent.
+
+To collect tax forms from vendors and contractors you pay, see [Compliance](/banking/compliance).

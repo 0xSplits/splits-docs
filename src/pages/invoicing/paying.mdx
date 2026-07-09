@@ -1,22 +1,20 @@
 ---
 title: Paying invoices
-description: "The ways an invoicee can pay a Splits invoice: connecting a wallet, sending manually, or paying via fiat from a bank account."
+description: "The ways an invoicee pays a Splits invoice: connecting a wallet, sending manually and recording the transaction, or paying by bank transfer."
 ---
 
-# Paying invoices [How an invoicee pays — wallet, manual send, or bank]
+# Paying invoices [How an invoicee pays: wallet, manual send, or bank]
 
-To pay an invoice, you have a few options.
+The invoice page offers the payer up to three payment paths. The payment address shown is the receiving account itself; there is no intermediary.
 
-## Paying with crypto
+## Connect a wallet
 
-Tap *Connect wallet to pay* on the invoice page. As soon as you connect your wallet, the transaction will appear on your screen.
+*Connect wallet to pay* opens the payer's wallet with the transfer prepared. The wallet is switched to the invoice's network before sending, and the invoice is [marked paid](/invoicing/tracking) automatically once the transaction confirms.
 
-You can also manually send funds by copying the payment address just below *Connect wallet to pay*. Make sure to send on the correct network!
+## Send manually
 
-![](/images/invoicing/img-5.png)
+The payer copies the payment address, sends the amount on the invoice's network from anywhere, then pastes the transaction link on the invoice page. Splits verifies the transaction onchain and marks the invoice paid.
 
-## Paying via fiat
+## Pay by bank
 
-If bank payments are enabled on the invoice, you'll see a tab called *Bank* which includes the details to send funds directly to the recipient's bank account. Enabling this is covered in [Issuing invoices](/invoicing).
-
-![](/images/invoicing/img-6.png)
+If [pay-by-bank](/invoicing#pay-by-bank) is enabled on the invoice, a *Bank* tab shows the transfer details for paying in fiat, including the 0.25% processing fee added to the amount owed.

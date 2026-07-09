@@ -1,24 +1,23 @@
 ---
 title: Memos
-description: Attach memos to transactions in Splits (when creating a transaction or retroactively) to annotate activity for accounting.
+description: Memos annotate transactions for accounting, added at creation or retroactively, on outbound and inbound activity, and optionally required team-wide.
 ---
 
 # Memos [Annotate transactions for clean books]
 
-*Last updated 7 July 2026*
-
-Memos are short notes attached to transactions. Until we build more accounting-specific workflows (i.e. integrate directly into Xero and map transactions to categories), we rely heavily on transaction memos to keep books clean.
+A memo is a short note attached to a transaction. Memos appear alongside transactions throughout the app, filter the [Accounting page](/accounting), and are included in CSV exports.
 
 ## Adding a memo
 
-We prefer adding memos when creating transactions, but you can do so retroactively as well (especially helpful for inbound transactions). Click on the 3 dots next to a transaction and select *Add memo*. You can do this from any transaction feed (e.g. on the Dashboard, an account page, or the [Accounting page](/accounting)).
+Add memos when creating a transaction, or retroactively from the transaction's row menu (*Add memo*) in any feed, including on inbound transactions, where retroactive memos matter most. Any member can add or edit memos.
 
-![](/images/accounting/img-2.png)
+## Requiring memos
 
-## Where memos show up
+The *Require memos* [team setting](/teams/settings) rejects any new transaction without a memo, on every surface: the app, the [CLI / MCP](/introduction/agents), and [schedules](/transactions/schedules). It applies at creation only; memos on existing transactions stay editable.
 
-Memos appear alongside transactions throughout the app, and you can filter by memo on the [Accounting page](/accounting) and include them in CSV exports.
+## Programmatic access
 
-## Memos programmatically
+Via the [Splits CLI / MCP](/introduction/agents):
 
-Agents and scripts can set or clear memos via the CLI: `splits transactions memo <id> --memo "text"` (max 500 characters). For structured metadata beyond a memo, transactions also support custom JSON properties. See [Agents](/introduction/agents#transaction-metadata).
+- `splits transactions memo <id> --memo "text"` — set or clear a memo, max 500 characters (**Write** scope)
+- `splits transactions properties set <id> --properties '{"k":"v"}'` — structured JSON metadata beyond a memo; see [Agents](/introduction/agents#transaction-metadata) (**Write** scope)

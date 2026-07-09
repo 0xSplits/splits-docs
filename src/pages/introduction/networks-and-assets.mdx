@@ -7,9 +7,11 @@ description: Networks and asset types supported by Splits. Full and partial supp
 
 Splits supports some networks fully (every feature) and a longer tail partially (sending and asset recovery only). Owners turn networks on and off per team in [Settings > Networks](https://app.splits.org/settings/team/networks/) (see [Settings](/teams/settings)).
 
+Enabled networks are kept in sync: an account has the same address, signers, threshold, and owner on all of them, because [signer changes are signed once for every active network](/accounts/thresholds#changing-signers-and-thresholds). An account's state is synced to a newly enabled network before the account is used there; disabling a network requires nothing onchain.
+
 ## Fully supported networks
 
-Every feature works on these networks, including the [browser extension](/introduction/extension) and in-app WalletConnect:
+Every feature works on these networks, including the [browser extension](/introduction/extension) and in-app [WalletConnect](/integrations/walletconnect):
 
 - Ethereum Mainnet
 - Base

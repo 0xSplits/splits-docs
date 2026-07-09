@@ -1,24 +1,27 @@
 ---
 title: Spam & tokens
-description: How to control which tokens are displayed for your team and report spam tokens.
+description: How Splits filters spam tokens by default, how your team hides or shows tokens, and what hiding removes from balances, feeds, and exports.
 ---
 
-# Spam & tokens [Control which tokens are displayed for your team]
+# Spam & tokens [Control which tokens your team sees]
 
-*Last updated 30 August 2025*
+Splits classifies spam tokens and hides them by default. Your team can override the classification in either direction, per token, and the override always wins. Visibility is team-wide: there is no per-member or per-account token visibility.
 
-Spam is a big problem in the industry so we're working hard to ensure you only see the tokens that are relevant for your team. We have some basic filtering working for you, but there will always be instances where you need to customize which tokens are displayed for your team.
+A hidden token disappears everywhere: balances, the transaction feed, the [Accounting page](/accounting), and CSV exports.
 
-## Turning on specific tokens
+## Hiding a token
 
-If you're not seeing a token you should be, navigate to [Settings > Tokens](https://app.splits.org/settings/team/tokens/) to see a list of all tokens held in your accounts. The switch on the right controls whether that token is displayed in the app for your team. On means displayed; off means hidden. Hidden tokens will not show up in your balances, transaction list, or accounting page.
+From any transaction feed, open the transaction's row menu and select *Report spam*. This hides the token for your whole team, and also feeds Splits' global spam classification. Any member can report spam. NFTs can be reported the same way from an account's balances.
 
-![](/images/showing-hiding-tokens/img-1.png)
+## Showing a hidden token
 
-## Hiding tokens
+[Settings > Tokens](https://app.splits.org/settings/team/tokens/) (visible to Owners) lists every token held across your accounts, including hidden ones, with a toggle per token: on means displayed, off means hidden. Turn a token on if the default filtering hid something real.
 
-If you find tokens showing that shouldn't be, instead of navigating to the Settings page and searching for the token each time, you can quickly mark a token as spam from the transaction view.
+## Programmatic access
 
-![](/images/showing-hiding-tokens/img-2.png)
+Via the [Splits CLI / MCP](/introduction/agents):
 
-Hover over a transaction, click the three dots menu, and select *Report spam.* This will turn off the token and prevent it from being displayed in the app for anyone on your team.
+- `splits tokens whitelist` — tokens your team explicitly turned on (**Read** scope)
+- `splits tokens blocklist` — hidden tokens: global spam plus your team's own reports (**Read** scope)
+
+Changing visibility is web-only today.

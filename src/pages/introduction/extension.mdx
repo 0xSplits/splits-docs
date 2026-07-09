@@ -5,7 +5,7 @@ description: Connect your Splits accounts to third-party apps using the Splits C
 
 # Browser extension [Use your Splits accounts inside third-party apps]
 
-[Splits Connect](https://chromewebstore.google.com/detail/splits/ghfacfafnbcgkielpaeifdpoggfeakif) is our browser extension. It lets you use your Splits accounts inside third-party apps: the app sees Splits as a wallet, and you sign transactions with your passkey. If your browser doesn't support the extension (e.g. Safari), [WalletConnect](#walletconnect) works as a fallback. The extension works on all [fully supported networks](/introduction/networks-and-assets).
+[Splits Connect](https://chromewebstore.google.com/detail/splits/ghfacfafnbcgkielpaeifdpoggfeakif) is our browser extension. It lets you use your Splits accounts inside third-party apps: the app sees Splits as a wallet, and you sign transactions with your passkey. If your browser doesn't support the extension (e.g. Safari), [WalletConnect](/integrations/walletconnect) works as a fallback. The extension works on all [fully supported networks](/introduction/networks-and-assets).
 
 ## Connecting
 
@@ -17,12 +17,6 @@ description: Connect your Splits accounts to third-party apps using the Splits C
 
 When you perform a transaction in the connected app, the Splits dialog opens and you sign with your passkey, the same way you'd sign any transaction in the Splits app. You can also add transactions from external apps to a [batch](/transactions/batch).
 
-## WalletConnect
-
-To connect via WalletConnect instead: in the third-party app, choose WalletConnect and copy the pairing URI, then paste it into the WalletConnect section on the account's page in Splits and approve the connection. Transaction requests from the app then appear in Splits for you to sign.
-
 ## Connection issues
 
-If an app doesn't show Splits as a wallet option, the likely cause is that the app doesn't support [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963) provider discovery. Use [WalletConnect](#walletconnect) instead, and ask the app's team whether they support EIP-6963.
-
-Known apps that require WalletConnect: Monerium.
+If an app doesn't show Splits as a wallet option, the likely cause is that the app doesn't support [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963) provider discovery. Use [WalletConnect](/integrations/walletconnect) instead, and ask the app's team whether they support EIP-6963.

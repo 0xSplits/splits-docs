@@ -1,32 +1,32 @@
 ---
 title: Sends
-description: "How to send tokens from a Splits account: recipient, token, amount, memos, batching, and signing."
+description: "Sends move tokens or NFTs from a Splits account to any recipient: the recipient types accepted, just-in-time swaps, memos, batching, and signing."
 ---
 
 # Sends [Move tokens from an account to any recipient]
 
-*Last updated 7 July 2026*
+A send moves tokens from one of your [accounts](/accounts) to any recipient: a raw address, an ENS name, a Farcaster username, a saved contact, another of your accounts, or (with [banking](/banking) set up) a bank account. The amount you enter is the amount **the recipient receives**. NFTs (ERC-721 and ERC-1155) can be sent the same way.
 
-Sends move tokens from one of your accounts to any recipient. Click *Send* from the Dashboard or an account page, specify the recipient, then the token and amount **the recipient receives**.
-
-You can send a token you don't currently hold: as long as the account has enough value to cover it, we combine a swap and send into a single transaction. See [just in time swaps](/transactions/swaps#just-in-time-swaps).
+You can send a token the account doesn't hold: as long as the account holds enough value to cover it, pick which token to sell and the swap and send execute as one transaction. See [just-in-time swaps](/transactions/swaps#just-in-time-swaps).
 
 ## Memos
 
-We recommend adding a [memo](/transactions/memos) when creating the send: it makes your [accounting](/accounting) dramatically easier later.
+Add a [memo](/transactions/memos) when creating the send; it makes your [accounting](/accounting) dramatically easier later.
 
 ## Batching
 
-Instead of submitting right away, you can click the dropdown to the right of *Submit* and select *Add to batch* to group multiple sends (or any transactions) into one signature. See [Batch transactions](/transactions/batch).
+Instead of submitting a send right away, select *Add to batch* in the review dialog to group it with other transactions under one signature. See [Batch](/transactions/batch).
 
 ## Signing
 
-Like every transaction, a send must be approved by the account's signers according to its [threshold](/accounts/signers). On a 1-of-n account it executes as soon as you sign; on higher thresholds it waits for the remaining signatures.
+Like every [transaction](/transactions), a send executes once signatures meet the account's [threshold](/accounts/thresholds): immediately on a 1-of-n account, after the remaining signatures otherwise.
 
 ## Recurring sends
 
-To pay out pre-defined amounts on a set interval (e.g. payroll), use [Schedules](/transactions/schedules).
+To pay out pre-defined amounts on an interval (e.g. payroll), use [Schedules](/transactions/schedules).
 
-## Sending programmatically
+## Programmatic access
 
-Agents and scripts can propose transfers via the CLI: `splits transactions create transfer`. See [Agents](/introduction/agents#propose-transactions).
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits transactions create transfer --account 0x... --chainId 8453 --recipient 0x... --token 0x... --amount 100` — propose a transfer, with optional `--memo` and `--properties` (**Write** scope)

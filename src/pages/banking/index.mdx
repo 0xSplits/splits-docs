@@ -1,29 +1,37 @@
 ---
 title: Banking
-description: "Banking in Splits: verify your entity (KYB/KYC) to move between crypto and fiat by onramping, offramping, and paying vendors."
+description: "Banking in Splits: verify your entity (KYB/KYC) to move between crypto and fiat by onramping, offramping, and paying vendors, plus supported jurisdictions."
 ---
 
 # Banking [Verify your entity to move between crypto and fiat]
 
 Banking is an opt-in feature that connects your team to the fiat world. Once your team completes legal entity verification, you can move between crypto and fiat directly within Splits: [onramping](#onramping), [offramping](#offramping), and [paying vendors](/banking/paying-vendors).
 
-On/offramps cost 0.25%, deducted from the transaction amount.
+On/offramps cost 0.25%, deducted from the transaction amount. Setting up banking (verification, bank accounts, onramp details) requires the [Owner](/teams/permissions) role.
 
 ## Getting verified
 
 Go to [Settings > Banks](https://app.splits.org/settings/team/banks/) and select *KYB* (for businesses, including solo-member pass-through LLCs) or *KYC* (for individuals). You'll be brought through an entity verification flow powered by [Bridge](https://www.bridge.xyz/). **Each team can only have one verified entity.**
 
-KYC is typically near-instant; KYB typically takes 5-7 business days. Bridge will email you directly if additional documentation is needed. For supported jurisdictions, see [Onramp jurisdictions](/faqs/onramp-jurisdictions).
+KYC is typically near-instant; KYB typically takes 5-7 business days. Bridge will email you directly if additional documentation is needed.
+
+## Jurisdictions
+
+Splits supports **US- and EU-based individuals and businesses**, excluding [countries not supported by Bridge](https://apidocs.bridge.xyz/platform/customers/compliance/supported-countries-list#supported-countries-list) and, within the US, New York and Alaska ([Bridge's US details](https://apidocs.bridge.xyz/get-started/introduction/what-we-support/geo#united-states-specific-details)).
+
+If you live elsewhere, you can still use banking as long as your entity is legally registered in the US and you have a US- or EU-based bank account. Because bank accounts are added by routing/account number (US) or IBAN (EU), accounts at fintechs like [Wise](https://wise.com) generally work like any other bank account.
+
+For what KYB requires, see [Bridge's business onboarding docs](https://docs.google.com/document/d/1UjwaXWHNEs3PTaj2R2l_CLxGApj8Uc8NHlL_WVd6TFY/edit?usp=sharing). To request support for another jurisdiction, email support@splits.org.
 
 ## Onramping
 
 Once your entity is verified, you can onramp funds to your team via ACH or wire. Click *Onramp* from the Dashboard, or find the account info in Settings > Banks.
 
-By default, funds arrive in your Treasury account as USDC on Base. You can change this at any time.
+By default, funds arrive in your Treasury account as USDC on Base. You can change the destination account and network at any time.
 
 ## Offramping
 
-Before you can offramp, connect a bank account using [Plaid](https://plaid.com/) from Settings > Banks. You can connect as many bank accounts as you wish ([check institution support](https://plaid.com/docs/institutions/)).
+Before you can offramp, add a bank account from Settings > Banks: connect a US account with [Plaid](https://plaid.com/) or enter its routing and account numbers manually; EU accounts are added by IBAN. You can add as many bank accounts as you wish.
 
 Then offramp either by clicking *Offramp* on the Dashboard, or from Settings > Banks: click the three dots on the target bank account and select *Offramp*.
 

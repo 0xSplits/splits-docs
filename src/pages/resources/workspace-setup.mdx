@@ -1,0 +1,24 @@
+---
+title: Our workspace setup
+description: "How the Splits team runs its own workspace: purpose-specific accounts, their signers and thresholds, and the recovery backstop."
+---
+
+# Our workspace setup [How we structure our own accounts, signers, and thresholds]
+
+Everything Splits holds onchain (a mix of stablecoins, ETH, project tokens, and NFTs, plus our ENS `splits.eth` and the recovery keys for our Farcaster account) lives in a handful of purpose-specific [accounts](/accounts), signed with passkeys day-to-day and backstopped by [recovery signers](/accounts/signers#recovery-signers) on hardware wallets.
+
+| Account | Threshold | Purpose |
+| --- | --- | --- |
+| Treasury | 2-of-3 | The bulk (~90%) of our assets, and our ENS. Signers are company-issued YubiKeys held by different senior people. |
+| Operating | 1-of-3 | Day-to-day expenses; funds the other accounts. Same signers as the Treasury. |
+| Payroll | 1-of-n | Contractor payments. Holds at most a month of payments, topped up from Operating, with limited signing privileges. |
+| Eng testing | 1-of-n | Shared by all engineers, holding roughly $1k so no one is ever blocked. |
+| Per-project | varies | Carve-outs for experiments and external collaborators, archived when done. |
+
+Beneath these sits Recovery: a 2-of-3 of company-issued hardware wallets that holds no assets and exists solely to [reset accounts](/accounts/recovery) if our passkeys ever become unusable.
+
+Why this shape works for us:
+
+- **No unilateral access to the Treasury.** Two approvals move the bulk of the assets, and a lost YubiKey is replaced by the other two signers.
+- **Low-threshold accounts hold bounded balances.** A leaked key or rage-quit is capped at that account's balance, and because every signature is a specific person's key, every transaction is attributable.
+- **Accounts double as accounting.** [Memos are required](/transactions/memos), and each account maps to categorization rules, so books mostly close themselves.
