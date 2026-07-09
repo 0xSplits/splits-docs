@@ -1,0 +1,34 @@
+---
+title: Swaps
+description: "How swaps work in Splits: multi-provider routing with no fees, bridging across networks, just-in-time swaps inside sends, slippage, and expiring quotes on multisigs."
+---
+
+# Swaps [Trade and bridge tokens with no fees from Splits]
+
+A swap trades one token for another, including across networks: moving ETH on Base to ETH on Optimism is a swap. Splits charges no fees on swaps. Each quote is routed across multiple swap providers (currently 0x, KyberSwap, Velora, Relay, and Fabric; Relay handles cross-network swaps) and the best result is used.
+
+Start a swap from the Dashboard or an account page. Any ERC-20 can be swapped: if a token isn't listed, paste its address with the right network selected.
+
+## Just-in-time swaps
+
+[Sends](/transactions/sends) let you pay in a token the account doesn't hold. Specify the token the recipient receives, then pick which held token to sell; the swap and the send execute as a single transaction, and the recipient receives the exact amount specified.
+
+## Slippage
+
+Every swap has a slippage tolerance you can edit before submitting. The default depends on the pair: 0.1% between stablecoins, 0.5% between major tokens, 1.5% otherwise.
+
+## Quotes and multisigs
+
+Swap quotes are signed by the provider and expire quickly, often before an account with a threshold above 1 collects its signatures. An expired quote is rejected onchain, and the transaction has to be recreated. Ways to avoid this:
+
+1. Swap from a 1-of-n [operating account](/accounts#operating-accounts), funded from your higher-threshold accounts.
+2. If you always swap into the same output token, use an [automation account](/accounts#automation-accounts) instead and just transfer funds in.
+3. Use the [browser extension](/introduction/extension) with a swap app that tolerates slow signing (e.g. CoW Swap).
+
+## Asset recovery
+
+Tokens received on [partially supported networks](/introduction/networks-and-assets#partially-supported-networks) can be bridged back to a fully supported one from *Asset recovery* in the account's settings, which lists the account's balances on those networks and opens the same swap flow with the source network fixed.
+
+## Programmatic access
+
+The [CLI / MCP](/introduction/agents) has no dedicated swap command. Agents can propose swaps as raw calls via `splits transactions create custom` (**Write** scope).

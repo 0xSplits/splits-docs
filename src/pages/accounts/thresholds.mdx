@@ -1,0 +1,34 @@
+---
+title: Thresholds
+description: "Every account requires M-of-N signer approvals per transaction: what thresholds are, how they change, and how to choose one."
+---
+
+# Thresholds [The number of signer approvals an account requires per transaction]
+
+Every [account](/accounts) has a threshold: the number of [signer](/accounts/signers) approvals required for an outgoing transaction, written M-of-N (2-of-3 means any two of the account's three signers). A transaction executes once it reaches M signatures; below that it stays pending. Each account's threshold is set independently: at [team setup](/teams) for the Treasury, at creation for operating accounts.
+
+## Changing signers and thresholds
+
+An account's signer set and threshold live onchain together and change together: from the account's settings, by signing an "Update signers state" transaction. The change is approved at the account's *current* threshold and applies on every network the team is active on. Any [team member](/teams/members) with a passkey (or registered EOA) can be added as a signer.
+
+One signing session covers every network: the signers sign the merkle root of a tree containing one copy of the update transaction per active network, and each network's copy executes with a proof against that root. Signer state can't diverge across networks because no network is ever signed for separately.
+
+## Choosing a threshold
+
+During team setup, the app recommends a majority of owners for the Treasury. Suggested thresholds by number of Owners:
+
+| Owners | Treasury | [Recovery](/teams/recovery) |
+| --- | --- | --- |
+| 1 | 1-of-1 | 2-of-3 |
+| 2 | 2-of-2 | 2-of-3 |
+| 3 | 2-of-3 | 2-of-3 |
+| 4+ | (n/2)+1 | (n/2)+1 |
+
+For solo setups, see [Personal usage](/introduction/personal-usage#multisigs-of-one).
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits accounts signers <address>`: an account's signers and current threshold (**Read** scope)
+- `splits accounts update-signers <address> --threshold N ...`: propose signer/threshold changes; approval happens in the web UI (**Owner** scope)

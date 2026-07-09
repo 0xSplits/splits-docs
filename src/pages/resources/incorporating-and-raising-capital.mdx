@@ -1,0 +1,68 @@
+---
+title: Incorporating & raising capital
+description: Options for forming a US legal entity and setting up banking, plus the onchain funding mechanisms teams use with Splits and how to receive a raise in USDC.
+---
+
+# Incorporating & raising capital [Forming a US entity, and funding it onchain]
+
+You're able to use the product without a legal entity (i.e. EIN or SSN), however, some features (like [on/offramping](/banking)) aren't available until you have one. There are many ways to create US legal entities, and this guide highlights just a few we are aware of. Not legal advice, do your own research.
+
+## Entity formation
+
+### Clerky
+
+[Clerky](https://www.clerky.com/) makes it easy to set up a Delaware C Corp. They also help you with post-incorporation paperwork, equity issuance, 83b elections, and other basic legal docs. It's designed for US-based founders creating "Silicon Valley startups", meaning it is not "crypto native" in any way; it is just a cost efficient way of establishing a Delaware C Corp.
+
+This is what we used to incorporate Splits. We bought the lifetime package and still use the turnkey legal docs for new employees, contractors, etc.
+
+### Stripe Atlas
+
+[Stripe Atlas](https://stripe.com/atlas) is similar to Clerky, and has integrated other products as part of the stack (e.g. banking, payments, Stripe credits, etc). [Atlas now accepts stables to incorporate](https://x.com/jeff_weinstein/status/2019221615637328201), which is great if you already cash onchain.
+
+### OtoCo
+
+[OtoCo](https://otoco.io/) lets you create a legal entity using an Etherum account. You can use your Splits accounts to do this (more info on [connecting to third party apps](/introduction/extension)). You choose the jurisdiction and entity type, and OtoCo handles the paperwork filing for you. Once you create your entity, you will be able to request a tax ID.
+
+![](/images/incorporating-and-banking-in-the-us/img-1.png)
+
+You can link as many of your Splits accounts to your entity as you wish. OtoCo is self-serve, but if you need assistance we can put you in touch with their team. [See their docs for more info](https://docs.otoco.io/docs/getting-started).
+
+## Banking
+
+[Mercury](https://mercury.com/) is best-in-class banking for US-based startups. Many of the above entity formation options will help you get set up with a Mercury account upon entity formation.
+
+## Raising capital onchain
+
+The onchain-native funding mechanisms we see teams use in conjunction with Splits. Use the [browser extension](/introduction/extension) to connect your Splits accounts to the apps below.
+
+### Clanker
+
+[Clanker](https://clanker.world/) is the most popular token launcher within our sphere today. Most builders launch their appcoins using Clanker, and use their Splits accounts for day-to-day token management (e.g. vesting/lockups, swaps, payments, offramps, etc).
+
+Clanker creators earn rewards based on trading volume of their token(s). When a token is launched, Clanker automatically sets up a single-sided Uniswap pool and directs earnings to the creator's account, which you can [view and claim in Splits](/integrations/clanker). To learn more, check out their [docs](https://clanker.gitbook.io/clanker-documentation/).
+
+### Noice
+
+[Noice](https://noice.so/) helps teams form capital and distribute tokens. [Here is a recent example](https://noice.so/roof). Once you're accepted (it's permissioned, so you need to apply), they will help get a fundraise campaign and page set up for you.
+
+Noice partners with Splits, so the Noice team will also help get your Splits accounts created so that you can more easily manage the funds once they're raised as well as your token positions (Uniswap pools etc). To learn more, check our their [docs](https://docs.noice.so/).
+
+### Echo
+
+[Echo](https://echo.xyz/), now part of Coinbase, is similar to "AngelList using USDC". They offer two types of raises: private and public. Private raises, once accepted, will pair you with a "deal lead" who will help manage your raise. You define the amount and terms, and your deal lead will handle the logistics of the raise. These raises are done on a SAFE note via a Cayman entity (Echo will set up the Cayman entity for investors to buy into), and tokens are dealt with via a side letter.
+
+Public raises are different and look more like a "permissioned token sale", where Echo handles the entity verification (i.e. KYC/B) and you handle the rest (website, contracts, etc). To learn more, check out their [docs](https://docs.echo.xyz/).
+
+### Tally
+
+[Tally](https://tally.xyz/) began with onchain governance for DAOs (i.e. proposals, voting, membership, etc). [Here is an example](https://www.tally.xyz/gov/arbitrum). They've now expanded to cover token sales and distributions as well (i.e. airdrop, ICO, and vesting).
+
+Tally's token launcher tools are similar to Clanker (define symbol, network, etc), but geared towards more established teams. They'll create a white-labelled site, provide more granular types of token sales (e.g. fixed-price, continuous clearing auctions, and liquidity bootstrapping pools), and offer governance tools post-ICO. To learn more, check out their [docs](https://docs.tally.xyz/).
+
+## Receiving investor funding
+
+For a traditional offchain raise (e.g. a SAFE) where investors send USDC:
+
+1. **Verify your investors first.** Complete KYC/KYB on each investor before accepting funds: the [Compliance](/contacts/compliance) flow handles this by email invite. (Not legal advice; talk to counsel.)
+2. **Create a dedicated account per investor** (e.g. "Jane Doe $10k") and share its address, so inbound capital is attributable and outstanding commitments are obvious. USDC transfers are final; for larger checks, have the investor send $1 first and confirm receipt before the rest.
+3. **Sweep and archive.** Forward each account's balance to your Treasury with a [memo](/transactions/memos), then archive the emptied account.

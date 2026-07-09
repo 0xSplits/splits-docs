@@ -1,0 +1,31 @@
+---
+title: Integrations
+description: How Splits connects to other apps, protocols, and platforms, including position integrations that surface claimable balances on account pages.
+---
+
+# Integrations [Using Splits accounts with other apps, protocols, and platforms]
+
+Splits accounts plug into the rest of the ecosystem through two generic paths:
+
+- **Apps**: connect an account to any third-party app via the [browser extension](/introduction/extension) or [WalletConnect](/integrations/walletconnect); the app sees Splits as a wallet.
+- **Agents and scripts**: operate Splits programmatically via the [CLI / MCP](/introduction/agents).
+
+Some integrations have behavior of their own:
+
+| Integration | What it is |
+| --- | --- |
+| [Bankr](/integrations/bankr) | Let a Bankr agent operate your treasury through the CLI |
+| [Clanker](/integrations/clanker) | Claim token rewards |
+| [ENS](/integrations/ens) | Register or transfer an ENS name to an account |
+| [Farcaster](/integrations/farcaster) | Verify a Splits account on your profile, use it as your recovery address, pay for storage |
+| [Hedgey](/integrations/hedgey) | Claim vesting and lockup streams |
+| [Rain](/integrations/rain) | Corporate cards collateralized by stablecoins from your accounts |
+| [Sablier](/integrations/sablier) | Claim vesting streams |
+| [Uniswap](/integrations/uniswap) | Claim LP fees |
+| [WalletConnect](/integrations/walletconnect) | Connect accounts to apps when the extension can't run |
+
+## Positions
+
+Claimable balances an account holds in external protocols appear under **Positions** on the account's page, next to its token balances: vesting and lockup streams ([Hedgey](/integrations/hedgey), [Sablier](/integrations/sablier)) and LP rewards ([Uniswap](/integrations/uniswap), [Clanker](/integrations/clanker)).
+
+Claiming a position is a normal [transaction](/transactions), approved at the account's [threshold](/accounts/thresholds). When a protocol charges a claim fee, it's shown in the claim dialog, and the account must hold enough of the fee token to claim. Email support to request another protocol.

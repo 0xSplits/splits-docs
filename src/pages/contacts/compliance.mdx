@@ -1,0 +1,24 @@
+---
+title: Compliance
+description: Collect W-9 and W-8 tax forms from the payees your team pays, and get year-end 1099 data for filing.
+---
+
+# Compliance [Collect tax forms from the people you pay]
+
+Compliance collects tax documentation from **payees** (the contractors and vendors your team pays) so those payments are documented for year-end filing.
+
+:::note
+Compliance is in limited availability. Email support to enable it for your team.
+:::
+
+## How it works
+
+1. An [Owner](/teams/permissions) invites a payee by email.
+2. The payee completes an identity verification flow powered by [Persona](https://withpersona.com/); their tax details are held by the verification provider, not Splits.
+3. Splits generates the correct form from the verified details: **W-9** for US persons, **W-8BEN** for foreign individuals, **W-8BEN-E** for foreign entities.
+
+Once a payee is verified, payments to them are tracked as compliant payments, and the payee appears as a recipient in the [send](/transactions/sends) flow.
+
+## Year-end filings
+
+Splits can produce a 1099 CSV for a filing year, covering your team's compliant payments: each payee's verified details plus the total USD paid. Email support to request the export.

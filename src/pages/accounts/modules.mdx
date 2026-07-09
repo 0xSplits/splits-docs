@@ -1,0 +1,30 @@
+---
+title: Modules
+description: Modules are contracts or keys allowlisted on an account that can execute transactions from it without signer approvals, and when to use one versus an ERC-20 approval.
+---
+
+# Modules [Allowlisted contracts and keys that can transact from an account without signatures]
+
+A module is an address on an account's module allowlist. An enabled module can execute any call from the account via [`executeFromModule`](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vaults/src/utils/ModuleManager.sol#L130-L160), **without signer approvals and regardless of the account's [threshold](/accounts/thresholds)**. Modules are the second control path on an account, alongside [signers](/accounts/signers).
+
+A module has full access to the account. Only enable addresses you trust completely, and prefer a dedicated [operating account](/accounts#operating-accounts) over your Treasury.
+
+## When to use
+
+**Automating custom transactions.** Enable a key you control (an "Executor": a server or agent EOA) as a module. The Executor can then execute any call from the account, including calls to permissioned contracts that check `msg.sender` (e.g. withdrawing LP fees), while everything the account receives stays managed in Splits. Secure the Executor key commensurate with the funds it can reach, both in the account and in any contract the account has privileges on.
+
+**Automating token transfers only: don't use a module.** Grant an ERC-20 approval instead: call `approve(spender, allowance)` on the token contract via a [custom transaction](/transactions/custom), then have the spender key call `transferFrom`. An approval is scoped to one token up to an allowance; a module can do anything.
+
+**Earning interest: handled for you.** The [Automated Earn](/accounts/earn#automated-earn) toggle enables Splits' open-source [Auto Earn Module](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vault-modules/src/AutoEarnModule.sol) on the account; no manual setup.
+
+**Deposit-address automation** (split/swap/forward incoming tokens): use an [automation account](/accounts#automation-accounts), not a module.
+
+## Enabling and disabling
+
+Enabling or disabling a module is an onchain transaction, approved by the account's signers at its current threshold:
+
+1. On the account's page, open [Custom transactions](/transactions/custom) and paste **the account's own address** as the contract address (a self-call).
+2. Select `enableModule` (or `disableModule`) and paste the module's address.
+3. Review, submit, and sign.
+
+Every module action is logged onchain: enabling, disabling, and each executed call emit events, and executed calls appear in your transaction feed.

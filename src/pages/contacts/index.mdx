@@ -1,0 +1,34 @@
+---
+title: Contacts
+description: "Contacts are team-wide names for external addresses, used everywhere addresses appear: recipient search, transaction feeds, accounting, and CSV exports."
+---
+
+# Contacts [Name the addresses your team transacts with]
+
+A contact is a team-wide name for an external address. Once saved, the name stands in for the raw address everywhere addresses appear: recipient search in [sends](/transactions/sends), transaction feeds, the [Accounting page](/accounting), and CSV exports. Contacts are shared by the whole team, and any member can create, edit, or delete them.
+
+## Creating
+
+Add contacts from the *Contacts* page, inline from any address shown in a transaction feed, or from the command menu. A contact is an address plus a display name; you can enter an ENS name, which is resolved once and stored as its address. Each address holds one contact per team, applied across all networks.
+
+Two restrictions: contacts must be EVM addresses, and your own Splits accounts can't be added as contacts (they're already named).
+
+## How addresses get named
+
+When Splits displays an address, it uses the first name it finds: your own account and bank-account names, then contact labels, then live ENS and Farcaster lookups, then [payee](/contacts/compliance) details, and finally the shortened address. Saving a contact pins a name your whole team sees, instead of depending on what an address resolves to.
+
+## Other named recipients
+
+Two recipient types are stored separately from contacts but appear alongside them in recipient search:
+
+- **Payees**: counterparties with a verified identity and tax forms; see [Compliance](/contacts/compliance).
+- **Vendor bank accounts**: fiat payees with a deposit address; see [Paying vendors](/banking/paying-vendors).
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits contacts list --q "acme"`: search contacts by name or address; returns up to 500 (**Read** scope)
+- `splits contacts lookup --addresses 0x...,0x...`: batch address-to-name lookup, max 100 addresses (**Read** scope)
+
+Creating and editing contacts is web-only today.

@@ -1,0 +1,10 @@
+---
+title: Tracking payments
+description: When Splits marks an invoice paid automatically, how to mark one paid manually, and how transactions get attached for bookkeeping.
+---
+
+# Tracking payments [When invoices get marked paid, and attaching transactions]
+
+An invoice is marked paid automatically when the payer completes payment through the invoice page (by [connecting a wallet or submitting a transaction link](/invoicing/paying)) and Splits verifies the transaction onchain. Verification requires a single transaction covering the full amount: overpayment is accepted, underpayment is rejected, and there are no partial payments. The verified transaction is attached to the invoice automatically.
+
+For payments that arrive any other way (including bank transfers), mark the invoice paid from the *Invoices* page. You can attach one or more transactions for bookkeeping; manually attached transactions are not amount-checked. Reverting an invoice from paid detaches its transactions.

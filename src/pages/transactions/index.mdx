@@ -1,0 +1,44 @@
+---
+title: Transactions
+description: How transactions work in Splits (proposals, signing against a threshold, execution) and the transaction types available.
+---
+
+# Transactions [Proposals that execute onchain once signers meet the threshold]
+
+Every transaction in Splits is a **proposal** that executes onchain once enough of the account's [signers](/accounts/signers) approve it to meet the account's threshold. On a 1-of-n account, proposing and executing happen in one step; on higher thresholds, the transaction waits for the remaining signatures.
+
+Who can propose is governed by [permissions](/teams/permissions): Owners can propose from any account, Members only from accounts they're a signer on.
+
+## Types
+
+| Type | What it does |
+| --- | --- |
+| [Sends](/transactions/sends) | Move tokens to any recipient, including tokens you don't hold, via just-in-time swaps |
+| [Swaps](/transactions/swaps) | Trade between tokens (bridging included), with no fees from Splits |
+| [Custom](/transactions/custom) | Call any writable function on any contract on a supported network |
+| [Batch](/transactions/batch) | Group multiple transactions into one signature |
+| [Schedules](/transactions/schedules) | Recur a transaction on an interval (e.g. payroll) |
+
+Every transaction can carry a [memo](/transactions/memos), and a team can require them on all transactions via the *Require memos* [setting](/teams/settings).
+
+## Gas sponsorship
+
+Splits sponsors transaction fees with a monthly gas stipend, applied at the team level and shared across all your accounts and networks. The stipend is based on the team's [Earn](/accounts/earn) balance:
+
+| Earn balance | Stipend |
+| --- | --- |
+| $0 | $5, one-time |
+| $1k+ | $5 per month |
+| $10k+ | $10 per month |
+| $100k+ | $100 per month |
+
+Once the stipend is used, transactions are paid in the network's native token (e.g. ETH); the app tells you at submission if the account doesn't hold enough. There is no way to view your remaining stipend yet. Sponsorship policies can change at any time without notice.
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits transactions list` / `get <id>`: query transactions with rich filters (**Read** scope)
+- `splits transactions create transfer` / `create custom`: propose transactions (**Write** scope)
+- `splits transactions sign <id>`: sign with a registered EOA (**Write** scope)
+- `splits transactions cancel <id>`: cancel a pending proposal (**Write** scope)

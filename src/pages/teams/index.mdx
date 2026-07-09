@@ -1,0 +1,36 @@
+---
+title: Teams
+description: "Teams are the primary organizational unit in Splits: creating one, the setup steps, and what gets created under the hood."
+---
+
+# Teams [The primary organizational unit, and how to create one]
+
+A [team](/introduction/core-concepts#team) is the primary organizational unit in Splits: every account, balance, transaction, and setting is scoped to one. A team has [members](/teams/members) and [accounts](/accounts) that hold its assets.
+
+## Creating a team
+
+Creating a team takes under a minute, and everything about it can be changed after setup **except Recovery**: changing recovery signers later generates new account addresses (see [Change recovery signers](/teams/recovery#changing-recovery-signers)).
+
+You can create and belong to as many teams as you wish. If you just registered, you're guided through creating one; otherwise click your team's name in the top left and select *Create a team*.
+
+:::note
+**Creating a demo team?** Skip the Owners and Treasury steps (keep the defaults), and on the Recovery step select *1 signer* and paste any address or ENS (e.g. example.eth). You can create a properly configured team later.
+:::
+
+### The setup steps
+
+1. **Team**: enter a name and optionally upload a logo.
+2. **User**: confirm your display name and photo, and add at least one passkey. **You must have at least one passkey to continue.** Your preferred passkey becomes your signer on the Treasury. See [Signers](/accounts/signers) for passkey guidance.
+3. **Owners**: add teammates as Owners. Owners are automatically added as signers on the Treasury and can invite other members. *Skip if solo or testing.*
+4. **Treasury**: set how many owners must approve each outgoing transaction from the Treasury (its [threshold](/accounts/thresholds)). *Skip if solo or testing.*
+5. **Recovery**: add at least one EOA (wallet address) as a recovery signer, and set the recovery threshold. Recovery is how you regain your assets if you lose your passkeys. We recommend multiple signers; at Splits we use a [2-of-3 with hardware wallets](/resources/how-we-work#our-workspace).
+6. **Review**: check everything, including which networks to activate. Active networks keep signer state in sync onchain. Base, Arbitrum, Optimism, and Ethereum Mainnet are activated by default; click *Change* to adjust. Hit *Finish*.
+
+### What gets created
+
+Finishing setup creates two accounts:
+
+- A hidden **Root** account controlled by your recovery signers, at the top of the ownership chain.
+- The **Treasury**, owned by the Root and controlled by the owners' passkeys. It's intended to hold the bulk of your assets, and it owns every account you create later.
+
+See [Account types](/accounts) for the full ownership model. From your new dashboard you can deposit funds, create accounts, [connect a bank](/banking), and [invite members](/teams/members).

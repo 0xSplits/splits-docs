@@ -1,0 +1,14 @@
+---
+title: Batch
+description: Batches group multiple transactions into one signature, from inside the Splits app or from external apps via the browser extension and WalletConnect.
+---
+
+# Batch [Group multiple transactions into one signature]
+
+A batch collects multiple transactions and executes them under a single signature. Prepare any transaction and, in the review dialog, select *Add to batch* instead of *Submit*; keep adding, then open the batch (at the top of the transaction feed) and submit once. Before signing, you can inspect each transaction's calls, view a simulation, or remove it from the batch.
+
+Each team has **one active batch at a time, on a single account and network**; *Add to batch* is disabled elsewhere while a batch is open. A batch holds up to 50 transactions.
+
+## Batching from external apps
+
+Transactions initiated in external apps through the [browser extension](/introduction/extension) or [WalletConnect](/integrations/walletconnect) offer the same *Add to batch* option in the Splits signing dialog. The external app may not show the transaction as pending until the batch executes.

@@ -1,0 +1,23 @@
+---
+title: Memos
+description: Memos annotate transactions for accounting, added at creation or retroactively, on outbound and inbound activity, and optionally required team-wide.
+---
+
+# Memos [Annotate transactions for clean books]
+
+A memo is a short note attached to a transaction. Memos appear alongside transactions throughout the app, filter the [Accounting page](/accounting), and are included in CSV exports.
+
+## Adding a memo
+
+Add memos when creating a transaction, or retroactively from the transaction's row menu (*Add memo*) in any feed, including on inbound transactions, where retroactive memos matter most. Any member can add or edit memos.
+
+## Requiring memos
+
+The *Require memos* [team setting](/teams/settings) rejects any new transaction without a memo, on every surface: the app, the [CLI / MCP](/introduction/agents), and [schedules](/transactions/schedules). It applies at creation only; memos on existing transactions stay editable.
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits transactions memo <id> --memo "text"`: set or clear a memo, max 500 characters (**Write** scope)
+- `splits transactions properties set <id> --properties '{"k":"v"}'`: structured JSON metadata beyond a memo; see [Agents](/introduction/agents#transaction-metadata) (**Write** scope)

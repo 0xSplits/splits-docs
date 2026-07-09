@@ -1,0 +1,21 @@
+---
+title: Custom
+description: Custom transactions call any writable function on any contract on a supported network, from a form when the ABI is known or from raw calldata when it isn't.
+---
+
+# Custom transactions [Call any writable function on any contract]
+
+A custom transaction is a proposal built from arbitrary contract calls: use it for anything without a dedicated flow, like ERC-20 approvals, protocol interactions, or [enabling a module](/accounts/modules#enabling-and-disabling). It can call any writable function on any contract deployed on a [supported network](/introduction/networks-and-assets).
+
+Open the builder with *Custom txn* on an account's page and paste the contract address, selecting the network if the contract exists on more than one.
+
+- **Contract with a known ABI**: pick from the contract's writable functions and fill in its parameters. Payable functions add an *Amount to pay* input, denominated in ETH.
+- **No ABI found**: enter raw calldata, with an optional ETH amount.
+
+*Review* shows the decoded calls and a simulation before you submit. Like every [transaction](/transactions), a custom transaction executes once signatures meet the account's threshold.
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits transactions create custom --account 0x... --chainId 8453 --calls '[{"to":"0x...","data":"0x..."}]'`: propose 1–20 raw calls in one transaction, each with an optional `value` in wei (**Write** scope)

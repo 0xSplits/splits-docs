@@ -1,0 +1,27 @@
+---
+title: Spam & tokens
+description: How Splits filters spam tokens by default, how your team hides or shows tokens, and what hiding removes from balances, feeds, and exports.
+---
+
+# Spam & tokens [Control which tokens your team sees]
+
+Splits classifies spam tokens and hides them by default. Your team can override the classification in either direction, per token, and the override always wins. Visibility is team-wide: there is no per-member or per-account token visibility.
+
+A hidden token disappears everywhere: balances, the transaction feed, the [Accounting page](/accounting), and CSV exports.
+
+## Hiding a token
+
+From any transaction feed, open the transaction's row menu and select *Report spam*. This hides the token for your whole team, and also feeds Splits' global spam classification. Any member can report spam. NFTs can be reported the same way from an account's balances.
+
+## Showing a hidden token
+
+[Settings > Tokens](https://app.splits.org/settings/team/tokens/) (visible to Owners) lists every token held across your accounts, including hidden ones, with a toggle per token: on means displayed, off means hidden. Turn a token on if the default filtering hid something real.
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits tokens whitelist`: tokens your team explicitly turned on (**Read** scope)
+- `splits tokens blocklist`: hidden tokens: global spam plus your team's own reports (**Read** scope)
+
+Changing visibility is web-only today.

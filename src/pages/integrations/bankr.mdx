@@ -1,0 +1,33 @@
+---
+title: Bankr
+description: "Let a Bankr agent operate your Splits treasury through the CLI: signer-based access with human co-approval by default, or module-based direct execution on a bounded account."
+---
+
+# Bankr [Let a Bankr agent operate your treasury through the CLI]
+
+[Bankr](https://bankr.bot) is an AI agent with its own trading wallet. Paired with Splits, the division of labor is: Bankr handles market reasoning and fast small-value moves from its own wallet; Splits holds the treasury, enforces the approval policy, and executes governed payments and revenue operations.
+
+A Bankr agent operates Splits through the [CLI / MCP](/introduction/agents). The [Bankr splits skill](https://github.com/BankrBot/skills/tree/main/splits) teaches the agent the full setup, command surface, and safety rules: install it, give the agent an API key, and it walks itself through the rest.
+
+## Access paths
+
+The agent gets execution power on an account one of two ways:
+
+| | As a signer | As a module |
+| --- | --- | --- |
+| Key | A dedicated EOA the CLI generates, [registered as a signer](/accounts/signers#eoas) | The Bankr wallet itself, [enabled as a module](/accounts/modules) |
+| Execution | Proposals, signed against the account's [threshold](/accounts/thresholds) | Direct, with no per-action approval |
+| Human in the loop | Yes, whenever the threshold is 2 or higher | None after enabling |
+| Reach | Only the accounts a human added it to | The account's full balance |
+| Revoking | Remove the signer | Disable the module |
+
+**Default to the signer path at a 2-of-n threshold**: the agent proposes and signs, and a human co-signs every execution. A 1-of-n account lets the agent execute alone; use one only deliberately, for low-value operations.
+
+The module path exists for autonomous execution, including calls to contracts that check `msg.sender` (e.g. claiming fees). A module has full, unilateral access, so enable it only on a dedicated, bounded [operating account](/accounts#operating-accounts) funded with only what you're willing to expose. **Never enable a module on the Treasury.**
+
+## Setup
+
+1. An Owner creates an API key in *Settings > API Keys* (**Owner** scope is required for the agent to create accounts or propose signer changes).
+2. The agent authenticates (`splits auth login`), generates and registers its own signing EOA (`splits auth create-key --register`), and either creates a new account with itself and a human passkey as signers, or proposes adding itself to an existing account, approved by a human in the app.
+
+The skill covers the exact commands, key handling, and validation rules. Everything the agent does surfaces like any other activity: proposals in the transaction feed, and module executions logged onchain and in the feed.
