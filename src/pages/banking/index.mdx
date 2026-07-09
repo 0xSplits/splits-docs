@@ -1,11 +1,15 @@
 ---
 title: Banking
-description: "Banking in Splits: verify your entity (KYB/KYC) to move between crypto and fiat by onramping, offramping, and paying vendors, plus supported jurisdictions."
+description: "Banking in Splits: verify your entity (KYB/KYC) to move between crypto and fiat, the supported jurisdictions, and the fee."
 ---
 
 # Banking [Verify your entity to move between crypto and fiat]
 
-Banking is an opt-in feature that connects your team to the fiat world. Once your team completes legal entity verification, you can move between crypto and fiat directly within Splits: [onramping](#onramping), [offramping](#offramping), and [paying vendors](/banking/paying-vendors).
+Banking is an opt-in feature that connects your team to the fiat world. Once your team completes legal entity verification, you can move between crypto and fiat directly within Splits:
+
+- [Onramping](/banking/onramping): fiat in, by ACH or wire
+- [Offramping](/banking/offramping): crypto out, to your own bank accounts
+- [Paying vendors](/banking/paying-vendors): crypto out, to someone else's bank account
 
 On/offramps cost 0.25%, deducted from the transaction amount. Setting up banking (verification, bank accounts, onramp details) requires the [Owner](/teams/permissions) role.
 
@@ -22,21 +26,3 @@ Splits supports **US- and EU-based individuals and businesses**, excluding [coun
 If you live elsewhere, you can still use banking as long as your entity is legally registered in the US and you have a US- or EU-based bank account. Because bank accounts are added by routing/account number (US) or IBAN (EU), accounts at fintechs like [Wise](https://wise.com) generally work like any other bank account.
 
 For what KYB requires, see [Bridge's business onboarding docs](https://docs.google.com/document/d/1UjwaXWHNEs3PTaj2R2l_CLxGApj8Uc8NHlL_WVd6TFY/edit?usp=sharing). To request support for another jurisdiction, email support@splits.org.
-
-## Onramping
-
-Once your entity is verified, you can onramp funds to your team via ACH or wire. Click *Onramp* from the Dashboard, or find the account info in Settings > Banks.
-
-By default, funds arrive in your Treasury account as USDC on Base. You can change the destination account and network at any time.
-
-## Offramping
-
-Before you can offramp, add a bank account from Settings > Banks: connect a US account with [Plaid](https://plaid.com/) or enter its routing and account numbers manually; EU accounts are added by IBAN. You can add as many bank accounts as you wish.
-
-Then offramp either by clicking *Offramp* on the Dashboard, or from Settings > Banks: click the three dots on the target bank account and select *Offramp*.
-
-### How long does offramping take?
-
-In the US, we send via [Same Day ACH, which settles in batches throughout the day](https://apidocs.bridge.xyz/platform/orchestration/more/cutoffs#processing-windows-and-cutoff-times). In Eastern Time, settlement occurs at 1:00 pm, 5:00 pm, and 6:00 pm, with corresponding cutoffs at 9:15 am, 1:30 pm, and 3:30 pm (we've added a 15m buffer relative to Bridge's documentation, which has been necessary in our experience). Offramps sent after 3:30 pm ET arrive the following business day.
-
-For IBAN banks supporting SEPA Instant, settlement occurs in under 30 seconds.

@@ -13,7 +13,7 @@ Who can propose is governed by [permissions](/teams/permissions): Owners can pro
 
 | Type | What it does |
 | --- | --- |
-| [Sends](/transactions/sends) | Move tokens to any recipient — including tokens you don't hold, via just-in-time swaps |
+| [Sends](/transactions/sends) | Move tokens to any recipient, including tokens you don't hold, via just-in-time swaps |
 | [Swaps](/transactions/swaps) | Trade between tokens (bridging included), with no fees from Splits |
 | [Custom](/transactions/custom) | Call any writable function on any contract on a supported network |
 | [Batch](/transactions/batch) | Group multiple transactions into one signature |
@@ -38,7 +38,7 @@ Once the stipend is used, transactions are paid in the network's native token (e
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits transactions list` / `get <id>` — query transactions with rich filters (**Read** scope)
-- `splits transactions create transfer` / `create custom` — propose transactions (**Write** scope)
-- `splits transactions sign <id>` — sign with a registered EOA (**Write** scope)
-- `splits transactions cancel <id>` — cancel a pending proposal (**Write** scope)
+- `splits transactions list` / `get <id>`: query transactions with rich filters (**Read** scope)
+- `splits transactions create transfer` / `create custom`: propose transactions (**Write** scope)
+- `splits transactions sign <id>`: sign with a registered EOA (**Write** scope)
+- `splits transactions cancel <id>`: cancel a pending proposal (**Write** scope)

@@ -13,9 +13,12 @@ type Page =
   | { path: '/accounts/recovery'; render: 'static' }
   | { path: '/accounts/signers'; render: 'static' }
   | { path: '/accounts/thresholds'; render: 'static' }
-  | { path: '/banking/compliance'; render: 'static' }
   | { path: '/banking'; render: 'static' }
+  | { path: '/banking/offramping'; render: 'static' }
+  | { path: '/banking/onramping'; render: 'static' }
   | { path: '/banking/paying-vendors'; render: 'static' }
+  | { path: '/contacts/compliance'; render: 'static' }
+  | { path: '/contacts'; render: 'static' }
   | { path: '/'; render: 'static' }
   | { path: '/integrations/bankr'; render: 'static' }
   | { path: '/integrations/clanker'; render: 'static' }

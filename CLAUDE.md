@@ -31,7 +31,7 @@ User-facing docs for Splits (app.splits.org), built with Vocs. Pages serve **two
 - **Section landing pages**: each feature section's title links to an index page (`src/pages/<section>/index.mdx`) that defines the noun and covers its primary flow (e.g. Teams landing includes "Creating a team"). No "Overview"/"Creating"-style child pages.
 - **The product is "the app"** at app.splits.org (teams.splits.org is deprecated). Write "onchain" (no hyphen). No marketing jargon: be explicit and precise about what things are.
 - **Capitalization: product-named entities are proper nouns; generic concepts are lowercase.** Capitalize roles (Owner, Member), named accounts (Root, Treasury), and feature names (Earn, Automated Earn, Splits Connect, Recovery-the-settings-surface). Lowercase concepts: signer, passkey, threshold, account, team, module, automation, invoice, memo. Note the pair this enables: "member" = a person in a team; "Member" = the role.
-- **Em dashes**: allowed as separators in list items and tables (`` `command` — description ``); not in prose, where a colon, period, comma, or parentheses replaces it. The prose linter flags violations.
+- **Em dashes**: never, anywhere. List items and definition lists use a colon separator (`` `command`: description ``); in prose, a colon, period, comma, semicolon, or parentheses replaces the em dash. The prose linter flags every em dash.
 - **"Team" → "workspace" rename is planned** in the product. Docs keep saying "team" until the product ships the rename, then migrate in one pass (prose + `/teams/` URLs + section name).
 
 ## Style

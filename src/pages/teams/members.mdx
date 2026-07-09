@@ -13,7 +13,7 @@ Membership confers **no onchain authority**: a member cannot move funds unless o
 
 Every member has exactly one of two roles: **Owner** or **Member**.
 
-- **Owners** administer the team — members, accounts, invoices, automations, banking, recovery — and can propose transactions from any account.
+- **Owners** administer the team (members, accounts, invoices, automations, banking, recovery) and can propose transactions from any account.
 - **Members** can propose transactions only from accounts they're a signer on, and cannot access Owner-only settings.
 
 For the full capability matrix, see [Permissions](/teams/permissions).
@@ -48,7 +48,7 @@ Prerequisites: you must be an **Owner** of the team.
 1. Go to [Settings > Members](https://app.splits.org/settings/team/members/) and select *Invite member*.
 2. Enter the invitee's email address and select their role.
 3. The invitee receives an email with a join link (it may land in spam). If they're new to Splits, they create a person account as part of accepting.
-4. During acceptance, the invitee is prompted to save a passkey — they need at least one [signer](/accounts/signers) before they can be added to an account's signer set.
+4. During acceptance, the invitee is prompted to save a passkey: they need at least one [signer](/accounts/signers) before they can be added to an account's signer set.
 5. You receive an email confirmation once they've accepted.
 
 To give the new member signing power on an account, continue to [Managing signers](/accounts/thresholds#changing-signers-and-thresholds).
@@ -63,7 +63,7 @@ Removing a member revokes their offchain access only. If their signers are on an
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits members list` — list all members of the team (requires **Read** scope)
-- `splits members signers <userId>` — list a member's passkey IDs, needed when adding them as a signer via `accounts create` or `accounts update-signers` (requires **Read** scope)
+- `splits members list`: list all members of the team (requires **Read** scope)
+- `splits members signers <userId>`: list a member's passkey IDs, needed when adding them as a signer via `accounts create` or `accounts update-signers` (requires **Read** scope)
 
 Managing members (inviting, removing, changing roles) is web-only today.

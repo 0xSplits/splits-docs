@@ -56,12 +56,9 @@ function walk(dir, files = []) {
   return files
 }
 
-// Em dashes: allowed as list/table separators; flagged in prose (LLM-tell appositive tic).
-const EM_DASH_PROSE = /—/
-function isProseLine(line) {
-  const t = line.trim()
-  return t && !t.startsWith('-') && !t.startsWith('|') && !t.startsWith('#') && !/^\d+\./.test(t)
-}
+// Em dashes: never allowed. Lists/definitions use a colon separator; prose uses a
+// colon, period, comma, semicolon, or parentheses.
+const EM_DASH = /—/
 
 const targets = process.argv.slice(2).length ? process.argv.slice(2) : ['src/pages']
 let count = 0
@@ -77,8 +74,8 @@ for (const target of targets) {
           count++
         }
       }
-      if (isProseLine(line) && EM_DASH_PROSE.test(line)) {
-        console.log(`${file}:${i + 1}: [em dash in prose] ${line.trim().slice(0, 120)}`)
+      if (EM_DASH.test(line)) {
+        console.log(`${file}:${i + 1}: [em dash] ${line.trim().slice(0, 120)}`)
         count++
       }
     })

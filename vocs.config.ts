@@ -82,12 +82,21 @@ export default defineConfig({
       ],
     },
     {
+      text: 'Contacts',
+      link: '/contacts',
+      collapsed: true,
+      items: [
+        { text: 'Compliance', link: '/contacts/compliance' },
+      ],
+    },
+    {
       text: 'Banking',
       link: '/banking',
       collapsed: true,
       items: [
+        { text: 'Onramping', link: '/banking/onramping' },
+        { text: 'Offramping', link: '/banking/offramping' },
         { text: 'Paying vendors', link: '/banking/paying-vendors' },
-        { text: 'Compliance', link: '/banking/compliance' },
       ],
     },
     {

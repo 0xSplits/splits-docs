@@ -17,7 +17,7 @@ To add or remove signers on an account, see [Managing signers](/accounts/thresho
 
 - **iCloud Keychain and Google Password Manager** are the most reliable. 1Password, BitWarden, and LastPass also work.
 - **Yubikeys** are the most reliable for higher-value accounts.
-- **On mobile, use OS-native passkeys** — they sign without opening a third-party app. **Don't use 1Password as a mobile signer**: Android doesn't always show third-party apps when signing.
+- **On mobile, use OS-native passkeys**: they sign without opening a third-party app. **Don't use 1Password as a mobile signer**: Android doesn't always show third-party apps when signing.
 
 Browsers order password manager options differently. If yours doesn't appear, click *Cancel*/*X* (Chrome) or *Other options* (Safari) to reveal the rest.
 
@@ -46,8 +46,8 @@ Confirm you still control a signer's private key without moving funds: Splits ha
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits accounts signers <address>` — an account's signers and threshold (**Read** scope)
-- `splits members signers <userId>` — a member's passkey IDs (**Read** scope)
-- `splits auth register-signer <address>` — register an EOA so it can be added as a signer
+- `splits accounts signers <address>`: an account's signers and threshold (**Read** scope)
+- `splits members signers <userId>`: a member's passkey IDs (**Read** scope)
+- `splits auth register-signer <address>`: register an EOA so it can be added as a signer
 
 For the full headless flow (create key → register → attach → sign), see [Sign locally with an EOA](/introduction/agents#sign-locally-with-an-eoa).

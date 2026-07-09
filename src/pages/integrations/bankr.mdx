@@ -28,6 +28,6 @@ The module path exists for autonomous execution, including calls to contracts th
 ## Setup
 
 1. An Owner creates an API key in *Settings > API Keys* (**Owner** scope is required for the agent to create accounts or propose signer changes).
-2. The agent authenticates (`splits auth login`), generates and registers its own signing EOA (`splits auth create-key --register`), and either creates a new account with itself and a human passkey as signers, or proposes adding itself to an existing account — approved by a human in the app.
+2. The agent authenticates (`splits auth login`), generates and registers its own signing EOA (`splits auth create-key --register`), and either creates a new account with itself and a human passkey as signers, or proposes adding itself to an existing account, approved by a human in the app.
 
 The skill covers the exact commands, key handling, and validation rules. Everything the agent does surfaces like any other activity: proposals in the transaction feed, and module executions logged onchain and in the feed.

@@ -3,7 +3,7 @@ title: Accounts
 description: "Accounts in Splits: the four account types, the onchain ownership chain, and thresholds."
 ---
 
-# Accounts [Where assets live — account types, ownership, and thresholds]
+# Accounts [Where assets live: account types, ownership, and thresholds]
 
 An account is where assets are stored within a team. Every account exists at the same address on every network it's active on, has a [threshold](/accounts/thresholds) of required approvals, and is controlled by [signers](/accounts/signers), plus, optionally, [modules](/accounts/modules).
 
@@ -34,7 +34,7 @@ Operating accounts are general-purpose accounts you transact from directly, with
 
 Most active teams run many: each account acts as a labeled sub-ledger for a specific program, revenue source, campaign, partner, asset flow, or temporary operation. Common patterns:
 
-- A dedicated account per project, revenue source, campaign, or partner — isolated for accounting, archived when done
+- A dedicated account per project, revenue source, campaign, or partner, isolated for accounting and archived when done
 - Separate accounts per asset type (stables, investments, NFTs)
 - A low-threshold (e.g. 1-of-n) account for frequent operations like swapping, funded from the higher-threshold Treasury
 
@@ -60,7 +60,7 @@ An account's page also shows **positions**: claimable balances the account holds
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits accounts list` — all accounts in the team (**Read** scope)
-- `splits accounts create --name "Name" --threshold 2` — create an operating account (**Owner** scope)
-- `splits accounts rename <address>` / `archive` / `unarchive` — manage accounts (**Owner** scope)
-- `splits automations list` — the team's automations (**Read** scope)
+- `splits accounts list`: all accounts in the team (**Read** scope)
+- `splits accounts create --name "Name" --threshold 2`: create an operating account (**Owner** scope)
+- `splits accounts rename <address>` / `archive` / `unarchive`: manage accounts (**Owner** scope)
+- `splits automations list`: the team's automations (**Read** scope)
