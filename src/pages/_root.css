@@ -64,10 +64,15 @@ body {
   border-radius: 0.45rem;
 }
 
-/* The content surface's top-left corner (vocs sets 1rem at lg+). */
+/*
+ * The content surface's top-left corner (vocs sets 1rem at lg+). The sticky
+ * "On this page" strip draws the same corner on top of the surface at
+ * lg-to-1376px widths, so both must carry the same radius or two arcs show.
+ */
 @media (min-width: 1024px) {
-  [data-v-topnav] > [data-v-surface-bg] {
-    border-top-left-radius: 0.45rem;
+  [data-v-topnav] > [data-v-surface-bg],
+  [data-v-outline-mobile] {
+    border-top-left-radius: 0.45rem !important;
   }
 }
 
