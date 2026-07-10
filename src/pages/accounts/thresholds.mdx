@@ -9,7 +9,7 @@ Every [account](/accounts) has a threshold: the number of [signer](/accounts/sig
 
 ## Changing signers and thresholds
 
-An account's signer set and threshold live onchain together and change together: from the account's settings, by signing an "Update signers state" transaction. The change is approved at the account's *current* threshold and applies on every network the team is active on. Any [team member](/teams/members) with a passkey (or registered EOA) can be added as a signer.
+An account's signer set and threshold are stored onchain as a single state and edited through a single flow: from the account's settings, by signing an "Update signers state" transaction. One change can add or remove signers, change the threshold, or both; swapping a signer while keeping the threshold is one transaction. The change is approved at the account's *current* threshold and applies on every network the team is active on. The flow is the same for the Treasury and operating accounts, and any [team member](/teams/members) with a passkey (or registered EOA) can be added as a signer.
 
 One signing session covers every network: the signers sign the merkle root of a tree containing one copy of the update transaction per active network, and each network's copy executes with a proof against that root. Signer state can't diverge across networks because no network is ever signed for separately.
 

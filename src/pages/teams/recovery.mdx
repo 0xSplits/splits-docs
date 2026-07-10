@@ -1,27 +1,27 @@
 ---
 title: Recovery
-description: Why recovery exists, how recovery signers control the Root account, how to recover your accounts, and why changing recovery signers changes addresses.
+description: Why recovery exists, how recovery signers control the Root account, how to recover a team's accounts, and why changing recovery signers changes addresses.
 ---
 
-# Recovery [Regain control of every account if your team's passkeys are lost]
+# Recovery [Regain control of every account if a team's passkeys are lost]
 
 Recovery is how a team regains its accounts without Splits' help. [Recovery signers](/accounts/signers#recovery-signers) (EOAs chosen at [team setup](/teams)) control the [Root account](/accounts#root) at the recovery threshold, and because the Root owns every other account, they can reset any account's signers and threshold.
 
 ## Why recovery exists
 
-Splits never has custody of your assets, so there must be a way to regain them that doesn't depend on us, or on your passkeys. Passkeys are phishing-resistant because they're bound to the issuing domain; the flip side is that if splits.org went offline, or your passkey manager were compromised or lost, your passkeys would become unusable. Recovery signers are ordinary Ethereum keys with no such dependency: they work as long as the chain does.
+Splits never has custody of a team's assets, so there must be a way to regain them that depends on neither Splits nor the passkeys. Passkeys are phishing-resistant because they're bound to the issuing domain; the flip side is that if splits.org went offline, or a passkey manager were compromised or lost, the passkeys would become unusable. Recovery signers are ordinary Ethereum keys with no such dependency: they work as long as the chain does.
 
 ## Recovering your accounts
 
-Recovery is the last resort: first confirm the passkeys are lost. [Verify your own](/accounts/signers#verifying-signers) at *Settings > Personal > Passkeys*, and check teammates' passkeys by hovering over the key icon on their row in *Settings > Members*.
+Recovery is the last resort: first confirm the passkeys are lost. [Verify your own](/accounts/signers#verifying-signers) at [Settings > Personal > Passkeys](https://app.splits.org/settings/personal/passkeys/), and check teammates' passkeys by hovering over the key icon on their row in [Settings > Members](https://app.splits.org/settings/team/members/).
 
-1. Go to *Settings > Recovery* and select the account marked with a star (★) in the left nav: the owner of all sub-accounts, usually the Treasury.
+1. Go to [Settings > Recovery](https://app.splits.org/settings/team/recovery/) and select the account marked with a star (★) in the left nav: the owner of all sub-accounts, usually the Treasury.
 2. Click *Recover account* and designate the account's new signers and threshold.
 3. Connect the recovery wallet(s) and sign. The transaction needs signatures meeting the recovery threshold.
 
 ## Changing recovery signers
 
-Account addresses are derived from your recovery configuration using [`CREATE2`](https://docs.openzeppelin.com/cli/2.8/deploying-with-create2). That's what makes every account's address identical on every network (including networks added later) while keeping custody fully yours. The consequence: **changing recovery signers changes your account addresses.**
+Account addresses are derived from the recovery configuration using [`CREATE2`](https://docs.openzeppelin.com/cli/2.8/deploying-with-create2). That's what makes every account's address identical on every network (including networks added later) while keeping custody fully with the team. The consequence: **changing recovery signers changes the team's account addresses.**
 
 The practical way to change them today is to create a new team. Email support to migrate your offchain data (members, contacts, on/offramp info, schedules), and remember to update any revenue or funding sources (smart contracts, invoices) to the new team's addresses.
 

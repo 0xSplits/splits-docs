@@ -113,6 +113,20 @@ table[data-v] {
 }
 
 /*
+ * Below 1376px the "On this page" outline renders as a sticky strip above
+ * the content, but vocs' scroll-padding-top only accounts for the top nav,
+ * so anchor navigation lands section titles underneath the strip. Add the
+ * strip's height (max-h-12 = 3rem) at exactly those widths.
+ */
+@media (max-width: 1375.98px) {
+  :root:root {
+    scroll-padding-top: calc(
+      var(--vocs-spacing-topNav) + var(--vocs-spacing-banner) + 3rem + 1rem
+    );
+  }
+}
+
+/*
  * The built-in "Last updated" line is re-rendered by the page footer row
  * (src/pages/_mdx-wrapper.tsx) alongside the support email, so hide the
  * original.

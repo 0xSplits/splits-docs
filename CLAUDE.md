@@ -45,5 +45,6 @@ User-facing docs for Splits (app.splits.org), built with Vocs. Pages serve **two
 ## Mechanics
 
 - Never commit without explicit approval.
+- **Settings deep links**: the first actionable mention of a settings surface on a page links to its app URL (e.g. `[Settings > Banks](https://app.splits.org/settings/team/banks/)`); later mentions on the same page and table cells stay plain.
 - Sidebar lives in `vocs.config.ts`; URLs derive from file paths under `src/pages/`; moving a file changes its URL, so update inbound links (grep for the old path).
 - Verify with `pnpm build` (validates all internal links) and check the `.md` twin (e.g. `curl localhost:5173/teams/members.md`); that is what agents consume.

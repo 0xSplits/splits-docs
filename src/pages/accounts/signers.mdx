@@ -11,7 +11,7 @@ To add or remove signers on an account, see [Managing signers](/accounts/thresho
 
 ## Passkeys
 
-[Passkeys](https://www.dashlane.com/blog/what-is-a-passkey-and-how-does-it-work) are key pairs saved in a password manager, activated by biometrics or a PIN. Add them at *Settings > Personal > Passkeys*; they work across every team you're in.
+[Passkeys](https://www.dashlane.com/blog/what-is-a-passkey-and-how-does-it-work) are key pairs saved in a password manager, activated by biometrics or a PIN. Add them at [Settings > Personal > Passkeys](https://app.splits.org/settings/personal/passkeys/); they work across every team the member is part of.
 
 ### Password managers
 
@@ -27,14 +27,14 @@ An EOA (externally owned account, a standard Ethereum keypair) can be [registere
 
 ## Recovery signers
 
-Recovery signers are EOAs that control the [Root account](/accounts#root), at the recovery threshold set during [team setup](/teams). Because the Root owns every other account, recovery signers can regain control of all of them if your team's passkeys are lost: they are the backstop beneath your day-to-day signers. Changing them generates new account addresses ([why](/teams/recovery#changing-recovery-signers)). To use them, see [Recovering your accounts](/teams/recovery).
+Recovery signers are EOAs that control the [Root account](/accounts#root), at the recovery threshold set during [team setup](/teams). Because the Root owns every other account, recovery signers can regain control of all of them if the team's passkeys are lost: they are the backstop beneath the day-to-day signers. Changing them generates new account addresses ([why](/teams/recovery#changing-recovery-signers)). To use them, see [Recovering your accounts](/teams/recovery).
 
 ## Verifying signers
 
 Confirm you still control a signer's private key without moving funds: Splits has the key sign a test message.
 
 - **Passkeys**: *Settings > Personal > Passkeys* → three dots → *Verify access…*. Each passkey shows when it was last verified or used.
-- **Recovery signers**: *Settings > Recovery* → three dots → *Verify signer*. Requires connecting the wallet.
+- **Recovery signers**: [Settings > Recovery](https://app.splits.org/settings/team/recovery/) → three dots → *Verify signer*. Requires connecting the wallet.
 
 ## Troubleshooting
 

@@ -7,7 +7,7 @@ description: Modules are contracts or keys allowlisted on an account that can ex
 
 A module is an address on an account's module allowlist. An enabled module can execute any call from the account via [`executeFromModule`](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vaults/src/utils/ModuleManager.sol#L130-L160), **without signer approvals and regardless of the account's [threshold](/accounts/thresholds)**. Modules are the second control path on an account, alongside [signers](/accounts/signers).
 
-A module has full access to the account. Only enable addresses you trust completely, and prefer a dedicated [operating account](/accounts#operating-accounts) over your Treasury.
+A module has full access to the account. Only enable addresses you trust completely, and prefer a dedicated [operating account](/accounts#operating-accounts) over the Treasury.
 
 ## When to use
 
@@ -15,7 +15,7 @@ A module has full access to the account. Only enable addresses you trust complet
 
 **Automating token transfers only: don't use a module.** Grant an ERC-20 approval instead: call `approve(spender, allowance)` on the token contract via a [custom transaction](/transactions/custom), then have the spender key call `transferFrom`. An approval is scoped to one token up to an allowance; a module can do anything.
 
-**Earning interest: handled for you.** The [Automated Earn](/accounts/earn#automated-earn) toggle enables Splits' open-source [Auto Earn Module](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vault-modules/src/AutoEarnModule.sol) on the account; no manual setup.
+**Earning interest.** The [Automated Earn](/accounts/earn#automated-earn) toggle enables Splits' open-source [Auto Earn Module](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vault-modules/src/AutoEarnModule.sol) on the account; no manual setup.
 
 **Deposit-address automation** (split/swap/forward incoming tokens): use an [automation account](/accounts#automation-accounts), not a module.
 
@@ -27,4 +27,4 @@ Enabling or disabling a module is an onchain transaction, approved by the accoun
 2. Select `enableModule` (or `disableModule`) and paste the module's address.
 3. Review, submit, and sign.
 
-Every module action is logged onchain: enabling, disabling, and each executed call emit events, and executed calls appear in your transaction feed.
+Every module action is logged onchain: enabling, disabling, and each executed call emit events, and executed calls appear in the transaction feed.

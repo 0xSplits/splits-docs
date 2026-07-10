@@ -1,13 +1,15 @@
 ---
 title: Networks and assets
-description: Networks and asset types supported by Splits. Full and partial support, how to enable networks, and how to request more.
+description: Networks and asset types supported by Splits, full and partial support, and how to enable networks per team.
 ---
 
-# Networks and assets [Supported networks and asset types, and how to request more]
+# Networks and assets [Supported networks and asset types]
 
 Splits supports some networks fully (every feature) and a longer tail partially (sending and asset recovery only). Owners turn networks on and off per team in [Settings > Networks](https://app.splits.org/settings/team/networks/) (see [Settings](/teams/settings)).
 
 Enabled networks are kept in sync: an account has the same address, signers, threshold, and owner on all of them, because [signer changes are signed once for every active network](/accounts/thresholds#changing-signers-and-thresholds). An account's state is synced to a newly enabled network before the account is used there; disabling a network requires nothing onchain.
+
+Email support to request another network or asset type; most EVM-equivalent networks can be supported, pending our underlying providers.
 
 ## Fully supported networks
 
@@ -35,10 +37,8 @@ Every feature works on these networks, including the [browser extension](/introd
 | Solana | **✅** | |
 | EVM [Relay networks](https://docs.relay.link/references/api/api_resources/supported-chains) | **✅** | |
 
-- **Send**: you can bridge and send tokens to an external address on this network.
-- **Asset recovery**: if tokens are sent to your Splits account's address on this network, you can bridge them back to a fully supported network.
-
-Email support to request another network. We can support most EVM-equivalent networks, pending support from our underlying providers.
+- **Send**: tokens can be bridged and sent to an external address on this network.
+- **Asset recovery**: tokens sent to a Splits account's address on this network can be bridged back to a fully supported network.
 
 ## Supported assets
 
@@ -47,4 +47,4 @@ Email support to request another network. We can support most EVM-equivalent net
 - ERC-721
 - ERC-1155
 
-All supported assets work on all supported networks. Email support to request another asset type. If you send an unsupported asset to a Splits account, contact us and we will attempt to recover it.
+All supported assets work on all supported networks. If you send an unsupported asset to a Splits account, contact us and we will attempt to make it recoverable.

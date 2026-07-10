@@ -13,7 +13,7 @@ Farcaster's contracts live on Optimism, and you call them from Splits with [cust
 
 Farcaster verifies a contract account by checking an [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) signature **on Ethereum mainnet**, and doesn't accept [ERC-6492](https://eips.ethereum.org/EIPS/eip-6492) signatures from not-yet-deployed contracts. A Splits account produces a plain EIP-1271 signature only once deployed, so before verifying:
 
-1. Enable Ethereum Mainnet for your team in [Settings > Networks](/teams/settings).
+1. Enable Ethereum Mainnet for your team in [Settings > Networks](https://app.splits.org/settings/team/networks/).
 2. Deploy the account on mainnet by sending any transaction from it there. Accounts deploy on their first transaction per network; once deployed, Etherscan shows a *Contract* tab at the account's address.
 
 Then connect the account at [farcaster.xyz > Settings > Verified addresses](https://farcaster.xyz/~/settings/verified-addresses) using the [browser extension](/introduction/extension) or [WalletConnect](/integrations/walletconnect), and sign the verification message.
