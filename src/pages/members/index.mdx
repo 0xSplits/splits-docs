@@ -1,0 +1,44 @@
+---
+title: Members
+description: "What a member is in Splits: one person across many teams, with their own profile and keys and a role per team, and how members are invited and removed."
+---
+
+# Members [One person across many teams, with their own profile, keys, and a role per team]
+
+A **member** is a person in Splits, identified by their email address. One member can belong to any number of [teams](/teams), and holds two kinds of things:
+
+- **Across every team**: their profile (display name, email, avatar) and their [signing keys](/members/keys) (passkeys and registered EOAs). These belong to the member, not to any team.
+- **Per team**: a membership, stored offchain, with a [role](/teams/roles) (Owner or Member), granting read access to that team's accounts, balances, and transactions plus the role's administrative capabilities.
+
+Membership confers **no onchain authority**: a member cannot move funds unless one of their signing keys has been added to an account's signer set, making them a [signer](/accounts/signers#signers-vs-membership) on that account.
+
+## Signing up
+
+Members authenticate by email: enter yours at [app.splits.org](https://app.splits.org) and click the emailed sign-in link, or sign in with a passkey once you've saved one. Most members register by [accepting an invite](#inviting); registering directly leads into [creating a team](/teams#creating-a-team).
+
+## Inviting
+
+Prerequisites: you must be an **Owner** of the team.
+
+1. Go to [Settings > Members](https://app.splits.org/settings/team/members/) and select *Invite member*.
+2. Enter the invitee's email address and select their role.
+3. The invitee receives an email with a join link (it may land in spam). If they're new to Splits, they register as part of accepting.
+4. During acceptance, the invitee is prompted to save a passkey: they need at least one [signing key](/members/keys) before they can be added to an account's signer set.
+5. You receive an email confirmation once they've accepted.
+
+To give the new member signing power on an account, continue to [Changing signers](/accounts/editing#changing-signers-and-thresholds).
+
+## Role changes and removal
+
+Owners can change a member's role, remove a member, or revoke a pending invitation from the member's row in [Settings > Members](https://app.splits.org/settings/team/members/).
+
+Removing a member revokes their offchain access only. If their signing keys are signers on any account, remove them via a separate onchain [signer update](/accounts/editing#changing-signers-and-thresholds).
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits members list`: list all members of the team (requires **Read** scope)
+- `splits members signers <userId>`: list a member's passkey IDs, needed when adding them as a signer via `accounts create` or `accounts update-signers` (requires **Read** scope)
+
+Managing members (inviting, removing, changing roles) is web-only today.

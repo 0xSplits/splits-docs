@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s localhost:5173/*)",
+      "Bash(curl localhost:5173/*)",
+      "Bash(git grep *)",
+      "Bash(node scripts/check-prose.mjs *)",
+      "Bash(pnpm build)",
+      "Bash(pnpm typecheck)",
+      "mcp__claude_ai_Notion__notion-fetch",
+      "mcp__claude_ai_Notion__notion-search",
+      "mcp__claude_ai_Notion__notion-query-data-sources",
+      "mcp__claude-in-chrome__tabs_context_mcp"
+    ]
+  }
+}

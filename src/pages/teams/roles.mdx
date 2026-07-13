@@ -1,16 +1,13 @@
 ---
-title: Permissions
+title: Roles
 description: The authoritative reference for what each role (Owner, Member) and each API key scope (read, write, owner) can do in Splits.
 ---
 
-# Permissions [What each role and API key scope can do]
+# Roles [What each role and API key scope can do]
 
-Splits has two permission systems:
+Every team [member](/members) has exactly one of two roles: **Owner** or **Member**. Roles are stored offchain, govern what a person can see and do in the app, and are scoped to one team: the same person can be an Owner of one team and a Member of another. A role never grants signing authority: approving transactions belongs to an account's onchain signer set, and the boundary is drawn at [Signers](/accounts/signers#signers-vs-membership).
 
-1. **Roles**: every team member is an **Owner** or a **Member**. Roles are stored offchain and govern what a person can see and do in the app.
-2. **Signers**: onchain signer sets on each account govern who can approve transactions. Roles never grant signing authority; see [Signers](/accounts/signers).
-
-A third, related surface (**API key scopes**) governs what programmatic clients can do; see [below](#api-key-scopes).
+A related surface (**API key scopes**) governs what programmatic clients can do; see [below](#api-key-scopes).
 
 ## What each role can do
 
@@ -30,6 +27,12 @@ A third, related surface (**API key scopes**) governs what programmatic clients 
 | Onramp / offramp | ✅ | ❌ |
 | Entity verification (KYB/KYC) and payment info | ✅ | ❌ |
 | Manage recovery | ✅ | ❌ |
+
+## Read-only members
+
+A member with the **Member** role whose signing keys aren't signers on any account is effectively read-only: they can see the team's accounts, balances, and transactions, but can't propose or sign any. (Owners can propose from any account, so read-only requires the Member role.)
+
+To set one up, [invite them](/members#inviting) with the Member role and don't add them to any account's signer set. Useful for accountants, auditors, and anyone who needs visibility without the ability to move funds.
 
 ## Settings visibility by role
 

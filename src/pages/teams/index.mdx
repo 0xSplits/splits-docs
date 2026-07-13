@@ -5,7 +5,7 @@ description: "Teams are the primary organizational unit in Splits: creating one,
 
 # Teams [The primary organizational unit, and how to create one]
 
-A [team](/introduction/core-concepts#team) is the primary organizational unit in Splits: every account, balance, transaction, and setting is scoped to one. A team has [members](/teams/members) and [accounts](/accounts) that hold its assets.
+A [team](/introduction/core-concepts#team) is the primary organizational unit in Splits: every account, balance, transaction, and setting is scoped to one. A team has [members](/members) and [accounts](/accounts) that hold its assets.
 
 ## Creating a team
 
@@ -20,7 +20,7 @@ A member can create and belong to any number of teams. If you just registered, y
 ### The setup steps
 
 1. **Team**: enter a name and optionally upload a logo.
-2. **User**: confirm your display name and photo, and add at least one passkey. **You must have at least one passkey to continue.** Your preferred passkey becomes your signer on the Treasury. See [Signers](/accounts/signers) for passkey guidance.
+2. **User**: confirm your display name and photo, and add at least one passkey. **You must have at least one passkey to continue.** Your preferred passkey becomes your signer on the Treasury. See [Signing keys](/members/keys) for passkey guidance.
 3. **Owners**: add teammates as Owners. Owners are automatically added as signers on the Treasury and can invite other members. *Skip if solo or testing.*
 4. **Treasury**: set how many owners must approve each outgoing transaction from the Treasury (its [threshold](/accounts/thresholds)). *Skip if solo or testing.*
 5. **Recovery**: add at least one EOA (wallet address) as a recovery signer, and set the recovery threshold. Recovery is how you regain your assets if you lose your passkeys. We recommend multiple signers; at Splits we use a [2-of-3 with hardware wallets](/resources/how-we-work#our-workspace).
@@ -33,4 +33,4 @@ Finishing setup creates two accounts:
 - A hidden **Root** account controlled by your recovery signers, at the top of the ownership chain.
 - The **Treasury**, owned by the Root and controlled by the owners' passkeys. It's intended to hold the bulk of your assets, and it owns every account you create later.
 
-See [Account types](/accounts) for the full ownership model. From your new dashboard you can deposit funds, create accounts, [connect a bank](/banking), and [invite members](/teams/members).
+See [Account types](/accounts) for the full ownership model. From your new dashboard you can deposit funds, create accounts, [connect a bank](/banking), and [invite members](/members#inviting).

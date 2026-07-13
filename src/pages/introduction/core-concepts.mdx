@@ -6,7 +6,7 @@ description: The three concepts Splits is built around (Team, Member, and Accoun
 # Core concepts [Team, Member, and Account: the three ideas everything else builds on]
 
 - **[Team](/teams)**: the unit everything is scoped to. One team per set of books: a company, an individual, or a project.
-- **[Member](/teams/members)**: a person who belongs to a team, with a role and their own signing keys.
+- **[Member](/members)**: a person who belongs to a team, with a role and their own signing keys.
 - **[Account](/accounts)**: where a team's assets live, at the same address on every network, controlled by signers at a threshold.
 
 ## Team
@@ -19,9 +19,9 @@ When deciding between a new team and an existing one, ask "who are the owners?" 
 
 ## Member
 
-A member is a person who belongs to a [team](/teams). Members authenticate with email, and one member can belong to many teams. Every member has a [role](/teams/permissions) (Owner or Member) that determines what they can administer, and holds **signing keys**: passkeys saved in the app, or EOAs [registered via the CLI](/introduction/agents#sign-locally-with-an-eoa).
+A member is a person who belongs to a [team](/teams). Members authenticate with email, and one member can belong to many teams. Every member has a [role](/teams/roles) (Owner or Member) that determines what they can administer, and holds **[signing keys](/members/keys)**: passkeys saved in the app, or EOAs [registered via the CLI](/introduction/agents#sign-locally-with-an-eoa).
 
-A member's keys can become [signers](/accounts/signers) on accounts; membership alone grants no signing authority. Keys, email, display name, and avatar belong to the member, not the team, so they work across every team a member is part of ([Settings > Personal](https://app.splits.org/settings/personal/general/)). For roles, inviting, and removal, see [Members](/teams/members).
+A member's signing keys can become [signers](/accounts/signers) on accounts; membership alone grants no signing authority. Signing keys, email, display name, and avatar belong to the member, not the team, so they work across every team a member is part of ([Settings > Personal](https://app.splits.org/settings/personal/general/)). For roles, inviting, and removal, see [Members](/members).
 
 ## Account
 

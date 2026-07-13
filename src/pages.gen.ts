@@ -10,6 +10,7 @@ type Page =
   | { path: '/accounting'; render: 'static' }
   | { path: '/accounting/spam'; render: 'static' }
   | { path: '/accounts/earn'; render: 'static' }
+  | { path: '/accounts/editing'; render: 'static' }
   | { path: '/accounts'; render: 'static' }
   | { path: '/accounts/modules'; render: 'static' }
   | { path: '/accounts/signers'; render: 'static' }
@@ -40,14 +41,15 @@ type Page =
   | { path: '/invoicing/paying'; render: 'static' }
   | { path: '/invoicing/recurring'; render: 'static' }
   | { path: '/invoicing/tracking'; render: 'static' }
+  | { path: '/members'; render: 'static' }
+  | { path: '/members/keys'; render: 'static' }
   | { path: '/resources/brand-assets'; render: 'static' }
   | { path: '/resources/how-we-work'; render: 'static' }
   | { path: '/resources/incorporating-and-raising-capital'; render: 'static' }
   | { path: '/resources/security'; render: 'static' }
   | { path: '/teams'; render: 'static' }
-  | { path: '/teams/members'; render: 'static' }
-  | { path: '/teams/permissions'; render: 'static' }
   | { path: '/teams/recovery'; render: 'static' }
+  | { path: '/teams/roles'; render: 'static' }
   | { path: '/teams/settings'; render: 'static' }
   | { path: '/transactions/batch'; render: 'static' }
   | { path: '/transactions/custom'; render: 'static' }

@@ -1,0 +1,45 @@
+---
+title: Signing keys
+description: "The signing keys a member holds, passkeys and EOAs: password manager guidance, registering an EOA, verifying access, and troubleshooting."
+---
+
+# Signing keys [The passkeys and EOAs a member signs with, across every team]
+
+A member's signing keys are what sign transactions: **passkeys** saved in the app, or **EOAs** registered via the CLI. Keys belong to the [member](/members), not to any team, so they work across every team the member is part of. The private key stays with the member; **Splits never has access to private keys.**
+
+A key on its own moves nothing. It gains signing authority only when added to an account's signer set, becoming one of that account's [signers](/accounts/signers), counted against the account's [threshold](/accounts/thresholds). Managing keys here never edits any account's signer set; see [Signers](/accounts/signers) for that boundary and [Editing](/accounts/editing) for the onchain flow.
+
+## Passkeys
+
+[Passkeys](https://www.dashlane.com/blog/what-is-a-passkey-and-how-does-it-work) are key pairs saved in a password manager, activated by biometrics or a PIN. Add them at [Settings > Personal > Passkeys](https://app.splits.org/settings/personal/passkeys/).
+
+### Password managers
+
+- **iCloud Keychain and Google Password Manager** are the most reliable. 1Password, BitWarden, and LastPass also work.
+- **Yubikeys** are the most reliable for higher-value accounts.
+- **On mobile, use OS-native passkeys**: they sign without opening a third-party app. **Don't use 1Password as a mobile signer**: Android doesn't always show third-party apps when signing.
+
+Browsers order password manager options differently. If yours doesn't appear, click *Cancel*/*X* (Chrome) or *Other options* (Safari) to reveal the rest.
+
+## EOAs
+
+An EOA (externally owned account, a standard Ethereum keypair) can be [registered via the CLI](/introduction/agents#sign-locally-with-an-eoa) and added as a signer, letting agents and servers sign headlessly. A team's [recovery signers](/teams/recovery#recovery-signers) are also EOAs.
+
+## Verifying access
+
+Confirm you still control a passkey's private key without moving funds: Splits has the key sign a test message. Go to *Settings > Personal > Passkeys* → three dots → *Verify access…*. Each passkey shows when it was last verified or used.
+
+Recovery signers have their own verification flow; see [Verifying recovery signers](/teams/recovery#verifying-recovery-signers).
+
+## Troubleshooting
+
+**Passkey won't open.** Usually the password manager: 1Password and Bitwarden are finicky, especially in newer browsers (e.g. Arc/Dia), and 1Password's prompt appears in the browser's top-right corner. Isolate the passkey by [verifying it](#verifying-access), toggle the manager's extension off and on, and hard-refresh. Test at [webauthn.io](https://webauthn.io/): reproduces there → the provider; only on our site → email support. Slow Windows passkeys: delete temporary files (`%temp%` and `prefetch` via `Windows + R`) and reboot. If a passkey is unrecoverable, see [Recovery](/teams/recovery).
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits auth register-signer <address>`: register an EOA so it can be added as a signer
+- `splits members signers <userId>`: a member's passkey IDs, needed when adding them as a signer (**Read** scope)
+
+For the full headless flow (create key → register → attach → sign), see [Sign locally with an EOA](/introduction/agents#sign-locally-with-an-eoa).

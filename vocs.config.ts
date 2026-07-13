@@ -34,10 +34,17 @@ export default defineConfig({
       link: '/teams',
       collapsed: true,
       items: [
-        { text: 'Members', link: '/teams/members' },
-        { text: 'Permissions', link: '/teams/permissions' },
+        { text: 'Roles', link: '/teams/roles' },
         { text: 'Recovery', link: '/teams/recovery' },
         { text: 'Settings', link: '/teams/settings' },
+      ],
+    },
+    {
+      text: 'Members',
+      link: '/members',
+      collapsed: true,
+      items: [
+        { text: 'Signing keys', link: '/members/keys' },
       ],
     },
     {
@@ -47,6 +54,7 @@ export default defineConfig({
       items: [
         { text: 'Signers', link: '/accounts/signers' },
         { text: 'Thresholds', link: '/accounts/thresholds' },
+        { text: 'Editing', link: '/accounts/editing' },
         { text: 'Modules', link: '/accounts/modules' },
         { text: 'Earn', link: '/accounts/earn' },
       ],
