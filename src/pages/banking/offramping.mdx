@@ -1,6 +1,6 @@
 ---
 title: Offramping
-description: "Move crypto out to the team's bank accounts: connecting banks via Plaid or manual entry, initiating an offramp, and settlement timing for ACH and SEPA."
+description: "Move crypto out to the team's bank accounts: connecting banks via Plaid or manual entry, initiating an offramp, settlement timing for ACH and SEPA, and using your own offramp provider."
 ---
 
 # Offramping [Move crypto out to the team's bank accounts]
@@ -16,3 +16,9 @@ Offramps carry the 0.25% [banking fee](/banking), deducted from the amount. To s
 In the US, we send via [Same Day ACH, which settles in batches throughout the day](https://apidocs.bridge.xyz/platform/orchestration/more/cutoffs#processing-windows-and-cutoff-times). In Eastern Time, settlement occurs at 1:00 pm, 5:00 pm, and 6:00 pm, with corresponding cutoffs at 9:15 am, 1:30 pm, and 3:30 pm (we've added a 15m buffer relative to Bridge's documentation, which has been necessary in our experience). Offramps sent after 3:30 pm ET arrive the following business day.
 
 For IBAN banks supporting SEPA Instant, settlement occurs in under 30 seconds.
+
+## Using your own provider
+
+If your team already has an offramping provider, you can offramp through it instead, without completing Splits' [entity verification](/banking#getting-verified). Most providers issue a **liquidation address**: a deposit address that converts incoming stablecoins to fiat and forwards them to your bank account. Save that address as a [contact](/contacts), then [send](/transactions/sends) stablecoins to it like any other recipient.
+
+Splits treats these as ordinary sends: the 0.25% banking fee and the settlement times above don't apply; your provider's own fees and timing do.
