@@ -1,9 +1,18 @@
 import { defineConfig } from 'vocs/config'
 
+// Previews reference themselves so their OG cards are testable before merge.
+// Computed here (top level, Node) and passed as a plain string: vocs
+// stringifies the ogImageUrl function into the client bundle, so process.env
+// must not appear inside it.
+const baseUrl =
+  process.env.VERCEL_ENV === 'preview' && process.env.VERCEL_BRANCH_URL
+    ? `https://${process.env.VERCEL_BRANCH_URL}`
+    : 'https://splits-docs.splits.org'
+
 export default defineConfig({
   title: 'Splits',
   description: 'Guides, integrations, and resources for using Splits.',
-  baseUrl: 'https://splits-docs.splits.org',
+  baseUrl,
   // baseUrl is undefined in dev (vocs blanks it); relative is correct there.
   ogImageUrl: (path, { baseUrl }) =>
     `${baseUrl ?? ''}/api/og?title=%title&path=${encodeURIComponent(path)}`,
