@@ -19,7 +19,7 @@ const LINE_STEP = 10
 const LINE_AMP = 1.2
 const LINE_WIDTH = 3
 const NOISE_SCALE = 5.5 * 0.001
-const INTENSITY = 0.75
+const INTENSITY = 1
 const SCRIM_LEFT = 1
 const SCRIM_TOP = 1
 
@@ -100,7 +100,7 @@ function wavesSvg(path: string) {
     const amp = i * LINE_AMP
     // Brand hue, muted: matches patternHSL(brand) in the preview.
     const h = 224 + rand() * 10
-    const l = 25 + rand() * 30
+    const l = 30 + rand() * 40
     const pts: string[] = []
     for (let k = 0; k <= nPts; k++) {
       const x = (k / nPts) * W
