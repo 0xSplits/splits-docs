@@ -3,6 +3,10 @@ import { defineConfig } from 'vocs/config'
 export default defineConfig({
   title: 'Splits',
   description: 'Guides, integrations, and resources for using Splits.',
+  baseUrl: 'https://splits-docs.splits.org',
+  // baseUrl is undefined in dev (vocs blanks it); relative is correct there.
+  ogImageUrl: (path, { baseUrl }) =>
+    `${baseUrl ?? ''}/api/og?title=%title&path=${encodeURIComponent(path)}`,
   accentColor: 'light-dark(#2143FA, #5B78FF)',
   iconUrl: {
     light: '/splits_compressed.svg',
