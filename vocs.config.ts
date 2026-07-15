@@ -1,13 +1,15 @@
 import { defineConfig } from 'vocs/config'
 
-// Previews reference themselves so their OG cards are testable before merge.
+// og:image must be absolute in production (X and Farcaster drop relative
+// URLs). Previews leave baseUrl unset: setting it makes vocs emit a
+// <base href> that re-anchors every relative link off the preview domain.
 // Computed here (top level, Node) and passed as a plain string: vocs
 // stringifies the ogImageUrl function into the client bundle, so process.env
 // must not appear inside it.
 const baseUrl =
-  process.env.VERCEL_ENV === 'preview' && process.env.VERCEL_BRANCH_URL
-    ? `https://${process.env.VERCEL_BRANCH_URL}`
-    : 'https://splits-docs.splits.org'
+  !process.env.VERCEL_ENV || process.env.VERCEL_ENV === 'production'
+    ? 'https://splits-docs.splits.org'
+    : undefined
 
 export default defineConfig({
   title: 'Splits',
