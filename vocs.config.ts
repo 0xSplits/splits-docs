@@ -1,8 +1,23 @@
 import { defineConfig } from 'vocs/config'
 
+// og:image must be absolute in production (X and Farcaster drop relative
+// URLs). Previews leave baseUrl unset: setting it makes vocs emit a
+// <base href> that re-anchors every relative link off the preview domain.
+// Computed here (top level, Node) and passed as a plain string: vocs
+// stringifies the ogImageUrl function into the client bundle, so process.env
+// must not appear inside it.
+const baseUrl =
+  !process.env.VERCEL_ENV || process.env.VERCEL_ENV === 'production'
+    ? 'https://splits-docs.splits.org'
+    : undefined
+
 export default defineConfig({
   title: 'Splits',
   description: 'Guides, integrations, and resources for using Splits.',
+  baseUrl,
+  // baseUrl is undefined in dev (vocs blanks it); relative is correct there.
+  ogImageUrl: (path, { baseUrl }) =>
+    `${baseUrl ?? ''}/api/og?title=%title&path=${encodeURIComponent(path)}`,
   accentColor: 'light-dark(#2143FA, #5B78FF)',
   iconUrl: {
     light: '/splits_compressed.svg',
