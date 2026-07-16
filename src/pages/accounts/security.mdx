@@ -1,0 +1,40 @@
+---
+title: Security model
+description: "What the Splits account contract enforces onchain versus what is platform policy: owner powers, signer thresholds, the blast radius of a compromised signing key, address determinism, and liveness."
+---
+
+# Security model [What the account contract enforces onchain, and what is platform policy]
+
+Every Splits [account](/accounts) is a **SmartVault**: an ERC-4337 smart account targeting EntryPoint v0.7, deployed as a UUPS proxy, based on [Coinbase's Smart Wallet](https://github.com/coinbase/smart-wallet). The contract source is in [splits-contracts-monorepo](https://github.com/0xSplits/splits-contracts-monorepo/tree/main/packages/smart-vaults); for audits and the bug bounty, see [Security & bug bounty](/resources/security).
+
+This page describes what that contract enforces. Everything else (the app's approval flows, [roles](/teams/roles), transaction policies) is platform policy: real controls, but enforced by Splits servers rather than by the chain.
+
+## Two layers of control
+
+Every account has a signer set and an owner, and the owner outranks the signers.
+
+**Signers** authorize transactions. Passkeys and EOAs are equal-power [signers](/accounts/signers), counted against one m-of-n [threshold](/accounts/thresholds). Signers that meet the threshold can take any action from the account, including changing its own signer set and threshold. **The contract applies no per-signer restrictions: signing power is not scoped by operation type, target contract, or function.**
+
+**The owner** can execute from the account directly, with no signer approvals, and is the only path to upgrading the account's contract implementation or transferring its ownership. **No threshold of an account's own signers can upgrade the account or change its owner, even by having the account call itself**: the contract rejects self-calls to those functions whenever an owner is set.
+
+Ownership follows the [account hierarchy](/accounts): each account's owner is the account above it. The exception is [the Root](/accounts#root), which owns itself, so owner powers over it fall to its own signers, the recovery signers, at the recovery threshold. The recovery signers are therefore the team's ultimate root of trust: no key below them can reach them, and nothing above them exists.
+
+## A compromised signing key
+
+A key (or set of keys) that meets an account's threshold can take any action from that account, including rotating its signer set, by submitting user operations (UserOps) directly to a bundler. **Approval flows in the app are platform policy, not chain enforcement**: they don't bind a key that bypasses the app.
+
+What it can never do: touch the account's owner or code, or act from any account where it doesn't meet the threshold.
+
+Recovery from a compromise is contract-enforced. The parent account, as owner, rotates the child's signers back, bypassing the child's threshold entirely; the app surfaces this as a [signer reset](/accounts/editing#resetting-signers), but it is an ordinary owner call, executable through any RPC. The blast radius of a leaked key is therefore the account's contents plus whatever it did before the parent rotated it out. The account's address survives, so deposits, integrations, and anything else pointing at it never needs to change.
+
+## Addresses
+
+An account's address is fixed at creation by CREATE2: it is derived from the account's owner, initial signers, threshold, and a salt. The factory contract is deployed at the same address on [every supported network](/introduction/networks-and-assets), so the same inputs produce the same account address everywhere, including networks added later. Later signer or threshold changes never change the address.
+
+Because the Root's address depends on its initial signers, and every address below depends on its owner's, the whole tree is anchored to the recovery configuration; this is why [changing recovery signers changes the team's account addresses](/teams/recovery#changing-recovery-signers).
+
+## Liveness
+
+Executing a transaction requires only signatures meeting the threshold and the public ERC-4337 infrastructure. The contract has no bundler allowlist, no platform co-signature, and no dependency on Splits servers: if the Splits API is unreachable, signers can construct and submit UserOps to any public bundler with standard ERC-4337 tooling. The app and CLI submit through the Splits API; direct submission is manual.
+
+[Gas sponsorship](/transactions#gas-sponsorship) is likewise a platform service, not a dependency: unsponsored transactions pay fees from the account's own balance.

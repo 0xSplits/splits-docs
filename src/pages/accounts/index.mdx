@@ -16,7 +16,7 @@ An account is where assets are stored within a team. Every account exists at the
 
 Accounts form an ownership chain (Root → Treasury → operating and automation accounts) in which each account is the onchain owner of those below it.
 
-Ownership carries the powers signers don't have. An account's signers can change the account's own signer set and threshold, but **only its owner can upgrade the account's contract implementation or transfer its ownership**, and the owner can execute from the account directly, which is how a [signer reset](/accounts/editing#resetting-signers) and [recovery](/teams/recovery) work. A rogue signer on a low-threshold account can therefore reach at most that account's balance, never its ownership or code. The Root has no external owner and owns itself: owner actions on it fall to its own signers, the recovery signers, at the recovery threshold.
+Ownership carries the powers signers don't have: it is how a [signer reset](/accounts/editing#resetting-signers) and [recovery](/teams/recovery) work, and it bounds what a compromised signing key can reach. The [security model](/accounts/security) covers what the contract enforces. The Root has no external owner and owns itself: owner actions on it fall to its own signers, the recovery signers, at the recovery threshold.
 
 ## Root
 

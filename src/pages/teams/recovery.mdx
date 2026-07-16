@@ -31,7 +31,7 @@ With the Treasury back under control, [reset any sub-account](/accounts/editing#
 
 ## Changing recovery signers
 
-Account addresses are derived from the recovery configuration using [`CREATE2`](https://docs.openzeppelin.com/cli/2.8/deploying-with-create2). That's what makes every account's address identical on every network (including networks added later) while keeping custody fully with the team. The consequence: **changing recovery signers changes the team's account addresses.**
+Every account address in the team is [anchored to the recovery configuration](/accounts/security#addresses). The consequence: **changing recovery signers changes the team's account addresses.**
 
 The practical way to change them today is to create a new team. Email support to migrate your offchain data (members, contacts, on/offramp info, schedules), and remember to update any revenue or funding sources (smart contracts, invoices) to the new team's addresses.
 

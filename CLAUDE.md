@@ -39,6 +39,7 @@ Any agent should be able to take a product PR and update these docs without a hu
 | Signing keys: passkeys, password managers, EOAs, verifying access, troubleshooting | `/members/keys` |
 | Account types, ownership chain (Root → Treasury → sub-accounts) | `/accounts` |
 | Signer definition, signers-vs-membership boundary | `/accounts/signers` |
+| Contract basis (SmartVault), onchain-vs-policy enforcement, owner-outranks-signers, compromised-key blast radius, address determinism, bundler liveness | `/accounts/security` |
 | Thresholds, choosing one | `/accounts/thresholds` |
 | Renaming, changing signers and thresholds, resetting signers via the owner | `/accounts/editing` |
 | Proposal model, transaction types, gas sponsorship | `/transactions` |

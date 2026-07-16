@@ -78,6 +78,7 @@ export default defineConfig({
         { text: 'Editing', link: '/accounts/editing' },
         { text: 'Modules', link: '/accounts/modules' },
         { text: 'Earn', link: '/accounts/earn' },
+        { text: 'Security model', link: '/accounts/security' },
       ],
     },
     {

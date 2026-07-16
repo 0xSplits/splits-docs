@@ -14,6 +14,7 @@ type Page =
   | { path: '/accounts/editing'; render: 'static' }
   | { path: '/accounts'; render: 'static' }
   | { path: '/accounts/modules'; render: 'static' }
+  | { path: '/accounts/security'; render: 'static' }
   | { path: '/accounts/signers'; render: 'static' }
   | { path: '/accounts/thresholds'; render: 'static' }
   | { path: '/banking'; render: 'static' }
