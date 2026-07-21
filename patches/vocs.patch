@@ -63,16 +63,12 @@ diff --git a/dist/waku/internal/patches/adapters/vercel-build-enhancer.js b/dist
              headers: {
                  'cache-control': 'public, immutable, max-age=31536000',
              },
-@@ -93,8 +94,16 @@
+@@ -93,8 +94,12 @@
                  { handle: 'filesystem' },
                  ...markdown.afterFilesystem,
                  {
 +                    src: `^${basePath.replace(/\/$/, '')}$`,
 +                    dest: '/' + rscBase + '/',
-+                },
-+                {
-+                    src: `^${basePath}(.+\\.[^/]+)$`,
-+                    dest: '/$1',
 +                },
 +                {
                      src: basePath + '(.*)',

@@ -1,10 +1,9 @@
 {
+  "redirects": [{ "source": "/docs", "destination": "/docs/", "permanent": false }],
   "rewrites": [
-    { "source": "/docs", "destination": "/docs/" },
     { "source": "/docs/assets/:path*", "destination": "/assets/:path*" },
     { "source": "/docs/llms.txt", "destination": "/llms.txt" },
     { "source": "/docs/llms-full.txt", "destination": "/llms-full.txt" },
-    { "source": "/docs/sitemap.xml", "destination": "/sitemap.xml" },
     { "source": "/docs/splits_compressed.svg", "destination": "/splits_compressed.svg" },
     {
       "source": "/docs/splits_compressed_dark.svg",
