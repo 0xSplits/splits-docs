@@ -46,7 +46,7 @@ index 242cf4f6f5babe929912b71b3a6476bf66c3be57..aa599660d3434590b31345e3ee086502
 diff --git a/dist/waku/internal/patches/adapters/vercel-build-enhancer.js b/dist/waku/internal/patches/adapters/vercel-build-enhancer.js
 --- a/dist/waku/internal/patches/adapters/vercel-build-enhancer.js
 +++ b/dist/waku/internal/patches/adapters/vercel-build-enhancer.js
-@@ -5,7 +5,7 @@ function escapeRegExp(value) {
+@@ -5,7 +5,7 @@
      return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
  }
  function markdownRoutes({ assetsDir, basePath, rscBase, }) {
@@ -55,12 +55,33 @@ diff --git a/dist/waku/internal/patches/adapters/vercel-build-enhancer.js b/dist
      const markdownSource = `^${basePath}(?!${assetsDir}/)(.*\\.md)$`;
      const cleanPageSource = `^${basePath}(?!${assetsDir}/)(?!.*\\.[^/]+$)(.*)$`;
      const markdownUserAgentPattern = `.*(?:${[...aiUserAgents, ...terminalUserAgents]
-@@ -94,7 +94,7 @@ async function postBuild({ assetsDir, distDir, rscBase, privateDir, basePath, DI
+@@ -51,7 +51,7 @@
+ `;
+     const publicDir = path.resolve(distDir, DIST_PUBLIC);
+     const outputDir = path.resolve('.vercel', 'output');
+-    const staticDir = path.join(outputDir, 'static');
++    const staticDir = path.join(outputDir, 'static', basePath.replace(/^\/+|\/+$/g, ''));
+     mkdirSync(outputDir, { recursive: true });
+     rmSync(staticDir, { recursive: true, force: true });
+     cpSync(publicDir, staticDir, { recursive: true });
+@@ -93,8 +93,12 @@
+                 { handle: 'filesystem' },
                  ...markdown.afterFilesystem,
                  {
++                    src: basePath.replace(/\/$/, ''),
++                    dest: '/' + rscBase + '/',
++                },
++                {
                      src: basePath + '(.*)',
 -                    dest: basePath + rscBase + '/',
 +                    dest: '/' + rscBase + '/',
                  },
              ]
              : []),
+@@ -108,4 +112,4 @@
+         await postBuild(options);
+     };
+ }
+-//# sourceMappingURL=vercel-build-enhancer.js.map
+\ No newline at end of file
++//# sourceMappingURL=vercel-build-enhancer.js.map
