@@ -55,21 +55,24 @@ diff --git a/dist/waku/internal/patches/adapters/vercel-build-enhancer.js b/dist
      const markdownSource = `^${basePath}(?!${assetsDir}/)(.*\\.md)$`;
      const cleanPageSource = `^${basePath}(?!${assetsDir}/)(?!.*\\.[^/]+$)(.*)$`;
      const markdownUserAgentPattern = `.*(?:${[...aiUserAgents, ...terminalUserAgents]
-@@ -51,7 +51,7 @@
- `;
-     const publicDir = path.resolve(distDir, DIST_PUBLIC);
-     const outputDir = path.resolve('.vercel', 'output');
--    const staticDir = path.join(outputDir, 'static');
-+    const staticDir = path.join(outputDir, 'static', basePath.replace(/^\/+|\/+$/g, ''));
-     mkdirSync(outputDir, { recursive: true });
-     rmSync(staticDir, { recursive: true, force: true });
-     cpSync(publicDir, staticDir, { recursive: true });
-@@ -93,8 +93,12 @@
+@@ -83,6 +83,7 @@
+     const routes = [
+         {
+             src: `^${basePath}${assetsDir}/(.*)$`,
++            dest: `/${assetsDir}/$1`,
+             headers: {
+                 'cache-control': 'public, immutable, max-age=31536000',
+             },
+@@ -93,8 +94,16 @@
                  { handle: 'filesystem' },
                  ...markdown.afterFilesystem,
                  {
-+                    src: basePath.replace(/\/$/, ''),
++                    src: `^${basePath.replace(/\/$/, '')}$`,
 +                    dest: '/' + rscBase + '/',
++                },
++                {
++                    src: `^${basePath}(.+\\.[^/]+)$`,
++                    dest: '/$1',
 +                },
 +                {
                      src: basePath + '(.*)',
