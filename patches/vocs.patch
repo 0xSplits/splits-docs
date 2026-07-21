@@ -43,3 +43,24 @@ index 242cf4f6f5babe929912b71b3a6476bf66c3be57..aa599660d3434590b31345e3ee086502
                      // Non-link item is a header.
                      if (text)
                          return (_jsxs("div", { className: depth > 0 ? Section.childHeaderClassName : Section.rootHeaderClassName, "data-condensed": condensed && depth > 1, "data-collapsed": collapsed, "data-collapsable": collapsable, "data-v-sidebar-section-header": true, ...(collapsable
+diff --git a/dist/waku/internal/patches/adapters/vercel-build-enhancer.js b/dist/waku/internal/patches/adapters/vercel-build-enhancer.js
+--- a/dist/waku/internal/patches/adapters/vercel-build-enhancer.js
++++ b/dist/waku/internal/patches/adapters/vercel-build-enhancer.js
+@@ -5,7 +5,7 @@ function escapeRegExp(value) {
+     return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+ }
+ function markdownRoutes({ assetsDir, basePath, rscBase, }) {
+-    const destination = basePath + rscBase + '/';
++    const destination = '/' + rscBase + '/';
+     const markdownSource = `^${basePath}(?!${assetsDir}/)(.*\\.md)$`;
+     const cleanPageSource = `^${basePath}(?!${assetsDir}/)(?!.*\\.[^/]+$)(.*)$`;
+     const markdownUserAgentPattern = `.*(?:${[...aiUserAgents, ...terminalUserAgents]
+@@ -94,7 +94,7 @@ async function postBuild({ assetsDir, distDir, rscBase, privateDir, basePath, DI
+                 ...markdown.afterFilesystem,
+                 {
+                     src: basePath + '(.*)',
+-                    dest: basePath + rscBase + '/',
++                    dest: '/' + rscBase + '/',
+                 },
+             ]
+             : []),
