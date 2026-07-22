@@ -3,6 +3,7 @@
   "rewrites": [
     { "source": "/docs/:path*.md", "destination": "/assets/md/:path*.md" },
     { "source": "/docs/assets/:path*", "destination": "/assets/:path*" },
+    { "source": "/docs/images/:path*", "destination": "/images/:path*" },
     { "source": "/docs/llms.txt", "destination": "/llms.txt" },
     { "source": "/docs/llms-full.txt", "destination": "/llms-full.txt" },
     { "source": "/docs/sitemap.xml", "destination": "/sitemap.xml" },

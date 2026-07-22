@@ -17,6 +17,10 @@ export default defineConfig({
   description: 'Guides, integrations, and resources for using Splits.',
   basePath,
   baseUrl,
+  // splits.org owns trailing-slash canonicalization (Next `trailingSlash: true`)
+  // and proxies /docs here. Normalize internally instead of redirecting, so the
+  // two hosts can never bounce a request between them.
+  trailingSlashRedirect: false,
   // baseUrl is undefined in dev (vocs blanks it); relative is correct there.
   ogImageUrl: (path, { baseUrl }) =>
     `${baseUrl ?? ''}/docs/api/og?title=%title&path=${encodeURIComponent(path)}`,
