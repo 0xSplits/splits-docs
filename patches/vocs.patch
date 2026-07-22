@@ -1,5 +1,112 @@
+diff --git a/dist/internal/llms.d.ts b/dist/internal/llms.d.ts
+index 42a1b6d..7f743f0 100644
+--- a/dist/internal/llms.d.ts
++++ b/dist/internal/llms.d.ts
+@@ -19,6 +19,7 @@ export declare function buildLlmsContent(options: buildLlmsContent.Options): Pro
+ }>;
+ export declare namespace buildLlmsContent {
+     type Options = {
++        basePath?: string | undefined;
+         pages: Page[];
+         title: string;
+         description?: string | undefined;
+@@ -47,4 +48,4 @@ export declare namespace buildLlmsContent {
+  */
+ export declare function getOpenApiPages(config: Config.Config): Promise<buildLlmsContent.Page[]>;
+ export declare function getPagesFromDir(pagesDir: string): Promise<buildLlmsContent.Page[]>;
+-//# sourceMappingURL=llms.d.ts.map
+\ No newline at end of file
++//# sourceMappingURL=llms.d.ts.map
+diff --git a/dist/internal/llms.js b/dist/internal/llms.js
+index 6ad2b91..6fa24d6 100644
+--- a/dist/internal/llms.js
++++ b/dist/internal/llms.js
+@@ -6,7 +6,7 @@ import { unified } from 'unified';
+ import * as MarkdownImports from './markdown-imports.js';
+ import * as OpenApiMarkdown from './openapi/markdown.js';
+ export async function buildLlmsContent(options) {
+-    const { title, description, rehypePlugins, remarkPlugins, sidebar } = options;
++    const { basePath = '/', title, description, rehypePlugins, remarkPlugins, sidebar } = options;
+     // Dedupe by path (first occurrence wins), so consumer-authored source pages
+     // take precedence over generated pages (e.g. OpenAPI) mounted at the same path.
+     const seen = new Set();
+@@ -59,12 +59,20 @@ export async function buildLlmsContent(options) {
+     }))
+         .then((data) => data.filter((data) => data !== null))
+         .then((data) => sortResults(data, sidebar));
++    const prefixPath = (path) => basePath === '/' ? path : `${basePath.replace(/\/$/, '')}${path}`;
++    const prefixLinks = (content) => basePath === '/'
++        ? content
++        : content
++            .replace(/(\]\()\/(?!\/)/g, `$1${basePath.replace(/\/$/, '')}/`)
++            .replace(/\b(href|src)=(["'])\/(?!\/)/g, `$1=$2${basePath.replace(/\/$/, '')}/`);
++    for (const result of results)
++        result.content = prefixLinks(result.content);
+     const llmsTxtContent = [`# ${title}`, ''];
+     if (description)
+         llmsTxtContent.push(description, '');
+     const nav = [];
+     for (const { title, description, path } of results)
+-        nav.push(`- [${title}](${path === '/' ? '/index' : path})${description ? `: ${description}` : ''}`);
++        nav.push(`- [${title}](${prefixPath(path === '/' ? '/index' : path)})${description ? `: ${description}` : ''}`);
+     const sitemap = ['<!--', 'Sitemap:', ...nav, '-->', ''].join('\n');
+     const short = [...llmsTxtContent, ...nav];
+     const full = [...llmsTxtContent, sitemap, ...results.map((r) => r.content)];
+@@ -153,4 +161,4 @@ export async function getPagesFromDir(pagesDir) {
+         content: { path: file },
+     }));
+ }
+-//# sourceMappingURL=llms.js.map
+\ No newline at end of file
++//# sourceMappingURL=llms.js.map
+diff --git a/dist/internal/vite-plugins.js b/dist/internal/vite-plugins.js
+index 060cff2..b8974a8 100644
+--- a/dist/internal/vite-plugins.js
++++ b/dist/internal/vite-plugins.js
+@@ -175,6 +175,7 @@ export function llms(config) {
+         // same generated route (`.md` serves the full reference); authored-only guide
+         // pages under the section keep their own content.
+         return Llms.buildLlmsContent({
++            basePath: config.basePath,
+             pages: [...openapiPages, ...pages],
+             title,
+             description,
+@@ -329,7 +330,7 @@ export function mdx(config) {
+  * @returns Plugin.
+  */
+ export function sitemap(config) {
+-    const { baseUrl } = config;
++    const { basePath, baseUrl } = config;
+     let built = false;
+     let viteConfig;
+     function getSiteUrl() {
+@@ -340,7 +341,7 @@ export function sitemap(config) {
+             'User-agent: *',
+             'Allow: /',
+             '',
+-            `Sitemap: ${siteUrl.replace(/\/$/, '')}/sitemap.xml`,
++            `Sitemap: ${siteUrl.replace(/\/$/, '')}${basePath.replace(/\/$/, '')}/sitemap.xml`,
+             '',
+         ].join('\n');
+     }
+@@ -378,7 +379,7 @@ export function sitemap(config) {
+                     .replace(/\.(mdx?|tsx?)$/, '')
+                     .replace(/\/index$/, '/')
+                     .replace(/\/$/, '') || '/';
+-                const loc = `${siteUrl.replace(/\/$/, '')}${pagePath}`;
++                const loc = `${siteUrl.replace(/\/$/, '')}${basePath.replace(/\/$/, '')}${pagePath}`;
+                 const gitDate = Git.getLastModified(page);
+                 const lastmod = gitDate
+                     ? gitDate.split('T')[0]
+@@ -1244,4 +1245,4 @@ export function openapi(config) {
+         },
+     };
+ }
+-//# sourceMappingURL=vite-plugins.js.map
+\ No newline at end of file
++//# sourceMappingURL=vite-plugins.js.map
 diff --git a/dist/react/internal/Outline.js b/dist/react/internal/Outline.js
-index 4c3f4b9d933367f73b745288ae77e8f46d547932..11399b6155758f157599ec66a0e7841f33a1320d 100644
+index 4c3f4b9..11399b6 100644
 --- a/dist/react/internal/Outline.js
 +++ b/dist/react/internal/Outline.js
 @@ -196,7 +196,7 @@ function Items(props) {
@@ -12,7 +119,7 @@ index 4c3f4b9d933367f73b745288ae77e8f46d547932..11399b6155758f157599ec66a0e7841f
          if (activeIds.size === 0 || positions.size === 0)
              return { transform: 'translateY(0)', height: 0 };
 diff --git a/dist/react/internal/Sidebar.js b/dist/react/internal/Sidebar.js
-index 242cf4f6f5babe929912b71b3a6476bf66c3be57..aa599660d3434590b31345e3ee086502f4d262d4 100644
+index 242cf4f..aa59966 100644
 --- a/dist/react/internal/Sidebar.js
 +++ b/dist/react/internal/Sidebar.js
 @@ -235,14 +235,16 @@ function Section(props) {
@@ -43,10 +150,51 @@ index 242cf4f6f5babe929912b71b3a6476bf66c3be57..aa599660d3434590b31345e3ee086502
                      // Non-link item is a header.
                      if (text)
                          return (_jsxs("div", { className: depth > 0 ? Section.childHeaderClassName : Section.rootHeaderClassName, "data-condensed": condensed && depth > 1, "data-collapsed": collapsed, "data-collapsable": collapsable, "data-v-sidebar-section-header": true, ...(collapsable
+diff --git a/dist/react/internal/SkipToContent.client.js b/dist/react/internal/SkipToContent.client.js
+index 8f1ab06..f6c7d55 100644
+--- a/dist/react/internal/SkipToContent.client.js
++++ b/dist/react/internal/SkipToContent.client.js
+@@ -2,9 +2,13 @@
+ import { jsx as _jsx } from "react/jsx-runtime";
+ import { cx } from 'cva';
+ import { useRouter } from 'waku';
++import { useConfig } from '../useConfig.js';
+ export function SkipToContent(props) {
+     const { className } = props;
++    const { basePath } = useConfig();
+     const { path } = useRouter();
+-    return (_jsx("a", { className: cx('vocs:fixed vocs:top-3 vocs:left-3 vocs:z-50', 'vocs:px-4 vocs:py-2', 'vocs:text-accent8 vocs:text-sm vocs:font-medium', 'vocs:bg-surface vocs:border-2 vocs:border-dashed vocs:border-accent8 vocs:rounded-lg', 'vocs:outline-none', 'vocs:opacity-0 vocs:pointer-events-none vocs:-translate-y-full', 'vocs:focus:opacity-100 vocs:focus:pointer-events-auto vocs:focus:translate-y-0', 'vocs:transition-all vocs:duration-150', className), "data-v-skip-to-content": true, href: `${path.split('#')[0]}#vocs-content`, children: "Skip to content" }));
++    const pagePath = path.split('#')[0];
++    const href = `${basePath === '/' ? '' : basePath.replace(/\/$/, '')}${pagePath}#vocs-content`;
++    return (_jsx("a", { className: cx('vocs:fixed vocs:top-3 vocs:left-3 vocs:z-50', 'vocs:px-4 vocs:py-2', 'vocs:text-accent8 vocs:text-sm vocs:font-medium', 'vocs:bg-surface vocs:border-2 vocs:border-dashed vocs:border-accent8 vocs:rounded-lg', 'vocs:outline-none', 'vocs:opacity-0 vocs:pointer-events-none vocs:-translate-y-full', 'vocs:focus:opacity-100 vocs:focus:pointer-events-auto vocs:focus:translate-y-0', 'vocs:transition-all vocs:duration-150', className), "data-v-skip-to-content": true, href, children: "Skip to content" }));
+ }
+-//# sourceMappingURL=SkipToContent.client.js.map
+\ No newline at end of file
++//# sourceMappingURL=SkipToContent.client.js.map
+diff --git a/dist/waku/internal/middleware/md-router.js b/dist/waku/internal/middleware/md-router.js
+index 30da92d..7896d9f 100644
+--- a/dist/waku/internal/middleware/md-router.js
++++ b/dist/waku/internal/middleware/md-router.js
+@@ -11,6 +11,7 @@ async function resolveContent() {
+     const pages = await Llms.getPagesFromDir(pagesDir);
+     const openapiPages = await Llms.getOpenApiPages(config);
+     return Llms.buildLlmsContent({
++        basePath: config.basePath,
+         pages: [...openapiPages, ...pages],
+         title: config.title,
+         description: config.description,
+@@ -136,4 +137,4 @@ export function middleware() {
+     };
+ }
+ export default middleware;
+-//# sourceMappingURL=md-router.js.map
+\ No newline at end of file
++//# sourceMappingURL=md-router.js.map
 diff --git a/dist/waku/internal/patches/adapters/vercel-build-enhancer.js b/dist/waku/internal/patches/adapters/vercel-build-enhancer.js
+index 5d48b82..3ace5a4 100644
 --- a/dist/waku/internal/patches/adapters/vercel-build-enhancer.js
 +++ b/dist/waku/internal/patches/adapters/vercel-build-enhancer.js
-@@ -5,7 +5,7 @@
+@@ -5,7 +5,7 @@ function escapeRegExp(value) {
      return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
  }
  function markdownRoutes({ assetsDir, basePath, rscBase, }) {
@@ -55,7 +203,7 @@ diff --git a/dist/waku/internal/patches/adapters/vercel-build-enhancer.js b/dist
      const markdownSource = `^${basePath}(?!${assetsDir}/)(.*\\.md)$`;
      const cleanPageSource = `^${basePath}(?!${assetsDir}/)(?!.*\\.[^/]+$)(.*)$`;
      const markdownUserAgentPattern = `.*(?:${[...aiUserAgents, ...terminalUserAgents]
-@@ -83,6 +83,7 @@
+@@ -83,6 +83,7 @@ export default getRequestListener(
      const routes = [
          {
              src: `^${basePath}${assetsDir}/(.*)$`,
@@ -63,54 +211,25 @@ diff --git a/dist/waku/internal/patches/adapters/vercel-build-enhancer.js b/dist
              headers: {
                  'cache-control': 'public, immutable, max-age=31536000',
              },
-@@ -93,8 +94,12 @@
+@@ -92,9 +93,13 @@ export default getRequestListener(
+                 ...markdown.beforeFilesystem,
                  { handle: 'filesystem' },
                  ...markdown.afterFilesystem,
-                 {
++                {
 +                    src: `^${basePath.replace(/\/$/, '')}$`,
 +                    dest: '/' + rscBase + '/',
 +                },
-+                {
+                 {
                      src: basePath + '(.*)',
 -                    dest: basePath + rscBase + '/',
 +                    dest: '/' + rscBase + '/',
                  },
              ]
              : []),
-@@ -108,4 +112,4 @@
+@@ -108,4 +113,4 @@ export default async function buildEnhancer(build) {
          await postBuild(options);
      };
  }
 -//# sourceMappingURL=vercel-build-enhancer.js.map
 \ No newline at end of file
 +//# sourceMappingURL=vercel-build-enhancer.js.map
-diff --git a/dist/internal/vite-plugins.js b/dist/internal/vite-plugins.js
---- a/dist/internal/vite-plugins.js
-+++ b/dist/internal/vite-plugins.js
-@@ -329,7 +329,7 @@
-  * @returns Plugin.
-  */
- export function sitemap(config) {
--    const { baseUrl } = config;
-+    const { basePath, baseUrl } = config;
-     let built = false;
-     let viteConfig;
-     function getSiteUrl() {
-@@ -340,7 +340,7 @@
-             'User-agent: *',
-             'Allow: /',
-             '',
--            `Sitemap: ${siteUrl.replace(/\/$/, '')}/sitemap.xml`,
-+            `Sitemap: ${siteUrl.replace(/\/$/, '')}${basePath.replace(/\/$/, '')}/sitemap.xml`,
-             '',
-         ].join('\n');
-     }
-@@ -378,7 +378,7 @@
-                     .replace(/\.(mdx?|tsx?)$/, '')
-                     .replace(/\/index$/, '/')
-                     .replace(/\/$/, '') || '/';
--                const loc = `${siteUrl.replace(/\/$/, '')}${pagePath}`;
-+                const loc = `${siteUrl.replace(/\/$/, '')}${basePath.replace(/\/$/, '')}${pagePath}`;
-                 const gitDate = Git.getLastModified(page);
-                 const lastmod = gitDate
-                     ? gitDate.split('T')[0]
