@@ -57,6 +57,7 @@ export default defineConfig({
       collapsed: true,
       items: [
         { text: 'Sends', link: '/transactions/sends' },
+        { text: 'Private transfers', link: '/transactions/private-transfers' },
         { text: 'Swaps', link: '/transactions/swaps' },
         { text: 'Batch', link: '/transactions/batch' },
         { text: 'Schedules', link: '/transactions/schedules' },
