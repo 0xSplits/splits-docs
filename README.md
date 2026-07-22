@@ -32,5 +32,5 @@ How these docs get updated, by humans or agents:
 
 1. **Verify with subagents.** Fan out read-only agents per feature area against the source repos, requiring file:line evidence and an explicit "cannot verify" for anything the code doesn't answer.
 2. **Act as the single final approver.** Re-check any surprising claim yourself in the primary source before writing it.
-3. **Check the output.** Run `node scripts/check-prose.mjs <paths>` on touched prose and `pnpm build` for link validation, then read the `.md` twin on the preview deployment (`curl <preview-url>/docs/<path>.md`); the twin is what agents consume. The dev and preview servers do not serve twins while a base path is set, so a deployment is currently the only place to read them.
+3. **Check the output.** Run `node scripts/check-prose.mjs <paths>` on touched prose, `pnpm build` for link validation, and read the `.md` twin (`curl localhost:5173/docs/<path>.md`); the twin is what agents consume. Twins, `llms.txt`, and `llms-full.txt` all live under the base path, locally and in production.
 4. **Mind the URLs.** The sidebar lives in `vocs.config.ts` and URLs derive from file paths under `src/pages/`, so moving a file means grepping for inbound links first.
