@@ -50,6 +50,19 @@ index 6ad2b91c6b8a0a9e64fff6a06da5efa9c56ff0ae..70cfae0441623c1c2b79f9ee248945fd
      const sitemap = ['<!--', 'Sitemap:', ...nav, '-->', ''].join('\n');
      const short = [...llmsTxtContent, ...nav];
      const full = [...llmsTxtContent, sitemap, ...results.map((r) => r.content)];
+diff --git a/dist/internal/markdown-negotiation.js b/dist/internal/markdown-negotiation.js
+index 01c753f7cd9b0043629bd8ff3ea609a6df4f32a6..edba4ef27608ffb45124e77bed34519480bbc25e 100644
+--- a/dist/internal/markdown-negotiation.js
++++ b/dist/internal/markdown-negotiation.js
+@@ -12,6 +12,8 @@ export const aiUserAgents = [
+     'ChatGPT-User/2.0',
+     'anthropic-ai',
+     'ClaudeBot',
++    'Claude-User',
++    'Claude-SearchBot',
+     'claude-web',
+     'PerplexityBot',
+     'Perplexity-User',
 diff --git a/dist/internal/vite-plugins.js b/dist/internal/vite-plugins.js
 index 060cff216573fd043d5fd801e18ad581020e3139..e90efe3b5fc547da7cb0e173bdaac52a7d97a8b0 100644
 --- a/dist/internal/vite-plugins.js
