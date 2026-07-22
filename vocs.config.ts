@@ -6,22 +6,28 @@ import { defineConfig } from 'vocs/config'
 // Computed here (top level, Node) and passed as a plain string: vocs
 // stringifies the ogImageUrl function into the client bundle, so process.env
 // must not appear inside it.
+const basePath = '/docs'
 const baseUrl =
   !process.env.VERCEL_ENV || process.env.VERCEL_ENV === 'production'
-    ? 'https://splits-docs.splits.org'
+    ? 'https://splits.org'
     : undefined
 
 export default defineConfig({
   title: 'Splits',
   description: 'Guides, integrations, and resources for using Splits.',
+  basePath,
   baseUrl,
+  // splits.org owns trailing-slash canonicalization (Next `trailingSlash: true`)
+  // and proxies /docs here. Normalize internally instead of redirecting, so the
+  // two hosts can never bounce a request between them.
+  trailingSlashRedirect: false,
   // baseUrl is undefined in dev (vocs blanks it); relative is correct there.
   ogImageUrl: (path, { baseUrl }) =>
-    `${baseUrl ?? ''}/api/og?title=%title&path=${encodeURIComponent(path)}`,
+    `${baseUrl ?? ''}/docs/api/og?title=%title&path=${encodeURIComponent(path)}`,
   accentColor: 'light-dark(#2143FA, #5B78FF)',
   iconUrl: {
-    light: '/splits_compressed.svg',
-    dark: '/splits_compressed_dark.svg',
+    light: '/docs/splits_compressed.svg',
+    dark: '/docs/splits_compressed_dark.svg',
   },
   topNav: [
     { text: 'splits.org', link: 'https://splits.org' },
