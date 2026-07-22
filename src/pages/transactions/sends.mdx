@@ -1,6 +1,6 @@
 ---
 title: Sends
-description: "Sends move tokens or NFTs from a Splits account to any recipient: the recipient types accepted, just-in-time swaps, memos, batching, and signing."
+description: "Sends move tokens or NFTs from a Splits account to any recipient: the recipient types accepted, just-in-time swaps, memos, batching, signing, and private transfers."
 ---
 
 # Sends [Move tokens from an account to any recipient]
@@ -9,7 +9,7 @@ A send moves tokens from one of your [accounts](/accounts) to any recipient: a r
 
 You can send a token the account doesn't hold: as long as the account holds enough value to cover it, pick which token to sell and the swap and send execute as one transaction. See [just-in-time swaps](/transactions/swaps#just-in-time-swaps).
 
-To pay a recipient without an onchain link back to your account, use a [private transfer](/transactions/private-transfers).
+To pay a recipient without revealing which account paid them, use a [private transfer](#private-transfers).
 
 ## Memos
 
@@ -22,6 +22,15 @@ Instead of submitting a send right away, select *Add to batch* in the review dia
 ## Signing
 
 Like every [transaction](/transactions), a send executes once signatures meet the account's [threshold](/accounts/thresholds): immediately on a 1-of-n account, after the remaining signatures otherwise.
+
+## Private transfers
+
+A private transfer hides the connection between your account and the recipient: the payout can't be traced back to your account onchain, though your team still sees the recipient and amount in the Splits UI. See the table for supported tokens. Private transfers are behind a feature flag; contact [support@splits.org](mailto:support@splits.org) for access.
+
+| Token | Networks |
+| --- | --- |
+| <img src="/images/tokens/usdc.png" alt="USDC logo" width="20" style={{ display: 'inline-block', verticalAlign: 'text-bottom', marginRight: '6px' }} />USDC | [Ethereum](https://etherscan.io/token/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48), [Base](https://basescan.org/token/0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913), [Arbitrum](https://arbiscan.io/token/0xaf88d065e77c8cC2239327C5EDb3A432268e5831), [Polygon (PoS)](https://polygonscan.com/token/0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359), [BNB Smart Chain](https://bscscan.com/token/0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d), [Solana](https://solscan.io/token/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v) |
+| <img src="/images/tokens/usdt.png" alt="USDT logo" width="20" style={{ display: 'inline-block', verticalAlign: 'text-bottom', marginRight: '6px' }} />USDT | [Ethereum](https://etherscan.io/token/0xdac17f958d2ee523a2206206994597c13d831ec7), [Base](https://basescan.org/token/0xfde4C96c8593536E31F229EA8f37b2ADa2699bb2), [Arbitrum](https://arbiscan.io/token/0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9), [Polygon (PoS)](https://polygonscan.com/token/0xc2132D05D31c914a87C6611C10748AEb04B58e8F), [BNB Smart Chain](https://bscscan.com/token/0x55d398326f99059fF775485246999027B3197955), [Solana](https://solscan.io/token/Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB) |
 
 ## Recurring sends
 

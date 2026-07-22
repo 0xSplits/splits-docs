@@ -5,7 +5,7 @@ description: "How swaps work in Splits: multi-provider routing with no fees, bri
 
 # Swaps [Trade and bridge tokens with no fees from Splits]
 
-A swap trades one token for another, including across networks: moving ETH on Base to ETH on Optimism is a swap. Splits charges no fees on swaps. Each quote is routed across multiple swap providers (currently 0x, KyberSwap, Velora, Relay, and Fabric; Relay handles cross-network swaps) and the best result is used. The exception is [private transfers](/transactions/private-transfers), which always route through a dedicated provider.
+A swap trades one token for another, including across networks: moving ETH on Base to ETH on Optimism is a swap. Splits charges no fees on swaps. Each quote is routed across multiple swap providers (currently 0x, KyberSwap, Velora, Relay, and Fabric; Relay handles cross-network swaps) and the best result is used. The exception is [private transfers](/transactions/sends#private-transfers), which always route through a dedicated provider.
 
 Start a swap from the Dashboard or an account page. Any ERC-20 can be swapped: if a token isn't listed, paste its address with the right network selected.
 

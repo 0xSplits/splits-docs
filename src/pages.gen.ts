@@ -53,7 +53,6 @@ type Page =
   | { path: '/transactions/custom'; render: 'static' }
   | { path: '/transactions'; render: 'static' }
   | { path: '/transactions/memos'; render: 'static' }
-  | { path: '/transactions/private-transfers'; render: 'static' }
   | { path: '/transactions/schedules'; render: 'static' }
   | { path: '/transactions/sends'; render: 'static' }
   | { path: '/transactions/swaps'; render: 'static' }
