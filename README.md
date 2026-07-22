@@ -2,11 +2,17 @@
 
 User-facing docs for [Splits](https://app.splits.org), built with [Vocs](https://vocs.dev). Every page serves two audiences: humans reading the HTML, and agents reading the auto-generated markdown twins (append `.md` to any URL, or fetch `/llms.txt` / `/llms-full.txt`).
 
+## Where these are served
+
+These pages are published at [splits.org/docs](https://splits.org/docs). The website ([0xSplits/website](https://github.com/0xSplits/website)) reverse-proxies `/docs` and everything under it to this deployment, so splits.org serves them same-origin. This project's own Vercel domains are the proxy origin, not the public URL.
+
+The build sets `basePath: '/docs'`, so every route lives under that prefix on this deployment too, previews included. To view a pull request's changes, open `<preview-url>/docs`: the preview root is not a page and 404s.
+
 ## Local development
 
 ```bash
 pnpm install
-pnpm dev       # dev server
+pnpm dev       # dev server, at localhost:5173/docs
 pnpm build     # production build; validates every internal link
 pnpm preview   # preview the build
 ```
@@ -26,5 +32,5 @@ How these docs get updated, by humans or agents:
 
 1. **Verify with subagents.** Fan out read-only agents per feature area against the source repos, requiring file:line evidence and an explicit "cannot verify" for anything the code doesn't answer.
 2. **Act as the single final approver.** Re-check any surprising claim yourself in the primary source before writing it.
-3. **Check the output.** Run `node scripts/check-prose.mjs <paths>` on touched prose, `pnpm build` for link validation, and read the `.md` twin (`curl localhost:5173/<path>.md`); the twin is what agents consume.
+3. **Check the output.** Run `node scripts/check-prose.mjs <paths>` on touched prose, `pnpm build` for link validation, and read the `.md` twin (`curl localhost:5173/docs/<path>.md`); the twin is what agents consume. Twins, `llms.txt`, and `llms-full.txt` all live under the base path, locally and in production.
 4. **Mind the URLs.** The sidebar lives in `vocs.config.ts` and URLs derive from file paths under `src/pages/`, so moving a file means grepping for inbound links first.
