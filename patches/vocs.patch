@@ -84,3 +84,33 @@ diff --git a/dist/waku/internal/patches/adapters/vercel-build-enhancer.js b/dist
 -//# sourceMappingURL=vercel-build-enhancer.js.map
 \ No newline at end of file
 +//# sourceMappingURL=vercel-build-enhancer.js.map
+diff --git a/dist/internal/vite-plugins.js b/dist/internal/vite-plugins.js
+--- a/dist/internal/vite-plugins.js
++++ b/dist/internal/vite-plugins.js
+@@ -329,7 +329,7 @@
+  * @returns Plugin.
+  */
+ export function sitemap(config) {
+-    const { baseUrl } = config;
++    const { basePath, baseUrl } = config;
+     let built = false;
+     let viteConfig;
+     function getSiteUrl() {
+@@ -340,7 +340,7 @@
+             'User-agent: *',
+             'Allow: /',
+             '',
+-            `Sitemap: ${siteUrl.replace(/\/$/, '')}/sitemap.xml`,
++            `Sitemap: ${siteUrl.replace(/\/$/, '')}${basePath.replace(/\/$/, '')}/sitemap.xml`,
+             '',
+         ].join('\n');
+     }
+@@ -378,7 +378,7 @@
+                     .replace(/\.(mdx?|tsx?)$/, '')
+                     .replace(/\/index$/, '/')
+                     .replace(/\/$/, '') || '/';
+-                const loc = `${siteUrl.replace(/\/$/, '')}${pagePath}`;
++                const loc = `${siteUrl.replace(/\/$/, '')}${basePath.replace(/\/$/, '')}${pagePath}`;
+                 const gitDate = Git.getLastModified(page);
+                 const lastmod = gitDate
+                     ? gitDate.split('T')[0]

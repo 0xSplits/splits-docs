@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   vocs:
-    hash: 90897dc6853daaf6d5deee574776afac5899bcb567246052f1f9030fe7618a30
+    hash: a40cf35bda37274f5897ef55f6982749c0b74590eaa10ccdd8f16af25297a3e0
     path: patches/vocs.patch
 
 importers:
