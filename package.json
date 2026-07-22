@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vocs dev",
     "build": "vocs build",
-    "postbuild": "mkdir -p .vercel/output/static/assets && cp dist/public/sitemap.xml .vercel/output/static/assets/sitemap.xml",
     "preview": "vocs preview",
     "start": "node dist/serve-node.js"
   },

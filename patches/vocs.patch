@@ -55,7 +55,16 @@ diff --git a/dist/waku/internal/patches/adapters/vercel-build-enhancer.js b/dist
      const markdownSource = `^${basePath}(?!${assetsDir}/)(.*\\.md)$`;
      const cleanPageSource = `^${basePath}(?!${assetsDir}/)(?!.*\\.[^/]+$)(.*)$`;
      const markdownUserAgentPattern = `.*(?:${[...aiUserAgents, ...terminalUserAgents]
-@@ -83,6 +83,7 @@
+@@ -51,5 +51,8 @@
+     rmSync(staticDir, { recursive: true, force: true });
+     cpSync(publicDir, staticDir, { recursive: true });
++    const staticAssetsDir = path.join(staticDir, 'assets');
++    mkdirSync(staticAssetsDir, { recursive: true });
++    cpSync(path.join(publicDir, 'sitemap.xml'), path.join(staticAssetsDir, 'sitemap.xml'));
+     if (serverless) {
+         const serverlessDir = path.join(outputDir, 'functions', `${rscBase}.func`);
+         const functionDistDir = path.join(serverlessDir, distDir);
+@@ -83,6 +86,7 @@
      const routes = [
          {
              src: `^${basePath}${assetsDir}/(.*)$`,
@@ -63,7 +72,7 @@ diff --git a/dist/waku/internal/patches/adapters/vercel-build-enhancer.js b/dist
              headers: {
                  'cache-control': 'public, immutable, max-age=31536000',
              },
-@@ -93,8 +94,12 @@
+@@ -93,8 +97,12 @@
                  { handle: 'filesystem' },
                  ...markdown.afterFilesystem,
                  {
@@ -77,7 +86,7 @@ diff --git a/dist/waku/internal/patches/adapters/vercel-build-enhancer.js b/dist
                  },
              ]
              : []),
-@@ -108,4 +112,4 @@
+@@ -108,4 +115,4 @@
          await postBuild(options);
      };
  }
