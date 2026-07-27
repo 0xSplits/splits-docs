@@ -1,13 +1,13 @@
 ---
 title: Modules
-description: Modules are contracts or keys allowlisted on an account that can execute transactions from it without signer approvals, and when to use one versus an ERC-20 approval.
+description: Modules are contracts or keys allowlisted on an account that can execute transactions from it without signer approvals.
 ---
 
 # Modules [Allowlisted contracts and keys that can transact from an account without signatures]
 
 A module is an address on an account's module allowlist. An enabled module can execute any call from the account via [`executeFromModule`](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vaults/src/utils/ModuleManager.sol#L130-L160), **without signer approvals and regardless of the account's [threshold](/accounts/thresholds)**. Modules are the second control path on an account, alongside [signers](/accounts/signers).
 
-A module has full access to the account. Only enable addresses you trust completely, and prefer a dedicated [operating account](/accounts#operating-accounts) over the Treasury.
+A module has full access to the account. Only enable addresses you trust completely, use contracts with strictly limited execution privileges (see [Auto Earn Module](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vault-modules/src/AutoEarnModule.sol)), and prefer a dedicated [operating account](/accounts#operating-accounts) over the Treasury.
 
 ## When to use
 
