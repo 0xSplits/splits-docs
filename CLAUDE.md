@@ -10,7 +10,7 @@ Any agent should be able to take a product PR and update these docs without a hu
 2. Find each fact's canonical page (map below, plus `git grep`). Edit only that page; update other pages' links if the fact moved, never restate it.
 3. Verify every claim you write against the code (rules below). PR descriptions and existing docs prose are not sources.
 4. If a file or heading moves: grep for the old path and old `#anchor`, retarget every inbound link, and update the sidebar in `vocs.config.ts` (URLs derive from file paths under `src/pages/`).
-5. Check your work: `node scripts/check-prose.mjs <paths>` (findings are warnings needing judgment, not automatic failures), `pnpm build` (validates every internal link), and read the `.md` twin (`curl localhost:5173/<path>.md`); the twin is what agents consume.
+5. Check your work: `node scripts/check-ste.mjs <paths>` (blocking ASD-STE100 checks), `node scripts/check-prose.mjs <paths>` (warnings needing judgment), `pnpm build` (validates every internal link), and read the `.md` twin (`curl localhost:5173/<path>.md`); the twin is what agents consume.
 6. Never commit without explicit approval from the human in the session.
 
 ## Accuracy
@@ -58,19 +58,20 @@ If a change moves a fact's canonical home, update this table in the same PR.
 
 ## Terminology
 
+- **Use the controlled terms in [`STE-TERMS.md`](STE-TERMS.md).** Add a product term there before you introduce it in user-facing docs. Use the listed part of speech and meaning.
 - **Core concepts are Team, Member, Account** (not "Person" or "User"; those nouns don't name product entities in the docs).
 - **The product is "the app"** at app.splits.org (teams.splits.org is deprecated). Write "onchain", "offchain", and "crosschain" (no hyphens). No marketing jargon: be explicit and precise about what things are.
 - **Capitalization: product-named entities are proper nouns; generic concepts are lowercase.** Capitalize roles (Owner, Member), named accounts (Root, Treasury), and feature names (Earn, Automated Earn, Splits Connect, Recovery-the-settings-surface). Lowercase concepts: signer, signing key, passkey, threshold, account, team, member-the-person, module, automation, invoice, memo. The pair this enables: "member" = a person in a team; "Member" = the role.
 - **"Signing key", not bare "key"**, whenever precision matters (definitions, invariants, table cells). Bare "key" is fine once the page has established context (e.g. within `/members/keys`). A **signer** is always account-relative: a signing key added to an account's signer set. Don't use "signer" for a key that isn't on an account.
 - **"the Root" / "the Treasury" in prose; bare "Root" / "Treasury" in table cells.** Table cells carry no leading articles and no explanations; explanations live in surrounding prose.
 - **"Wallet" means an external EOA wallet** (recovery wallets, MetaMask, hardware wallets), never a Splits account.
-- **Em dashes: never, anywhere.** List items and definition lists use a colon separator (`` `command`: description ``); in prose, a colon, period, comma, semicolon, or parentheses replaces the em dash. The prose linter flags every em dash.
+- **Em dashes and semicolons: never, anywhere.** List items and definition lists use a colon separator (`` `command`: description ``). In prose, use a colon, period, comma, or parentheses. The prose linters flag these characters.
 - **"Email support"** (no address) is the phrasing for manual/support-gated processes.
 - **"Team" → "workspace" rename is planned** in the product. Docs keep saying "team" until the product ships the rename, then migrate in one pass (prose + `/teams/` URLs + section name).
 
 ## Voice & formatting
 
-- **Facts in declarative present tense; procedures in second person** ("you must be an Owner", "go to…").
+- **Facts in declarative present tense; procedures in the imperative form** ("Go to…"). Give one instruction per numbered step unless actions occur at the same time.
 - **UI elements in italics**: button and control labels (*Invite member*, *Reset signers*, *Require memos*). **Settings paths with `>`**: Settings > Members. **In-page click chains with `→`**: three dots → *Verify signer*.
 - **Bold** for: the term a page defines (first use), negative invariants, and scope names in command lists (**Read** scope).
 - **Callouts**: `:::note` sparingly. Beta features get exactly: "This feature is in beta. Email support to enable it for your team."
@@ -78,6 +79,20 @@ If a change moves a fact's canonical home, update this table in the same PR.
 - **No screenshots** until there's a system for generating them automatically. **No "Last updated" lines.**
 - **Cut anything that can be removed without losing meaning.** No welcome fluff, no roadmap promises, no restating what a link target already says. Answer first.
 - **Every sentence must be falsifiable.** If a clause tells the reader how to feel about a fact instead of stating the fact ("seamlessly", "so you can…"), cut it or replace it with the mechanism. Test: delete the clause; if only persuasion is lost, it was jargon.
+
+## ASD-STE100 human review
+
+The deterministic checker enforces sentence length, paragraph length, contractions, and punctuation. It cannot decide whether technical prose uses words correctly. For every changed page, also verify:
+
+`pnpm build` rejects findings that are not in `scripts/ste-baseline.json`. The baseline lets unchanged legacy pages build while the repository migrates. Do not add a finding to the baseline. Fix the prose instead.
+
+1. Use words from the ASD-STE100 dictionary or technical terms from `STE-TERMS.md`. Use each word only with its approved meaning and part of speech.
+2. Keep multi-word nouns to three words. If an official technical name is longer, write it in full first and define a short form.
+3. Use simple verb forms and active voice. Use passive voice only in descriptive text when the agent is unknown.
+4. Use an `-ing` form only as a technical noun or as a modifier in a technical noun.
+5. Give each descriptive sentence one subject. Give each paragraph one topic.
+6. Start each procedural step with a command. Put only one instruction in a sentence unless actions occur at the same time.
+7. Read the rendered page and its `.md` twin. Confirm that headings, lists, links, and UI labels preserve the intended meaning.
 
 ## Links
 

@@ -5,7 +5,7 @@ description: "Accounts in Splits: the four account types, the onchain ownership 
 
 # Accounts [Where assets live: account types, ownership, and thresholds]
 
-An account is where assets are stored within a team. Every account exists at the same address on every network it's active on, has a [threshold](/accounts/thresholds) of required approvals, and is controlled by [signers](/accounts/signers), plus, optionally, [modules](/accounts/modules).
+An account stores assets for a team. Each account has the same address on every active network. A [threshold](/accounts/thresholds) specifies the required approvals. [Signers](/accounts/signers) control the account, and optional [modules](/accounts/modules) can also act.
 
 | Type | Controlled by | Owned by (onchain) |
 | --- | --- | --- |
@@ -14,37 +14,43 @@ An account is where assets are stored within a team. Every account exists at the
 | **Operating** | Signers the team configures | Treasury |
 | **Automation** | Owners' passkeys + a Splits server key | Treasury |
 
-Accounts form an ownership chain (Root → Treasury → operating and automation accounts) in which each account is the onchain owner of those below it.
+Accounts form an ownership chain: Root → Treasury → operating and automation accounts. Each account is the onchain owner of the accounts below it.
 
-Ownership carries the powers signers don't have. An account's signers can change the account's own signer set and threshold, but **only its owner can upgrade the account's contract implementation or transfer its ownership**, and the owner can execute from the account directly, which is how a [signer reset](/accounts/editing#resetting-signers) and [recovery](/teams/recovery) work. A rogue signer on a low-threshold account can therefore reach at most that account's balance, never its ownership or code. The Root has no external owner and owns itself: owner actions on it fall to its own signers, the recovery signers, at the recovery threshold.
+Ownership provides powers that signers do not have. Signers can change their account's signer set and threshold. **Only the owner can upgrade the contract implementation or transfer ownership.** The owner can also execute actions directly from the account. This power enables a [signer reset](/accounts/editing#resetting-signers) and [recovery](/teams/recovery).
+
+A signer on a low-threshold account can reach only that account's balance. The signer cannot change its ownership or code. The Root has no external owner and owns itself. Its recovery signers approve owner actions at the recovery threshold.
 
 ## Root
 
-The Root is created from the team's recovery signers during [team setup](/teams), with the recovery threshold. It never appears in the app: it can't be viewed or transacted from. It exists so the recovery signers can regain control of everything below it if the team's passkeys are lost, and its composition determines every address derived beneath it, which is why changing recovery signers changes the team's account addresses ([more](/teams/recovery#changing-recovery-signers)).
+[Team setup](/teams) creates the Root from the team's recovery signers and recovery threshold. The Root does not appear in the app. You cannot view it or transact from it. Recovery signers use the Root to regain control of all accounts below it after the team loses its passkeys.
+
+The recovery configuration determines each account address. Thus, changing recovery signers changes the team's account addresses ([more](/teams/recovery#changing-recovery-signers)).
 
 ## Treasury
 
-The Treasury is created automatically during team setup and is intended to hold the bulk of the team's assets. Its initial signers are the owners' passkeys, with the threshold chosen at setup; both can be [changed later](/accounts/editing). It can't be archived.
+Team setup automatically creates the Treasury to hold most of the team's assets. The owners' passkeys are its initial signers. The team selects the initial threshold during setup. Owners can [change the signers and threshold later](/accounts/editing). The team cannot archive the Treasury.
 
-Keeping the bulk in the Treasury and transacting from operating accounts follows the [Three Address Protocol](https://x.com/punk6529/status/1701623475725533524): high-value assets stay separate from day-to-day money, so one compromised account doesn't endanger the others.
+The [Three Address Protocol](https://x.com/punk6529/status/1701623475725533524) keeps high-value assets in the Treasury and day-to-day money in operating accounts. Thus, one compromised account does not endanger the other accounts.
 
 ## Operating accounts
 
-Operating accounts are general-purpose accounts a team transacts from directly, with signers and a threshold of its choosing, both editable later (see [Editing](/accounts/editing)). Use them in the app, in third-party apps via the [browser extension](/introduction/extension) or [WalletConnect](/integrations/walletconnect), and programmatically via the [CLI](/introduction/agents).
+Operating accounts are general-purpose accounts that a team uses for transactions. The team selects their signers and thresholds and can change them later. See [Editing](/accounts/editing). Use operating accounts in the app or in third-party apps. Connect third-party apps with the [browser extension](/introduction/extension) or [WalletConnect](/integrations/walletconnect). For programmatic access, use the [CLI](/introduction/agents).
 
-Most active teams run many: each account acts as a labeled sub-ledger for a specific program, revenue source, campaign, partner, asset flow, or temporary operation. Common patterns:
+Most active teams use multiple operating accounts. Each account can be a labeled sub-ledger for a specific activity. Common patterns include:
 
-- A dedicated account per project, revenue source, campaign, or partner, isolated for accounting and archived when done
+- A dedicated account for each project, revenue source, campaign, or partner
 - Separate accounts per asset type (stables, investments, NFTs)
-- A low-threshold (e.g. 1-of-n) account for frequent operations like swapping, funded from the higher-threshold Treasury
+- A low-threshold account for frequent transactions, funded from the higher-threshold Treasury
 
 For more patterns, see [Personal usage](/introduction/personal-usage) and [suggested thresholds by team size](/accounts/thresholds#choosing-a-threshold).
 
 ## Automation accounts
 
-An automation account is an automated swap-and-sweep: a deposit address for a revenue stream, with a policy that processes whatever lands there. Every 10 minutes, each token worth at least $5 is split across the policy's destinations: swapped or bridged where the output token or network differs, forwarded as-is where it doesn't, or offramped to fiat when the destination is a [connected bank account](/banking/offramping). *Trigger* on its page runs the policy immediately.
+An automation account is a deposit address with a policy that processes all deposits. Every 10 minutes, the policy processes each token worth at least $5. The policy can swap, bridge, forward, or offramp the token. The selected destination token and network determine the action. A [connected bank account](/banking/offramping) receives fiat currency from an offramp. Select *Trigger* to run the policy immediately.
 
-Runs need no approval (the signers are the Treasury's passkeys plus a Splits server key, at 1-of-n), Splits charges no fees, and automations run on every active network. Typical policies: sweep everything to USDC, withhold a share for taxes, or split income across sub-accounts, partners, and the bank. The policy can be edited anytime (*Edit rules* on the account's page); saving the change requires an onchain signature.
+Runs require no approval. The signers are the Treasury's passkeys and a Splits server key, with a 1-of-n threshold. Splits charges no fees. Automations run on every active network.
+
+Typical policies swap all deposits to USDC, reserve a share for taxes, or divide income among multiple destinations. Select *Edit rules* on the account page to change the policy. An onchain signature approves the change.
 
 ## External accounts
 
@@ -52,9 +58,11 @@ Runs need no approval (the signers are the Treasury's passkeys plus a Splits ser
 This feature is in beta. Email support to enable it for your team.
 :::
 
-An external account is an address outside Splits that the team watches: its name and token balances appear alongside the team's accounts. Watching is read-only. **An external account grants no signing authority or custody**; Splits can never move its funds. Use one to keep cold storage, a Safe, or a partner's address visible next to the books they relate to.
+An external account is an address outside Splits that the team watches. Its name and token balances appear with the team's accounts. The watch function is read-only. **An external account grants no signing authority or custody.** Splits cannot move its funds. Use an external account to show cold storage, a Safe, or a partner address with the applicable books.
 
-Watching is also the only way to bring an existing address in: **existing smart accounts (e.g. a Safe) can't be imported into Splits.** Passkey signing, identical addresses and synced signers across networks, and the [ownership chain](#root) that makes [recovery](/teams/recovery) work are properties of the Splits account contract, and don't exist on external contracts. Teams with an existing Safe typically keep it alongside Splits, run day-to-day operations from Splits, and watch the Safe as an external account.
+Use an external account to add an existing address. **You cannot import an existing smart account, such as a Safe, into Splits.** The Splits account contract provides passkey signing, identical addresses, synchronized signers, and the [ownership chain](#root). This ownership chain enables [recovery](/teams/recovery). External contracts do not have these Splits properties.
+
+Teams with an existing Safe typically keep it with Splits. They use Splits for day-to-day operations and watch the Safe as an external account.
 
 ## Programmatic access
 

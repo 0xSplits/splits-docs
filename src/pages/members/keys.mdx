@@ -5,41 +5,60 @@ description: "The signing keys a member holds, passkeys and EOAs: password manag
 
 # Signing keys [The passkeys and EOAs a member signs with, across every team]
 
-A member's signing keys are what sign transactions: **passkeys** saved in the app, or **EOAs** registered via the CLI. Keys belong to the [member](/members), not to any team, so they work across every team the member is part of. The private key stays with the member; **Splits never has access to private keys.**
+A member uses signing keys to sign transactions. A signing key is a **passkey** saved in the app or an **EOA** registered through the CLI. Signing keys belong to the [member](/members), not to a team. Thus, the member can use them in each team. The private key stays with the member. **Splits never has access to private keys.**
 
-A key on its own moves nothing. It gains signing authority only when added to an account's signer set, becoming one of that account's [signers](/accounts/signers), counted against the account's [threshold](/accounts/thresholds). Managing keys here never edits any account's signer set; see [Signers](/accounts/signers) for that boundary and [Editing](/accounts/editing) for the onchain flow.
+A signing key alone cannot move assets. It gets signing authority when an account adds it to the signer set. The signing key then becomes a [signer](/accounts/signers) for that account. Its approval counts toward the account [threshold](/accounts/thresholds).
+
+Changes to signing keys do not change an account's signer set. See [Signers](/accounts/signers) for this distinction. See [Editing](/accounts/editing) for the onchain procedure.
 
 ## Passkeys
 
-[Passkeys](https://www.dashlane.com/blog/what-is-a-passkey-and-how-does-it-work) are key pairs saved in a password manager, activated by biometrics or a PIN. Add them at [Settings > Personal > Passkeys](https://app.splits.org/settings/personal/passkeys/).
+[Passkeys](https://www.dashlane.com/blog/what-is-a-passkey-and-how-does-it-work) are key pairs in a password manager. Biometrics or a PIN activate them. Add passkeys in [Settings > Personal > Passkeys](https://app.splits.org/settings/personal/passkeys/).
 
 ### Password managers
 
 - **iCloud Keychain and Google Password Manager** are the most reliable. 1Password, BitWarden, and LastPass also work.
 - **Yubikeys** are the most reliable for higher-value accounts.
-- **On mobile, use OS-native passkeys**: they sign without opening a third-party app. **Don't use 1Password as a mobile signer**: Android doesn't always show third-party apps when signing.
+- **On mobile, use OS-native passkeys**: They sign without a third-party app. **Do not use 1Password as a mobile signer**: Android does not always show third-party apps during signing.
 
-Browsers order password manager options differently. If yours doesn't appear, click *Cancel*/*X* (Chrome) or *Other options* (Safari) to reveal the rest.
+Browsers order password manager options differently. If your password manager does not appear, select *Cancel* or *X* in Chrome. In Safari, select *Other options*.
 
 ## EOAs
 
-An EOA (externally owned account, a standard Ethereum keypair) can be [registered via the CLI](/introduction/agents#sign-locally-with-an-eoa) and added as a signer, letting agents and servers sign headlessly. A team's [recovery signers](/teams/recovery#recovery-signers) are also EOAs.
+An EOA is an externally owned account with a standard Ethereum key pair. You can [register an EOA through the CLI](/introduction/agents#sign-locally-with-an-eoa). An account can then add the EOA as a signer. This method lets agents and servers sign without a user interface. A team's [recovery signers](/teams/recovery#recovery-signers) are also EOAs.
 
 ## Verifying access
 
-Confirm you still control a passkey's private key without moving funds: Splits has the key sign a test message. Go to *Settings > Personal > Passkeys* → three dots → *Verify access…*. Each passkey shows when it was last verified or used.
+Use verification to confirm control of a passkey without a fund transfer. Splits uses the key to sign a test message.
 
-Recovery signers have their own verification flow; see [Verifying recovery signers](/teams/recovery#verifying-recovery-signers).
+1. Go to *Settings > Personal > Passkeys*.
+2. Open the applicable three-dot menu.
+3. Select *Verify access…*.
+4. Sign the test message.
+
+Each passkey shows when a member last verified or used it.
+
+Recovery signers have a separate verification procedure. See [Verifying recovery signers](/teams/recovery#verifying-recovery-signers).
 
 ## Troubleshooting
 
-**Passkey won't open.** Usually the password manager: 1Password and Bitwarden are finicky, especially in newer browsers (e.g. Arc/Dia), and 1Password's prompt appears in the browser's top-right corner. Isolate the passkey by [verifying it](#verifying-access), toggle the manager's extension off and on, and hard-refresh. Test at [webauthn.io](https://webauthn.io/): reproduces there → the provider; only on our site → email support. Slow Windows passkeys: delete temporary files (`%temp%` and `prefetch` via `Windows + R`) and reboot. If a passkey is unrecoverable, see [Recovery](/teams/recovery).
+### Passkey does not open
+
+1. Check the top-right corner of the browser for the 1Password prompt.
+2. [Verify the passkey](#verifying-access) to test it separately.
+3. Disable and enable the password manager extension.
+4. Refresh the page without using the browser cache.
+5. Test the passkey at [webauthn.io](https://webauthn.io/).
+
+If the problem also occurs at webauthn.io, contact the password manager provider. If it occurs only in Splits, email support.
+
+If Windows passkeys respond slowly, delete temporary files. Open `%temp%` and `prefetch` with `Windows + R`, and then restart Windows. If you cannot recover a passkey, see [Recovery](/teams/recovery).
 
 ## Programmatic access
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits auth register-signer <address>`: register an EOA so it can be added as a signer
-- `splits members signers <userId>`: a member's passkey IDs, needed when adding them as a signer (**Read** scope)
+- `splits auth register-signer <address>`: register an EOA before an account adds it as a signer
+- `splits members signers <userId>`: get a member's passkey IDs before an account adds them as signers (**Read** scope)
 
 For the full headless flow (create key → register → attach → sign), see [Sign locally with an EOA](/introduction/agents#sign-locally-with-an-eoa).

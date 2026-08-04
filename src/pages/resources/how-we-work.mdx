@@ -1,69 +1,73 @@
 ---
 title: How we work
-description: "How the Splits team runs itself: our own workspace (accounts, signers, thresholds) and the financial tools around it, from banking to payroll."
+description: "How the Splits team runs itself: our accounts, signers, thresholds, and financial tools, from banking to payroll."
 ---
 
-# How we work [Our own workspace, and the financial tools around it]
+# How we work [Our team accounts and the financial tools around them]
 
-How we run our own team, as of today: the Splits workspace itself, and the financial stack around it. For context, we're a 10-person, VC-backed team structured as a US C-Corp.
+This page describes how Splits manages its team and financial tools. Splits is a 10-person, venture-backed team with a US C Corporation.
 
-## Our workspace
+<span id="our-workspace"></span>
 
-Everything we hold onchain (a mix of stablecoins, ETH, project tokens, and NFTs, plus our ENS `splits.eth` and the recovery keys for our Farcaster account) lives in a handful of purpose-specific [accounts](/accounts), signed with passkeys day-to-day and backstopped by [recovery signers](/teams/recovery#recovery-signers) on hardware wallets.
+## Our accounts
+
+We keep stablecoins, ETH, project tokens, NFTs, and the `splits.eth` ENS name in purpose-specific [accounts](/accounts). We also keep the Farcaster recovery keys there. Passkeys approve standard transactions. Hardware wallets hold the [recovery signers](/teams/recovery#recovery-signers).
 
 | Account | Threshold | Purpose |
 | --- | --- | --- |
-| Treasury | 2-of-3 | The bulk (~90%) of our assets, and our ENS. Signers are company-issued YubiKeys held by different senior people. |
-| Operating | 1-of-3 | Day-to-day expenses; funds the other accounts. Same signers as the Treasury. |
-| Payroll | 1-of-n | Contractor payments. Holds at most a month of payments, topped up from Operating, with limited signing privileges. |
-| Eng testing | 1-of-n | Shared by all engineers, holding roughly $1k so no one is ever blocked. |
-| Per-project | varies | Carve-outs for experiments and external collaborators, archived when done. |
+| Treasury | 2-of-3 | Holds approximately 90% of our assets and our ENS name. Different senior team members hold company YubiKeys. |
+| Operating | 1-of-3 | Pays day-to-day expenses and funds the other accounts. Uses the Treasury signers. |
+| Payroll | 1-of-n | Pays contractors. Holds at most one month of payments and has limited signing privileges. Operating funds it. |
+| Engineering test | 1-of-n | Holds approximately $1,000 and is available to all engineers. |
+| Project | Varies | Isolates an experiment or external collaboration. We archive it after the project ends. |
 
-Beneath these sits Recovery: a 2-of-3 of company-issued hardware wallets that holds no assets and exists solely to [reset accounts](/teams/recovery) if our passkeys ever become unusable.
+Recovery uses a 2-of-3 threshold with company hardware wallets. Recovery holds no assets. It can [reset accounts](/teams/recovery) if the passkeys become unavailable.
 
-Why this shape works for us:
+This structure provides the following controls:
 
-- **No unilateral access to the Treasury.** Two approvals move the bulk of the assets, and a lost YubiKey is replaced by the other two signers.
-- **Low-threshold accounts hold bounded balances.** A leaked key or rage-quit is capped at that account's balance, and because every signature is a specific person's key, every transaction is attributable.
-- **Accounts double as accounting.** [Memos are required](/transactions/memos), and each account maps to categorization rules, so books mostly close themselves.
+- **No unilateral Treasury access.** Two approvals move the assets. The other two signers can replace a lost YubiKey.
+- **Low-threshold accounts have limited balances.** A compromised signing key can reach only the applicable account balance. Each signature identifies one person.
+- **Accounts support accounting.** We [require memos](/transactions/memos), and each account maps to accounting categories.
 
 ## Banking
 
-- [Splits](https://app.splits.org/) - we keep about \~20% of our company's assets onchain, about half of which is [earning interest](/accounts/earn) at rates higher than what we would get offchain. All of our onchain assets are stored here, spread out across the dedicated accounts [above](#our-workspace). A few thoughts:
-  - We don't feel comfortable moving 100% of our assets onchain, since we benefit from accessing the peace of mind that comes with FDIC insurance and custodians.
-  - That said, the percent of our assets we're storing onchain *is* growing, primarily because (1) yield is higher, and (2) we can move money faster.
-- [Mercury](https://mercury.com/r/0xsplits)\* - best in class UX. We keep a nominal balance here, and use it if we need to pay invoices and move other relatively small amounts.
-- [Meow](https://www.meow.com/)\* - higher yield than Mercury, but worse UX. All our big expenses (payroll, credit card, health insurance, etc) pull from these accounts. We rarely interface with this product; it's almost entirely "set and forget" (except when they have bugs that require us to manually move funds to cover payroll, ugh). We set this up because we had recently raised outside capital and the yield we could earn was considerably higher than what we were earning in Mercury.
+- [Splits](https://app.splits.org/): We keep approximately 20% of the company assets on the blockchain. Approximately half of these assets [earn interest](/accounts/earn). The rates are higher than the rates that we receive outside the blockchain. The dedicated accounts [above](#our-accounts) hold all of these assets.
+  - FDIC insurance and custodians protect the assets that remain outside the blockchain.
+  - We increase the share on the blockchain because yields are higher and transfers are faster.
+- [Mercury](https://mercury.com/r/0xsplits)\*: We keep a small balance for invoices and other small payments.
+- [Meow](https://www.meow.com/)\*: Meow provides higher yields than Mercury. Payroll, credit cards, and health insurance debit these accounts. We selected Meow after we raised external capital because its yields were higher than Mercury yields.
 
-*\* As with all custody products, a legal entity is required. So these are not applicable for unincorporated projects and, in many cases, entities outside the US.*
+*\* These custody products require a legal entity. They are not available to unincorporated projects and many entities outside the US.*
 
 ## Accounting
 
-- [Splits](https://app.splits.org/) - provides our accounting team with historical prices of all our transactions across all of our accounts. **We rely heavily on the memo field**, as to reduce the back and forth needed with our accounting team to close our books.
-- [Acuity](https://acuity.co/) - third party firm that handles monthly bookkeeping, taxes, etc. We got started with them as a small company and, for the most part, they've kept up so we haven't felt compelled to change. In hindsight, we would have rather worked with a part-time dedicated bookkeeper vs going with a larger firm.
-- [Xero](https://www.xero.com) - we interact with this very infrequently. We do pay for it because our accountants use it. This is our source of truth for our Chart of Accounts, which our accountants modify as operational complexity grows.
-- [Integral](https://integral.xyz/) - we interact with this very infrequently. It's a sub-ledger that tracks cost basis for our onchain transactions and syncs to Xero's Chart of Accounts.
-  - Good product but very expensive (minimum \$7200/year) and pricing is based on transaction count, which we fundamentally disagree with. Our goal is to bring this functionality into Splits in the next few quarters.
+- [Splits](https://app.splits.org/): Gives our accounting team historical prices for transactions in all accounts. **We use the memo field** to reduce questions during book closing.
+- [Acuity](https://acuity.co/): Provides monthly bookkeeping and tax services. We selected Acuity when the company was small. We now prefer a dedicated part-time bookkeeper to a larger firm.
+- [Xero](https://www.xero.com): Contains our chart of accounts. Our accountants update it as operational complexity increases.
+- [Integral](https://integral.xyz/): Tracks the cost basis of our onchain transactions and synchronizes with the Xero chart of accounts.
+  - The minimum price is $7,200 each year, and the price increases with the transaction count.
 
 ## Cards
 
-- [Ramp](https://ramp.com/) - we started using this prior to Mercury having a card offering of their own. It's not clear we would use Ramp today if we were just getting started.
-  - Corporate cards tied to an onchain balance is one of the most requested features from current customers (e.g. pay AWS, Figma, Notion, etc using USDC in a Splits account). See [Rain](/integrations/rain) for the integration we offer today.
+- [Ramp](https://ramp.com/): We selected Ramp before Mercury offered cards.
+  - Customers frequently request corporate cards that use an onchain balance. See [Rain](/integrations/rain) for the current integration.
 
 ## Payroll
 
-- [Splits](https://app.splits.org/) - we run payroll twice monthly for non-US folks who are amenable to receiving USDC onchain.
-- [Gusto](https://gusto.com/) - we've been using this to run payroll and benefits since 2021, so far no issues and customer service has been great.
-- [Deel](https://www.deel.com/) - a few of our team members are not US-based and prefer not to be paid in USDC (because of local conversion and offramping issues), so we use Deel instead of Gusto for these folks.
+- [Splits](https://app.splits.org/): Pays USDC twice each month to applicable team members outside the US.
+- [Gusto](https://gusto.com/): Provides payroll and benefits. We started to use Gusto in 2021 and continue to use it.
+- [Deel](https://www.deel.com/): Pays team members outside the US who do not want USDC. Local conversion and offramp limitations can make USDC unsuitable for them.
 
 ## Miscellaneous
 
-- [Carta](https://carta.com/) - cap table management
-- [Clerky](https://www.clerky.com/) - "fill in the blank" legal docs (e.g. contractor agreements, employment offers, etc)
-- Very Expensive Law Firm - we avoid engaging them unless it's Very Important
+- [Carta](https://carta.com/): Manages the capitalization table.
+- [Clerky](https://www.clerky.com/): Provides templates for contractor agreements, employment offers, and other legal documents.
+- External law firm: Provides legal services for important matters.
 
 ## Outlook
 
-This might look like a lot but it's actually fairly manageable day-to-day, especially when you consider what we [were previously using](https://splits.org/blog/onchain-team-security/). Notably, we no longer use any centralized exchanges (Coinbase, Gemini, etc), Gnosis Safes, or individual software wallets (MetaMask, Rainbow, etc). All of these were huge headaches for us as our team scaled.
+We no longer use centralized exchanges, Gnosis Safes, or individual software wallets. This change reduced operational problems as the team grew. See the [previous tool structure](https://splits.org/blog/onchain-team-security/).
 
-And, being an "offchain first company", we're already discovering instances where keeping a large onchain balance is net beneficial for us. Beyond the obvious aspects of international payments, we found it's actually faster to use onchain funds earning interest offchain than offchain funds earning interest offchain. We had an instance where a Meow bug resulted in us missing payroll, and the fastest way to remedy this was to offramp USDC (earning 6%+) from Splits to Meow.
+Splits remains an offchain-first company, but a large onchain balance provides benefits. These benefits include international payments and faster access to assets that earn interest.
+
+A Meow software error caused a missed payroll. We sent USDC from Splits to Meow through an offramp to correct the problem. The USDC earned more than 6% in Splits.

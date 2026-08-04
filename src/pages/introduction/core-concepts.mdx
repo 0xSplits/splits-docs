@@ -1,31 +1,38 @@
 ---
 title: Core concepts
-description: The three concepts Splits is built around (Team, Member, and Account) and how they relate to each other.
+description: The three central Splits concepts (Team, Member, and Account) and their relationships.
 ---
 
 # Core concepts [Team, Member, and Account: the three ideas everything else builds on]
 
-- **[Team](/teams)**: the unit everything is scoped to. One team per set of books: a company, an individual, or a project.
-- **[Member](/members)**: a person who belongs to a team, with a role and their own signing keys.
-- **[Account](/accounts)**: where a team's assets live, at the same address on every network, controlled by signers at a threshold.
+- **[Team](/teams)**: the product unit that contains one set of books.
+- **[Member](/members)**: a person who belongs to a team and has a role and signing keys.
+- **[Account](/accounts)**: a smart account that holds a team's assets.
 
 ## Team
 
-Everything in the app (accounts, balances, transactions, bank info) except personal settings is scoped to the current team, shown in the team selector (top left).
+The current team contains the accounts, balances, transactions, and banking information in the app. The team selector shows the current team. Personal settings are not part of a team.
 
-A team maps to one set of books, whether or not a legal entity exists yet: a company, an individual, or a project that hasn't incorporated. Where an entity does exist, the mapping is one-to-one: on/offramps and compliant payments require [entity verification](/banking), and each team can have only one verified entity. A tax ID is a useful litmus test: Alice belongs to the Splits Labs team (EIN) and her own personal team (SSN), two tax IDs, two teams. A pre-entity project runs as its own team from day one and can [verify through an individual](/introduction/personal-usage#no-entity-needed) until it incorporates.
+A team contains one set of books for a company, an individual, or a project. A team does not require a legal entity. Each team can have only one verified entity. Onramps, offramps, and compliant payments require [entity verification](/banking).
 
-When deciding between a new team and an existing one, ask "who are the owners?" Same owners, existing team; different owners, new team. This matters for Recovery: see [Change recovery signers](/teams/recovery#changing-recovery-signers). To create a team, see [Teams](/teams).
+Use the tax ID to help select the team structure. For example, Alice belongs to the Splits Labs team, which uses an EIN. Her personal team uses her SSN. These two tax IDs require two teams.
+
+A project without an entity can use a separate team from its first day. The project can [verify through an individual](/introduction/personal-usage#no-entity-needed) before incorporation.
+
+Use the same team when the Owners do not change. Create a new team when the Owners are different. This choice affects Recovery. See [Change recovery signers](/teams/recovery#changing-recovery-signers). To create a team, see [Teams](/teams).
 
 ## Member
 
-A member is a person who belongs to a [team](/teams). Members authenticate with email, and one member can belong to many teams. Every member has a [role](/teams/roles) (Owner or Member) that determines what they can administer, and holds **[signing keys](/members/keys)**: passkeys saved in the app, or EOAs [registered via the CLI](/introduction/agents#sign-locally-with-an-eoa).
+A member is a person who belongs to a [team](/teams). Members use email to authenticate. One member can belong to multiple teams. Each member has an Owner or Member [role](/teams/roles). The role determines which settings the member can administer.
 
-A member's signing keys can become [signers](/accounts/signers) on accounts; membership alone grants no signing authority. Signing keys, email, display name, and avatar belong to the member, not the team, so they work across every team a member is part of ([Settings > Personal](https://app.splits.org/settings/personal/general/)). For roles, inviting, and removal, see [Members](/members).
+Each member also has **[signing keys](/members/keys)**. A signing key is a passkey in the app or an EOA [registered through the CLI](/introduction/agents#sign-locally-with-an-eoa).
+
+An account can add a member's signing key as a [signer](/accounts/signers). **Membership alone grants no signing authority.** Signing keys, email, display name, and avatar belong to the member. They are available in each team that the member joins. Manage them in [Settings > Personal](https://app.splits.org/settings/personal/general/). For roles, invitations, and removal, see [Members](/members).
 
 ## Account
 
-An account is where a team's assets are stored, at the same address on every network it's active on. Every account has a [threshold](/accounts/thresholds): a transaction executes once that many [signers](/accounts/signers) approve it. Signers are keys held by members; the public key lives onchain, the private key stays with the member, and **Splits never has access to private keys**.
+An account holds a team's assets at the same address on every active network. Every account has a [threshold](/accounts/thresholds). A transaction executes after the required number of [signers](/accounts/signers) approve it.
+
+Members hold the signing keys that become signers. The public key is on the blockchain, and the private key stays with the member. **Splits never has access to private keys.**
 
 For account types and the ownership chain, see [Accounts](/accounts).
-
