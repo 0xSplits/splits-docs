@@ -5,15 +5,15 @@ description: How transactions work in Splits (proposals, signing against a thres
 
 # Transactions [Proposals that execute onchain once signers meet the threshold]
 
-Every transaction in Splits is a **proposal** that executes onchain once enough of the account's [signers](/accounts/signers) approve it to meet the account's threshold. On a 1-of-n account, proposing and executing happen in one step; on higher thresholds, the transaction waits for the remaining signatures.
+Every transaction in Splits is a **proposal** that executes onchain once enough of the account's [signers](/accounts/signers) approve it to meet the account's threshold. On a 1-of-n account, proposing and executing happen in one step. On higher thresholds, the transaction waits for the remaining signatures.
 
-Who can propose is governed by [roles](/teams/roles): Owners can propose from any account, Members only from accounts they're a signer on.
+Who can propose is governed by [roles](/teams/roles): Owners can propose from any account, Members only from accounts they are a signer on.
 
 ## Types
 
 | Type | What it does |
 | --- | --- |
-| [Sends](/transactions/sends) | Move tokens to any recipient, including tokens you don't hold, via just-in-time swaps |
+| [Sends](/transactions/sends) | Move tokens to any recipient, including tokens you do not hold, via just-in-time swaps |
 | [Swaps](/transactions/swaps) | Trade between tokens (bridging included), with no fees from Splits |
 | [Custom](/transactions/custom) | Call any writable function on any contract on a supported network |
 | [Batch](/transactions/batch) | Group multiple transactions into one signature |
@@ -32,7 +32,7 @@ Splits sponsors transaction fees with a monthly gas stipend, applied at the team
 | $10k+ | $10 per month |
 | $100k+ | $100 per month |
 
-Once the stipend is used, transactions are paid in the network's native token (e.g. ETH); the app tells you at submission if the account doesn't hold enough. There is no way to view the remaining stipend yet. Sponsorship policies can change at any time without notice.
+Once the stipend is used, transactions are paid in the network's native token (e.g. ETH). The app tells you at submission if the account does not hold enough. There is no way to view the remaining stipend yet. Sponsorship policies can change at any time without notice.
 
 ## Programmatic access
 

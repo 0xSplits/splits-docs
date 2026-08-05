@@ -11,11 +11,13 @@ A module has full access to the account. Only enable addresses you trust complet
 
 ## When to use
 
-**Automating custom transactions.** Enable a key you control (an "Executor": a server or agent EOA) as a module. The Executor can then execute any call from the account, including calls to permissioned contracts that check `msg.sender` (e.g. withdrawing LP fees), while everything the account receives stays managed in Splits. Secure the Executor key commensurate with the funds it can reach, both in the account and in any contract the account has privileges on.
+**Automating custom transactions.** Enable a key you control (an "Executor": a server or agent EOA) as a module. The Executor can then execute any call from the account. This includes calls to permissioned contracts that check `msg.sender`, such as calls that withdraw LP fees.
 
-**Automating token transfers only: don't use a module.** Grant an ERC-20 approval instead: call `approve(spender, allowance)` on the token contract via a [custom transaction](/transactions/custom), then have the spender key call `transferFrom`. An approval is scoped to one token up to an allowance; a module can do anything.
+Everything the account receives stays managed in Splits. Secure the Executor key based on the funds it can reach. This includes funds in the account and in any contract where the account has privileges.
 
-**Earning interest.** The [Automated Earn](/accounts/earn#automated-earn) toggle enables Splits' open-source [Auto Earn Module](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vault-modules/src/AutoEarnModule.sol) on the account; no manual setup.
+**Automating token transfers only: do not use a module.** Grant an ERC-20 approval instead: call `approve(spender, allowance)` on the token contract via a [custom transaction](/transactions/custom), then have the spender key call `transferFrom`. An approval is scoped to one token up to an allowance. A module can do anything.
+
+**Earning interest.** The [Automated Earn](/accounts/earn#automated-earn) toggle enables Splits' open-source [Auto Earn Module](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vault-modules/src/AutoEarnModule.sol) on the account. No manual setup.
 
 **Deposit-address automation** (split/swap/forward incoming tokens): use an [automation account](/accounts#automation-accounts), not a module.
 

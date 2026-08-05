@@ -82,9 +82,7 @@ If a change moves a fact's canonical home, update this table in the same PR.
 
 ## ASD-STE100 human review
 
-The deterministic checker enforces sentence length, paragraph length, contractions, and punctuation. It cannot decide whether technical prose uses words correctly. For every changed page, also verify:
-
-`pnpm build` rejects findings that are not in `scripts/ste-baseline.json`. The baseline lets unchanged legacy pages build while the repository migrates. Do not add a finding to the baseline. Fix the prose instead.
+The deterministic checker enforces sentence length, paragraph length, contractions, and punctuation. `pnpm build` rejects all findings. It cannot decide whether technical prose uses words correctly. For every changed page, also verify:
 
 1. Use words from the ASD-STE100 dictionary or technical terms from `STE-TERMS.md`. Use each word only with its approved meaning and part of speech.
 2. Keep multi-word nouns to three words. If an official technical name is longer, write it in full first and define a short form.

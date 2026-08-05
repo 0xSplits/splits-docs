@@ -5,25 +5,25 @@ description: "Using a Splits account with Farcaster: verifying it on your profil
 
 # Farcaster [Verify, secure, and manage a Farcaster account with a Splits account]
 
-[Farcaster](https://farcaster.xyz) is a social network built on Ethereum. A Splits account can hold a Farcaster account's onchain roles: a verified address on your profile, the recovery address that backstops the account, and the payer for protocol storage.
+[Farcaster](https://farcaster.xyz) is a social network built on Ethereum. A Splits account can hold a Farcaster account's onchain roles. These roles include a verified profile address, the account recovery address, and the payer for protocol storage.
 
-Farcaster's contracts live on Optimism, and you call them from Splits with [custom transactions](/transactions/custom). Contract behavior below is Farcaster's; see their [contract docs](https://docs.farcaster.xyz/reference/contracts/) for the authoritative reference.
+Farcaster's contracts live on Optimism, and you call them from Splits with [custom transactions](/transactions/custom). Contract behavior below is Farcaster's. See their [contract docs](https://docs.farcaster.xyz/reference/contracts/) for the authoritative reference.
 
 ## Verifying an address
 
-Farcaster verifies a contract account by checking an [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) signature **on Ethereum mainnet**, and doesn't accept [ERC-6492](https://eips.ethereum.org/EIPS/eip-6492) signatures from not-yet-deployed contracts. A Splits account produces a plain EIP-1271 signature only once deployed, so before verifying:
+Farcaster verifies a contract account by checking an [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) signature **on Ethereum mainnet**, and does not accept [ERC-6492](https://eips.ethereum.org/EIPS/eip-6492) signatures from not-yet-deployed contracts. A Splits account produces a plain EIP-1271 signature only once deployed, so before verifying:
 
 1. Enable Ethereum Mainnet for your team in [Settings > Networks](https://app.splits.org/settings/team/networks/).
-2. Deploy the account on mainnet by sending any transaction from it there. Accounts deploy on their first transaction per network; once deployed, Etherscan shows a *Contract* tab at the account's address.
+2. Deploy the account on mainnet by sending any transaction from it there. Accounts deploy on their first transaction per network. Once deployed, Etherscan shows a *Contract* tab at the account's address.
 
 Then connect the account at [farcaster.xyz > Settings > Verified addresses](https://farcaster.xyz/~/settings/verified-addresses) using the [browser extension](/introduction/extension) or [WalletConnect](/integrations/walletconnect), and sign the verification message.
 
 ## Recovery address
 
-A Farcaster account is controlled by two addresses: a **custody address** that owns the account and authorizes apps, and a **recovery address** that can move the account to a new custody address. The Farcaster app manages both by default; pointing the recovery address at a Splits account (Farcaster app: *Settings > Advanced > Change recovery address*) puts your social account behind the same signers and [threshold](/accounts/thresholds) as your funds.
+A Farcaster account is controlled by two addresses. A **custody address** owns the account and authorizes apps. A **recovery address** can move the account to a new custody address. The Farcaster app manages both by default. You can point the recovery address at a Splits account in *Settings > Advanced > Change recovery address*. This puts your social account behind the same signers and [threshold](/accounts/thresholds) as your funds.
 
 If you lose the custody address, recover from Splits by calling `recover` on the [IdRegistry](https://docs.farcaster.xyz/reference/contracts/reference/id-registry) (`0x00000000Fc6c5F01Fc30151999387Bb99A9f489b` on Optimism) via a custom transaction. Two requirements: the new custody address must sign an EIP-712 `Transfer` message accepting the move, and it must not already own a Farcaster ID.
 
 ## Storage
 
-Farcaster charges yearly rent for the space an account's messages use. Pay it from a Splits account by calling `rent(fid, units)` on the [StorageRegistry](https://docs.farcaster.xyz/reference/contracts/reference/storage-registry) (`0x00000000fcCe7f938e7aE6D3c335bD6a1a7c593D` on Optimism) via a custom transaction, with *Amount to pay* set to the unit price in ETH (`unitPrice()` on the contract; excess is refunded).
+Farcaster charges yearly rent for the space that an account's messages use. To pay from a Splits account, create a custom transaction. Call `rent(fid, units)` on the [StorageRegistry](https://docs.farcaster.xyz/reference/contracts/reference/storage-registry) (`0x00000000fcCe7f938e7aE6D3c335bD6a1a7c593D` on Optimism). Set *Amount to pay* to the unit price in ETH (`unitPrice()` on the contract). The contract refunds excess ETH.

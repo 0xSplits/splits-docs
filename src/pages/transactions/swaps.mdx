@@ -7,11 +7,11 @@ description: "How swaps work in Splits: multi-provider routing with no fees, bri
 
 A swap trades one token for another, including across networks: moving ETH on Base to ETH on Optimism is a swap. Splits charges no fees on swaps. Each quote is routed across multiple swap providers (currently 0x, KyberSwap, Velora, Relay, and Fabric; Relay handles cross-network swaps) and the best result is used. The exception is [private transfers](/transactions/sends#private-transfers), which always route through a dedicated provider.
 
-Start a swap from the Dashboard or an account page. Any ERC-20 can be swapped: if a token isn't listed, paste its address with the right network selected.
+Start a swap from the Dashboard or an account page. Any ERC-20 can be swapped: if a token is not listed, paste its address with the right network selected.
 
 ## Just-in-time swaps
 
-[Sends](/transactions/sends) let you pay in a token the account doesn't hold. Specify the token the recipient receives, then pick which held token to sell; the swap and the send execute as a single transaction, and the recipient receives the exact amount specified.
+[Sends](/transactions/sends) let you pay in a token the account does not hold. Specify the token the recipient receives, then pick which held token to sell. The swap and the send execute as a single transaction, and the recipient receives the exact amount specified.
 
 ## Slippage
 
@@ -27,7 +27,7 @@ Swap quotes are signed by the provider and expire quickly, often before an accou
 
 ## Asset recovery
 
-Tokens received on [partially supported networks](/introduction/networks-and-assets#partially-supported-networks) can be bridged back to a fully supported one from *Asset recovery* in the account's settings, which lists the account's balances on those networks and opens the same swap flow with the source network fixed.
+You can bridge tokens from [partially supported networks](/introduction/networks-and-assets#partially-supported-networks) back to a fully supported network. Open *Asset recovery* in the account settings. This page lists the account balances on partially supported networks. It opens the same swap flow with the source network fixed.
 
 ## Programmatic access
 

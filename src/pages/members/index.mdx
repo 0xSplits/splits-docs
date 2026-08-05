@@ -10,11 +10,11 @@ A **member** is a person in Splits, identified by their email address. One membe
 - **Across every team**: their profile (display name, email, avatar) and their [signing keys](/members/keys) (passkeys and registered EOAs). These belong to the member, not to any team.
 - **Per team**: a membership, stored offchain, with a [role](/teams/roles) (Owner or Member), granting read access to that team's accounts, balances, and transactions plus the role's administrative capabilities.
 
-Membership confers **no onchain authority**: a member cannot move funds unless one of their signing keys has been added to an account's signer set, making them a [signer](/accounts/signers#signers-vs-membership) on that account.
+Membership confers **no onchain authority**. A member cannot move funds unless one of their signing keys is in an account's signer set. This makes them a [signer](/accounts/signers#signers-vs-membership) on that account.
 
 ## Signing up
 
-Members authenticate by email: enter yours at [app.splits.org](https://app.splits.org) and click the emailed sign-in link, or sign in with a passkey once you've saved one. Most members register by [accepting an invite](#inviting); registering directly leads into [creating a team](/teams#creating-a-team).
+Members authenticate by email. Enter your email at [app.splits.org](https://app.splits.org) and select the sign-in link in the email. After you save a passkey, you can also use it to sign in. Most members register by [accepting an invite](#inviting). Registering directly leads into [creating a team](/teams#creating-a-team).
 
 ## Inviting
 
@@ -22,9 +22,9 @@ Prerequisites: you must be an **Owner** of the team.
 
 1. Go to [Settings > Members](https://app.splits.org/settings/team/members/) and select *Invite member*.
 2. Enter the invitee's email address and select their role.
-3. The invitee receives an email with a join link (it may land in spam). If they're new to Splits, they register as part of accepting.
-4. During acceptance, the invitee is prompted to save a passkey: they need at least one [signing key](/members/keys) before they can be added to an account's signer set.
-5. You receive an email confirmation once they've accepted.
+3. The invitee receives an email with a join link (it may land in spam). If they are new to Splits, they register as part of accepting.
+4. During acceptance, save a passkey when prompted. An invitee must have at least one [signing key](/members/keys) before they can be added to an account's signer set.
+5. You receive an email confirmation once they have accepted.
 
 To give the new member signing power on an account, continue to [Changing signers](/accounts/editing#changing-signers-and-thresholds).
 

@@ -5,18 +5,18 @@ description: "Pay third parties in fiat from Splits accounts: add a vendor's ban
 
 # Paying vendors [Pay third parties in fiat from Splits accounts]
 
-A vendor payment is an offramp to someone else's bank account. Each vendor bank account you add gets a dedicated onchain deposit address; paying the vendor is a normal [send](/transactions/sends) of stablecoins to that address, which Bridge converts and delivers to the vendor's bank.
+A vendor payment is an offramp to someone else's bank account. Each vendor bank account you add gets a dedicated onchain deposit address. Paying the vendor is a normal [send](/transactions/sends) of stablecoins to that address, which Bridge converts and delivers to the vendor's bank.
 
 Prerequisites: [banking](/banking) set up with a verified entity. Adding and managing vendor accounts requires the [Owner](/teams/roles) role.
 
 ## Adding a vendor
 
-In [Settings > Banks](https://app.splits.org/settings/team/banks/), add the vendor's bank account as an **external account**: US accounts by routing and account number, EU accounts by IBAN, along with the account owner's name and address. External accounts are listed separately from the team's own (internal) bank accounts.
+In [Settings > Banks](https://app.splits.org/settings/team/banks/), add the vendor's bank account as an **external account**. For US accounts, enter the routing and account numbers. For EU accounts, enter the IBAN. Also enter the account owner's name and address. External accounts are listed separately from the team's own (internal) bank accounts.
 
 ## Paying
 
-Send **USDC** (US vendors) or **EURC** (EU vendors) to the vendor account's deposit address; bank-account recipients also appear directly in the send flow. The payment is a transaction like any other: proposed from an account, approved at its threshold, visible in the feed and [accounting](/accounting).
+Send **USDC** (US vendors) or **EURC** (EU vendors) to the vendor account's deposit address. Bank-account recipients also appear directly in the send flow. The payment is a transaction like any other: proposed from an account, approved at its threshold, visible in the feed and [accounting](/accounting).
 
-Delivery is via Same Day ACH (US) or SEPA (EU), with the same 0.25% fee and [settlement timing](/banking/offramping#settlement) as other offramps, deducted from the amount sent.
+Delivery uses Same Day ACH (US) or SEPA (EU). The 0.25% fee and [settlement timing](/banking/offramping#settlement) are the same as for other offramps. The fee is deducted from the amount sent.
 
 To collect tax forms from vendors and contractors you pay, see [Compliance](/contacts/compliance).

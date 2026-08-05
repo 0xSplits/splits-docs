@@ -9,8 +9,7 @@
 // and one-action procedure review to a human. See STE-TERMS.md and CLAUDE.md.
 
 import { execFileSync } from 'node:child_process'
-import { createHash } from 'node:crypto'
-import { readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
+import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
 const CONTRACTION = /\b(?:aren['’]t|can['’]t|couldn['’]t|didn['’]t|doesn['’]t|don['’]t|hasn['’]t|haven['’]t|isn['’]t|it['’]s|shouldn['’]t|that['’]s|there['’]s|they['’](?:re|ve|ll)|wasn['’]t|we['’](?:re|ve|ll)|weren['’]t|won['’]t|wouldn['’]t|you['’](?:re|ve|ll))\b/gi
@@ -124,45 +123,27 @@ function inspect(path) {
 
 const args = process.argv.slice(2)
 let files
-let baselinePath
-let writeBaselinePath
 if (args[0] === '--changed') {
   if (!args[1]) throw new Error('--changed requires a base ref')
   files = changedFiles(args[1])
-} else if (args[0] === '--baseline' || args[0] === '--write-baseline') {
-  if (!args[1]) throw new Error(`${args[0]} requires a JSON path`)
-  baselinePath = args[0] === '--baseline' ? args[1] : undefined
-  writeBaselinePath = args[0] === '--write-baseline' ? args[1] : undefined
-  files = walk('src/pages')
 } else {
   const targets = args.length ? args : ['src/pages']
   files = targets.flatMap((target) => walk(target))
 }
 
-const allFindings = []
+const findings = []
 for (const path of [...new Set(files)].sort()) {
   for (const finding of inspect(path)) {
-    const id = createHash('sha256').update(`${path}\0${finding.rule}\0${finding.source}`).digest('hex').slice(0, 20)
-    allFindings.push({ ...finding, id, path })
+    findings.push({ ...finding, path })
   }
 }
 
-if (writeBaselinePath) {
-  const ids = [...new Set(allFindings.map(({ id }) => id))].sort()
-  writeFileSync(writeBaselinePath, `${JSON.stringify(ids, null, 2)}\n`)
-  console.log(`Wrote ${ids.length} finding fingerprint(s) to ${writeBaselinePath}.`)
-  process.exit(0)
-}
-
-const baseline = baselinePath ? new Set(JSON.parse(readFileSync(baselinePath, 'utf8'))) : new Set()
-const findings = allFindings.filter(({ id }) => !baseline.has(id))
 for (const finding of findings) {
   console.error(`${finding.path}:${finding.line}: ASD-STE100 ${finding.rule}: ${finding.message}`)
 }
 
 if (findings.length) {
-  console.error(`\n${findings.length} new deterministic ASD-STE100 finding(s).`)
+  console.error(`\n${findings.length} deterministic ASD-STE100 finding(s).`)
   process.exit(1)
 }
-const accepted = baselinePath ? ` (${allFindings.length} legacy finding(s) accepted by baseline)` : ''
-console.log(`ASD-STE100 deterministic checks passed for ${new Set(files).size} file(s)${accepted}.`)
+console.log(`ASD-STE100 deterministic checks passed for ${new Set(files).size} file(s).`)

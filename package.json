@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vocs dev",
-    "build": "node scripts/check-ste.mjs --baseline scripts/ste-baseline.json && vocs build",
+    "build": "node scripts/check-ste.mjs && vocs build",
     "preview": "vocs preview",
     "start": "node dist/serve-node.js"
   },
