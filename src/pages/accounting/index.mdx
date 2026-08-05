@@ -13,7 +13,12 @@ Filter transactions by memo, date, account(s), direction, and amount (min and ma
 
 ## Exporting
 
-*Export CSV* downloads all transactions matching the current filters. To control which tokens appear in the books at all, see [Spam & tokens](/accounting/spam).
+The main *Export as CSV* action downloads a transaction-and-tax-lot timeline matching the current account, network, token, and date filters. The export menu also provides:
+
+- **Open tax lots**: lots still open as of the selected period's end date (or now, when there is no end date), matching the account, network, and token filters.
+- **Realized gains**: disposals in the selected date range, matching the account filter, with proceeds, cost basis, gain or loss, and holding term.
+
+Large reports are generated in the background and emailed when ready; keep the page open to also download them automatically when they finish. To control which tokens appear in the books at all, see [Spam & tokens](/accounting/spam).
 
 ## Historical balances
 
