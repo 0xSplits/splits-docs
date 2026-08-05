@@ -27,7 +27,7 @@ Everything happens natively on Base: no bridges, no wrapped assets. For a deeper
 
 ## Automated Earn
 
-Automated Earn is a per-account toggle that deposits idle balances automatically. A check runs every 5 minutes and deposits whenever the account's USDC balance exceeds $1.
+Automated Earn is a per-account toggle that deposits idle balances automatically. Enabling it triggers a check immediately. After that, a check runs every 5 minutes. Each check deposits whenever the account's USDC balance exceeds $1.
 
 Enabling it adds the [Auto Earn Module](/accounts/modules) (an open-source [contract](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vault-modules/src/AutoEarnModule.sol) [deployed on Base](https://basescan.org/address/0x204DDc725f37786072a4D4102CBF3945F3597D13#code)) to the account, authorizing it to move deposits into the vault.
 
