@@ -1,11 +1,11 @@
 ---
-title: Agents
-description: "Operate Splits programmatically via the self-describing CLI, or connect AI tools over MCP: scopes, the proposal model, headless signing, and output tuning."
+title: Agents & API
+description: "Operate Splits programmatically via the API or self-describing CLI, or connect AI tools over MCP: scopes, the proposal model, headless signing, and output tuning."
 ---
 
-# Agents [Operate Splits programmatically via the CLI, or connect AI tools over MCP]
+# Agents & API [Operate Splits programmatically via the API, CLI, or MCP]
 
-The Splits CLI operates Splits programmatically: query anything visible in the app, propose transactions, and sign headlessly. It also runs as an MCP server for AI tools (Claude Code, Cursor, Amp).
+The Splits API and CLI let applications, scripts, and agents operate Splits programmatically. The CLI also runs as an MCP server for AI tools (Claude Code, Cursor, Amp).
 
 **The CLI is self-describing, and it, not this page, is the reference for the command surface:**
 
@@ -27,7 +27,7 @@ Create a key in [Settings > API Keys](https://app.splits.org/settings/team/api-k
 
 Copy the key (it starts with `sk_`) and save it somewhere secure. You will not be able to see it again.
 
-### Install and sign in
+### Install the CLI and sign in
 
 ```bash
 npm install -g @splits/splits-cli@latest   # or run via npx @splits/splits-cli@latest
@@ -36,6 +36,12 @@ splits auth whoami   # verify: team, scopes, key source, local signing key
 ```
 
 `splits auth logout` removes the saved key.
+
+## Use the API
+
+The Splits API is a versioned REST API at `https://api.splits.org/public/v1`. Authenticate API-key-protected endpoints with your key as a bearer token.
+
+The [Swagger docs](https://api.splits.org/public/docs) are the source of truth for available endpoints, authentication requirements, parameters, request and response schemas, and examples.
 
 ## Connect to AI tools (MCP)
 
