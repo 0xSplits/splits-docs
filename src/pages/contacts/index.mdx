@@ -9,26 +9,26 @@ A contact is a team-wide name for an external address. Once saved, the name stan
 
 ## Creating
 
-Add contacts from the *Contacts* page, inline from any address shown in a transaction feed, or from the command menu. A contact is an address plus a display name; you can enter an ENS name, which is resolved once and stored as its address. Each address holds one contact per team, applied across all networks.
+Add contacts from the *Contacts* page, inline from any address shown in a transaction feed, or from the command menu. A contact is an address plus a display name. You can enter an ENS name, which is resolved once and stored as its address. Each address holds one contact per team, applied across all networks.
 
-Two restrictions: contacts must be EVM addresses, and the team's own Splits accounts can't be added as contacts (they're already named).
+Two restrictions: contacts must be EVM addresses, and the team's own Splits accounts cannot be added as contacts (they are already named).
 
 ## How addresses get named
 
-When Splits displays an address, it uses the first name it finds: the team's account and bank-account names, then contact labels, then live ENS and Farcaster lookups, then [payee](/contacts/compliance) details, and finally the shortened address. Saving a contact pins a name the whole team sees, instead of depending on what an address resolves to.
+When Splits displays an address, it uses the first name it finds. It checks the team's account and bank-account names first, then contact labels. Next, it checks live ENS and Farcaster lookups, then [payee](/contacts/compliance) details, and finally the shortened address. Saving a contact pins a name that the whole team sees. The display does not depend on what an address resolves to.
 
 ## Other named recipients
 
 Two recipient types are stored separately from contacts but appear alongside them in recipient search:
 
-- **Payees**: counterparties with a verified identity and tax forms; see [Compliance](/contacts/compliance).
-- **Vendor bank accounts**: fiat payees with a deposit address; see [Paying vendors](/banking/paying-vendors).
+- **Payees**: counterparties with a verified identity and tax forms. See [Compliance](/contacts/compliance).
+- **Vendor bank accounts**: fiat payees with a deposit address. See [Paying vendors](/banking/paying-vendors).
 
 ## Programmatic access
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits contacts list --q "acme"`: search contacts by name or address; returns up to 500 (**Read** scope)
+- `splits contacts list --q "acme"`: search contacts by name or address. Returns up to 500 (**Read** scope)
 - `splits contacts lookup --addresses 0x...,0x...`: batch address-to-name lookup, max 100 addresses (**Read** scope)
 
 Creating and editing contacts is web-only today.

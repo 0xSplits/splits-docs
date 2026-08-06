@@ -5,16 +5,18 @@ description: The authoritative reference for what each role (Owner, Member) and 
 
 # Roles [What each role and API key scope can do]
 
-Every team [member](/members) has exactly one of two roles: **Owner** or **Member**. Roles are stored offchain, govern what a person can see and do in the app, and are scoped to one team: the same person can be an Owner of one team and a Member of another. A role never grants signing authority: approving transactions belongs to an account's onchain signer set, and the boundary is drawn at [Signers](/accounts/signers#signers-vs-membership).
+Every team [member](/members) has one of two roles: **Owner** or **Member**. Roles are stored offchain and govern what a person can see and do in the app. Each role applies to one team. The same person can be an Owner of one team and a Member of another.
 
-A related surface (**API key scopes**) governs what programmatic clients can do; see [below](#api-key-scopes).
+A role never grants signing authority. Authority to approve transactions belongs to an account's onchain signer set. This boundary is explained in [Signers](/accounts/signers#signers-vs-membership).
+
+A related surface (**API key scopes**) governs what programmatic clients can do. See [below](#api-key-scopes).
 
 ## What each role can do
 
 | Capability | Owner | Member |
 | --- | --- | --- |
 | View accounts, balances, and transactions | ✅ | ✅ |
-| Propose transactions from an account | ✅ any account | Only accounts they're a signer on |
+| Propose transactions from an account | ✅ any account | Only accounts they are a signer on |
 | Sign transactions | Only if a signer on that account | Only if a signer on that account |
 | Reject pending transactions | ✅ | Only if a signer on that account |
 | Create new accounts | ✅ | ❌ |
@@ -30,9 +32,9 @@ A related surface (**API key scopes**) governs what programmatic clients can do;
 
 ## Read-only members
 
-A member with the **Member** role whose signing keys aren't signers on any account is effectively read-only: they can see the team's accounts, balances, and transactions, but can't propose or sign any. (Owners can propose from any account, so read-only requires the Member role.)
+A person with the **Member** role is read-only if their signing keys are not signers on any account. They can see the team's accounts, balances, and transactions. They cannot propose or sign transactions. Owners can propose from any account, so read-only access requires the Member role.
 
-To set one up, [invite them](/members#inviting) with the Member role and don't add them to any account's signer set. Useful for accountants, auditors, and anyone who needs visibility without the ability to move funds.
+To set one up, [invite them](/members#inviting) with the Member role and do not add them to any account's signer set. Useful for accountants, auditors, and anyone who needs visibility without the ability to move funds.
 
 ## Settings visibility by role
 

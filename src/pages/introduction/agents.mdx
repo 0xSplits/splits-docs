@@ -13,7 +13,7 @@ The Splits API and CLI let applications, scripts, and agents operate Splits prog
 npx @splits/splits-cli@latest --llms   # machine-readable manifest of every command
 ```
 
-Every command answers `--help` and `--schema`, and over [MCP](#connect-to-ai-tools-mcp) each command is exposed as a tool with its schema. This page covers what the manifest doesn't: scopes, the proposal model, headless signing, and output tuning.
+Every command answers `--help` and `--schema`, and over [MCP](#connect-to-ai-tools-mcp) each command is exposed as a tool with its schema. This page covers what the manifest does not: scopes, the proposal model, headless signing, and output tuning.
 
 ## Get set up
 
@@ -22,10 +22,10 @@ Every command answers `--help` and `--schema`, and over [MCP](#connect-to-ai-too
 Create a key in [Settings > API Keys](https://app.splits.org/settings/team/api-keys/) with the scopes you need (the full matrix is in [Roles](/teams/roles#api-key-scopes)):
 
 - **Read**: query data only
-- **Write**: create and propose transactions; update transaction memos and properties
+- **Write**: create and propose transactions. Update transaction memos and properties
 - **Owner**: manage accounts and team settings
 
-Copy the key (it starts with `sk_`) and save it somewhere secure. You won't be able to see it again.
+Copy the key (it starts with `sk_`) and save it somewhere secure. You will not be able to see it again.
 
 ### Install the CLI and sign in
 
@@ -57,7 +57,7 @@ For any stdio MCP client, run `SPLITS_API_KEY=sk_... npx @splits/splits-cli --mc
 
 Everything visible in the app is queryable with the **Read** scope: accounts, balances, transactions (filterable by account, direction, amount, date, and memo), contacts, tokens, networks, members, settings, and automations.
 
-Writes follow the same rule as the app: **a transaction is a [proposal](/transactions)** that executes only once signatures meet the account's threshold. `transactions create transfer` and `create custom` produce proposals (**Write** scope); signing happens in the web UI with a passkey, or headlessly with a [registered EOA](#sign-locally-with-an-eoa). **Owner**-scoped commands create and manage accounts and propose signer changes, whose approval always stays in the web UI. A brand-new team can be bootstrapped with `org create`; completion also happens in the web UI.
+Writes follow the same rule as the app: **a transaction is a [proposal](/transactions)** that executes only once signatures meet the account's threshold. `transactions create transfer` and `create custom` produce proposals (**Write** scope). Signing happens in the web UI with a passkey, or headlessly with a [registered EOA](#sign-locally-with-an-eoa). **Owner**-scoped commands create and manage accounts and propose signer changes, whose approval always stays in the web UI. A brand-new team can be bootstrapped with `org create`. Completion also happens in the web UI.
 
 ## Transaction metadata
 
@@ -71,7 +71,7 @@ By default, signing happens in the web UI with a passkey. To operate headlessly,
 2. `splits accounts update-signers <account> --addEoaSignerIds ... --threshold N`: propose adding it as a signer (**Owner** scope). A human approves the proposal in the web UI, and the update applies to every active network.
 3. `splits transactions sign <id>`: sign pending proposals with the local key (**Write** scope). Auto-submits once the threshold is met.
 
-`splits auth delete-key` removes the local key but does **not** revoke it onchain; remove it from accounts via `update-signers`.
+`splits auth delete-key` removes the local key but does **not** revoke it onchain. Remove it from accounts via `update-signers`.
 
 ## Tune output for agents
 

@@ -5,15 +5,15 @@ description: "Move crypto out to the team's bank accounts: connecting banks via 
 
 # Offramping [Move crypto out to the team's bank accounts]
 
-Before you can offramp, add a bank account from [Settings > Banks](https://app.splits.org/settings/team/banks/): connect a US account with [Plaid](https://plaid.com/) or enter its routing and account numbers manually; EU accounts are added by IBAN. You can add as many bank accounts as you wish.
+Before you can offramp, add a bank account from [Settings > Banks](https://app.splits.org/settings/team/banks/): connect a US account with [Plaid](https://plaid.com/) or enter its routing and account numbers manually. EU accounts are added by IBAN. You can add as many bank accounts as you wish.
 
 Then offramp either by clicking *Offramp* on the Dashboard, or from Settings > Banks: click the three dots on the target bank account and select *Offramp*.
 
-Offramps carry the 0.25% [banking fee](/banking), deducted from the amount. To send fiat to a bank account that isn't yours, see [Paying vendors](/banking/paying-vendors).
+Offramps carry the 0.25% [banking fee](/banking), deducted from the amount. To send fiat to a bank account that is not yours, see [Paying vendors](/banking/paying-vendors).
 
 ## Settlement
 
-In the US, we send via [Same Day ACH, which settles in batches throughout the day](https://apidocs.bridge.xyz/platform/orchestration/more/cutoffs#processing-windows-and-cutoff-times). In Eastern Time, settlement occurs at 1:00 pm, 5:00 pm, and 6:00 pm, with corresponding cutoffs at 9:15 am, 1:30 pm, and 3:30 pm (we've added a 15m buffer relative to Bridge's documentation, which has been necessary in our experience). Offramps sent after 3:30 pm ET arrive the following business day.
+In the US, we send via [Same Day ACH, which settles in batches throughout the day](https://apidocs.bridge.xyz/platform/orchestration/more/cutoffs#processing-windows-and-cutoff-times). In Eastern Time, settlement occurs at 1:00 pm, 5:00 pm, and 6:00 pm. The corresponding cutoffs are 9:15 am, 1:30 pm, and 3:30 pm. These times include a 15-minute buffer relative to Bridge's documentation. This buffer has been necessary in our experience. Offramps sent after 3:30 pm ET arrive the following business day.
 
 For IBAN banks supporting SEPA Instant, settlement occurs in under 30 seconds.
 
@@ -21,4 +21,4 @@ For IBAN banks supporting SEPA Instant, settlement occurs in under 30 seconds.
 
 If your team already has an offramping provider, you can offramp through it instead, without completing Splits' [entity verification](/banking#getting-verified). Most providers issue a **liquidation address**: a deposit address that converts incoming stablecoins to fiat and forwards them to your bank account. Save that address as a [contact](/contacts), then [send](/transactions/sends) stablecoins to it like any other recipient.
 
-Splits treats these as ordinary sends: the 0.25% banking fee and the settlement times above don't apply; your provider's own fees and timing do.
+Splits treats these as ordinary sends: the 0.25% banking fee and the settlement times above do not apply. Your provider's own fees and timing do.

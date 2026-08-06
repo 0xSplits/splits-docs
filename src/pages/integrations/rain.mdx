@@ -1,19 +1,19 @@
 ---
 title: Rain
-description: "Fund and track Rain Spend corporate cards from Splits: stablecoin collateral deposits, the Cards page, and what Splits does and doesn't control."
+description: "Fund and track Rain Spend corporate cards from Splits: stablecoin collateral deposits, the Cards page, and what Splits does and does not control."
 ---
 
 # Rain [Corporate cards collateralized by stablecoins from your accounts]
 
-[Rain](https://www.rain.xyz/) issues corporate cards backed by onchain stablecoin collateral ([Rain Spend](https://www.rain.xyz/rain-spend)). You deposit stablecoins up front; at the end of each billing cycle your spend is deducted from the collateral, and the remainder carries forward as the next month's available spend.
+[Rain](https://www.rain.xyz/) issues corporate cards backed by onchain stablecoin collateral ([Rain Spend](https://www.rain.xyz/rain-spend)). You deposit stablecoins up front. At the end of each billing cycle your spend is deducted from the collateral, and the remainder carries forward as the next month's available spend.
 
-Splits' role is funding and visibility: connect an account, deposit USDC, and track collateral and card spending on the *Cards* page. Rain controls card issuance, limits, fees, and liquidation mechanics; for those, contact Rain's support.
+Splits' role is funding and visibility: connect an account, deposit USDC, and track collateral and card spending on the *Cards* page. Rain controls card issuance, limits, fees, and liquidation mechanics. For those, contact Rain's support.
 
 ## Setup
 
 1. Create a dedicated [operating account](/accounts#operating-accounts) for Rain collateral, so card funding stays a clean sub-ledger.
 2. Complete Rain's KYB at [use.rain.xyz/signup](https://use.rain.xyz/signup) (have your EIN and formation documents ready).
-3. In Rain's wallet settings, link the Splits account via [WalletConnect](/integrations/walletconnect) and sign the verification message. Rain doesn't handle the browser extension well during setup; if linking misbehaves, remove and re-link the account.
+3. In Rain's wallet settings, link the Splits account via [WalletConnect](/integrations/walletconnect) and sign the verification message. Rain does not handle the browser extension well during setup. If linking misbehaves, remove and re-link the account.
 4. Copy the Base collateral contract address from Rain's *Smart Contracts* page, and add it in Splits under *Cards*.
 
 ## Funding

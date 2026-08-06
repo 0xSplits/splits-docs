@@ -7,9 +7,9 @@ description: Networks and asset types supported by Splits, full and partial supp
 
 Splits supports some networks fully (every feature) and a longer tail partially (sending and asset recovery only). Owners turn networks on and off per team in [Settings > Networks](https://app.splits.org/settings/team/networks/) (see [Settings](/teams/settings)).
 
-Enabled networks are kept in sync: an account has the same address, signers, threshold, and owner on all of them, because [signer changes are signed once for every active network](/accounts/thresholds#changing-signers-and-thresholds). An account's state is synced to a newly enabled network before the account is used there; disabling a network requires nothing onchain.
+Enabled networks stay in sync. An account has the same address, signers, threshold, and owner on all enabled networks. This occurs because [signer changes are signed once for every active network](/accounts/thresholds#changing-signers-and-thresholds). An account's state is synced to a newly enabled network before the account is used there. Disabling a network requires no onchain action.
 
-Email support to request another network or asset type; most EVM-equivalent networks can be supported, pending our underlying providers.
+Email support to request another network or asset type. Most EVM-equivalent networks can be supported, pending our underlying providers.
 
 ## Fully supported networks
 

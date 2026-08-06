@@ -5,8 +5,10 @@ description: Issue the same invoice on a weekly or monthly schedule, with due da
 
 # Recurring invoices [Issue the same invoice on a schedule]
 
-When [issuing an invoice](/invoicing), turn on *Make recurring* and pick a weekly or monthly interval. Each occurrence creates a new invoice with the due date set the same number of days after its issue date, and emails the payer if the invoice has their email.
+When [issuing an invoice](/invoicing), turn on *Make recurring* and select a weekly or monthly interval. Each occurrence creates a new invoice. Its due date has the same offset from its issue date. If the invoice has the payer's email, Splits emails the payer.
 
-Schedules run until paused: there is no end date or occurrence limit. If the first issue date is in the future, only the schedule is created, and the first invoice generates on that date. If the issue date is today or in the past but its due date has not passed, the first invoice is issued when the schedule is created. If the first due date has passed, Splits either issues that occurrence at the next available run or skips it and advances to the next occurrence; the form previews which will happen before creation. New occurrences generate daily at 11:00 UTC.
+Schedules run until paused. There is no end date or occurrence limit. If the first issue date is in the future, only the schedule is created. The first invoice generates on that date. If the issue date is today or in the past, Splits checks the due date. If the due date has not passed, the first invoice is issued when the schedule is created.
+
+If the first due date has passed, Splits can issue or skip that occurrence. If it skips the occurrence, the schedule advances to the next one. The form previews the result before creation. New occurrences generate daily at 11:00 UTC.
 
 View, edit, and pause schedules from the *Schedules* tab on the *Invoices* page. Like all invoicing, managing schedules requires the [Owner](/teams/roles) role.

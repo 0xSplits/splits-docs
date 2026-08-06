@@ -5,9 +5,9 @@ description: "Signers are the keys in an account's signer set that approve its t
 
 # Signers [The keys in an account's signer set that approve its transactions]
 
-A signer is a [signing key](/members/keys) (a passkey or EOA belonging to a [member](/members)) that has been added to an [account](/accounts)'s signer set. Approvals are counted against the account's [threshold](/accounts/thresholds): a transaction executes once enough signers have signed. The signer set stores public keys onchain; private keys stay with the members.
+A signer is a [signing key](/members/keys) (a passkey or EOA belonging to a [member](/members)) that has been added to an [account](/accounts)'s signer set. Approvals are counted against the account's [threshold](/accounts/thresholds): a transaction executes once enough signers have signed. The signer set stores public keys onchain. Private keys stay with the members.
 
-Managing signers is an onchain edit to one account's signer set (see [Editing](/accounts/editing)), and is separate from managing a member's [signing keys](/members/keys) in personal settings: adding or removing a key changes no account's signer set, and removing a signer from an account doesn't delete the member's key.
+Managing signers is an onchain edit to one account's signer set (see [Editing](/accounts/editing)). It is separate from managing a member's [signing keys](/members/keys) in personal settings. Adding or removing a key does not change an account's signer set. Removing a signer from an account does not delete the member's key.
 
 ## Signers vs membership
 
@@ -35,5 +35,5 @@ The [Root account](/accounts#root)'s signers are the team's recovery signers: EO
 Via the [Splits CLI / MCP](/introduction/agents):
 
 - `splits accounts signers <address>`: an account's signers and threshold (**Read** scope)
-- `splits accounts update-signers <address> ...`: propose signer/threshold changes; approval happens in the web UI (**Owner** scope)
+- `splits accounts update-signers <address> ...`: propose signer/threshold changes. Approval happens in the web UI (**Owner** scope)
 - `splits members signers <userId>`: a member's passkey IDs, for adding them as a signer (**Read** scope)

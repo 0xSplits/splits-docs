@@ -5,15 +5,15 @@ description: "Sends move tokens or NFTs from a Splits account to any recipient: 
 
 # Sends [Move tokens from an account to any recipient]
 
-A send moves tokens from one of your [accounts](/accounts) to any recipient: a raw address, an ENS name, a Farcaster username, a saved [contact](/contacts), another of your accounts, or (with [banking](/banking) set up) a bank account. The amount you enter is the amount **the recipient receives**. NFTs (ERC-721 and ERC-1155) can be sent the same way.
+A send moves tokens from one of your [accounts](/accounts) to any recipient. A recipient can be a raw address, an ENS name, a Farcaster username, or a saved [contact](/contacts). You can also send to another account that you own. If [banking](/banking) is set up, you can send to a bank account. The amount you enter is the amount **the recipient receives**. You can send NFTs (ERC-721 and ERC-1155) in the same way.
 
-You can send a token the account doesn't hold: as long as the account holds enough value to cover it, pick which token to sell and the swap and send execute as one transaction. See [just-in-time swaps](/transactions/swaps#just-in-time-swaps).
+You can send a token that the account does not hold. The account must hold enough value in another token to cover the send. Select the token to sell. The swap and send then execute as one transaction. See [just-in-time swaps](/transactions/swaps#just-in-time-swaps).
 
 To pay a recipient without revealing which account paid them, use a [private transfer](#private-transfers).
 
 ## Memos
 
-Add a [memo](/transactions/memos) when creating the send; it makes your [accounting](/accounting) dramatically easier later.
+Add a [memo](/transactions/memos) when creating the send. It makes your [accounting](/accounting) dramatically easier later.
 
 ## Batching
 
@@ -25,7 +25,7 @@ Like every [transaction](/transactions), a send executes once signatures meet th
 
 ## Private transfers
 
-A private transfer hides the connection between your account and the recipient: the payout can't be traced back to your account onchain, though your team still sees the recipient and amount in the Splits UI. See the table for supported tokens. Private transfers are behind a feature flag; contact [support@splits.org](mailto:support@splits.org) for access.
+A private transfer hides the connection between your account and the recipient. The payout cannot be traced back to your account onchain. Your team can still see the recipient and amount in the Splits UI. See the table for supported tokens. Private transfers are behind a feature flag. Contact [support@splits.org](mailto:support@splits.org) for access.
 
 | Token | Networks |
 | --- | --- |

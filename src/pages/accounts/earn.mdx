@@ -5,29 +5,29 @@ description: "Earn interest on idle capital in a team's accounts: how deposits a
 
 # Earn [Earn interest on idle capital in a team's accounts]
 
-Earn puts an account's idle capital to work in a yield source. Positions have no lockup, can be withdrawn at any time with no fee or queue, compound automatically (there is nothing to claim), and can be spent directly when sending funds.
+Earn puts an account's idle capital to work in a yield source. Positions have no lockup and can be withdrawn at any time with no fee or queue. They compound automatically, so there is nothing to claim. You can also spend them directly when sending funds.
 
 Deposits are manual (per account, for a chosen amount) or automatic via [Automated Earn](#automated-earn).
 
 ## The current offering
 
-Today Earn supports USDC on Base, deposited into [Aave](https://aave.com/), the largest lending protocol on Ethereum. More assets and yield sources are planned; email support with requests.
+Today Earn supports USDC on Base, deposited into [Aave](https://aave.com/), the largest lending protocol on Ethereum. More assets and yield sources are planned. Email support with requests.
 
-For yield on ETH today, swap into Lido's wstETH, available on Ethereum Mainnet and [most L2s](https://lido.fi/lido-multichain); it accrues value as Lido's validators earn staking rewards.
+For yield on ETH today, swap into Lido's wstETH, available on Ethereum Mainnet and [most L2s](https://lido.fi/lido-multichain). It accrues value as Lido's validators earn staking rewards.
 
 ## How it works
 
 Deposits flow into the [Aave USDC Base Vault](https://app.aave.com/reserve-overview/?underlyingAsset=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&marketName=proto_base_v3), an ERC-4626 vault that supplies the Aave v3 Pool on Base. The account holds **vault shares** representing its portion of the pooled USDC:
 
 - **Auto-compounding yield**: interest earned in Aave is harvested and re-supplied, so the position grows automatically.
-- **One token to track**: each ERC-4626 share maps to a clear amount of USDC; no rebasing tokens or wrappers.
+- **One token to track**: each ERC-4626 share maps to a clear amount of USDC. No rebasing tokens or wrappers.
 - **Lower gas**: deposits, harvests, and withdrawals are batched.
 
 Everything happens natively on Base: no bridges, no wrapped assets. For a deeper look, see the [Aave Vault docs](https://aave.com/docs/developers/aave-vaults).
 
 ## Automated Earn
 
-Automated Earn is a per-account toggle that deposits idle balances automatically. Enabling it triggers a check immediately; after that, a check runs every 5 minutes. Each check deposits whenever the account's USDC balance exceeds $1.
+Automated Earn is a per-account toggle that deposits idle balances automatically. Enabling it triggers a check immediately. After that, a check runs every 5 minutes. Each check deposits whenever the account's USDC balance exceeds $1.
 
 Enabling it adds the [Auto Earn Module](/accounts/modules) (an open-source [contract](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vault-modules/src/AutoEarnModule.sol) [deployed on Base](https://basescan.org/address/0x204DDc725f37786072a4D4102CBF3945F3597D13#code)) to the account, authorizing it to move deposits into the vault.
 
@@ -36,7 +36,7 @@ Enabling it adds the [Auto Earn Module](/accounts/modules) (an open-source [cont
 The current offering is lending, and lending carries risk:
 
 - **Smart-contract risk**: a critical bug in Aave or the vault could freeze or drain funds.
-- **Oracle & liquidation risk**: Aave relies on Chainlink oracles; if USDC de-pegs and the oracle lags, bad debt can accrue.
+- **Oracle & liquidation risk**: Aave relies on Chainlink oracles. If USDC de-pegs and the oracle lags, bad debt can accrue.
 - **Interest-rate variability**: Aave's variable rate can fall to nearly zero if borrowing demand drops.
 - **Governance risk**: Aave governance can change parameters affecting positions without notice.
 - **Liquidity exhaustion**: if utilization hits 100%, withdrawals pause until borrowers repay. Soaring borrow rates strongly incentivize new deposits that restore liquidity, so exits are rarely delayed for long, but short freezes are possible.

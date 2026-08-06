@@ -5,37 +5,50 @@ description: "Why recovery exists, the recovery signers that control the Root ac
 
 # Recovery [Regain control of every account if a team's passkeys are lost]
 
-Recovery is how a team regains its accounts without Splits' help. [Recovery signers](#recovery-signers) control the [Root account](/accounts#root) at the recovery threshold, and because the Root owns every other account, they can reset any account's signers and threshold.
+Recovery lets a team regain its accounts without help from Splits. [Recovery signers](#recovery-signers) control the [Root account](/accounts#root) at the recovery threshold. The Root owns all other accounts. Thus, recovery signers can reset the signers and threshold of each account.
 
 ## Why recovery exists
 
-Splits never has custody of a team's assets, so there must be a way to regain them that depends on neither Splits nor the passkeys. Passkeys are phishing-resistant because they're bound to the issuing domain; the flip side is that if splits.org went offline, or a passkey manager were compromised or lost, the passkeys would become unusable. Recovery signers are ordinary Ethereum keys with no such dependency: they work as long as the chain does.
+Splits never has custody of a team's assets. Thus, the team needs a recovery method that does not depend on Splits or its passkeys.
+
+Passkeys resist phishing because the issuing domain limits their use. The team cannot use its passkeys if splits.org becomes unavailable. A compromised or lost passkey manager can also make the passkeys unavailable. Recovery signers are standard Ethereum keys that do not have these dependencies. They operate while the blockchain operates.
 
 ## Recovery signers
 
-Recovery signers are EOAs (wallet addresses) chosen at [team setup](/teams), controlling the Root at the recovery threshold set there. They are the backstop beneath the day-to-day signers, and are listed in [Settings > Recovery](https://app.splits.org/settings/team/recovery/) (visible to Owners). Changing them changes the team's account addresses ([why](#changing-recovery-signers)).
+Recovery signers are EOAs that the Owners select during [team setup](/teams). They control the Root at the selected recovery threshold. They provide recovery for the day-to-day signers. Owners can see them in [Settings > Recovery](https://app.splits.org/settings/team/recovery/). Changing recovery signers changes the team's account addresses ([why](#changing-recovery-signers)).
 
 ### Verifying recovery signers
 
-Confirm a recovery signer's private key is still accessible without moving funds: Splits has the key sign a test message. In *Settings > Recovery*, open the signer's three-dot menu → *Verify signer*; this requires connecting the wallet. Each signer shows when it was last verified.
+Use verification to confirm access to a recovery signer's private key without a fund transfer. Splits uses the key to sign a test message.
 
-**If a wallet won't connect or disconnect**: MetaMask can't reliably connect a Ledger; use Rabby. If a wallet won't disconnect, navigate to another page and back, or disconnect from app.splits.org in the wallet extension.
+1. Open *Settings > Recovery*.
+2. Open the signer's three-dot menu and select *Verify signer*.
+3. Connect the recovery wallet and sign the test message.
+
+Each signer shows its most recent verification time.
+
+If MetaMask does not connect to a Ledger, use Rabby. If a wallet does not disconnect, go to a different page and return. Alternatively, disconnect app.splits.org in the wallet extension.
 
 ## Recovering your accounts
 
-Recovery is the last resort: first confirm the passkeys are lost. [Verify your own](/members/keys#verifying-access) at [Settings > Personal > Passkeys](https://app.splits.org/settings/personal/passkeys/), and check teammates' passkeys by hovering over the key icon on their row in [Settings > Members](https://app.splits.org/settings/team/members/).
+Use recovery only after you confirm that the passkeys are lost.
 
-Recovery is a [signer reset](/accounts/editing#resetting-signers) on the Treasury: because the Treasury's owner is the Root, the reset is signed by the recovery wallets at the recovery threshold instead of by passkeys. Run it from the Treasury's settings (*Reset signers*, also reachable from *Settings > Recovery*, which lists every account), choose the new signers and threshold, then connect the recovery wallet(s) and sign.
+1. [Verify your passkeys](/members/keys#verifying-access) in [Settings > Personal > Passkeys](https://app.splits.org/settings/personal/passkeys/).
+2. Check each teammate's passkey status in [Settings > Members](https://app.splits.org/settings/team/members/). Hover over the key icon in the applicable row.
+3. Open the Treasury settings and select *Reset signers*. You can also select the Treasury in *Settings > Recovery*.
+4. Select the new signers and threshold.
+5. Connect the recovery wallets and approve the reset at the recovery threshold.
+6. [Reset each applicable sub-account](/accounts/editing#resetting-signers). The Treasury signers approve these resets.
 
-With the Treasury back under control, [reset any sub-account](/accounts/editing#resetting-signers) the same way; sub-account resets are signed by the Treasury's signers, so no recovery wallets are needed.
+Recovery is a [signer reset](/accounts/editing#resetting-signers) on the Treasury. The Root owns the Treasury. Thus, the recovery wallets approve the Treasury reset instead of the passkeys.
 
 ## Changing recovery signers
 
-Account addresses are derived from the recovery configuration using [`CREATE2`](https://docs.openzeppelin.com/cli/2.8/deploying-with-create2). That's what makes every account's address identical on every network (including networks added later) while keeping custody fully with the team. The consequence: **changing recovery signers changes the team's account addresses.**
+The recovery configuration and [`CREATE2`](https://docs.openzeppelin.com/cli/2.8/deploying-with-create2) determine the account addresses. This method gives each account the same address on every network, including networks that the team adds later. The team keeps full custody. **Changing recovery signers changes the team's account addresses.**
 
-The practical way to change them today is to create a new team. Email support to migrate your offchain data (members, contacts, on/offramp info, schedules), and remember to update any revenue or funding sources (smart contracts, invoices) to the new team's addresses.
+To change recovery signers, create a new team. Email support to migrate the offchain data, including members, contacts, banking information, and schedules. Update each revenue or funding source with the new team addresses. These sources include smart contracts and invoices.
 
 ## Keeping recovery healthy
 
-- [Verify recovery signers](#verifying-recovery-signers) periodically; each shows when it was last verified.
-- Use multiple signers on hardware wallets; at Splits we use a [2-of-3 with hardware wallets](/resources/how-we-work#our-workspace).
+- [Verify recovery signers](#verifying-recovery-signers) periodically. Each signer shows its most recent verification time.
+- Use multiple signers on hardware wallets. Splits uses a [2-of-3 threshold with hardware wallets](/resources/how-we-work#our-accounts).
