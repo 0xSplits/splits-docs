@@ -42,7 +42,7 @@ Any agent should be able to take a product PR and update these docs without a hu
 | Thresholds, choosing one | `/accounts/thresholds` |
 | Renaming, changing signers and thresholds, resetting signers via the owner | `/accounts/editing` |
 | Proposal model, transaction types, gas sponsorship | `/transactions` |
-| CLI/MCP setup, API key scopes model, headless signing | `/introduction/agents` |
+| API overview, CLI/MCP setup, API key scopes model, headless signing | `/introduction/agents` |
 
 If a change moves a fact's canonical home, update this table in the same PR.
 
