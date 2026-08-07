@@ -1,51 +1,68 @@
 ---
 title: Networks and assets
-description: Networks and asset types supported by Splits, full and partial support, and how to enable networks per team.
+description: Networks Splits supports at Full and Partial tiers, enabling and disabling networks per team, and asset types.
 ---
 
-# Networks and assets [Supported networks and asset types]
+# Networks and assets [Networks at Full and Partial support, and asset types]
 
-Splits supports some networks fully (every feature) and a longer tail partially (sending and asset recovery only). Owners turn networks on and off per team in [Settings > Networks](https://app.splits.org/settings/team/networks/) (see [Settings](/teams/settings)).
+Splits runs on EVM networks at two support tiers. **Full**: all features available on this network. **Partial**: balances and sending work on this network; accounting history, swaps, bridging, and NFTs may not be available. The app tags Partial networks in [Settings > Networks](https://app.splits.org/settings/team/networks/), where Owners turn networks on and off per team (see [Settings](/teams/settings)).
 
-Enabled networks are kept in sync: an account has the same address, signers, threshold, and owner on all of them, because [signer changes are signed once for every active network](/accounts/thresholds#changing-signers-and-thresholds). An account's state is synced to a newly enabled network before the account is used there; disabling a network requires nothing onchain.
+## Full support
 
-Email support to request another network or asset type; most EVM-equivalent networks can be supported, pending our underlying providers.
-
-## Fully supported networks
-
-Every feature works on these networks, including the [browser extension](/introduction/extension) and in-app [WalletConnect](/integrations/walletconnect):
-
-- Ethereum Mainnet
+- Ethereum
 - Base
 - Optimism
 - Arbitrum
+- Polygon
+- BSC
 - Celo
 - World Chain
 - Tempo
-- Polygon (PoS)
-- BNB Smart Chain
-- HyperEVM
-- Robinhood Chain
 
-## Partially supported networks
+These networks also work with the [browser extension](/introduction/extension) and in-app [WalletConnect](/integrations/walletconnect).
 
-| Network | Send | Asset recovery |
-| --- | --- | --- |
-| Linea | **✅** | **✅** |
-| Zora | **✅** | **✅** |
-| Monad | **✅** | **✅** |
-| Scroll | **✅** | **✅** |
-| Solana | **✅** | |
-| EVM [Relay networks](https://docs.relay.link/references/api/api_resources/supported-chains) | **✅** | |
+## Partial support
 
-- **Send**: tokens can be bridged and sent to an external address on this network.
-- **Asset recovery**: tokens sent to a Splits account's address on this network can be bridged back to a fully supported network.
+- Zora
+- Linea
+- Scroll
+- Monad
 
-## Supported assets
+Most EVM-equivalent networks can be listed at Partial support, pending our underlying providers: email support to request one.
+
+## Gradual rollout
+
+A network can launch gradually behind a feature flag: it is visible only to teams the flag is enabled for, and joins the lists above once fully rolled out. Currently in gradual rollout:
+
+- HyperEVM (Full support)
+- Robinhood Chain (Partial support)
+
+## Enabling and disabling networks
+
+A team's accounts hold balances and transact on the networks the team has enabled: **balances are shown for enabled networks only**. Team setup starts with Full networks; enable any listed network afterward in *Settings > Networks*. Toggling networks edits a draft selection; one save applies the whole change, with newly enabled networks added in a single transaction.
+
+Enabled networks are kept in sync: an account has the same address, signers, threshold, and owner on all of them, because [signer changes are signed once for every active network](/accounts/editing#changing-signers-and-thresholds). An account's state is synced to a newly enabled network before the account is used there.
+
+The same settings page shows assets detected on networks that are listed but not enabled; enable the network to see and use them. Disabling a network is a visibility change only: nothing happens onchain, and no balances or history are deleted.
+
+## Sending to other networks
+
+Sends and swaps can deliver tokens to an external address on networks beyond this page's lists (including Solana). Crosschain routes go through the [swap providers](/transactions/swaps); coverage follows [Relay's supported networks](https://docs.relay.link/references/api/api_resources/supported-chains).
+
+## Assets
 
 - Native tokens (e.g. ETH)
 - ERC-20
 - ERC-721
 - ERC-1155
 
-All supported assets work on all supported networks. If you send an unsupported asset to a Splits account, contact us and we will attempt to make it recoverable.
+If you send an asset outside these types to a Splits account, email support and we will attempt to return it.
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits chains list`: every listed network with its tier and per-feature capability flags (**Read** scope)
+- `splits chains get --chainId 8453`: one network's entry (**Read** scope)
+
+The underlying endpoint is `GET /public/v1/chains` (API key with **Read** scope); see [Use the API](/introduction/agents#use-the-api). Networks in [gradual rollout](#gradual-rollout) are excluded until fully rolled out.
