@@ -11,7 +11,33 @@ A contact is a team-wide name for an external address. Once saved, the name stan
 
 Add contacts from the *Contacts* page, inline from any address shown in a transaction feed, or from the command menu. A contact is an address plus a display name; you can enter an ENS name, which is resolved once and stored as its address. Each address holds one contact per team, applied across all networks.
 
-Two restrictions: contacts must be EVM addresses, and the team's own Splits accounts can't be added as contacts (they're already named).
+Two constraints: contacts must be EVM addresses, and the team's own Splits accounts can't be added as contacts (they're already named).
+
+## Restrictions
+
+:::note
+This feature is in beta. Email support to enable it for your team.
+:::
+
+A **send rule** limits what a contact accepts. Pick one mode under *Restrict sends* when you create or edit the contact:
+
+| Mode | What the contact accepts |
+| --- | --- |
+| No restrictions | Any token on any network. The default. |
+| By network | Any token, on the networks you check. |
+| By token and network | Only the token and network pairs you add. |
+
+A contact holds one mode at a time, never a mix of networks and token pairs. Within a mode the rules form an allowlist: a send is allowed when it matches at least one rule. Networks the team hasn't enabled yet can still be picked, and sort after the active ones.
+
+Rules are enforced when the transaction is created, so they cover a [send](/transactions/sends), a [swap](/transactions/swaps) or bridge that pays an external recipient, and each operation in a [batch](/transactions/batch). A bridge-and-send is checked against the destination network. A send that no rule allows is rejected, naming the contact and the network. In the send form, the token and network pickers offer only what every selected recipient accepts, and picking a recipient that rejects the selected token clears that token.
+
+Two boundaries. Restrictions **don't apply to NFT sends**, which pass through whatever rules a contact holds. Restrictions are also **not a permission control**: any member can add, change, or remove them, and they don't govern who may propose or sign a transaction. [Roles](/teams/roles) and [thresholds](/accounts/thresholds) do that.
+
+The contacts table shows a *Restrictions* column once any contact has rules, and the popover on a restricted address lists them.
+
+### Schedule conflicts
+
+Saving rules that leave a [schedule](/transactions/schedules) without an allowed output token warns you first and names those schedules, including paused ones. The save is never blocked. A conflicting schedule keeps generating its drafts, and signing them fails until either the rules or the schedule changes.
 
 ## How addresses get named
 
@@ -31,4 +57,4 @@ Via the [Splits CLI / MCP](/introduction/agents):
 - `splits contacts list --q "acme"`: search contacts by name or address; returns up to 500 (**Read** scope)
 - `splits contacts lookup --addresses 0x...,0x...`: batch address-to-name lookup, max 100 addresses (**Read** scope)
 
-Creating and editing contacts is web-only today.
+Creating and editing contacts is web-only today, and neither command returns send rules.

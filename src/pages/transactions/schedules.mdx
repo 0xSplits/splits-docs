@@ -10,3 +10,5 @@ A schedule creates a transfer on a daily, weekly, or monthly interval from a cho
 Each occurrence is a **draft proposal, not an executed transaction**: funds are self-custodied, so the account's signers still approve every one at its [threshold](/accounts/thresholds). Drafts are generated daily at 11:00 UTC, the account's signers are emailed when one is ready, and reminders follow while a draft sits unsigned.
 
 Schedules handle transfers only; they can't run swaps or custom transactions. [Owners](/teams/roles) create, edit, pause, and delete schedules from the *Schedules* page; any member can view them.
+
+A recipient that is a contact can [restrict what it accepts](/contacts#restrictions). Drafts are generated whether or not the output token is allowed, and signing a draft the rules reject fails.
