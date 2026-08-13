@@ -42,7 +42,7 @@ For more patterns, see [Personal usage](/introduction/personal-usage) and [sugge
 
 ## Automation accounts
 
-An automation account is an automated swap-and-sweep: a deposit address for a revenue stream, with a policy that processes whatever lands there. Every 10 minutes, each token worth at least $5 is split across the policy's destinations: swapped or bridged where the output token or network differs, forwarded as-is where it doesn't, or offramped to fiat when the destination is a [connected bank account](/banking/offramping). *Trigger* on its page runs the policy immediately.
+An automation account is an automated swap-and-sweep: a deposit address for a revenue stream, with a policy that processes whatever lands there. Every 10 minutes, an automatic run starts when any one token balance reaches $5. Once a run starts, it processes every token balance worth at least $1: swapped or bridged where the output token or network differs, forwarded as-is where it doesn't, or offramped to fiat when the destination is a [connected bank account](/banking/offramping). *Trigger* on its page runs the policy immediately and processes every token balance worth at least $1.
 
 Runs need no approval (the signers are the Treasury's passkeys plus a Splits server key, at 1-of-n), Splits charges no fees, and automations run on every active network. Typical policies: sweep everything to USDC, withhold a share for taxes, or split income across sub-accounts, partners, and the bank. The policy can be edited anytime (*Edit rules* on the account's page); saving the change requires an onchain signature.
 
