@@ -29,9 +29,7 @@ A **send rule** limits what a contact accepts. Pick one mode under *Restrict sen
 
 Rules are enforced when the transaction is created, so they cover a [send](/transactions/sends), a [swap](/transactions/swaps), or bridge that pays an external recipient. A send that no rule allows is rejected.
 
-### Schedule conflicts
-
-Saving rules that leave a [schedule](/transactions/schedules) without an allowed output token warns you first and names those schedules, including paused ones. The save is never blocked. A conflicting schedule keeps generating its drafts, and signing them fails until either the rules or the schedule changes.
+If a [schedule](/transactions/schedules) already pays this contact in a token the new rules don't allow, saving the contact warns you first. The schedule keeps creating its drafts, but no one can sign them until the rules or the schedule changes.
 
 ## How addresses get named
 
