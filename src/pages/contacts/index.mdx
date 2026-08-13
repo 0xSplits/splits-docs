@@ -11,7 +11,25 @@ A contact is a team-wide name for an external address. Once saved, the name stan
 
 Add contacts from the *Contacts* page, inline from any address shown in a transaction feed, or from the command menu. A contact is an address plus a display name; you can enter an ENS name, which is resolved once and stored as its address. Each address holds one contact per team, applied across all networks.
 
-Two restrictions: contacts must be EVM addresses, and the team's own Splits accounts can't be added as contacts (they're already named).
+Two constraints: contacts must be EVM addresses, and the team's own Splits accounts can't be added as contacts (they're already named).
+
+## Restrictions
+
+:::note
+This feature is in beta. Email support to enable it for your team.
+:::
+
+A **send rule** limits what a contact accepts. Pick one mode under *Restrict sends* when you create or edit the contact:
+
+| Mode | What the contact accepts |
+| --- | --- |
+| No restrictions | Any token on any network. The default. |
+| By network | Any token, on the networks you check. |
+| By token and network | Only the token and network pairs you add. |
+
+Rules are enforced when the transaction is created, so they cover a [send](/transactions/sends), a [swap](/transactions/swaps), or bridge that pays an external recipient. A send that no rule allows is rejected.
+
+If a [schedule](/transactions/schedules) already pays this contact in a token the new rules don't allow, saving the contact warns you first. The schedule keeps creating its drafts, but no one can sign them until the rules or the schedule changes.
 
 ## How addresses get named
 
