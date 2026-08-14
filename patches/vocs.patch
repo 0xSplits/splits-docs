@@ -141,7 +141,7 @@ index 060cff216573fd043d5fd801e18ad581020e3139..e90efe3b5fc547da7cb0e173bdaac52a
                  const lastmod = gitDate
                      ? gitDate.split('T')[0]
 diff --git a/dist/react/Head.js b/dist/react/Head.js
-index 14b82a21ac7f3f1f1cd8871d7cd1d5e73775ad71..04e3f1638442ccb1944ea571168680f873e10d51 100644
+index 14b82a21ac7f3f1f1cd8871d7cd1d5e73775ad71..d0b862a622162de5cc46ce00d69bd3647c9c6a05 100644
 --- a/dist/react/Head.js
 +++ b/dist/react/Head.js
 @@ -14,7 +14,10 @@ export function Head() {
@@ -156,6 +156,26 @@ index 14b82a21ac7f3f1f1cd8871d7cd1d5e73775ad71..04e3f1638442ccb1944ea571168680f8
      const ogImageTemplate = (() => {
          if (typeof ogImageUrl === 'function')
              return ogImageUrl(pathname, { baseUrl });
+@@ -30,11 +33,18 @@ export function Head() {
+             .replace('%title', encodeURIComponent(title ?? ''))
+             .replace('%description', encodeURIComponent(description ?? ''))
+         : undefined;
++    // Head renders twice per document: once from Root (no frontmatter, site
++    // fallback) and once from the page layout (inside MdxPageContext.Provider).
++    // React hoists both sets of tags in *completion* order, which flips on a
++    // cold server process, so dedupe-head's keep-last rule can pick the
++    // fallback. Mark frontmatter-derived tags so dedupe-head prefers them
++    // regardless of order; it strips the marker from the output.
++    const pageTag = frontmatter ? { 'data-v-head': 'page' } : {};
+     return (_jsxs(_Fragment, { children: [!staticScheme && (_jsx("script", { 
+                 // biome-ignore lint/security/noDangerouslySetInnerHtml: blocking script to prevent FOUC
+                 dangerouslySetInnerHTML: {
+                     __html: `(function(){try{var e=document.documentElement;var s=function(t){e.setAttribute('data-vocs-theme',t);e.style.colorScheme=t};var t=localStorage.getItem('vocs-theme');if(t==='light'||t==='dark'){s(t)}else if(window.matchMedia('(prefers-color-scheme:dark)').matches){s('dark')}else if(window.matchMedia('(prefers-color-scheme:light)').matches){s('light')}else{s('dark')}}catch(e){}})()`,
+-                } })), _jsx("meta", { name: "color-scheme", content: colorScheme }), _jsx("meta", { name: "robots", content: frontmatter?.robots ?? (import.meta.env.PROD ? 'index, follow' : 'noindex, nofollow') }), fullTitle && _jsx("title", { children: fullTitle }, "title"), description && _jsx("meta", { name: "description", content: description }), baseUrl && _jsx("base", { href: baseUrl }), canonicalUrl && _jsx("link", { rel: "canonical", href: canonicalUrl }), iconUrl && typeof iconUrl === 'string' && (_jsx("link", { rel: "icon", href: iconUrl, type: getIconType(iconUrl) })), iconUrl && typeof iconUrl !== 'string' && (_jsx("link", { rel: "icon", href: iconUrl.light, type: getIconType(iconUrl.light) })), iconUrl && typeof iconUrl !== 'string' && (_jsx("link", { rel: "icon", href: iconUrl.dark, type: getIconType(iconUrl.dark), media: "(prefers-color-scheme: dark)" })), frontmatter?.author && _jsx("meta", { name: "author", content: frontmatter.author }), _jsx("meta", { property: "og:type", content: "website" }), title && _jsx("meta", { property: "og:title", content: title }), config.title && _jsx("meta", { property: "og:site_name", content: config.title }), baseUrl && _jsx("meta", { property: "og:url", content: canonicalUrl ?? baseUrl }), description && _jsx("meta", { property: "og:description", content: description }), ogImage && _jsx("meta", { property: "og:image", content: ogImage }), frontmatter?.author && _jsx("meta", { property: "article:author", content: frontmatter.author }), frontmatter?.lastModified && (_jsx("meta", { property: "article:modified_time", content: frontmatter.lastModified })), _jsx("meta", { name: "twitter:card", content: "summary_large_image" }), title && _jsx("meta", { name: "twitter:title", content: title }), description && _jsx("meta", { name: "twitter:description", content: description }), ogImage && _jsx("meta", { property: "twitter:image", content: ogImage })] }));
++                } })), _jsx("meta", { name: "color-scheme", content: colorScheme }), _jsx("meta", { ...pageTag, name: "robots", content: frontmatter?.robots ?? (import.meta.env.PROD ? 'index, follow' : 'noindex, nofollow') }), fullTitle && _jsx("title", { ...pageTag, children: fullTitle }, "title"), description && _jsx("meta", { ...pageTag, name: "description", content: description }), baseUrl && _jsx("base", { href: baseUrl }), canonicalUrl && _jsx("link", { rel: "canonical", href: canonicalUrl }), iconUrl && typeof iconUrl === 'string' && (_jsx("link", { rel: "icon", href: iconUrl, type: getIconType(iconUrl) })), iconUrl && typeof iconUrl !== 'string' && (_jsx("link", { rel: "icon", href: iconUrl.light, type: getIconType(iconUrl.light) })), iconUrl && typeof iconUrl !== 'string' && (_jsx("link", { rel: "icon", href: iconUrl.dark, type: getIconType(iconUrl.dark), media: "(prefers-color-scheme: dark)" })), frontmatter?.author && _jsx("meta", { name: "author", content: frontmatter.author }), _jsx("meta", { property: "og:type", content: "website" }), title && _jsx("meta", { ...pageTag, property: "og:title", content: title }), config.title && _jsx("meta", { property: "og:site_name", content: config.title }), baseUrl && _jsx("meta", { property: "og:url", content: canonicalUrl ?? baseUrl }), description && _jsx("meta", { ...pageTag, property: "og:description", content: description }), ogImage && _jsx("meta", { ...pageTag, property: "og:image", content: ogImage }), frontmatter?.author && _jsx("meta", { property: "article:author", content: frontmatter.author }), frontmatter?.lastModified && (_jsx("meta", { property: "article:modified_time", content: frontmatter.lastModified })), _jsx("meta", { name: "twitter:card", content: "summary_large_image" }), title && _jsx("meta", { ...pageTag, name: "twitter:title", content: title }), description && _jsx("meta", { ...pageTag, name: "twitter:description", content: description }), ogImage && _jsx("meta", { ...pageTag, property: "twitter:image", content: ogImage })] }));
+ }
+ function getIconType(iconUrl) {
+     if (iconUrl.endsWith('.svg'))
 diff --git a/dist/react/internal/Outline.js b/dist/react/internal/Outline.js
 index 4c3f4b9d933367f73b745288ae77e8f46d547932..11399b6155758f157599ec66a0e7841f33a1320d 100644
 --- a/dist/react/internal/Outline.js
@@ -221,6 +241,43 @@ index 8f1ab06a803496231d033e15e1bd0c8be8365e85..db7aaab19fa829deb4211e39ad4f5501
  }
  //# sourceMappingURL=SkipToContent.client.js.map
 \ No newline at end of file
+diff --git a/dist/waku/internal/dedupe-head.js b/dist/waku/internal/dedupe-head.js
+index 52b95f96fce07b5d4b8d17ae01647a1a14c5c483..7805d2f731efd5f734204da114c9f991f6dde01d 100644
+--- a/dist/waku/internal/dedupe-head.js
++++ b/dist/waku/internal/dedupe-head.js
+@@ -98,9 +98,21 @@ const dedupeHead = (head) => {
+     const tags = extractHeadTags(content);
+     if (!tags.length)
+         return head;
++    // Tags marked data-v-head="page" carry frontmatter-derived values (see
++    // react/Head.js). React hoists head tags in completion order, which can
++    // put the page-level tags before the site fallback on a cold process, so
++    // plain keep-last would keep the fallback. Marked tags beat unmarked ones;
++    // among equals, last wins.
++    const isPageTag = (tag) => /\sdata-v-head=["']?page/.test(tag.html);
+     const latest = new Map();
+-    // biome-ignore lint/suspicious/useIterableCallbackReturn: _
+-    tags.forEach((t, i) => t.identity && latest.set(t.identity, i));
++    for (let i = 0; i < tags.length; i++) {
++        const tag = tags[i];
++        if (!tag.identity)
++            continue;
++        const prev = latest.get(tag.identity);
++        if (prev === undefined || isPageTag(tag) || !isPageTag(tags[prev]))
++            latest.set(tag.identity, i);
++    }
+     let result = head.slice(openStart, openEnd + 1);
+     let lastEnd = 0;
+     for (let i = 0; i < tags.length; i++) {
+@@ -112,7 +124,7 @@ const dedupeHead = (head) => {
+             between = between.replace(/[\t ]*\n[\t ]*$/, '');
+         result += between;
+         if (keep)
+-            result += tag.html;
++            result += tag.html.replace(/\s*data-v-head=("page"|'page'|page)/, '');
+         lastEnd = tag.end;
+     }
+     result += content.slice(lastEnd);
 diff --git a/dist/waku/internal/middleware/md-router.d.ts b/dist/waku/internal/middleware/md-router.d.ts
 index b39df0b3c12c27fdcc3f37641df47da64dbc4728..13e10ec7f44512160246c6d24a3e78d4bcdfcd8f 100644
 --- a/dist/waku/internal/middleware/md-router.d.ts
