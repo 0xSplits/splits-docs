@@ -1,7 +1,7 @@
 import { Handler } from 'vocs/server'
 
 // OG card: wavy-lines generative background seeded by page path, title in
-// Geist Medium, logo + wordmark bottom-left. Tuned via scripts/og-preview.html;
+// Geist Medium, logo + wordmark top-left. Tuned via scripts/og-preview.html;
 // keep these values in sync with the settings JSON chosen there.
 const W = 1200
 const H = 630
@@ -12,14 +12,16 @@ const SEED_VARIANT = ':v1'
 const FONT_SIZE = 88
 const FONT_WEIGHT = 500
 const TRACKING = '-1.5px'
-const LOGO_H = 44
-const WORDMARK_SIZE = 40
+const EYEBROW_SIZE = 36
+const EYEBROW_OPACITY = 0.55
+const LOGO_H = 35
+const WORDMARK_SIZE = 32
 
 const LINE_STEP = 10
 const LINE_AMP = 1.2
 const LINE_WIDTH = 3
 const NOISE_SCALE = 5.5 * 0.001
-const INTENSITY = 1
+const INTENSITY = 0.8
 const SCRIM_LEFT = 1
 const SCRIM_TOP = 1
 
@@ -163,9 +165,23 @@ const LOGO_SVG = `<svg width="${LOGO_W}" height="${LOGO_H}" viewBox="28 40 200 1
 
 const svgUri = (svg: string) => `data:image/svg+xml,${encodeURIComponent(svg)}`
 
+// Section eyebrow shown above the title for pages nested inside a section
+// (e.g. /accounts/signers → "Accounts"). Sidebar section labels in
+// vocs.config.ts are the title-cased slugs, so derive the label from the path
+// instead of duplicating the sidebar here.
+function sectionLabel(path: string): string | undefined {
+  const segments = path.split('/').filter(Boolean)
+  if (segments.length < 2) return undefined
+  return segments[0]
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+}
+
 export default async function handler(request: Request) {
   const url = new URL(request.url)
   const pagePath = url.searchParams.get('path') ?? '/'
+  const section = sectionLabel(pagePath)
   const response = await Handler.og(({ title }) => (
     <div
       style={{
@@ -187,25 +203,48 @@ export default async function handler(request: Request) {
       <div
         style={{
           display: 'flex',
-          marginLeft: PAD,
+          flexDirection: 'column',
+          position: 'absolute',
+          left: PAD,
+          bottom: PAD,
           maxWidth: W - PAD * 2 - 80,
-          color: '#ffffff',
-          fontSize: FONT_SIZE,
-          fontWeight: FONT_WEIGHT,
-          letterSpacing: TRACKING,
-          lineHeight: 1.15,
         }}
       >
-        {title}
+        {section && (
+          <div
+            style={{
+              display: 'flex',
+              color: '#ffffff',
+              opacity: EYEBROW_OPACITY,
+              fontSize: EYEBROW_SIZE,
+              fontWeight: FONT_WEIGHT,
+              letterSpacing: '-0.25px',
+              marginBottom: 12,
+            }}
+          >
+            {section}
+          </div>
+        )}
+        <div
+          style={{
+            display: 'flex',
+            color: '#ffffff',
+            fontSize: FONT_SIZE,
+            fontWeight: FONT_WEIGHT,
+            letterSpacing: TRACKING,
+            lineHeight: 1.15,
+          }}
+        >
+          {title}
+        </div>
       </div>
       <div
         style={{
           display: 'flex',
           position: 'absolute',
           left: PAD,
-          bottom: PAD,
+          top: PAD,
           alignItems: 'center',
-          opacity: 0.75,
         }}
       >
         <img src={svgUri(LOGO_SVG)} width={LOGO_W} height={LOGO_H} />
@@ -228,10 +267,10 @@ export default async function handler(request: Request) {
             fontSize: WORDMARK_SIZE,
             fontWeight: 425,
             letterSpacing: '-0.5px',
-            marginLeft: 14,
+            marginLeft: 11,
           }}
         >
-          | Docs
+          Docs
         </div>
       </div>
     </div>
