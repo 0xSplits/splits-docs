@@ -1,8 +1,8 @@
 import { Handler } from 'vocs/server'
 
 // OG card: wavy-lines generative background seeded by page path, title in
-// Geist Medium, logo + wordmark top-left. Tuned via scripts/og-preview.html;
-// keep these values in sync with the settings JSON chosen there.
+// Geist Medium, logo + wordmark top-left. To preview cards, run `pnpm dev`
+// and open /docs/api/og?title=<title>&path=<page path>.
 const W = 1200
 const H = 630
 const PAD = 80
