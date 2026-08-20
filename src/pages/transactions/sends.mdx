@@ -17,13 +17,13 @@ To pay a recipient without revealing which account paid them, use a [private tra
 
 Add a [memo](/transactions/memos) when creating the send; it makes your [accounting](/accounting) dramatically easier later.
 
+## Multisend
+
+Use [Multisend](https://app.splits.org/send/?multisend=true) to send the same token on the same network to up to 100 recipients in one transaction. Add recipients individually or upload a CSV containing one `address or ENS name, amount` pair per row. If the account lacks enough of the send token, Multisend can swap another token on the same network; cross-network sends are not supported.
+
 ## Batching
 
 Instead of submitting a send right away, select *Add to batch* in the review dialog to group it with other transactions under one signature. See [Batch](/transactions/batch).
-
-## Signing
-
-Like every [transaction](/transactions), a send executes once signatures meet the account's [threshold](/accounts/thresholds): immediately on a 1-of-n account, after the remaining signatures otherwise.
 
 ## Private transfers
 
