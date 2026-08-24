@@ -22,6 +22,8 @@ type Page =
   | { path: '/banking/paying-vendors'; render: 'static' }
   | { path: '/contacts/compliance'; render: 'static' }
   | { path: '/contacts'; render: 'static' }
+  | { path: '/experiments'; render: 'static' }
+  | { path: '/experiments/pact'; render: 'static' }
   | { path: '/'; render: 'static' }
   | { path: '/integrations/bankr'; render: 'static' }
   | { path: '/integrations/clanker'; render: 'static' }

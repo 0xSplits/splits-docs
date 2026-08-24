@@ -1,44 +1,23 @@
 ---
 title: PACT
-description: PACT raises a small round by selling units of a project's onchain cap table along a bonding curve for USDC on Base, refundable if a minimum isn't met.
+description: "PACT lets a project raise a small round on Base: it sells units of its cap table for USDC, the price rises with each unit sold, and buyers are refunded if the raise misses its minimum."
 ---
 
 # PACT [Raise a small round by selling a slice of a project's cap table for USDC on Base]
 
-**PACT** (Purchase Agreement for Community Tokens) is an [experiment](/experiments) at [pact.splits.org](https://pact.splits.org). An issuer creates a project cap table of 1,000 units (one unit is 0.1% ownership) as an onchain token, keeps the founders' units, and offers the rest for sale. Buyers pay USDC on Base; the price rises along a linear curve with each unit sold. If a minimum raise isn't met by the close date, buyers reclaim their deposits.
+**PACT** (Purchase Agreement for Community Tokens) is an [experiment](/experiments) at [pact.splits.org](https://pact.splits.org) for raising a small round from your community.
 
-The cap table is a [liquid split](https://splits.org/protocol/docs/templates/liquid): revenue sent to the token is distributable to holders in proportion to their units.
+A project creates a cap table of 1,000 units, where one unit is 0.1% ownership, keeps the founders' units, and puts the rest up for sale. Buyers pay USDC on Base. The price rises a fixed amount with each unit sold, so early buyers pay less. If the raise hasn't reached its minimum by the close date, every buyer gets their USDC back.
+
+The cap table is an onchain token, a [liquid split](https://splits.org/protocol/docs/templates/liquid): revenue sent to it can be paid out to holders in proportion to their units.
+
+Units are **not equity**: they confer no legal, voting, or dividend rights in the project. Any benefits to holders are at the project's discretion. The minimum is a coordination signal; once a raise succeeds, the contracts **do not protect buyers from a dishonest project**.
 
 :::note
 PACT is a prototype; see [Experiments](/experiments) for what that means.
 :::
 
-## How a raise works
-
-1. The issuer fills in the form at `/create` and signs one transaction, which deploys the offering and the cap-table token. Founder units go to the founders; the units for sale are escrowed in the offering.
-2. The offering appears on the site's front page.
-3. Buyers purchase on `/buy`. Public purchases are open to anyone up to a public cap the issuer can adjust. Private purchases use allocation links the issuer generates from `/status`; each link carries an issuer-signed voucher and is single-use.
-4. Once the minimum is met, the raise is permanently successful: refunds end, and anyone can trigger a withdrawal of proceeds to the treasury address.
-5. The issuer closes the offering: the sale ends, remaining proceeds go to the treasury, and unsold units return to the treasury. Revenue distributions can begin.
-6. If the close date passes with the minimum unmet, anyone can mark the offering failed. Each buyer reclaims their deposit by returning their units, and anyone can sweep the escrowed units back to the treasury.
-
-Purchases price off the same curve regardless of tranche, and every purchase is bounded by a caller-supplied maximum cost. The curve never rewinds: units returned by refunds re-enter escrow at the current position's price.
-
-## What the contracts guarantee
-
-- **Deposits cannot be taken by anyone.** While the raise is funding, USDC stays in the offering; it only leaves as proceeds after the minimum is met, or as refunds after failure.
-- **Proceeds only ever reach the treasury address.** Withdrawal is permissionless, but the recipient is fixed to the treasury. The issuer can change which address the treasury is.
-- **The advertised public cap is always deliverable.** Private claims cannot consume units reserved for the public tranche, and the issuer cannot lower the cap below what has already sold.
-- **Revenue distribution is locked while the raise is funding**, so no buyer can purchase units and capture banked revenue in one transaction.
-- **Trust in the issuer is reputational, not enforced.** The minimum is a coordination signal; the contracts do not protect buyers from a dishonest issuer once the raise succeeds.
-
-## Limitations
-
-- Base mainnet only.
-- Unclaimed allocation links live only in the issuer's browser storage; losing it loses the links (claims are onchain and survive).
-- Issuer and buyer authorization is by wallet address; there is no sign-in.
-
-The system design and the exact pricing, tranche, and lifecycle rules are specified in the repo: [architecture](https://github.com/0xSplits/pact/blob/main/docs/architecture.md) and [contract specification](https://github.com/0xSplits/pact/blob/main/contracts/docs/contracts.md).
+To start a raise, go to [pact.splits.org/create](https://pact.splits.org/create) and connect a wallet on Base. There is no sign-in; the wallet that creates the raise manages it. For the exact pricing, allocation, and lifecycle rules, see the repo: [architecture](https://github.com/0xSplits/pact/blob/main/docs/architecture.md) and [contract specification](https://github.com/0xSplits/pact/blob/main/contracts/docs/contracts.md).
 
 ## Programmatic access
 
