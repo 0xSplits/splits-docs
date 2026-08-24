@@ -1,46 +1,61 @@
 ---
 title: Earn
-description: "Earn interest on idle capital in a team's accounts: how deposits and positions work, Automated Earn, the current offering, and the risks."
+description: "Earn interest on idle capital in a team's accounts: how deposits and positions work, the fee, Automated Earn, legacy positions, and the risks."
 ---
 
 # Earn [Earn interest on idle capital in a team's accounts]
 
-Earn puts an account's idle capital to work in a yield source. Positions have no lockup, can be withdrawn at any time with no fee or queue, compound automatically (there is nothing to claim), and can be spent directly when sending funds.
+Earn puts an account's idle capital to work in a yield source. Positions have no lockup, can be withdrawn at any time with no queue, compound automatically (there is nothing to claim), and can be spent directly when sending funds. Splits charges a [performance fee](#fees) on the yield a position earns; **there is no fee on deposits, withdrawals, or principal**.
 
 Deposits are manual (per account, for a chosen amount) or automatic via [Automated Earn](#automated-earn).
 
 ## The current offering
 
-Today Earn supports USDC on Base, deposited into [Aave](https://aave.com/), the largest lending protocol on Ethereum. More assets and yield sources are planned; email support with requests.
+Today Earn supports USDC on Base, deposited into [Morpho](https://morpho.org/) through a vault curated by [Steakhouse Financial](https://www.steakhouse.financial/). More assets and yield sources are planned; email support with requests.
 
 For yield on ETH today, swap into Lido's wstETH, available on Ethereum Mainnet and [most L2s](https://lido.fi/lido-multichain); it accrues value as Lido's validators earn staking rewards.
 
 ## How it works
 
-Deposits flow into the [Aave USDC Base Vault](https://app.aave.com/reserve-overview/?underlyingAsset=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&marketName=proto_base_v3), an ERC-4626 vault that supplies the Aave v3 Pool on Base. The account holds **vault shares** representing its portion of the pooled USDC:
+Deposits flow into **Splits Earn USDC** ([`0x189A…3C8F`](https://basescan.org/address/0x189A1a23F46321a196646314E6a078a404513C8F)), a [Morpho Vault V2](https://docs.morpho.org/learn/concepts/vault-v2) that Splits operates as a [fee wrapper](https://docs.morpho.org/developers/earn/concepts/fee-wrapper). The wrapper holds a single position: [Steakhouse Prime USDC](https://app.morpho.org/base/vault/0xbeef0e0834849aCC03f0089F01f4F1Eeb06873C9/steakhouse-prime-usdc), a Morpho vault on Base that lends USDC into Morpho markets chosen by its curator, Steakhouse Financial. The account holds **vault shares** (`splitsUSDC`) representing its portion of the pooled USDC:
 
-- **Auto-compounding yield**: interest earned in Aave is harvested and re-supplied, so the position grows automatically.
-- **One token to track**: each ERC-4626 share maps to a clear amount of USDC; no rebasing tokens or wrappers.
-- **Lower gas**: deposits, harvests, and withdrawals are batched.
+- **Auto-compounding yield**: interest accrues to the share price, so the position grows without a claim step.
+- **One token to track**: each ERC-4626 share maps to a clear amount of USDC; no rebasing tokens.
+- **Native on Base**: no bridges, no wrapped assets.
 
-Everything happens natively on Base: no bridges, no wrapped assets. For a deeper look, see the [Aave Vault docs](https://aave.com/docs/developers/aave-vaults).
+The APY shown in the app is the wrapper's net APY, reported by Morpho, after the Splits fee.
+
+### Fees
+
+Splits charges a **20% performance fee** on the yield the vault earns and **no management fee**. The fee is taken inside the vault: as interest accrues, the wrapper issues shares worth 20% of the new yield to Splits' fee account, and the remaining 80% raises the share price for every depositor. Changing the fee or its recipient is an onchain action with a 3-day timelock; Morpho caps a wrapper's performance fee at 50%.
 
 ## Automated Earn
 
 Automated Earn is a per-account toggle that deposits idle balances automatically. Enabling it triggers a check immediately; after that, a check runs every 5 minutes. Each check deposits whenever the account's USDC balance exceeds $1.
 
-Enabling it adds the [Auto Earn Module](/accounts/modules) (an open-source [contract](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vault-modules/src/AutoEarnModule.sol) [deployed on Base](https://basescan.org/address/0x204DDc725f37786072a4D4102CBF3945F3597D13#code)) to the account, authorizing it to move deposits into the vault.
+Enabling it adds the [Auto Earn Module](/accounts/modules) (an open-source [contract](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vault-modules/src/AutoEarnModule.sol) [deployed on Base](https://basescan.org/address/0x4A5aCfc49597D1D326221cd159d42817918B9F5f)) to the account, authorizing it to move deposits into the vault.
+
+## Legacy positions
+
+Before Morpho, Earn deposited into an [Aave](https://aave.com/) USDC vault on Base ([`0x4EA7…caCc`](https://basescan.org/address/0x4EA71A20e655794051D1eE8b6e4A3269B13ccaCc)). Those positions are labelled *Legacy* in the app and are **withdraw-only**: they keep earning Aave's rate, but accept no new deposits, manual or automated.
+
+To move them, open the Treasury (or any account holding a legacy position) and choose *Upgrade to Earn 2.0*. This builds one transaction from the Treasury that, for every account in the team:
+
+1. Withdraws the account's USDC from the Aave vault and deposits it into Splits Earn USDC.
+2. Replaces the legacy Auto Earn Module with the current one, if Automated Earn was enabled.
+
+The transaction is approved by the Treasury's signers at its threshold; nothing moves until then. Automated Earn cannot be re-enabled on an account still running the legacy module until the upgrade runs. The Root is not included in the upgrade; withdraw its legacy position manually.
 
 ## Risks
 
 The current offering is lending, and lending carries risk:
 
-- **Smart-contract risk**: a critical bug in Aave or the vault could freeze or drain funds.
-- **Oracle & liquidation risk**: Aave relies on Chainlink oracles; if USDC de-pegs and the oracle lags, bad debt can accrue.
-- **Interest-rate variability**: Aave's variable rate can fall to nearly zero if borrowing demand drops.
-- **Governance risk**: Aave governance can change parameters affecting positions without notice.
-- **Liquidity exhaustion**: if utilization hits 100%, withdrawals pause until borrowers repay. Soaring borrow rates strongly incentivize new deposits that restore liquidity, so exits are rarely delayed for long, but short freezes are possible.
+- **Smart-contract risk**: a critical bug in Morpho's markets, the Steakhouse vault, or the Splits wrapper could freeze or drain funds. Each is a separate contract.
+- **Bad-debt risk**: each Morpho market has its own collateral and oracle, chosen by the curator. If collateral falls faster than liquidations clear it, the market's lenders, including the vault, absorb the loss.
+- **Interest-rate variability**: rates in Morpho markets are variable and can fall to nearly zero if borrowing demand drops.
+- **Curator risk**: Steakhouse selects the markets, collateral, and caps the vault lends into, and can change them within the vault's timelocks. Positions are exposed to those choices.
+- **Liquidity exhaustion**: withdrawals draw on the USDC that is not lent out. A withdrawal larger than the available liquidity fails until borrowers repay or the curator reallocates. Short delays are possible; there is no lockup or queue.
 
 ## Accounting and taxes
 
-Because Earn is a deposit into (and withdrawal from) a lending position, most accounting tools handle it without special treatment.
+Because Earn is a deposit into (and withdrawal from) a lending position, most accounting tools handle it without special treatment. The performance fee is deducted inside the vault and does not appear as a separate transaction.
