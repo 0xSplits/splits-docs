@@ -146,6 +146,14 @@ export default defineConfig({
       ],
     },
     {
+      text: 'Experiments',
+      link: '/experiments',
+      collapsed: true,
+      items: [
+        { text: 'PACT', link: '/experiments/pact' },
+      ],
+    },
+    {
       text: 'Resources',
       collapsed: true,
       items: [

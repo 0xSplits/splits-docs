@@ -43,6 +43,8 @@ Any agent should be able to take a product PR and update these docs without a hu
 | Renaming, changing signers and thresholds, resetting signers via the owner | `/accounts/editing` |
 | Proposal model, transaction types, gas sponsorship | `/transactions` |
 | API overview, CLI/MCP setup, API key scopes model, headless signing | `/introduction/agents` |
+| Experiment definition, prototype caveats | `/experiments` |
+| PACT: raise mechanics, contract guarantees, limitations | `/experiments/pact` |
 
 If a change moves a fact's canonical home, update this table in the same PR.
 
