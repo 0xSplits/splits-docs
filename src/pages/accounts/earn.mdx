@@ -21,13 +21,13 @@ Deposits flow into **Splits Earn USDC** ([`0x189A…3C8F`](https://basescan.org/
 
 - **Auto-compounding yield**: interest accrues to the share price, so the position grows without a claim step.
 - **One token to track**: each ERC-4626 share maps to a clear amount of USDC; no rebasing tokens.
-- **Native on Base**: no bridges, no wrapped assets.
+- **Lower gas**: Automated Earn bundles up to 10 accounts' deposits into one transaction.
 
-The APY shown in the app is the wrapper's net APY, reported by Morpho, after the Splits fee.
+Everything happens natively on Base: no bridges, no wrapped assets. The APY shown in the app is the wrapper's net APY, after the Splits fee.
 
 ### Fees
 
-Splits charges a **20% performance fee** on the yield the vault earns and **no management fee**. The fee is taken inside the vault: as interest accrues, the wrapper issues shares worth 20% of the new yield to Splits' fee account, and the remaining 80% raises the share price for every depositor. Changing the fee or its recipient is an onchain action with a 3-day timelock; Morpho caps a wrapper's performance fee at 50%.
+Splits charges a **20% performance fee** on the yield the vault earns and **no management fee**. The fee is taken inside the vault: as interest accrues, the wrapper issues shares worth 20% of the new yield to Splits' fee account, and the remaining 80% raises the share price for every depositor. Changing the fee or its recipient is an onchain action with a 3-day timelock.
 
 ## Automated Earn
 
