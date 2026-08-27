@@ -56,5 +56,6 @@ The current offering is lending, and lending carries risk:
 - **Liquidity exhaustion**: withdrawals draw on the USDC that is not lent out. A withdrawal larger than the available liquidity fails until borrowers repay or the curator reallocates. Short delays are possible; there is no lockup or queue.
 
 ## Accounting and taxes
+Using Earn does not require you to manually account for vault shares or calculate the yield yourself. [Accounting](/accounting) treats a deposit as a swap of USDC into vault shares and a withdrawal as a swap back. Vault shares are tracked as their own tax lots, and yield is realized as gain on the shares when you withdraw.
 
-Because Earn is a deposit into (and withdrawal from) a lending position, most accounting tools handle it without special treatment. The performance fee is deducted inside the vault and does not appear as a separate transaction.
+Deposits and withdrawals remain in the transaction history and CSV exports. The displayed yield is net of the performance fee.
