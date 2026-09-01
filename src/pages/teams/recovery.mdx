@@ -19,7 +19,18 @@ Recovery signers are EOAs (wallet addresses) chosen at [team setup](/teams), con
 
 Confirm a recovery signer's private key is still accessible without moving funds: Splits has the key sign a test message. In *Settings > Recovery*, open the signer's three-dot menu → *Verify signer*; this requires connecting the wallet. Each signer shows when it was last verified.
 
-**If a wallet won't connect or disconnect**: MetaMask can't reliably connect a Ledger; use Rabby. If a wallet won't disconnect, navigate to another page and back, or disconnect from app.splits.org in the wallet extension.
+Verification signs the same kind of message a recovery does, so a signer that passes can sign a recovery; see [Known issues when using a Ledger](#known-issues-when-using-a-ledger) for wallets that fail it.
+
+**If a wallet won't disconnect**, navigate to another page and back, or disconnect from app.splits.org in the wallet extension.
+
+### Known issues when using a Ledger
+
+Splits transactions are signed as a 32-byte hash (raw-bytes `personal_sign`, checked by the [account contracts](https://github.com/0xSplits/splits-contracts-monorepo/tree/main/packages/smart-vaults)). Wallets that re-encode that hash as text before signing produce a signature the contract rejects, and the app reports *Signature rejected*:
+
+- **Ledger Live** over WalletConnect decodes the hash as text and signs the corrupted result.
+- **The Rainbow browser extension** with a Ledger signs the hex string as text.
+
+Connect a Ledger through MetaMask instead.
 
 ## Recovering your accounts
 
