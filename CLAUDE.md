@@ -4,13 +4,13 @@ User-facing docs for Splits (app.splits.org), built with Vocs. Pages serve **two
 
 ## The standard job: update docs for a product PR
 
-Any agent should be able to take a product PR and update these docs without a human review pass. The checklist:
+An agent can prepare a complete update from a product PR. A separate STE editorial review is required before merge. The checklist:
 
 1. Read the PR's **code diff**, not its description, and list each user-visible behavior that changed.
 2. Find each fact's canonical page (map below, plus `git grep`). Edit only that page; update other pages' links if the fact moved, never restate it.
 3. Verify every claim you write against the code (rules below). PR descriptions and existing docs prose are not sources.
 4. If a file or heading moves: grep for the old path and old `#anchor`, retarget every inbound link, and update the sidebar in `vocs.config.ts` (URLs derive from file paths under `src/pages/`).
-5. Check your work: `node scripts/check-prose.mjs <paths>` (findings are warnings needing judgment, not automatic failures), `pnpm build` (validates every internal link), and read the `.md` twin (`curl localhost:5173/<path>.md`); the twin is what agents consume.
+5. Check your work: `pnpm check:docs` (findings fail), `pnpm build` (validates every internal link), and read the `.md` twin (`curl localhost:5173/<path>.md`); the twin is what agents consume.
 6. Never commit without explicit approval from the human in the session.
 
 ## Accuracy
@@ -31,6 +31,7 @@ Any agent should be able to take a product PR and update these docs without a hu
 
 | Fact | Canonical home |
 | --- | --- |
+| Technical term definitions and permitted uses | `scripts/ste/terms.json`, generated as `/resources/glossary` |
 | Team definition, creating a team, setup steps | `/teams` |
 | Roles, capability matrix, settings visibility, API key scopes, read-only members | `/teams/roles` |
 | Recovery, recovery signers, verifying them | `/teams/recovery` |
@@ -66,7 +67,7 @@ If a change moves a fact's canonical home, update this table in the same PR.
 - **"Signing key", not bare "key"**, whenever precision matters (definitions, invariants, table cells). Bare "key" is fine once the page has established context (e.g. within `/members/keys`). A **signer** is always account-relative: a signing key added to an account's signer set. Don't use "signer" for a key that isn't on an account.
 - **"the Root" / "the Treasury" in prose; bare "Root" / "Treasury" in table cells.** Table cells carry no leading articles and no explanations; explanations live in surrounding prose.
 - **"Wallet" means an external EOA wallet** (recovery wallets, MetaMask, hardware wallets), never a Splits account.
-- **Em dashes: never, anywhere.** List items and definition lists use a colon separator (`` `command`: description ``); in prose, a colon, period, comma, semicolon, or parentheses replaces the em dash. The prose linter flags every em dash.
+- **Semicolons and em dashes: never in public prose.** List items and definition lists use a colon separator (`` `command`: description ``); in prose, a colon, period, comma, or parentheses replaces the em dash. The prose linter flags every em dash.
 - **"Email support"** (no address) is the phrasing for manual/support-gated processes.
 - **"Team" → "workspace" rename is planned** in the product. Docs keep saying "team" until the product ships the rename, then migrate in one pass (prose + `/teams/` URLs + section name).
 
@@ -75,7 +76,7 @@ If a change moves a fact's canonical home, update this table in the same PR.
 - **Facts in declarative present tense; procedures in second person** ("you must be an Owner", "go to…").
 - **UI elements in italics**: button and control labels (*Invite member*, *Reset signers*, *Require memos*). **Settings paths with `>`**: Settings > Members. **In-page click chains with `→`**: three dots → *Verify signer*.
 - **Bold** for: the term a page defines (first use), negative invariants, and scope names in command lists (**Read** scope).
-- **Callouts**: `:::note` sparingly. Beta features get exactly: "This feature is in beta. Email support to enable it for your team."
+- **Callouts**: `:::note` sparingly. For beta features, put "This feature is in beta." in the note. Put "Email support to enable it for your team." after the note.
 - **Page titles ≤ 2 words** where possible; sidebar labels match titles.
 - **No screenshots** until there's a system for generating them automatically. **No "Last updated" lines.**
 - **Cut anything that can be removed without losing meaning.** No welcome fluff, no roadmap promises, no restating what a link target already says. Answer first.
@@ -91,8 +92,19 @@ If a change moves a fact's canonical home, update this table in the same PR.
 ## Programmatic access
 
 - Every page whose surface the CLI/MCP covers **ends** with an H2 named exactly "Programmatic access".
-- It opens with exactly: `Via the [Splits CLI / MCP](/introduction/agents):`
+- It opens with exactly: `Through the [Splits CLI / MCP](/introduction/agents):`
 - Commands are bullets in the form `` `splits <command> <args>` ``: description (**Scope** scope).
-- If the surface has no CLI coverage and a user might expect it, say so: "X is web-only today."
+- If the surface has no CLI coverage and a user might expect it, say so: "X is available only in the app."
 - **CLI commands appear nowhere else on a page.** Body prose describes the app flow; conceptual links to `/introduction/agents` (e.g. "registered via the CLI") are fine, inline command names are not.
 - Don't document the full command surface: the CLI is self-describing (`npx @splits/splits-cli@latest --llms`), and `/introduction/agents` owns setup, scopes, and headless signing.
+
+## Simplified Technical English
+
+Public prose must follow [STE.md](STE.md), which targets ASD-STE100 Issue 9. This includes titles, subtitles, metadata, tables, link labels, callouts, and image descriptions. Use at most 20 words per sentence and six sentences per paragraph. This sentence limit is stricter than the standard's descriptive limit.
+
+- Use the official dictionary for general words and their meanings and parts of speech. The local linter is not a full dictionary checker.
+- Define technical terms in `scripts/ste/terms.json`, then run `pnpm glossary:generate`. Canonical feature pages own behavior. The glossary owns lexical definitions.
+- Use one instruction per sentence in numbered procedures. State conditions first. Keep instructions out of notes.
+- Use active voice and simple verb forms. Expand contractions. Preserve literal UI labels, commands, and identifiers.
+- Run `pnpm build`. It runs prose checks, glossary consistency checks, and regression tests before the Vocs build.
+- A separate maintainer must review the current commit against the official standard and approve with `STE review complete`. An agent must not claim full compliance from a passing linter.

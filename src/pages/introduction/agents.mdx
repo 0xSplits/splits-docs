@@ -1,87 +1,147 @@
 ---
-title: Agents & API
-description: "Operate Splits programmatically via the API or self-describing CLI, or connect AI tools over MCP: scopes, the proposal model, headless signing, and output tuning."
+title: "Agents & API"
+description: "Operate Splits through the API, CLI, or MCP"
 ---
 
-# Agents & API [Operate Splits programmatically via the API, CLI, or MCP]
+# Agents & API [Operate Splits through the API, CLI, or MCP]
 
-The Splits API and CLI let applications, scripts, and agents operate Splits programmatically. The CLI also runs as an MCP server for AI tools (Claude Code, Cursor, Amp).
+The **Splits API** provides access for applications and scripts. The **CLI** is its command-line interface. The CLI also provides a Model Context Protocol (MCP) server for AI tools.
 
-**The CLI is self-describing, and it, not this page, is the reference for the command surface:**
+The CLI describes its own commands:
 
 ```bash
-npx @splits/splits-cli@latest --llms   # machine-readable manifest of every command
+npx @splits/splits-cli@latest --llms
 ```
 
-Every command answers `--help` and `--schema`, and over [MCP](#connect-to-ai-tools-mcp) each command is exposed as a tool with its schema. This page covers what the manifest doesn't: scopes, the proposal model, headless signing, and output tuning.
+Each command accepts `--help` and `--schema`. The manifest is the command reference. MCP presents each command as a tool with an input schema.
 
 ## Get set up
 
 ### Get an API key
 
-Create a key in [Settings > API Keys](https://app.splits.org/settings/team/api-keys/) with the scopes you need (the full matrix is in [Roles](/teams/roles#api-key-scopes)):
+Prerequisites: your team role must permit the requested [API key scopes](/teams/roles#api-key-scopes).
 
-- **Read**: query data only
-- **Write**: create and propose transactions; update transaction memos and properties
-- **Owner**: manage accounts and team settings
+1. Open [Settings > API Keys](https://app.splits.org/settings/team/api-keys/).
+2. Create an API key with the required scopes.
+3. Copy the value that starts with `sk_`.
+4. Store it securely.
 
-Copy the key (it starts with `sk_`) and save it somewhere secure. You won't be able to see it again.
+**The app does not show the API key again.**
 
 ### Install the CLI and sign in
 
-```bash
-npm install -g @splits/splits-cli@latest   # or run via npx @splits/splits-cli@latest
-splits auth login --api-key sk_...
-splits auth whoami   # verify: team, scopes, key source, local signing key
-```
+1. Install the CLI:
 
-`splits auth logout` removes the saved key.
+   ```bash
+   npm install -g @splits/splits-cli@latest
+   ```
+
+2. Configure the API key:
+
+   ```bash
+   splits auth login --api-key sk_...
+   ```
+
+3. Check the team, scopes, API key source, and local signing key:
+
+   ```bash
+   splits auth whoami
+   ```
+
+`splits auth logout` removes the saved API key. You can also run the CLI with `npx @splits/splits-cli@latest`.
 
 ## Use the API
 
-The Splits API is a versioned REST API at `https://api.splits.org/public/v1`. Authenticate API-key-protected endpoints with your key as a bearer token.
+The REST API is at `https://api.splits.org/public/v1`. Protected endpoints accept an API key as a bearer token.
 
-The [Swagger docs](https://api.splits.org/public/docs) are the source of truth for available endpoints, authentication requirements, parameters, request and response schemas, and examples.
+The [API reference](https://api.splits.org/public/docs) defines endpoints, authentication, parameters, schemas, and examples.
 
 ## Connect to AI tools (MCP)
 
-MCP exposes **every CLI command as a tool automatically**, including commands added later.
+MCP provides a tool for each CLI command, including later additions.
+
+1. Add the MCP server to detected clients:
+
+   ```bash
+   splits mcp add
+   ```
+
+2. Ask the connected agent to run `splits auth whoami`.
+
+For a client with standard input and output transport, the server command is:
 
 ```bash
-splits mcp add   # auto-detects Claude Code, Cursor, and other clients
+SPLITS_API_KEY=sk_... npx @splits/splits-cli --mcp
 ```
 
-For any stdio MCP client, run `SPLITS_API_KEY=sk_... npx @splits/splits-cli --mcp`. `splits skills add` syncs ready-made skill files for agents. Verify the connection by asking the tool to run `splits auth whoami`.
+`splits skills add` installs the supplied agent skill files.
 
 ## The model
 
-Everything visible in the app is queryable with the **Read** scope: accounts, balances, transactions (filterable by account, direction, amount, date, and memo), contacts, tokens, networks, members, settings, and automations.
+The Read scope queries team data. This includes accounts, balances, transactions, contacts, tokens, networks, members, settings, and automations.
 
-Writes follow the same rule as the app: **a transaction is a [proposal](/transactions)** that executes only once signatures meet the account's threshold. `transactions create transfer` and `create custom` produce proposals (**Write** scope); signing happens in the web UI with a passkey, or headlessly with a [registered EOA](#sign-locally-with-an-eoa). **Owner**-scoped commands create and manage accounts and propose signer changes, whose approval always stays in the web UI. A brand-new team can be bootstrapped with `org create`; completion also happens in the web UI.
+Writes use the [transaction proposal model](/transactions). Transfer and custom commands create proposals with the Write scope.
+
+**API key scopes do not supply signing authority.** Signatures use passkeys in the app or a registered EOA in the CLI.
+
+Owner scope permits account management and proposals for signer changes. Signer change approval remains in the app. New team setup through `org create` also requires completion in the app.
 
 ## Transaction metadata
 
-Every transaction can carry a [memo](/transactions/memos) (max 500 characters) and custom JSON properties (max 500 characters minified) for structured metadata, settable at creation or after: `transactions memo`, `transactions properties set/replace/clear` (**Write** scope).
+A transaction can have a [memo](/transactions/memos) and JSON properties. Each has a maximum of 500 characters. The property limit counts minified JSON.
+
+The Write scope permits metadata at creation or through `transactions memo` and `transactions properties set/replace/clear`.
 
 ## Sign locally with an EOA
 
-By default, signing happens in the web UI with a passkey. To operate headlessly, register a local EOA and sign from the CLI:
+An **EOA** is an externally owned account controlled by a private key. CLI signatures use this key without a browser prompt.
 
-1. `splits auth create-key --register`: generate a local EOA (stored in `~/.splits/config.json`) and register it. Import an existing key instead with `echo $PRIVATE_KEY | splits auth import-key`.
-2. `splits accounts update-signers <account> --addEoaSignerIds ... --threshold N`: propose adding it as a signer (**Owner** scope). A human approves the proposal in the web UI, and the update applies to every active network.
-3. `splits transactions sign <id>`: sign pending proposals with the local key (**Write** scope). Auto-submits once the threshold is met.
+Prerequisites: signer changes need Owner scope and approval in the app. Transaction signatures need Write scope.
 
-`splits auth delete-key` removes the local key but does **not** revoke it onchain; remove it from accounts via `update-signers`.
+1. Create and register a local EOA:
+
+   ```bash
+   splits auth create-key --register
+   ```
+
+2. Propose its addition to the account:
+
+   ```bash
+   splits accounts update-signers <account> --addEoaSignerIds ... --threshold N
+   ```
+
+3. Approve the signer change in the app.
+4. Sign a pending proposal:
+
+   ```bash
+   splits transactions sign <id>
+   ```
+
+The CLI stores the local signing key in `~/.splits/config.json`. An existing private key can enter through standard input to `splits auth import-key`.
+
+The signer change applies across active networks. The CLI submits a signed proposal when it reaches the threshold.
+
+**Local key deletion does not revoke onchain authority.** `splits auth delete-key` removes the local copy. Account signer removal requires `update-signers`.
 
 ## Tune output for agents
 
-The CLI prints tables for humans and JSON when piped or under MCP. Global flags reshape output: `--format toon|json|yaml|md|jsonl` (`toon` is token-efficient for LLM context), `--filter-output <paths>` to project specific fields, and `--token-count` / `--token-limit` / `--token-offset` to measure or budget output tokens.
+An **output token** is a unit of text used to measure AI output. It differs from a blockchain token.
+
+The CLI displays tables for interactive use and JSON for pipes or MCP. Output options include:
+
+| Option | Function |
+| --- | --- |
+| `--format toon\|json\|yaml\|md\|jsonl` | Output format |
+| `--filter-output <paths>` | Field selection |
+| `--token-count` | Token count |
+| `--token-limit` | Output token limit |
+| `--token-offset` | Output starting position |
 
 ## Examples
 
-- "Show me the balances for all my accounts on Base"
-- "Find all outbound payments to Acme between $4,500 and $5,500 last month"
-- "Tag the last 5 outbound transfers with property `category=payroll`"
-- "Create a new account called 'Ops' with a 2-of-3 threshold"
-- "Send 100 USDC from my account on Base to 0x..."
-- "Add my local EOA as a signer on the Ops account, then sign the pending transfer"
+- Show all account balances on Base.
+- Find outbound payments to Acme between $4,500 and $5,500 last month.
+- Set `category=payroll` on the last five outbound transfers.
+- Create an account named Ops with a 2-of-3 threshold.
+- Propose a transfer of 100 USDC on Base.
+- Add the local EOA as an Ops signer.

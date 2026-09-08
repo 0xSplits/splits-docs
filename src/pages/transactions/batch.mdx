@@ -1,14 +1,27 @@
 ---
-title: Batch
-description: Batches group multiple transactions into one signature, from inside the Splits app or from external apps via the browser extension and WalletConnect.
+title: "Batch"
+description: "Group transactions for a signature"
 ---
 
-# Batch [Group multiple transactions into one signature]
+# Batch [Group transactions for a signature]
 
-A batch collects multiple transactions and executes them under a single signature. Prepare any transaction and, in the review dialog, select *Add to batch* instead of *Submit*; keep adding, then open the batch (at the top of the transaction feed) and submit once. Before signing, you can inspect each transaction's calls, view a simulation, or remove it from the batch.
+A **batch** groups multiple transactions for execution. A signer signs the batch once.
 
-Each team has **one active batch at a time, on a single account and network**; *Add to batch* is disabled elsewhere while a batch is open. A batch holds up to 50 transactions.
+**Each team can have only one active batch on one account and network.** Other accounts and networks cannot add transactions to that batch. A batch holds up to 50 transactions.
 
-## Batching from external apps
+1. Prepare a transaction.
+2. In the review dialog, select *Add to batch*.
+3. Repeat for other transactions on the same account and network.
+4. Open the batch above the transaction feed.
+5. Inspect each transaction's calls and simulation.
+6. Remove any unwanted transactions.
+7. Submit the batch.
+8. Sign the batch.
 
-Transactions initiated in external apps through the [browser extension](/introduction/extension) or [WalletConnect](/integrations/walletconnect) offer the same *Add to batch* option in the Splits signing dialog. The external app may not show the transaction as pending until the batch executes.
+<a id="batching-from-external-apps" />
+
+## Batches from external apps
+
+The [browser extension](/introduction/extension) and [WalletConnect](/integrations/walletconnect) also show *Add to batch* for transactions from other apps.
+
+The other app might not show the transaction as pending until the batch executes.

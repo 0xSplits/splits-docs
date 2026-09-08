@@ -1,52 +1,77 @@
 ---
-title: Contacts
-description: "Contacts are team-wide names for external addresses, used everywhere addresses appear: recipient search, transaction feeds, accounting, and CSV exports."
+title: "Contacts"
+description: "Name external addresses and set send rules"
 ---
 
-# Contacts [Name the addresses a team transacts with]
+# Contacts [Name external addresses and set send rules]
 
-A contact is a team-wide name for an external address. Once saved, the name stands in for the raw address everywhere addresses appear: recipient search in [sends](/transactions/sends), transaction feeds, the [Accounting page](/accounting), and CSV exports. Contacts are shared by the whole team, and any member can create, edit, or delete them.
+A **contact** gives an external address a name for the team. The name appears in [send](/transactions/sends) searches, transaction feeds, [Accounting](/accounting), and CSV exports.
 
-## Creating
+All team members share contacts. Any member can create, edit, or delete them.
 
-Add contacts from the *Contacts* page, inline from any address shown in a transaction feed, or from the command menu. A contact is an address plus a display name; you can enter an ENS name, which is resolved once and stored as its address. Each address holds one contact per team, applied across all networks.
+<a id="creating" />
 
-Two constraints: contacts must be EVM addresses, and the team's own Splits accounts can't be added as contacts (they're already named).
+## Create a contact
+
+The *Contacts* page, addresses in transaction feeds, and the command menu provide contact creation controls.
+
+1. Open the contact creation form.
+2. Enter an address or ENS name.
+3. Enter a display name.
+4. Save the contact.
+
+Splits resolves an ENS name once and stores the address. Each address can have one contact per team across all networks.
+
+**Contacts require EVM addresses.** The team's own Splits accounts already have names and cannot be contacts.
 
 ## Restrictions
 
 :::note
-This feature is in beta. Email support to enable it for your team.
+This feature is in beta.
 :::
 
-A **send rule** limits what a contact accepts. Pick one mode under *Restrict sends* when you create or edit the contact:
+Email support to enable it for your team.
 
-| Mode | What the contact accepts |
+A **send rule** limits the token and network combinations for payments to a contact. *Restrict sends* in the contact form offers three modes:
+
+| Mode | Permitted payments |
 | --- | --- |
-| No restrictions | Any token on any network. The default. |
-| By network | Any token, on the networks you check. |
-| By token and network | Only the token and network pairs you add. |
+| No restrictions | Any token and network |
+| By network | Any token on selected networks |
+| By token and network | Selected token and network pairs |
 
-Rules are enforced when the transaction is created, so they cover a [send](/transactions/sends), a [swap](/transactions/swaps), or bridge that pays an external recipient. A send that no rule allows is rejected.
+The default has no restrictions. Splits checks rules at transaction creation for sends, swaps, and transfers across networks to an external recipient.
 
-If a [schedule](/transactions/schedules) already pays this contact in a token the new rules don't allow, saving the contact warns you first. The schedule keeps creating its drafts, but no one can sign them until the rules or the schedule changes.
+**A send with no permitted rule fails.**
+
+A rule change can conflict with an existing [schedule](/transactions/schedules). The contact form warns about this conflict before the save.
+
+The schedule continues to create drafts. **Those drafts cannot receive signatures until the rule or schedule changes.**
 
 ## How addresses get named
 
-When Splits displays an address, it uses the first name it finds: the team's account and bank-account names, then contact labels, then live ENS and Farcaster lookups, then [payee](/contacts/compliance) details, and finally the shortened address. Saving a contact pins a name the whole team sees, instead of depending on what an address resolves to.
+Splits uses the first available name in this order:
+
+1. Team account or bank account name.
+2. Contact name.
+3. Current ENS or Farcaster name.
+4. Payee information.
+5. Shortened address.
+
+A saved contact gives all members the same name without a new external name lookup.
 
 ## Other named recipients
 
-Two recipient types are stored separately from contacts but appear alongside them in recipient search:
+These records appear in recipient searches but are separate from contacts:
 
-- **Payees**: counterparties with a verified identity and tax forms; see [Compliance](/contacts/compliance).
-- **Vendor bank accounts**: fiat payees with a deposit address; see [Paying vendors](/banking/paying-vendors).
+- **Payees**: recipients with identity verification and tax forms. [Compliance](/contacts/compliance) describes these records.
+- **Vendor bank accounts**: bank recipients with deposit addresses. [Paying vendors](/banking/paying-vendors) describes their setup.
 
 ## Programmatic access
 
-Via the [Splits CLI / MCP](/introduction/agents):
+Through the [Splits CLI / MCP](/introduction/agents):
 
-- `splits contacts list --q "acme"`: search contacts by name or address; returns up to 500 (**Read** scope)
-- `splits contacts lookup --addresses 0x...,0x...`: batch address-to-name lookup, max 100 addresses (**Read** scope)
+- `splits contacts list --q "acme"`: search names or addresses, with a maximum of 500 results (**Read** scope).
+- `splits contacts lookup --addresses 0x...,0x...`: look up names for up to 100 addresses (**Read** scope).
 
-Creating and editing contacts is web-only today.
+Contact creation and changes are available only in the app.

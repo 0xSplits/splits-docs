@@ -1,21 +1,29 @@
 ---
-title: Thresholds
-description: "Every account requires M-of-N signer approvals per transaction: what thresholds are and how to choose one."
+title: "Thresholds"
+description: "The number of signer approvals for a transaction"
 ---
 
-# Thresholds [The number of signer approvals an account requires per transaction]
+# Thresholds [The number of signer approvals for a transaction]
 
-Every [account](/accounts) has a threshold: the number of [signer](/accounts/signers) approvals required for an outgoing transaction, written M-of-N (2-of-3 means any two of the account's three signers). A transaction executes once it reaches M signatures; below that it stays pending. Each account's threshold is set independently: at [team setup](/teams) for the Treasury, at creation for operating accounts. To change an account's threshold or signers, see [Editing](/accounts/editing).
+A **threshold** is the number of [signer](/accounts/signers) approvals an [account](/accounts) requires for a transaction.
 
-## Choosing a threshold
+The notation is M-of-N. For example, 2-of-3 requires any two of three signers. A transaction stays pending until it has M signatures.
 
-During team setup, the app recommends a majority of owners for the Treasury. Suggested thresholds by number of Owners:
+Each account has its own threshold. Team setup sets the Treasury's initial threshold. Account creation sets an operating account's initial threshold. [Editing](/accounts/editing) describes later changes.
 
-| Owners | Treasury | [Recovery](/teams/recovery) |
+<a id="choosing-a-threshold" />
+
+## Threshold examples
+
+During team setup, the app suggests a majority of Owners for the Treasury.
+
+| Owners | Treasury | Recovery |
 | --- | --- | --- |
 | 1 | 1-of-1 | 2-of-3 |
 | 2 | 2-of-2 | 2-of-3 |
 | 3 | 2-of-3 | 2-of-3 |
-| 4+ | (n/2)+1 | (n/2)+1 |
+| 4+ | Majority | Majority |
 
-For solo setups, see [Personal usage](/introduction/personal-usage#multisigs-of-one).
+A **majority** means more than half of the configured signers.
+
+[Recovery](/teams/recovery) describes recovery signers. [Personal usage](/introduction/personal-usage#multisigs-of-one) describes multiple signers controlled by one person.

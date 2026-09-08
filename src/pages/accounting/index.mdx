@@ -1,25 +1,37 @@
 ---
-title: Accounting
-description: View, filter, and export all of a team's transactions on the Accounting page, and see historical balances over any date range.
+title: "Accounting"
+description: "View and export transaction records"
 ---
 
-# Accounting [View, filter, and export all activity across a team's accounts]
+# Accounting [View and export transaction records]
 
-The *Accounting* page shows every inbound and outbound transaction across the team's accounts, filterable and exportable to CSV. To annotate transactions for the books, use [memos](/transactions/memos); add them when creating each transaction.
+**Accounting** shows inbound and outbound transactions across the team's accounts. It provides filters and CSV exports.
 
-## Filtering
+[Memos](/transactions/memos) add information to transaction records.
 
-Filter transactions by memo, date, account(s), direction, and amount (min and max).
+<a id="filtering" />
 
-## Exporting
+## Filters
 
-The main *Export as CSV* action downloads a transaction-and-tax-lot timeline matching the current account, network, token, and date filters. The export menu also provides:
+The page can filter transactions by memo, date, accounts, direction, and minimum or maximum amount.
 
-- **Open tax lots**: lots still open as of the selected period's end date (or now, when there is no end date), matching the account, network, and token filters.
-- **Realized gains**: disposals in the selected date range, matching the account filter, with proceeds, cost basis, gain or loss, and holding term.
+<a id="exporting" />
 
-Large reports are generated in the background and emailed when ready; keep the page open to also download them automatically when they finish. To control which tokens appear in the books at all, see [Spam & tokens](/accounting/spam).
+## Exports
+
+*Export as CSV* downloads a transaction and tax lot timeline. It uses the current account, network, token, and date filters.
+
+The export menu also includes:
+
+- **Open tax lots**: lots open at the selected end date, or now if no end date exists. Account, network, and token filters apply.
+- **Realized gains**: disposals within the selected dates and account filter. Fields include proceeds, cost basis, gain or loss, and holding term.
+
+Splits generates large reports in the background and emails them when ready. An open page also downloads the completed report automatically.
+
+[Spam & tokens](/accounting/spam) describes token visibility in exports.
 
 ## Historical balances
 
-Setting a date range shows the starting balance, ending balance, and net change for that period; combine with the account(s) filter to scope it to specific accounts. The starting and ending balances break down into per-token holdings on that date.
+A date range shows the starting balance, ending balance, and net change. The account filter limits these values to selected accounts.
+
+Starting and ending balances show holdings by token on each date.

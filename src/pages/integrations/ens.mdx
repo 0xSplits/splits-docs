@@ -1,32 +1,47 @@
 ---
-title: ENS
-description: "Use an ENS name with a Splits account: register a new name, transfer an existing one, and extend a name across accounts with subnames."
+title: "ENS"
+description: "Register and transfer names for account addresses"
 ---
 
-# ENS [Register or transfer an ENS name to a Splits account]
+# ENS [Register and transfer names for account addresses]
 
-An [ENS](https://ens.domains) name can be held by, and resolve to, a Splits account. All ENS management happens in the [ENS app](https://app.ens.domains) with your account connected via [WalletConnect](/integrations/walletconnect).
+The **Ethereum Name Service (ENS)** associates names with blockchain addresses. A Splits account can hold an [ENS](https://ens.domains) name and receive funds through it.
 
-Prerequisites: Ethereum Mainnet enabled in [Settings > Networks](https://app.splits.org/settings/team/networks/), and enough mainnet ETH in the account if you're registering a name.
+The [ENS app](https://app.ens.domains) provides name management through [WalletConnect](/integrations/walletconnect).
 
-## Registering a new name
+Prerequisites: Ethereum Mainnet must be active in [Settings > Networks](https://app.splits.org/settings/team/networks/). Name registration also needs sufficient ETH on mainnet.
 
-1. Connect the Splits account at [app.ens.domains](https://app.ens.domains) via WalletConnect.
-2. Choose a name and registration duration, leaving *Use as primary name* on so the name resolves to the account on registration.
-3. Approve the registration in Splits: two transactions, separated by ENS's commit delay.
+<a id="registering-a-new-name" />
 
-## Transferring an existing name
+## Register a name
 
-If the name is currently in an EOA, update its profile and ETH address record *before* transferring: doing it from Splits afterward costs more transactions, especially at thresholds above 1.
+1. Connect the Splits account to the ENS app through WalletConnect.
+2. Select a name.
+3. Select a registration duration.
+4. Keep *Use as primary name* on.
+5. Approve the first registration transaction in Splits.
+6. Wait for the ENS commit delay.
+7. Approve the second registration transaction.
 
-1. Connected as the current holder, set the name's ETH address record to the Splits account.
-2. Send the name to the Splits account. An ENS name is an NFT and transfers like [any other](/transactions/sends).
-3. Reconnect to the ENS app as the Splits account and select *Set as primary name*.
+<a id="transferring-an-existing-name" />
+
+## Transfer a name
+
+A name held by an EOA can have its profile and address record changed before transfer. This reduces later transactions from the Splits account.
+
+1. Connect the current name holder to the ENS app.
+2. Set the name's ETH address record to the Splits account.
+3. [Send the name](/transactions/sends) to the Splits account as an NFT.
+4. Reconnect to the ENS app with the Splits account.
+5. Select *Set as primary name*.
 
 ## Subnames
 
-Subnames point one name at multiple accounts (e.g. `treasury.splits.eth`, `operating.splits.eth`), keeping one brand across the team's [accounts](/accounts). They work in any ENS-enabled app like any other name.
+A **subname** extends a parent name, such as `treasury.splits.eth`. Separate subnames can identify different [accounts](/accounts).
 
-1. Connected as the holder of the parent name, add a subname from the name's *Subnames* tab.
-2. Set the subname's ETH address to the target Splits account.
-3. Connect as that account and select *Set as primary name* on the subname.
+1. Connect the parent name holder to the ENS app.
+2. Open the name's *Subnames* tab.
+3. Add a subname.
+4. Set its ETH address record to the target Splits account.
+5. Connect with that Splits account.
+6. Select *Set as primary name* for the subname.

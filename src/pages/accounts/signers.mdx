@@ -1,39 +1,40 @@
 ---
-title: Signers
-description: "Signers are the keys in an account's signer set that approve its transactions: how signing authority relates to membership and roles, and where signers are managed."
+title: "Signers"
+description: "Signing keys with authority on a specific account"
 ---
 
-# Signers [The keys in an account's signer set that approve its transactions]
+# Signers [Signing keys with authority on a specific account]
 
-A signer is a [signing key](/members/keys) (a passkey or EOA belonging to a [member](/members)) that has been added to an [account](/accounts)'s signer set. Approvals are counted against the account's [threshold](/accounts/thresholds): a transaction executes once enough signers have signed. The signer set stores public keys onchain; private keys stay with the members.
+A **signer** is a [signing key](/members/keys) in an [account](/accounts)'s signer set. The account counts its approval toward the [threshold](/accounts/thresholds).
 
-Managing signers is an onchain edit to one account's signer set (see [Editing](/accounts/editing)), and is separate from managing a member's [signing keys](/members/keys) in personal settings: adding or removing a key changes no account's signer set, and removing a signer from an account doesn't delete the member's key.
+The signer set stores public keys onchain. Members keep their private keys.
+
+An account signer change is an onchain transaction. [Editing](/accounts/editing) describes this procedure.
+
+Personal signing key settings and account signer settings are separate. **A personal signing key change does not change an account's signer set.** Removal of an account signer does not delete the member's signing key.
 
 ## Signers vs membership
 
-Signing authority is separate from [membership](/members) and [roles](/teams/roles). The two often overlap 1:1, but are distinct:
+[Membership](/members) and [roles](/teams/roles) control access to the app. Signers control account transaction approvals.
 
-| | Team member | Signer |
+| Property | Team membership | Account signer |
 | --- | --- | --- |
-| Stored | Offchain | Onchain (account's signer set) |
-| Scoped to | A team | An account |
-| What it is | A person's association with a team | A signing key belonging to a member |
-| Grants | Visibility + [role](/teams/roles) capabilities | Authority to approve transactions, counted against the account's threshold |
-| Managed in | [Settings > Members](https://app.splits.org/settings/team/members/) | Account settings > Signers ([how](/accounts/editing#changing-signers-and-thresholds)) |
+| Storage | Offchain | Onchain |
+| Scope | Team | Account |
+| Record | Person's membership | Signing key |
+| Authority | App access under a role | Transaction approval |
+| Settings | Settings > Members | Account settings > Signers |
 
-Two rules connect them:
-
-1. **Every signer on a team's accounts must be a member of that team.**
-2. **Neither membership nor any role ever makes someone a signer.** Adding a signer is a separate, onchain action.
+Normal account signers belong to team members. **Membership and roles do not make a signing key an account signer.** Addition of a signer requires a separate onchain change.
 
 ## Recovery signers
 
-The [Root account](/accounts#root)'s signers are the team's recovery signers: EOAs chosen at team setup that can reset every other account's signers. See [Recovery](/teams/recovery#recovery-signers).
+The Root uses recovery signers selected at team setup. These are EOAs with a separate purpose from normal member signing keys. [Recovery](/teams/recovery#recovery-signers) describes their authority.
 
 ## Programmatic access
 
-Via the [Splits CLI / MCP](/introduction/agents):
+Through the [Splits CLI / MCP](/introduction/agents):
 
-- `splits accounts signers <address>`: an account's signers and threshold (**Read** scope)
-- `splits accounts update-signers <address> ...`: propose signer/threshold changes; approval happens in the web UI (**Owner** scope)
-- `splits members signers <userId>`: a member's passkey IDs, for adding them as a signer (**Read** scope)
+- `splits accounts signers <address>`: show account signers and threshold (**Read** scope).
+- `splits accounts update-signers <address> ...`: propose signer or threshold changes for approval in the app (**Owner** scope).
+- `splits members signers <userId>`: list a member's passkey IDs (**Read** scope).

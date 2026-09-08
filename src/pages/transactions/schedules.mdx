@@ -1,14 +1,18 @@
 ---
-title: Schedules
-description: "Schedules create recurring transfer proposals on a daily, weekly, or monthly interval: how drafts are generated, notified, and approved."
+title: "Schedules"
+description: "Create transfer proposals at regular intervals"
 ---
 
-# Schedules [Recur a transfer on an interval, like payroll]
+# Schedules [Create transfer proposals at regular intervals]
 
-A schedule creates a transfer on a daily, weekly, or monthly interval from a chosen account, paying pre-defined amounts to one or more recipients. Use it for payroll, topping up sub-accounts, or diversifying assets on a cadence.
+A **schedule** creates transfer proposals at daily, weekly, or monthly intervals. It specifies an account, recipients, and amounts.
 
-Each occurrence is a **draft proposal, not an executed transaction**: funds are self-custodied, so the account's signers still approve every one at its [threshold](/accounts/thresholds). Drafts are generated daily at 11:00 UTC, the account's signers are emailed when one is ready, and reminders follow while a draft sits unsigned.
+**Each occurrence creates a draft proposal without execution.** The account's signers must approve each proposal at its [threshold](/accounts/thresholds).
 
-Schedules handle transfers only; they can't run swaps or custom transactions. [Owners](/teams/roles) create, edit, pause, and delete schedules from the *Schedules* page; any member can view them.
+Splits creates drafts daily at 11:00 UTC. It emails the account's signers when a draft is ready. It sends reminders while the draft lacks signatures.
 
-A recipient that is a contact can [restrict what it accepts](/contacts#restrictions), which affects whether this schedule's drafts can be signed.
+**Schedules support transfers only.** They cannot execute swaps or custom transactions.
+
+[Owners](/teams/roles) can create, edit, pause, and delete schedules on the *Schedules* page. Any member can view them.
+
+A contact's [send rules](/contacts#restrictions) can prevent signatures on a scheduled draft.

@@ -1,16 +1,22 @@
 ---
-title: Security & bug bounty
-description: "Splits contract security: open source, independently audited, and a bug bounty of up to $50,000 for critical vulnerabilities, per SECURITY.md."
+title: "Security & bug bounty"
+description: "Contract audits and vulnerability reports"
 ---
 
-# Security & bug bounty [Audited contracts, and up to $50,000 for critical vulnerabilities]
+# Security & bug bounty [Contract audits and vulnerability reports]
 
-Splits' contracts are open source in [splits-contracts-monorepo](https://github.com/0xSplits/splits-contracts-monorepo) and independently audited; see the [audit reports](https://github.com/0xSplits/splits-contracts-monorepo/tree/main/audits). After launch, a bug bounty keeps independent researchers reviewing the code.
+A **bug bounty** rewards eligible vulnerability reports. Splits publishes its contracts in [splits-contracts-monorepo](https://github.com/0xSplits/splits-contracts-monorepo).
 
-The bounty's source of truth is [SECURITY.md](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/SECURITY.md); in summary:
+The repository includes independent [audit reports](https://github.com/0xSplits/splits-contracts-monorepo/tree/main/audits). [SECURITY.md](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/SECURITY.md) defines the bounty's scope, rewards, reporting procedure, and research protections.
 
-- **Scope**: vulnerabilities in the monorepo's deployed production contracts that could lead to loss of user funds.
-- **Out of scope**: test and script code, dependencies not used by deployed contracts, testnet deployments, third-party contracts, previously reported issues, and non-contract vectors (frontend bugs, phishing, social engineering, private key compromise).
-- **Rewards**: up to **$50,000** for critical fund-loss bugs; lower severities at the team's discretion.
-- **Reporting**: email **security@splits.org** within 24 hours of discovery, include reproduction steps or a proof of concept, and keep the issue confidential until it's patched.
-- **Safe harbor**: good-faith research that follows the policy is protected.
+The policy covers deployed production contracts with vulnerabilities that can cause loss of funds. It excludes test code, unrelated dependencies, third-party contracts, known issues, and non-contract attacks.
+
+Rewards can reach **$50,000** for critical vulnerabilities. The policy determines eligibility and rewards for other severities.
+
+To report a vulnerability:
+
+1. Email **security@splits.org** within 24 hours of discovery.
+2. Include reproduction steps or a proof of concept.
+3. Keep the issue confidential until Splits fixes it and permits disclosure.
+
+The policy describes protection for research that follows its conditions.

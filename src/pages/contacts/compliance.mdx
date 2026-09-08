@@ -1,24 +1,34 @@
 ---
-title: Compliance
-description: Collect W-9 and W-8 tax forms from the payees a team pays, and get year-end 1099 data for filing.
+title: "Compliance"
+description: "Collect payee identity information and tax forms"
 ---
 
-# Compliance [Collect tax forms from the people a team pays]
+# Compliance [Collect payee identity information and tax forms]
 
-Compliance collects tax documentation from **payees** (the contractors and vendors a team pays) so those payments are documented for year-end filing.
+**Compliance** collects identity information and tax forms for payees. A payee is a contractor or vendor that the team pays.
 
 :::note
-This feature is in beta. Email support to enable it for your team.
+This feature is in beta.
 :::
+
+Email support to enable it for your team.
 
 ## How it works
 
-1. An [Owner](/teams/roles) invites a payee by email.
-2. The payee completes an identity verification flow powered by [Persona](https://withpersona.com/); their tax details are held by the verification provider, not Splits.
-3. Splits generates the correct form from the verified details: **W-9** for US persons, **W-8BEN** for foreign individuals, **W-8BEN-E** for foreign entities.
+An [Owner](/teams/roles) invites the payee by email. The payee completes identity verification through [Persona](https://withpersona.com/). The verification provider stores the tax information.
 
-Once a payee is verified, payments to them are tracked as compliant payments, and the payee appears as a recipient in the [send](/transactions/sends) flow.
+Splits generates a tax form from the verified information:
+
+| Payee classification | Form |
+| --- | --- |
+| US person | W-9 |
+| Foreign individual | W-8BEN |
+| Foreign entity | W-8BEN-E |
+
+After verification, Splits records payments to that payee as compliant payments. The payee also appears in the [send](/transactions/sends) recipient list.
 
 ## Year-end filings
 
-Splits can produce a 1099 CSV for a filing year, covering the team's compliant payments: each payee's verified details plus the total USD paid. Email support to request the export.
+Splits can generate a 1099 CSV for a filing year. It includes verified payee information and total USD payments for each payee.
+
+Email support to request this export.

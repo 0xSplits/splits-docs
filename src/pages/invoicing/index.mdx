@@ -1,35 +1,51 @@
 ---
-title: Invoicing
-description: "Onchain invoicing in Splits: issuing an invoice, requesting tokens, enabling pay-by-bank, plus recurring invoices, payment, and tracking."
+title: "Invoicing"
+description: "Request payment into a team account"
 ---
 
-# Invoicing [Request payment into the team's accounts, in crypto or by bank transfer]
+# Invoicing [Request payment into a team account]
 
-An invoice requests a single amount of a single token into one of the team's accounts (there are no line items), payable in crypto or, if enabled, [by bank transfer](#pay-by-bank). Invoicing is free: no fee on issuing or on crypto payments. Only [Owners](/teams/roles) create and manage invoices; any member can view them.
+An **invoice** requests one amount of one token into a team account. **Invoices have no line items.** Payment can use tokens or [bank transfer](#pay-by-bank).
 
-See also [Recurring](/invoicing/recurring), [Paying](/invoicing/paying), and [Tracking](/invoicing/tracking).
+Splits charges no fee to issue an invoice or pay it with tokens. [Owners](/teams/roles) can create and manage invoices. Any member can view them.
 
-## Issuing
+[Recurring](/invoicing/recurring), [Paying](/invoicing/paying), and [Tracking](/invoicing/tracking) describe related procedures.
 
-From the *Invoices* page, select *Create*:
+<a id="issuing" />
 
-1. Enter the payee and payer names, the amount and token, and the issue and due dates. A memo and file attachments are optional.
-2. Pick the receiving account: any of your [accounts](/accounts), including an [automation](/accounts#automation-accounts)'s deposit address.
-3. The payer's email is optional. With it, the invoice is emailed on creation; without it, you get the invoice link to share yourself.
+## Issue an invoice
 
-Invoice numbers increment automatically per team.
+Prerequisites: you must have the Owner role.
+
+1. Open the *Invoices* page.
+2. Select *Create*.
+3. Enter the payer and payee names.
+4. Enter the amount and token.
+5. Enter the issue and due dates.
+6. Select the receiving [account](/accounts).
+7. If necessary, add a memo or file attachments.
+8. If you want Splits to email the invoice, enter the payer's email address.
+9. Create the invoice.
+
+The receiving account can be an automation account. Without a payer email address, the form provides a link for you to share.
+
+Invoice numbers increase automatically within each team.
 
 ## Pay-by-bank
 
-Pay-by-bank lets the invoicee pay in fiat from their bank account. It requires the team to set up [a virtual account in the matching currency](/banking) and request the token:
+**Pay-by-bank** lets a payer use bank currency for an invoice. The team needs a virtual account in the matching currency through [Banking](/banking).
 
-- **USDC** on Base, Ethereum Mainnet, or Tempo, payable in USD
-- **EURC** on Base or Ethereum Mainnet, payable in EUR
+| Invoice token | Networks | Bank currency |
+| --- | --- | --- |
+| USDC | Base, Ethereum Mainnet, Tempo | USD |
+| EURC | Base, Ethereum Mainnet | EUR |
 
-Turn on the *Allow pay by bank* toggle that appears in the create form. The payer covers a 0.25% processing fee, added to the bank amount owed.
+To permit bank payment, turn on *Allow pay by bank* in the invoice form.
 
-Bank payments settle to the account and network configured in the bank settings, even when the invoice specifies a different account or network.
+The payer pays a **0.25% processing fee** in addition to the invoice amount.
+
+**Bank settings determine the destination account and network.** These can differ from the account and network on the invoice.
 
 ## Programmatic access
 
-Invoicing is web-only today: the [CLI / MCP](/introduction/agents) has no invoice commands.
+Invoicing is available only in the app. The [CLI and MCP](/introduction/agents) have no invoice commands.

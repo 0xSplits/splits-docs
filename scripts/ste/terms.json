@@ -1,0 +1,1368 @@
+[
+  {
+    "term": "ABI",
+    "kind": "abbreviation",
+    "category": "computing",
+    "definition": "Application binary interface. The definition of a contract's functions and encoded inputs.",
+    "home": "/transactions/custom",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "account",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "An address and contract that hold assets for a team.",
+    "home": "/accounts",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "account owner",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "The onchain account with authority over another account.",
+    "home": "/accounts",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "accounting",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "The preparation and maintenance of financial records.",
+    "home": "/accounting",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "ACH",
+    "kind": "abbreviation",
+    "category": "finance",
+    "definition": "Automated Clearing House. A US system for bank transfers.",
+    "home": "/banking/onramping",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "address",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "An identifier for an account or contract on a blockchain.",
+    "home": "/contacts",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "agent",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "Software that performs tasks on behalf of a person or team.",
+    "home": "/introduction/agents",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "allocation",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "An amount or share assigned to a recipient.",
+    "home": "/experiments/pact",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "allowance",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A limit on the tokens that a spender can transfer.",
+    "home": "/accounts/modules",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "allowlist",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A list of addresses or items with permission for a function.",
+    "home": "/accounts/modules",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "API",
+    "kind": "abbreviation",
+    "category": "computing",
+    "definition": "Application programming interface. A defined interface through which programs exchange requests and data.",
+    "home": "/introduction/agents",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "API key",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A credential that identifies API requests and their permitted scope.",
+    "home": "/introduction/agents#get-an-api-key",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "API key scope",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A permission assigned to an API key.",
+    "home": "/teams/roles#api-key-scopes",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "APY",
+    "kind": "abbreviation",
+    "category": "finance",
+    "definition": "Annual percentage yield. An annual rate that includes the effect of accumulated interest.",
+    "home": "/accounts/earn",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "archive",
+    "kind": "verb",
+    "category": "computing",
+    "definition": "Remove an account from active app views without deleting its records.",
+    "home": "/introduction/agents",
+    "usage": "Use for this computing action. A past participle can modify a technical noun.",
+    "forms": [
+      "archive",
+      "archives",
+      "archived"
+    ]
+  },
+  {
+    "term": "asset",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "An item with value, such as a token.",
+    "home": "/accounts",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "authenticate",
+    "kind": "verb",
+    "category": "computing",
+    "definition": "Confirm an identity or credential.",
+    "home": "/introduction/agents",
+    "usage": "Use for this computing action. A past participle can modify a technical noun.",
+    "forms": [
+      "authenticate",
+      "authenticates",
+      "authenticated"
+    ]
+  },
+  {
+    "term": "Automated Earn",
+    "kind": "name",
+    "category": "product",
+    "definition": "The feature that deposits an account's available USDC into the Earn vault.",
+    "home": "/accounts/earn#automated-earn",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "automation account",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "An account that applies a configured policy to deposits.",
+    "home": "/accounts#automation-accounts",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "avatar",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "An image that identifies a member.",
+    "home": "/members",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "bank account",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "An account at a bank for deposits and payments.",
+    "home": "/banking",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "banking",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "Services that connect token transfers to bank accounts.",
+    "home": "/banking",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "batch",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A group of transactions prepared for execution together.",
+    "home": "/transactions/batch",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "bearer token",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A credential sent with a request to authorize access.",
+    "home": "/introduction/agents#use-the-api",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "blockchain",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A network record of transactions maintained by participating computers.",
+    "home": "/introduction/networks-and-assets",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "bonding curve",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A rule that relates token price to the number of tokens sold.",
+    "home": "/experiments/pact",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "bridge transfer",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A transfer that moves value between blockchain networks.",
+    "home": "/transactions/swaps",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "bug bounty",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A program that rewards eligible vulnerability reports.",
+    "home": "/resources/security",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "calldata",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "Encoded input sent to a smart contract function.",
+    "home": "/transactions/custom",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "cap table",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A record of holders and their allocated shares or units.",
+    "home": "/experiments/pact",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "CLI",
+    "kind": "abbreviation",
+    "category": "computing",
+    "definition": "Command-line interface. A program interface that accepts text commands.",
+    "home": "/introduction/agents",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "cliff",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "The first date when a vesting plan releases tokens.",
+    "home": "/integrations#positions",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "collateral",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "Assets held to secure a loan or payment obligation.",
+    "home": "/accounts/earn#risks",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "command",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A text instruction to a program.",
+    "home": "/introduction/agents",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "compliance",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "The collection of verified payee information and tax forms in Splits.",
+    "home": "/contacts/compliance",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "configure",
+    "kind": "verb",
+    "category": "computing",
+    "definition": "Set the values that control a software function.",
+    "home": "/introduction/agents",
+    "usage": "Use for this computing action. A past participle can modify a technical noun.",
+    "forms": [
+      "configure",
+      "configures",
+      "configured"
+    ]
+  },
+  {
+    "term": "contact",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A saved name for an external address.",
+    "home": "/contacts",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "contract",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A program deployed at a blockchain address.",
+    "home": "/transactions/custom",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "cost basis",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "The acquisition value assigned to an asset for gain or loss calculations.",
+    "home": "/accounting",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "CSV",
+    "kind": "abbreviation",
+    "category": "computing",
+    "definition": "Comma-separated values. A text file format for rows and fields.",
+    "home": "/accounting",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "custody address",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "The address that controls a Farcaster account.",
+    "home": "/integrations/farcaster#recovery-address",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "custom transaction",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A transaction proposal with specified contract calls.",
+    "home": "/transactions/custom",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "deploy",
+    "kind": "verb",
+    "category": "computing",
+    "definition": "Create a contract at a blockchain address.",
+    "home": "/introduction/agents",
+    "usage": "Use for this computing action. A past participle can modify a technical noun.",
+    "forms": [
+      "deploy",
+      "deploys",
+      "deployed"
+    ]
+  },
+  {
+    "term": "deposit",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "Funds transferred into an account or vault.",
+    "home": "/accounts/earn",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "draft proposal",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A transaction prepared for approval that has not executed.",
+    "home": "/transactions/schedules",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "Earn",
+    "kind": "name",
+    "category": "product",
+    "definition": "The Splits feature for stablecoin deposits that produce interest.",
+    "home": "/accounts/earn",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "ENS",
+    "kind": "abbreviation",
+    "category": "computing",
+    "definition": "Ethereum Name Service. A system that associates names with blockchain addresses.",
+    "home": "/integrations/ens",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "EOA",
+    "kind": "abbreviation",
+    "category": "computing",
+    "definition": "Externally owned account. A blockchain account controlled by a private key.",
+    "home": "/members/keys#eoas",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "ERC-1155",
+    "kind": "name",
+    "category": "computing",
+    "definition": "An Ethereum standard for multiple token types in one contract.",
+    "home": "/introduction/networks-and-assets#supported-assets",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "ERC-20",
+    "kind": "name",
+    "category": "computing",
+    "definition": "The Ethereum standard for fungible tokens.",
+    "home": "/introduction/networks-and-assets#supported-assets",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "ERC-4626",
+    "kind": "name",
+    "category": "computing",
+    "definition": "The Ethereum standard for tokenized vaults.",
+    "home": "/accounts/earn",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "ERC-721",
+    "kind": "name",
+    "category": "computing",
+    "definition": "An Ethereum standard for non-fungible tokens.",
+    "home": "/introduction/networks-and-assets#supported-assets",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "ETH",
+    "kind": "abbreviation",
+    "category": "finance",
+    "definition": "Ether. The native token of Ethereum.",
+    "home": "/introduction/networks-and-assets#supported-assets",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "EUR",
+    "kind": "abbreviation",
+    "category": "finance",
+    "definition": "The currency code for the euro.",
+    "home": "/banking",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "EURC",
+    "kind": "name",
+    "category": "finance",
+    "definition": "Circle's euro stablecoin.",
+    "home": "/banking/paying-vendors",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "execute",
+    "kind": "verb",
+    "category": "computing",
+    "definition": "Perform a transaction or contract call.",
+    "home": "/introduction/agents",
+    "usage": "Use for this computing action. A past participle can modify a technical noun.",
+    "forms": [
+      "execute",
+      "executes",
+      "executed"
+    ]
+  },
+  {
+    "term": "executor",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "An address that performs contract calls.",
+    "home": "/accounts/modules",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "experiment",
+    "kind": "noun",
+    "category": "product",
+    "definition": "A prototype product from Splits.",
+    "home": "/experiments",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "external account",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "An address outside Splits that a team monitors.",
+    "home": "/accounts#external-accounts",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "external bank account",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A bank account owned by a vendor or other recipient outside the team.",
+    "home": "/banking/paying-vendors",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "fiat currency",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "Money issued under a government's authority, such as USD or EUR.",
+    "home": "/banking",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "gas",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "The measure of work required to execute a blockchain transaction.",
+    "home": "/transactions#gas-sponsorship",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "gas sponsorship",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "Payment of an account's transaction fees from a team allowance.",
+    "home": "/transactions#gas-sponsorship",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "IBAN",
+    "kind": "abbreviation",
+    "category": "finance",
+    "definition": "International bank account number. An identifier for a bank account.",
+    "home": "/banking",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "incorporation",
+    "kind": "noun",
+    "category": "legal",
+    "definition": "The creation of a legal entity.",
+    "home": "/resources/incorporating-and-raising-capital",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "integration",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A connection between Splits and another app or protocol.",
+    "home": "/integrations",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "invoice",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A request for payment of a specified amount.",
+    "home": "/invoicing",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "JSON",
+    "kind": "abbreviation",
+    "category": "computing",
+    "definition": "JavaScript Object Notation. A text format for structured data.",
+    "home": "/introduction/agents#transaction-metadata",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "just-in-time swap",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A token exchange that supplies the requested token for a send.",
+    "home": "/transactions/swaps#just-in-time-swaps",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "key pair",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A related public key and private key.",
+    "home": "/members/keys",
+    "usage": "Use as a noun or noun modifier with this meaning.",
+    "avoid": [
+      "keypair"
+    ]
+  },
+  {
+    "term": "KYB",
+    "kind": "abbreviation",
+    "category": "finance",
+    "definition": "Know your business. Verification of a business's identity.",
+    "home": "/banking#verify-an-entity",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "KYC",
+    "kind": "abbreviation",
+    "category": "finance",
+    "definition": "Know your customer. Verification of an individual's identity.",
+    "home": "/banking#verify-an-entity",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "legal entity",
+    "kind": "noun",
+    "category": "legal",
+    "definition": "A person or organization recognized by law as having rights and obligations.",
+    "home": "/banking",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "liquidation address",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A deposit address that a provider uses to convert tokens and pay a bank account.",
+    "home": "/banking/offramping#use-an-external-provider",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "liquidity",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "Funds available for a trade or withdrawal.",
+    "home": "/accounts/earn#risks",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "lockup",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A period during which a position restricts withdrawals.",
+    "home": "/integrations/hedgey",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "LP",
+    "kind": "abbreviation",
+    "category": "finance",
+    "definition": "Liquidity provider. A participant that supplies assets to a trading pool.",
+    "home": "/integrations/uniswap",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "MCP",
+    "kind": "abbreviation",
+    "category": "computing",
+    "definition": "Model Context Protocol. A protocol that connects AI tools to data and operations.",
+    "home": "/introduction/agents#connect-to-ai-tools-mcp",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "member",
+    "kind": "noun",
+    "category": "product",
+    "definition": "A person who belongs to a Splits team.",
+    "home": "/members",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "Member role",
+    "kind": "noun",
+    "category": "product",
+    "definition": "The team role with fewer administration permissions than the Owner role.",
+    "home": "/teams/roles",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "memo",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A short note attached to a transaction.",
+    "home": "/transactions/memos",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "Merkle root",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A hash that represents a tree of data and permits proofs about its contents.",
+    "home": "/accounts/editing#change-signers-and-thresholds",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "metadata",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "Additional information attached to a record, such as a memo or JSON properties.",
+    "home": "/introduction/agents#transaction-metadata",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "microdeposit",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A small test transfer for bank account verification.",
+    "home": "/banking/onramping#verify-with-microdeposits",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "module",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "An address with permission to execute account calls through the module interface.",
+    "home": "/accounts/modules",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "Multisend",
+    "kind": "name",
+    "category": "product",
+    "definition": "The feature that transfers one token to multiple recipients in one transaction.",
+    "home": "/transactions/sends#multisend",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "multisig",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "An account that uses a configured number of signer approvals for transactions.",
+    "home": "/accounts/thresholds",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "native token",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "The token that a network uses for transaction fees.",
+    "home": "/introduction/networks-and-assets#supported-assets",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "network",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A blockchain on which an account can operate.",
+    "home": "/introduction/networks-and-assets",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "NFT",
+    "kind": "abbreviation",
+    "category": "computing",
+    "definition": "Non-fungible token. A token with an identity separate from other tokens.",
+    "home": "/introduction/networks-and-assets#supported-assets",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "offchain record",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "Information stored outside a blockchain.",
+    "home": "/members",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "offering",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "The PACT contract that holds units for sale and deposited USDC.",
+    "home": "/experiments/pact",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "offramp",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A conversion from tokens to funds in a bank account.",
+    "home": "/banking/offramping",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "onchain transaction",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A transaction recorded on a blockchain.",
+    "home": "/transactions",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "onramp",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A conversion from a bank transfer to tokens.",
+    "home": "/banking/onramping",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "operating account",
+    "kind": "noun",
+    "category": "product",
+    "definition": "A Splits account for direct transactions with team-selected signers and threshold.",
+    "home": "/accounts#operating-accounts",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "oracle",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A service that supplies external data, such as asset prices, to a contract.",
+    "home": "/accounts/earn#risks",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "output token",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A unit of text used to measure AI input or output.",
+    "home": "/introduction/agents#tune-output-for-agents",
+    "usage": "Use for text measurement. Do not confuse it with a blockchain token."
+  },
+  {
+    "term": "Owner role",
+    "kind": "noun",
+    "category": "product",
+    "definition": "The team role with account and team administration permissions.",
+    "home": "/teams/roles",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "PACT",
+    "kind": "abbreviation",
+    "category": "product",
+    "definition": "Purchase Agreement for Community Tokens. A tool for capital collection and public allocation records.",
+    "home": "/experiments/pact",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "passkey",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A key pair for authentication or signatures, with its private key held by a device or password manager.",
+    "home": "/members/keys#passkeys",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "password manager",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "Software that stores credentials, including supported passkeys.",
+    "home": "/members/keys#password-managers",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "pay-by-bank",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "An invoice payment method that uses a bank transfer.",
+    "home": "/invoicing#pay-by-bank",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "payee",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "The person or business that receives a payment.",
+    "home": "/contacts/compliance",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "payer",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "The person or business that makes a payment.",
+    "home": "/invoicing/paying",
+    "usage": "Use as a noun or noun modifier with this meaning.",
+    "avoid": [
+      "invoicee"
+    ]
+  },
+  {
+    "term": "payroll",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "Payments to employees or contractors.",
+    "home": "/transactions/schedules",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "performance fee",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A charge calculated from investment yield.",
+    "home": "/accounts/earn#fees",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "personal team",
+    "kind": "noun",
+    "category": "product",
+    "definition": "A Splits team for an individual.",
+    "home": "/introduction/personal-usage",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "position",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "An account's balance or claim in a protocol.",
+    "home": "/integrations#positions",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "principal",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "The deposited amount before interest or gains.",
+    "home": "/accounts/earn",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "private key",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "Secret key material that produces cryptographic signatures.",
+    "home": "/members/keys",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "private transfer",
+    "kind": "noun",
+    "category": "product",
+    "definition": "A recipient payment through NEAR Confidential Intents.",
+    "home": "/transactions/sends#private-transfers",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "proposal",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A requested transaction awaiting the account's required approvals.",
+    "home": "/transactions",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "protocol",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A defined set of rules and contracts for an operation.",
+    "home": "/integrations",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "public key",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "Key material that lets others verify a signature without the private key.",
+    "home": "/members/keys",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "query",
+    "kind": "verb",
+    "category": "computing",
+    "definition": "Request stored data through a software interface.",
+    "home": "/introduction/agents",
+    "usage": "Use for this computing action. A past participle can modify a technical noun.",
+    "forms": [
+      "query",
+      "queries",
+      "queried"
+    ]
+  },
+  {
+    "term": "quote",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A provider's proposed exchange amounts and terms.",
+    "home": "/transactions/swaps#quotes-and-multisigs",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "realized gain",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "The excess of disposal proceeds over the assigned cost basis.",
+    "home": "/accounting",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "recovery",
+    "kind": "noun",
+    "category": "product",
+    "definition": "The process that restores account control through recovery signers.",
+    "home": "/teams/recovery",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "recovery signer",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "An EOA in the Root's signer set.",
+    "home": "/teams/recovery#recovery-signers",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "recurring invoice schedule",
+    "kind": "noun",
+    "category": "product",
+    "definition": "A schedule that creates invoices at weekly or monthly intervals.",
+    "home": "/invoicing/recurring",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "register",
+    "kind": "verb",
+    "category": "computing",
+    "definition": "Add a credential or account record to a system.",
+    "home": "/introduction/agents",
+    "usage": "Use for this computing action. A past participle can modify a technical noun.",
+    "forms": [
+      "register",
+      "registers",
+      "registered"
+    ]
+  },
+  {
+    "term": "reset",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "Replacement of an account's signer state through its onchain owner.",
+    "home": "/accounts/editing#reset-signers",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "REST API",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "An API that exposes resources through HTTP requests.",
+    "home": "/introduction/agents#use-the-api",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "role",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A set of app permissions assigned to a team membership.",
+    "home": "/teams/roles",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "Root",
+    "kind": "name",
+    "category": "product",
+    "definition": "The account at the top of a team's ownership chain.",
+    "home": "/accounts#root",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "schedule",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A stored instruction to create a transaction proposal at an interval.",
+    "home": "/transactions/schedules",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "schema",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A description of a data structure and its constraints.",
+    "home": "/introduction/agents",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "send",
+    "kind": "noun",
+    "category": "product",
+    "definition": "A transfer of tokens from a Splits account to a recipient.",
+    "home": "/transactions/sends",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "send rule",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A restriction on permitted tokens and networks for a contact.",
+    "home": "/contacts#restrictions",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "SEPA",
+    "kind": "abbreviation",
+    "category": "finance",
+    "definition": "Single Euro Payments Area. A system for euro bank transfers.",
+    "home": "/banking/onramping",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "sign",
+    "kind": "verb",
+    "category": "computing",
+    "definition": "Produce a cryptographic signature with a private key.",
+    "home": "/introduction/agents",
+    "usage": "Use for this computing action. A past participle can modify a technical noun.",
+    "forms": [
+      "sign",
+      "signs",
+      "signed"
+    ]
+  },
+  {
+    "term": "signature",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "Cryptographic data that proves approval by a private key.",
+    "home": "/members/keys",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "signer",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A signing key in a specific account's signer set.",
+    "home": "/accounts/signers",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "signer set",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "The public signing keys with approval authority on an account.",
+    "home": "/accounts/signers",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "signing key",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A key that produces signatures for a member or executor.",
+    "home": "/members/keys",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "slippage tolerance",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "The permitted price change between a swap quote and execution.",
+    "home": "/transactions/swaps#slippage",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "spam token",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A token classified as unwanted.",
+    "home": "/accounting/spam",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "Splits Connect",
+    "kind": "name",
+    "category": "product",
+    "definition": "The browser extension that connects Splits accounts to other apps.",
+    "home": "/introduction/extension",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "stablecoin",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A token designed to track a reference currency or asset value.",
+    "home": "/banking",
+    "usage": "Use as a noun or noun modifier with this meaning.",
+    "avoid": [
+      "stables"
+    ]
+  },
+  {
+    "term": "sub-account",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "An operating or automation account owned by the Treasury.",
+    "home": "/accounts",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "subname",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "An ENS name below another name, such as treasury.splits.eth.",
+    "home": "/integrations/ens#subnames",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "swap",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "An exchange of one token or network balance for another.",
+    "home": "/transactions/swaps",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "synchronize",
+    "kind": "verb",
+    "category": "computing",
+    "definition": "Apply matching data to multiple networks or systems.",
+    "home": "/introduction/agents",
+    "usage": "Use for this computing action. A past participle can modify a technical noun.",
+    "forms": [
+      "synchronize",
+      "synchronizes",
+      "synchronized"
+    ]
+  },
+  {
+    "term": "tax lot",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "An asset acquisition record used to calculate gains and losses.",
+    "home": "/accounting",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "team",
+    "kind": "noun",
+    "category": "product",
+    "definition": "A group of accounts and records for a company, individual, or project.",
+    "home": "/teams",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "threshold",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "The number of signer approvals required for an account transaction.",
+    "home": "/accounts/thresholds",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "timelock",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A mandatory delay before a contract action can execute.",
+    "home": "/accounts/earn",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "token",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "An asset represented in a blockchain record.",
+    "home": "/introduction/networks-and-assets#supported-assets",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "transaction",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "A request to change blockchain state through one or more calls.",
+    "home": "/transactions",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "Treasury",
+    "kind": "name",
+    "category": "product",
+    "definition": "The team's main asset account and owner of its sub-accounts.",
+    "home": "/accounts#treasury",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "URI",
+    "kind": "abbreviation",
+    "category": "computing",
+    "definition": "Uniform resource identifier. Text that identifies a resource or connection.",
+    "home": "/integrations/walletconnect",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "USD",
+    "kind": "abbreviation",
+    "category": "finance",
+    "definition": "The currency code for the US dollar.",
+    "home": "/banking",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "USDC",
+    "kind": "name",
+    "category": "finance",
+    "definition": "Circle's US dollar stablecoin.",
+    "home": "/banking",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "USDT",
+    "kind": "name",
+    "category": "finance",
+    "definition": "Tether's US dollar stablecoin.",
+    "home": "/transactions/sends#private-transfers",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "vault",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A contract that holds deposits and manages an investment position.",
+    "home": "/accounts/earn",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "vault share",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A token that represents a portion of a vault's assets.",
+    "home": "/accounts/earn",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "vendor payment",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "A transfer of funds to a vendor's bank account.",
+    "home": "/banking/paying-vendors",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "vesting",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "The scheduled release of rights to tokens or other assets.",
+    "home": "/integrations#positions",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "wallet",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "An external EOA wallet, such as a hardware wallet or MetaMask.",
+    "home": "/members/keys#eoas",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "wei",
+    "kind": "noun",
+    "category": "computing",
+    "definition": "The smallest unit of ETH.",
+    "home": "/transactions/custom",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "WETH",
+    "kind": "abbreviation",
+    "category": "finance",
+    "definition": "Wrapped ether. An ERC-20 representation of ETH.",
+    "home": "/transactions/sends#private-transfers",
+    "usage": "Preserve this spelling. Use only for the named item."
+  },
+  {
+    "term": "withdrawal",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "Funds removed from an account or position.",
+    "home": "/accounts/earn",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  },
+  {
+    "term": "yield",
+    "kind": "noun",
+    "category": "finance",
+    "definition": "The return that a deposited asset produces.",
+    "home": "/accounts/earn",
+    "usage": "Use as a noun or noun modifier with this meaning."
+  }
+]

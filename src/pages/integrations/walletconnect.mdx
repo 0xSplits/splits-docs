@@ -1,19 +1,28 @@
 ---
-title: WalletConnect
-description: Connect a Splits account to third-party apps over WalletConnect when the browser extension isn't an option, and sign the app's requests in Splits.
+title: "WalletConnect"
+description: "Connect an account through a pairing link"
 ---
 
-# WalletConnect [The backstop for connecting accounts to third-party apps]
+# WalletConnect [Connect an account through a pairing link]
 
-[WalletConnect](https://walletconnect.network) connects a Splits account to a third-party app over a pairing link. **Prefer the [browser extension](/introduction/extension)**: it makes Splits appear directly as a wallet in the app. WalletConnect is the backstop for when the extension can't run:
+**[WalletConnect](https://walletconnect.network)** connects a Splits account to another app through a pairing link.
 
-- Browsers without extension support (e.g. Safari)
-- Apps that don't support [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963) provider discovery, so Splits never appears as a wallet option
-- Apps known to mishandle the extension: Monerium, and [Rain](/integrations/rain) during setup
+The [browser extension](/introduction/extension) provides a direct Splits wallet option. WalletConnect supports other connection cases:
 
-## Connecting
+- Browsers without extension support, such as Safari.
+- Apps without [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963) wallet discovery.
+- Apps with extension connection problems, including Monerium and [Rain](/integrations/rain) setup.
 
-1. In the third-party app, choose WalletConnect as the wallet and copy the pairing URI.
-2. On the account's page in Splits, paste the URI into the WalletConnect section and approve the connection.
+<a id="connecting" />
 
-The app's transaction and signature requests then appear in Splits, where you sign at the account's [threshold](/accounts/thresholds), the same as any transaction. Requests can also be [added to a batch](/transactions/batch#batching-from-external-apps).
+## Connect an account
+
+1. In the other app, select WalletConnect as the wallet.
+2. Copy the pairing URI.
+3. Open the account page in Splits.
+4. Enter the URI in the WalletConnect section.
+5. Approve the connection.
+
+Transaction and signature requests then appear in Splits. The account's [threshold](/accounts/thresholds) determines the required approvals.
+
+Requests can also enter a [batch](/transactions/batch#batches-from-external-apps).

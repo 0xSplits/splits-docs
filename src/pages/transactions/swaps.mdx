@@ -1,30 +1,56 @@
 ---
-title: Swaps
-description: "How swaps work in Splits: multi-provider routing with no fees, bridging across networks, just-in-time swaps inside sends, slippage, and expiring quotes on multisigs."
+title: "Swaps"
+description: "Exchange tokens within or across networks"
 ---
 
-# Swaps [Trade and bridge tokens with no fees from Splits]
+# Swaps [Exchange tokens within or across networks]
 
-A swap trades one token for another, including across networks: moving ETH on Base to ETH on Optimism is a swap. Splits charges no fees on swaps. Each quote is routed across multiple swap providers (currently 0x, KyberSwap, Velora, Relay, and Fabric; Relay handles cross-network swaps) and the best result is used. The exception is [private transfers](/transactions/sends#private-transfers), which always route through a dedicated provider.
+A **swap** exchanges one token for another. It can also move tokens across networks, such as ETH from Base to Optimism. Splits charges no swap fee.
 
-Start a swap from the Dashboard or an account page. Any ERC-20 can be swapped: if a token isn't listed, paste its address with the right network selected.
+Splits compares quotes from 0x, KyberSwap, Velora, Relay, and Fabric. Relay handles swaps across networks. [Private transfers](/transactions/sends#private-transfers) use a separate provider.
+
+To start a swap:
+
+1. Open the Dashboard or an account page.
+2. Start a swap.
+3. Select the tokens and networks.
+4. If an ERC-20 token is absent from the list, enter its address on the correct network.
 
 ## Just-in-time swaps
 
-[Sends](/transactions/sends) let you pay in a token the account doesn't hold. Specify the token the recipient receives, then pick which held token to sell; the swap and the send execute as a single transaction, and the recipient receives the exact amount specified.
+A **just-in-time swap** supplies the token for a [send](/transactions/sends). The account can pay a token that it does not currently hold.
+
+1. Select the token and amount for the recipient.
+2. Select a token in the account to sell.
+
+The swap and send execute in one transaction. The recipient receives the specified amount.
 
 ## Slippage
 
-Every swap has a slippage tolerance you can edit before submitting. The default depends on the pair: 0.1% between stablecoins, 0.5% between major tokens, 1.5% otherwise.
+**Slippage tolerance** limits the permitted price change for a swap. You can change it before submission.
+
+| Token pair | Default tolerance |
+| --- | --- |
+| Stablecoins | 0.1% |
+| Major tokens | 0.5% |
+| Other pairs | 1.5% |
 
 ## Quotes and multisigs
 
-Swap quotes are signed by the provider and expire quickly, often before an account with a threshold above 1 collects its signatures. An expired quote is rejected onchain, and the transaction has to be recreated. Ways to avoid this:
+Providers sign swap quotes with an expiration time. A quote can expire before an account collects enough signatures.
 
-1. Swap from a 1-of-n [operating account](/accounts#operating-accounts), funded from higher-threshold accounts.
-2. If you always swap into the same output token, use an [automation account](/accounts#automation-accounts) instead and just transfer funds in.
-3. Use the [browser extension](/introduction/extension) with a swap app that tolerates slow signing (e.g. CoW Swap).
+**An expired quote fails onchain.** The swap then requires a new transaction.
+
+Options for this situation include:
+
+- A 1-of-n [operating account](/accounts#operating-accounts) with a limited balance.
+- An [automation account](/accounts#automation-accounts) for repeated conversion to the same output token.
+- A swap app that supports a longer signature collection period, connected through the [browser extension](/introduction/extension).
 
 ## Programmatic access
 
-The [CLI / MCP](/introduction/agents) has no dedicated swap command. Agents can propose swaps as raw calls via `splits transactions create custom` (**Write** scope).
+Through the [Splits CLI / MCP](/introduction/agents):
+
+- `splits transactions create custom`: propose swap contract calls (**Write** scope).
+
+The CLI has no dedicated swap command.

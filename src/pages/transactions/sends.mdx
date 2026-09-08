@@ -1,33 +1,45 @@
 ---
-title: Sends
-description: "Sends move tokens or NFTs from a Splits account to any recipient: the recipient types accepted, just-in-time swaps, memos, batching, signing, and private transfers."
+title: "Sends"
+description: "Transfer tokens from an account to a recipient"
 ---
 
-# Sends [Move tokens from an account to any recipient]
+# Sends [Transfer tokens from an account to a recipient]
 
-A send moves tokens from one of your [accounts](/accounts) to any recipient: a raw address, an ENS name, a Farcaster username, a saved [contact](/contacts), another of your accounts, or (with [banking](/banking) set up) a bank account. The amount you enter is the amount **the recipient receives**. NFTs (ERC-721 and ERC-1155) can be sent the same way.
+A **send** transfers tokens from a Splits [account](/accounts) to a recipient. The entered amount is the amount the recipient receives.
 
-You can send a token the account doesn't hold: as long as the account holds enough value to cover it, pick which token to sell and the swap and send execute as one transaction. See [just-in-time swaps](/transactions/swaps#just-in-time-swaps).
+Recipients can be addresses, ENS names, Farcaster names, saved [contacts](/contacts), other team accounts, or configured [bank accounts](/banking). Sends also support ERC-721 and ERC-1155 NFTs.
 
-A contact can [restrict what it accepts](/contacts#restrictions), by network or by token.
+A [just-in-time swap](/transactions/swaps#just-in-time-swaps) can supply a token that the account does not hold. The account needs sufficient value in another token.
 
-To pay a recipient without revealing which account paid them, use a [private transfer](#private-transfers).
+A contact's [send rules](/contacts#restrictions) can limit accepted tokens and networks.
 
 ## Memos
 
-Add a [memo](/transactions/memos) when creating the send; it makes your [accounting](/accounting) dramatically easier later.
+A [memo](/transactions/memos) records the reason for a send. The transaction form accepts a memo before submission.
 
 ## Multisend
 
-Use [Multisend](https://app.splits.org/send/?multisend=true) to send the same token on the same network to up to 100 recipients in one transaction. Add recipients individually or upload a CSV containing one `address or ENS name, amount` pair per row. If the account lacks enough of the send token, Multisend can swap another token on the same network; cross-network sends are not supported.
+**Multisend** transfers the same token on one network to up to 100 recipients in one transaction.
 
-## Batching
+1. Open [Multisend](https://app.splits.org/send/?multisend=true).
+2. Add recipients individually or upload a CSV.
+3. For a CSV, use one `address or ENS name, amount` pair per row.
+4. Review the transfers.
+5. Submit the proposal.
 
-Instead of submitting a send right away, select *Add to batch* in the review dialog to group it with other transactions under one signature. See [Batch](/transactions/batch).
+Multisend can exchange another token on the same network if the account lacks the requested token. **Multisend does not support transfers across networks.**
+
+<a id="batching" />
+
+## Batches
+
+*Add to batch* in the review dialog groups a send with other transactions. [Batch](/transactions/batch) describes this procedure.
 
 ## Private transfers
 
-A private transfer hides the connection between your account and the recipient: the payout can't be traced back to your account onchain, though your team still sees the recipient and amount in the Splits UI. Private transfers route through [NEAR Confidential Intents](https://intents.near.org/confidential). See the table for supported tokens.
+A **private transfer** uses [NEAR Confidential Intents](https://intents.near.org/confidential) for the recipient payment. Your team can still see the recipient and amount in Splits.
+
+The provider describes the privacy properties of this route. The supported tokens and networks are:
 
 | Token | Networks |
 | --- | --- |
@@ -38,10 +50,10 @@ A private transfer hides the connection between your account and the recipient: 
 
 ## Recurring sends
 
-To pay out pre-defined amounts on an interval (e.g. payroll), use [Schedules](/transactions/schedules).
+[Schedules](/transactions/schedules) describes transfer proposals for specified amounts at regular intervals.
 
 ## Programmatic access
 
-Via the [Splits CLI / MCP](/introduction/agents):
+Through the [Splits CLI / MCP](/introduction/agents):
 
-- `splits transactions create transfer --account 0x... --chainId 8453 --recipient 0x... --token 0x... --amount 100`: propose a transfer, with optional `--memo` and `--properties` (**Write** scope)
+- `splits transactions create transfer --account 0x... --chainId 8453 --recipient 0x... --token 0x... --amount 100`: propose a transfer with optional memo and properties (**Write** scope).

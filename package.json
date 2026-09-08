@@ -5,9 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vocs dev",
-    "build": "vocs build",
+    "build": "pnpm check && vocs build",
     "preview": "vocs preview",
-    "start": "node dist/serve-node.js"
+    "start": "node dist/serve-node.js",
+    "check:docs": "node scripts/ste/glossary.mjs --check && node scripts/check-prose.mjs",
+    "test:prose": "node --test scripts/ste/*.test.mjs",
+    "check": "pnpm check:docs && pnpm test:prose",
+    "glossary:generate": "node scripts/ste/glossary.mjs"
   },
   "dependencies": {
     "react": "^19",
@@ -20,7 +24,15 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^6",
+    "remark-directive": "4.0.0",
+    "remark-frontmatter": "5.0.0",
+    "remark-gfm": "4.0.1",
+    "remark-mdx": "3.1.1",
+    "remark-parse": "11.0.0",
     "typescript": "^5",
-    "vite": "^8"
-  }
+    "unified": "11.0.5",
+    "vite": "^8",
+    "yaml": "2.9.0"
+  },
+  "packageManager": "pnpm@10.28.0"
 }

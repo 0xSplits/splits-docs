@@ -1,32 +1,32 @@
 ---
-title: Settings
-description: A map of team and personal settings in Splits. Members, accounts, recovery, networks, tokens, banks, and API keys.
+title: "Settings"
+description: "Team configuration and personal preferences"
 ---
 
-# Settings [A map of team and personal settings, and who can see each]
+# Settings [Team configuration and personal preferences]
 
-The [Settings page](https://app.splits.org/settings/) is split into **team settings** (configuration shared by everyone on the team) and **personal settings** (the member's alone, persisting across every team they're part of).
+**Settings** contains team configuration and personal preferences. The [Settings page](https://app.splits.org/settings/) separates these groups.
+
+Team settings apply to the selected team. Personal settings belong to a member across teams.
 
 ## Team settings
 
-| Section | What it controls | Visible to | Learn more |
+| Section | Controls | Visible to | Learn more |
 | --- | --- | --- | --- |
-| **General** | Team name, logo, and the *Require memos* setting | Members | [Teams](/teams) |
-| **Members** | Inviting members, Owner/Member roles | Members | [Members](/members) |
-| **Accounts** | Each account's name, signers, and threshold | Members | [Editing](/accounts/editing) |
-| **API Keys** | Keys for programmatic access via the API, CLI, and MCP | Members | [Agents & API](/introduction/agents) |
-| **Networks** | Which networks the team's accounts are active on | Owners | [Networks and assets](/introduction/networks-and-assets) |
-| **Recovery** | Recovery signers and verification | Owners | [Recovery](/teams/recovery#recovery-signers) |
-| **Tokens** | Which tokens are shown or hidden (spam) for the team | Owners | [Spam & tokens](/accounting/spam) |
-| **Banks** | Legal entity verification (KYB/KYC), connected bank accounts, onramp details | Owners | [On/offramping](/banking) |
+| General | Team name, logo, memo requirement | Members | [Teams](/teams) |
+| Members | Invitations and roles | Members | [Members](/members) |
+| Accounts | Names, signers, thresholds | Members | [Editing](/accounts/editing) |
+| API Keys | Programmatic access | Members | [Agents & API](/introduction/agents) |
+| Networks | Active networks | Owners | [Networks and assets](/introduction/networks-and-assets) |
+| Recovery | Recovery signers and verification | Owners | [Recovery](/teams/recovery) |
+| Tokens | Token visibility | Owners | [Spam & tokens](/accounting/spam) |
+| Banks | Entity verification and bank accounts | Owners | [Banking](/banking) |
 
-Changing most team settings requires the **Owner** role. See [Roles](/teams/roles) for the full matrix.
+Most team configuration changes require the Owner role. [Roles](/teams/roles) defines permissions.
 
 ## Personal settings
 
-Personal settings persist across every team a member is part of:
+- **General**: display name, email address, and avatar.
+- **Passkeys**: passkey registration, verification, and management.
 
-- **General**: display name, email address, and avatar
-- **Passkeys**: add, verify, and manage the passkeys used to sign transactions
-
-See [Signing keys](/members/keys) for how passkeys work.
+[Signing keys](/members/keys) describes passkeys.

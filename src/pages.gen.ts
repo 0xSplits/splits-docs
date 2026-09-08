@@ -47,6 +47,7 @@ type Page =
   | { path: '/members'; render: 'static' }
   | { path: '/members/keys'; render: 'static' }
   | { path: '/resources/brand-assets'; render: 'static' }
+  | { path: '/resources/glossary'; render: 'static' }
   | { path: '/resources/how-we-work'; render: 'static' }
   | { path: '/resources/incorporating-and-raising-capital'; render: 'static' }
   | { path: '/resources/security'; render: 'static' }

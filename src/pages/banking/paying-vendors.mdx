@@ -1,22 +1,39 @@
 ---
-title: Paying vendors
-description: "Pay third parties in fiat from Splits accounts: add a vendor's bank account as an external account, then send stablecoins to its deposit address."
+title: "Paying vendors"
+description: "Transfer funds to another person or business through a bank"
 ---
 
-# Paying vendors [Pay third parties in fiat from Splits accounts]
+# Paying vendors [Transfer funds to another person or business through a bank]
 
-A vendor payment is an offramp to someone else's bank account. Each vendor bank account you add gets a dedicated onchain deposit address; paying the vendor is a normal [send](/transactions/sends) of stablecoins to that address, which Bridge converts and delivers to the vendor's bank.
+A **vendor payment** is an offramp to another person's or business's bank account. Each vendor bank account has a dedicated onchain deposit address.
 
-Prerequisites: [banking](/banking) set up with a verified entity. Adding and managing vendor accounts requires the [Owner](/teams/roles) role.
+A stablecoin [send](/transactions/sends) to that address funds the payment. Bridge converts the stablecoins and transfers bank currency to the vendor.
 
-## Adding a vendor
+Prerequisites: the team needs [banking verification](/banking). Vendor account setup requires the [Owner](/teams/roles) role.
 
-In [Settings > Banks](https://app.splits.org/settings/team/banks/), add the vendor's bank account as an **external account**: US accounts by routing and account number, EU accounts by IBAN, along with the account owner's name and address. External accounts are listed separately from the team's own (internal) bank accounts.
+<a id="adding-a-vendor" />
 
-## Paying
+## Add a vendor
 
-Send **USDC** (US vendors) or **EURC** (EU vendors) to the vendor account's deposit address; bank-account recipients also appear directly in the send flow. The payment is a transaction like any other: proposed from an account, approved at its threshold, visible in the feed and [accounting](/accounting).
+1. Open [Settings > Banks](https://app.splits.org/settings/team/banks/).
+2. Add the vendor's bank account as an *external account*.
+3. For a US account, enter routing and account numbers.
+4. For an EU account, enter the IBAN.
+5. Enter the bank account owner's name and address.
 
-Delivery is via Same Day ACH (US) or SEPA (EU), with the same 0.25% fee and [settlement timing](/banking/offramping#settlement) as other offramps, deducted from the amount sent.
+The app lists vendor accounts separately from the team's own bank accounts.
 
-To collect tax forms from vendors and contractors you pay, see [Compliance](/contacts/compliance).
+<a id="paying" />
+
+## Pay a vendor
+
+1. Select the vendor bank account as the send recipient.
+2. For a US vendor, send USDC to the deposit address.
+3. For an EU vendor, send EURC to the deposit address.
+4. Obtain the account's required approvals.
+
+The transaction appears in the feed and [Accounting](/accounting). Delivery uses Same Day ACH in the US or SEPA in the EU.
+
+The banking fee and [settlement times](/banking/offramping#settlement) apply. The fee reduces the delivered amount.
+
+[Compliance](/contacts/compliance) describes tax form collection for vendors and contractors.

@@ -1,31 +1,28 @@
 ---
-title: Core concepts
-description: The three concepts Splits is built around (Team, Member, and Account) and how they relate to each other.
+title: "Core concepts"
+description: "Understand teams, members, and accounts"
 ---
 
-# Core concepts [Team, Member, and Account: the three ideas everything else builds on]
+# Core concepts [Understand teams, members, and accounts]
 
-- **[Team](/teams)**: the unit everything is scoped to. One team per set of books: a company, an individual, or a project.
-- **[Member](/members)**: a person who belongs to a team, with a role and their own signing keys.
-- **[Account](/accounts)**: where a team's assets live, at the same address on every network, controlled by signers at a threshold.
+Splits uses three core concepts: a **team**, a **member**, and an **account**.
 
 ## Team
 
-Everything in the app (accounts, balances, transactions, bank info) except personal settings is scoped to the current team, shown in the team selector (top left).
+A [team](/teams) groups the accounts and records for a company, an individual, or a project. The team selector at the top left shows the current team. Personal settings apply across teams.
 
-A team maps to one set of books, whether or not a legal entity exists yet: a company, an individual, or a project that hasn't incorporated. Where an entity does exist, the mapping is one-to-one: on/offramps and compliant payments require [entity verification](/banking), and each team can have only one verified entity. A tax ID is a useful litmus test: Alice belongs to the Splits Labs team (EIN) and her own personal team (SSN), two tax IDs, two teams. A pre-entity project runs as its own team from day one and can [verify through an individual](/introduction/personal-usage#no-entity-needed) until it incorporates.
+A team corresponds to one set of accounting records. A project can have a team before it has a legal entity. [Banking](/banking) describes entity verification. [Personal usage](/introduction/personal-usage#no-entity-needed) describes verification for an individual.
 
-When deciding between a new team and an existing one, ask "who are the owners?" Same owners, existing team; different owners, new team. This matters for Recovery: see [Change recovery signers](/teams/recovery#changing-recovery-signers). To create a team, see [Teams](/teams).
+For example, Alice can belong to her company's team and her personal team. These teams have separate accounting records.
+
+A change to the owners can require a separate team. [Recovery](/teams/recovery#change-recovery-signers) describes the effect of a change to recovery signers.
 
 ## Member
 
-A member is a person who belongs to a [team](/teams). Members authenticate with email, and one member can belong to many teams. Every member has a [role](/teams/roles) (Owner or Member) that determines what they can administer, and holds **[signing keys](/members/keys)**: passkeys saved in the app, or EOAs [registered via the CLI](/introduction/agents#sign-locally-with-an-eoa).
+A [member](/members) is a person who belongs to a team. [Roles](/teams/roles) control access to app functions. [Signing keys](/members/keys) belong to the member.
 
-A member's signing keys can become [signers](/accounts/signers) on accounts; membership alone grants no signing authority. Signing keys, email, display name, and avatar belong to the member, not the team, so they work across every team a member is part of ([Settings > Personal](https://app.splits.org/settings/personal/general/)). For roles, inviting, and removal, see [Members](/members).
+**Membership gives no onchain signing authority.** [Signers](/accounts/signers#signers-vs-membership) describes the relationship between membership and signing authority.
 
 ## Account
 
-An account is where a team's assets are stored, at the same address on every network it's active on. Every account has a [threshold](/accounts/thresholds): a transaction executes once that many [signers](/accounts/signers) approve it. Signers are keys held by members; the public key lives onchain, the private key stays with the member, and **Splits never has access to private keys**.
-
-For account types and the ownership chain, see [Accounts](/accounts).
-
+An [account](/accounts) holds a team's assets. [Thresholds](/accounts/thresholds) describes the number of approvals for a transaction. [Accounts](/accounts) describes account types and the ownership chain.

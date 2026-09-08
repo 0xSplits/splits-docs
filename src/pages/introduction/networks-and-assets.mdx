@@ -1,19 +1,25 @@
 ---
-title: Networks and assets
-description: Networks and asset types supported by Splits, full and partial support, and how to enable networks per team.
+title: "Networks and assets"
+description: "Network capabilities and supported token types"
 ---
 
-# Networks and assets [Supported networks and asset types]
+# Networks and assets [Network capabilities and supported token types]
 
-Splits supports some networks fully (all features available) and a longer tail partially (balances and sending work; accounting history, swaps, bridging, and NFTs may not be available). Owners turn networks on and off per team in [Settings > Networks](https://app.splits.org/settings/team/networks/) (see [Settings](/teams/settings)). Any listed network can be enabled, regardless of tier; **balances are shown for enabled networks only**.
+A **network** is a blockchain on which an account can operate. Splits groups networks by their supported capabilities.
 
-Enabled networks are kept in sync: an account has the same address, signers, threshold, and owner on all of them, because [signer changes are signed once for every active network](/accounts/thresholds#changing-signers-and-thresholds). An account's state is synced to a newly enabled network before the account is used there; disabling a network requires nothing onchain.
+Owners control active networks in [Settings > Networks](https://app.splits.org/settings/team/networks/). [Settings](/teams/settings) describes access to this page.
 
-Email support to request another network or asset type; most EVM-equivalent networks can be supported, pending our underlying providers.
+**Balances appear only for active networks.** Any listed network can be active, regardless of its support group.
+
+Accounts use the same address, signers, threshold, and owner across active networks. [Signer changes](/accounts/editing#change-signers-and-thresholds) cover those networks with one signature.
+
+Splits applies account state to a newly active network before account use there. Network deactivation requires no onchain transaction.
+
+Email support to request another network or asset type. Additional network support depends on Splits' providers.
 
 ## Fully supported networks
 
-Every feature works on these networks:
+These networks support balances, transactions, swaps, transfers across networks, and accounting:
 
 - Ethereum Mainnet
 - Base
@@ -28,7 +34,7 @@ Every feature works on these networks:
 
 ## Partially supported networks
 
-On partially supported networks, you can manage balances, send funds, swap, and bridge assets. Transaction history and accounting are not available. NFT management is available only on Zora and Robinhood Chain.
+These networks support balances, sends, swaps, and transfers across networks. **Transaction history and accounting are unavailable.** NFT management in this group works only on Zora and Robinhood Chain.
 
 - Linea
 - Zora
@@ -37,28 +43,34 @@ On partially supported networks, you can manage balances, send funds, swap, and 
 - Scroll
 - Robinhood Chain
 
-## Sending to other networks
+<a id="sending-to-other-networks" />
 
-Tokens can be bridged and sent to an external address on Solana and any EVM [Relay network](https://docs.relay.link/references/api/api_resources/supported-chains); see [Swaps](/transactions/swaps).
+## Transfers to other networks
+
+A [swap](/transactions/swaps) can send tokens to an external address on Solana or an EVM network supported by Relay.
+
+[Relay's network reference](https://docs.relay.link/references/api/api_resources/supported-chains) lists destination support.
 
 ## Browser extension and WalletConnect
 
-The [browser extension](/introduction/extension) and in-app [WalletConnect](/integrations/walletconnect) work on any enabled network, regardless of tier.
+The [browser extension](/introduction/extension) and [WalletConnect](/integrations/walletconnect) work on any active network.
 
 ## Supported assets
 
-- Native tokens (e.g. ETH)
-- ERC-20
-- ERC-721
-- ERC-1155
+Supported asset types include:
 
-All supported assets work on all fully supported networks. If you send an unsupported asset to a Splits account, contact us and we will attempt to make it recoverable.
+- Native tokens, such as ETH.
+- ERC-20 tokens.
+- ERC-721 tokens.
+- ERC-1155 tokens.
+
+NFT availability depends on the network's capabilities. If you send an unsupported asset to a Splits account, email support to investigate recovery.
 
 ## Programmatic access
 
-Via the [Splits CLI / MCP](/introduction/agents):
+Through the [Splits CLI / MCP](/introduction/agents):
 
-- `splits chains list`: every listed network with its tier and per-feature capability flags (**Read** scope)
-- `splits chains get --chainId 8453`: one network's entry (**Read** scope)
+- `splits chains list`: list networks, support groups, and capability flags (**Read** scope).
+- `splits chains get --chainId 8453`: show one network (**Read** scope).
 
-The underlying endpoint is `GET /public/v1/chains` (API key with **Read** scope); see [Use the API](/introduction/agents#use-the-api). Networks in gradual rollout are excluded until fully rolled out.
+The endpoint is `GET /public/v1/chains`. It requires Read scope. The list excludes networks that still have a gradual release restriction.

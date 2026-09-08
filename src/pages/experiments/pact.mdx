@@ -1,45 +1,53 @@
 ---
-title: PACT
-description: "PACT lets a project raise a small round on Base: it sells units of its cap table for USDC, and buyers are refunded if the raise misses its minimum."
+title: "PACT"
+description: "Collect capital and record token allocations on Base"
 ---
 
-# PACT [Capital formation: a handshake deal with public receipts]
+# PACT [Collect capital and record token allocations on Base]
 
-:::note
-This is an [experiment](/experiments) and should be used with caution.
-:::
+**PACT** means Purchase Agreement for Community Tokens. It is an [experiment](/experiments) at [pact.splits.org](https://pact.splits.org) for project capital collection.
 
-**PACT** (Purchase Agreement for Community Tokens) is a lightweight tool at [pact.splits.org](https://pact.splits.org) for raising capital without a legal framework.
+A PACT records units that can represent a future project allocation. That allocation can concern equity, tokens, or revenue at the issuer's discretion.
 
-A PACT is a placeholder for future value: equity, tokens, revenue share, or whatever the project turns into. The issuer gets a funded treasury and a programmable cap table; buyers get public receipts and a claim on the project's future value.
+**Units are not equity and give no legal, voting, or dividend rights.** A successful raise does not guarantee a future benefit.
 
-For the thinking behind PACT, see [this thread](https://x.com/abram/status/2084689867942908347); for a walkthrough, see [this demo](https://youtu.be/kWzQE2mCtKA). The project is [open source](https://github.com/0xSplits/pact) with no third-party dependencies.
+The [project source](https://github.com/0xSplits/pact), [background thread](https://x.com/abram/status/2084689867942908347), and [demo](https://youtu.be/kWzQE2mCtKA) give more information.
 
 ## Why
 
-Every project starts before incorporation. Capital can be raised at this stage, but receipts are email threads, working capital sits in personal accounts, and the cap table is undefined. Deals at this stage don't need legal paperwork; trust, reputation, and the repeat game hold participants accountable. PACT gives this stage a treasury and a public ledger.
+A project can collect capital before incorporation. PACT provides a treasury and public allocation records for this stage.
 
 ## How a raise works
 
-Each raise is a pair of contracts on Base: an offering, which escrows the units for sale, prices them, and holds the deposited USDC; and a cap-table token of 1,000 units, where one unit is 0.1% of the project.
+Each raise has two contracts on Base:
 
-1. The issuer fills in [pact.splits.org/create](https://pact.splits.org/create) (founder units, units for sale, pricing, the round minimum, and the close date) and signs one transaction. It deploys both contracts, mints the founders' units to them, and escrows the for-sale units in the offering.
-2. Buyers pay USDC. The issuer prices units flat or along a linear bonding curve; with a curve, each unit sold raises the price by a fixed amount, so early buyers pay less. Public buys are open to anyone, up to a cap the issuer can adjust. Private buys go through allocation links, which the issuer signs and shares; each link caps what its holder can spend.
-3. Once the raise meets its minimum, it is permanently successful. Buying continues, and the raised USDC can be withdrawn; proceeds can only ever reach the treasury.
-4. The issuer closes the offering: the sale ends, remaining proceeds are withdrawn, and unsold units return to the treasury. The cap table is now the founders plus the buyers.
-5. If the close date passes with the minimum unmet, the offering is marked failed. Each buyer reclaims their USDC, returning their units in the same call, and the cap table reverts to the founders.
+- An **offering** holds units for sale and deposited USDC.
+- A **cap table token** records 1,000 units. Each unit represents 0.1% of the token allocation.
 
-The cap table is a [Liquid Split](https://splits.org/protocol/docs/templates/liquid) on Base. Tokens sent to the Liquid Split contract are distributed to holders in proportion to their units. Distribution is locked while the raise is open and unlocks once it closes or fails.
+The issuer creates the raise at [pact.splits.org/create](https://pact.splits.org/create). Inputs include founder units, sale units, prices, the minimum raise amount, and the close date.
+
+One transaction deploys both contracts. It gives founder units to the founders and holds sale units in the offering.
+
+Buyers pay USDC. A fixed price keeps each unit's price constant. A linear bonding curve increases the price by a fixed amount for each unit sold.
+
+Public purchases have an issuer-controlled limit. Private purchases use signed allocation links with spending limits.
+
+When deposits reach the minimum, the raise becomes permanently successful. Purchases can continue. Withdrawals send proceeds only to the treasury.
+
+The issuer can close the offering. Closure ends sales, withdraws remaining proceeds, and returns unsold units to the treasury.
+
+If the close date passes before the minimum is met, the offering fails. Buyers can return their units and reclaim USDC in the same call.
+
+The cap table uses a [Liquid Split](https://splits.org/protocol/docs/templates/liquid) on Base. Tokens sent to it distribute to holders in proportion to their units. Distribution starts only after the raise closes or fails.
 
 ## Notes
 
-- Units are **not equity**. They give holders no legal, voting, or dividend rights in the project; any benefit to holders is at the issuer's discretion.
-- The contracts **do not protect buyers from a dishonest issuer** after a raise succeeds. The minimum is a coordination signal, not a guarantee.
-- There is no sign-in: the wallet that creates the raise manages it.
-- For exact pricing, allocation, and lifecycle rules, see the [architecture](https://github.com/0xSplits/pact/blob/main/docs/architecture.md) and [contract specification](https://github.com/0xSplits/pact/blob/main/contracts/docs/contracts.md) in the repo.
+- **The contracts do not protect buyers from a dishonest issuer after success.**
+- The creator's wallet manages the raise without a separate sign-in.
+- The [architecture](https://github.com/0xSplits/pact/blob/main/docs/architecture.md) and [contract specification](https://github.com/0xSplits/pact/blob/main/contracts/docs/contracts.md) define pricing, allocations, and state changes.
 
 ## Programmatic access
 
-PACT has no dependency on the app: the chain is the only backend. An agent can run a raise end to end (create the offering, issue allocations, buy, close, refund) by sending transactions on Base directly.
+PACT operates through Base contracts without the Splits app backend. An agent can create offerings, issue allocations, buy units, close offerings, and request refunds through contract calls.
 
-- [PACT skill](https://github.com/0xSplits/pact/tree/main/skills/pact): the protocol model, lifecycle, safety rails, and `cast` recipes for every read and write. Install with `npx skills add 0xSplits/pact`.
+The [PACT skill](https://github.com/0xSplits/pact/tree/main/skills/pact) describes these calls. Its install command is `npx skills add 0xSplits/pact`.

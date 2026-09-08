@@ -1,20 +1,34 @@
 ---
-title: Paying invoices
-description: "The ways an invoicee pays a Splits invoice: connecting a wallet, sending manually and recording the transaction, or paying by bank transfer."
+title: "Paying invoices"
+description: "Pay with a wallet, manual transfer, or bank transfer"
 ---
 
-# Paying invoices [How an invoicee pays: wallet, manual send, or bank]
+# Paying invoices [Pay with a wallet, manual transfer, or bank transfer]
 
-The invoice page offers the payer up to three payment paths. The payment address shown is the receiving account itself; there is no intermediary.
+An **invoice payment** transfers funds to settle an invoice. The invoice page can offer three payment methods.
+
+The token payment address is the receiving account itself.
 
 ## Connect a wallet
 
-*Connect wallet to pay* opens the payer's wallet with the transfer prepared. The wallet is switched to the invoice's network before sending, and the invoice is [marked paid](/invoicing/tracking) automatically once the transaction confirms.
+1. Select *Connect wallet to pay*.
+2. Connect your wallet.
+3. Approve the prepared transfer.
+
+The wallet changes to the invoice's network before the transfer. Splits [marks the invoice paid](/invoicing/tracking) after transaction verification.
 
 ## Send manually
 
-The payer copies the payment address, sends the amount on the invoice's network from anywhere, then pastes the transaction link on the invoice page. Splits verifies the transaction onchain and marks the invoice paid.
+1. Copy the payment address from the invoice.
+2. Send the requested token amount on the invoice's network.
+3. Copy the transaction link.
+4. Enter the link on the invoice page.
+
+Splits verifies the onchain transaction and marks the invoice paid.
 
 ## Pay by bank
 
-If [pay-by-bank](/invoicing#pay-by-bank) is enabled on the invoice, a *Bank* tab shows the transfer details for paying in fiat, including the 0.25% processing fee added to the amount owed.
+If the invoice permits [pay-by-bank](/invoicing#pay-by-bank), the *Bank* tab shows transfer details. The bank amount includes the processing fee.
+
+1. Open the *Bank* tab.
+2. Send a bank transfer with the displayed details and amount.

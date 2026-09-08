@@ -1,31 +1,34 @@
 ---
-title: Integrations
-description: How Splits connects to other apps, protocols, and platforms, including position integrations that surface claimable balances on account pages.
+title: "Integrations"
+description: "Connect Splits accounts to other services"
 ---
 
-# Integrations [Using Splits accounts with other apps, protocols, and platforms]
+# Integrations [Connect Splits accounts to other services]
 
-Splits accounts plug into the rest of the ecosystem through two generic paths:
+An **integration** connects Splits to another app or protocol.
 
-- **Apps**: connect an account to any third-party app via the [browser extension](/introduction/extension) or [WalletConnect](/integrations/walletconnect); the app sees Splits as a wallet.
-- **Agents and scripts**: operate Splits programmatically via the [CLI / MCP](/introduction/agents).
+The [browser extension](/introduction/extension) and [WalletConnect](/integrations/walletconnect) connect accounts to other apps. The [CLI and MCP](/introduction/agents) provide access for agents and scripts.
 
-Some integrations have behavior of their own:
-
-| Integration | What it is |
+| Integration | Function |
 | --- | --- |
-| [Bankr](/integrations/bankr) | Let a Bankr agent operate your treasury through the CLI |
-| [Clanker](/integrations/clanker) | Claim token rewards |
-| [ENS](/integrations/ens) | Register or transfer an ENS name to an account |
-| [Farcaster](/integrations/farcaster) | Verify a Splits account on your profile, use it as your recovery address, pay for storage |
-| [Hedgey](/integrations/hedgey) | Claim vesting and lockup streams |
-| [Rain](/integrations/rain) | Corporate cards collateralized by stablecoins from your accounts |
-| [Sablier](/integrations/sablier) | Claim vesting streams |
-| [Uniswap](/integrations/uniswap) | Claim LP fees |
-| [WalletConnect](/integrations/walletconnect) | Connect accounts to apps when the extension can't run |
+| [Bankr](/integrations/bankr) | Account operations through an agent |
+| [Clanker](/integrations/clanker) | Token reward claims |
+| [ENS](/integrations/ens) | Names for account addresses |
+| [Farcaster](/integrations/farcaster) | Address verification, recovery, and storage payments |
+| [Hedgey](/integrations/hedgey) | Vesting and lockup claims |
+| [Rain](/integrations/rain) | Card collateral and payment records |
+| [Sablier](/integrations/sablier) | Vesting claims |
+| [Uniswap](/integrations/uniswap) | Liquidity position fee claims |
+| WalletConnect | Account connections |
 
 ## Positions
 
-Claimable balances an account holds in external protocols appear under **Positions** on the account's page, next to its token balances: vesting and lockup streams ([Hedgey](/integrations/hedgey), [Sablier](/integrations/sablier)) and LP rewards ([Uniswap](/integrations/uniswap), [Clanker](/integrations/clanker)).
+A **position** is an account's balance or claim in an external protocol. The *Positions* section on an account page shows supported positions beside token balances.
 
-Claiming a position is a normal [transaction](/transactions), approved at the account's [threshold](/accounts/thresholds). When a protocol charges a claim fee, it's shown in the claim dialog, and the account must hold enough of the fee token to claim. Email support to request another protocol.
+Supported positions include vesting streams, lockup plans, and liquidity provider rewards.
+
+A claim transfers available tokens to the account. It follows the normal [transaction](/transactions) approval process at the account's [threshold](/accounts/thresholds).
+
+If the protocol charges a claim fee, the claim dialog shows it. **The account needs enough of the fee token to claim.**
+
+Email support to request another protocol.

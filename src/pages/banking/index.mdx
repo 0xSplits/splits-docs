@@ -1,28 +1,39 @@
 ---
-title: Banking
-description: "Banking in Splits: verify the team's entity (KYB/KYC) to move between crypto and fiat, the supported jurisdictions, and the fee."
+title: "Banking"
+description: "Convert between tokens and bank currencies"
 ---
 
-# Banking [Verify the team's entity to move between crypto and fiat]
+# Banking [Convert between tokens and bank currencies]
 
-Banking is opt-in: once a team completes legal entity verification, it can move between crypto and fiat directly in Splits.
+**Banking** connects token transfers to bank accounts. A team must complete entity verification before it can use Splits banking.
 
-- [Onramping](/banking/onramping): fiat in, by ACH, wire, or SEPA
-- [Offramping](/banking/offramping): crypto out, to the team's own bank accounts
-- [Paying vendors](/banking/paying-vendors): crypto out, to someone else's bank account
+- [Onramping](/banking/onramping) converts a bank transfer to tokens.
+- [Offramping](/banking/offramping) converts tokens to funds in the team's bank account.
+- [Paying vendors](/banking/paying-vendors) converts tokens to funds in another person's or business's bank account.
 
-On/offramps cost 0.25%, deducted from the transaction amount. Setting up banking (verification, bank accounts, onramp details) requires the [Owner](/teams/roles) role.
+The banking fee is **0.25%** of the transaction amount. Splits deducts this fee from the transfer.
 
-## Getting verified
+The [Owner](/teams/roles) role permits banking setup, including verification and bank account management.
 
-Go to [Settings > Banks](https://app.splits.org/settings/team/banks/) and select *KYB* (for businesses, including solo-member pass-through LLCs) or *KYC* (for individuals). You'll be brought through an entity verification flow powered by [Bridge](https://www.bridge.xyz/). **Each team can only have one verified entity.**
+<a id="getting-verified" />
 
-KYC is typically near-instant; KYB typically takes 5-7 business days. Bridge will email you directly if additional documentation is needed. The verified entity's details also supply the counterparty information (the "travel rule") required on every on/offramp, so no per-transfer paperwork is needed.
+## Verify an entity
+
+Prerequisites: you must have the Owner role.
+
+1. Open [Settings > Banks](https://app.splits.org/settings/team/banks/).
+2. For a business, select *KYB*.
+3. For an individual, select *KYC*.
+4. Complete the verification form from [Bridge](https://www.bridge.xyz/).
+
+KYB means know your business. It includes businesses with one owner. KYC means know your customer.
+
+**Each team can have only one verified entity.** Bridge requests additional documents by email when necessary. Verification supplies the counterparty information for subsequent bank transfers.
 
 ## Jurisdictions
 
-Splits supports **US- and EU-based individuals and businesses**, excluding [countries not supported by Bridge](https://apidocs.bridge.xyz/platform/customers/compliance/supported-countries-list#supported-countries-list) and, within the US, New York and Alaska ([Bridge's US details](https://apidocs.bridge.xyz/get-started/introduction/what-we-support/geo#united-states-specific-details)).
+Banking availability depends on the entity, bank account, and Bridge's geographic restrictions. Bridge maintains the [supported country list](https://apidocs.bridge.xyz/platform/customers/compliance/supported-countries-list#supported-countries-list) and [US restrictions](https://apidocs.bridge.xyz/get-started/introduction/what-we-support/geo#united-states-specific-details).
 
-If you live elsewhere, you can still use banking as long as your entity is legally registered in the US and you have a US- or EU-based bank account. Because bank accounts are added by routing/account number (US) or IBAN (EU), accounts at fintechs like [Wise](https://wise.com) generally work like any other bank account.
+US bank accounts use routing and account numbers. EU bank accounts use an international bank account number (IBAN). Accounts from providers such as [Wise](https://wise.com) use these same identifiers.
 
-For what KYB requires, see [Bridge's business onboarding docs](https://docs.google.com/document/d/1UjwaXWHNEs3PTaj2R2l_CLxGApj8Uc8NHlL_WVd6TFY/edit?usp=sharing). Email support to request another jurisdiction.
+[Bridge's business verification guide](https://docs.google.com/document/d/1UjwaXWHNEs3PTaj2R2l_CLxGApj8Uc8NHlL_WVd6TFY/edit?usp=sharing) describes the required information. Email support to request another jurisdiction.

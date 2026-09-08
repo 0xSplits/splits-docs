@@ -1,21 +1,34 @@
 ---
-title: Custom
-description: Custom transactions call any writable function on any contract on a supported network, from a form when the ABI is known or from raw calldata when it isn't.
+title: "Custom transactions"
+description: "Call functions on a contract"
 ---
 
-# Custom transactions [Call any writable function on any contract]
+# Custom transactions [Call functions on a contract]
 
-A custom transaction is a proposal built from arbitrary contract calls: use it for anything without a dedicated flow, like ERC-20 approvals, protocol interactions, or [enabling a module](/accounts/modules#enabling-and-disabling). It can call any writable function on any contract deployed on a [supported network](/introduction/networks-and-assets).
+A **custom transaction** is a proposal with contract calls. It can call writable functions on contracts deployed on a [supported network](/introduction/networks-and-assets).
 
-Open the builder with *Custom txn* on an account's page and paste the contract address, selecting the network if the contract exists on more than one.
+Examples include ERC-20 approvals and [module changes](/accounts/modules#enable-or-disable-a-module).
 
-- **Contract with a known ABI**: pick from the contract's writable functions and fill in its parameters. Payable functions add an *Amount to pay* input, denominated in ETH.
-- **No ABI found**: enter raw calldata, with an optional ETH amount.
+1. Open an account page.
+2. Select *Custom txn*.
+3. Enter the contract address.
+4. If the contract exists on multiple networks, select the network.
 
-*Review* shows the decoded calls and a simulation before you submit. Like every [transaction](/transactions), a custom transaction executes once signatures meet the account's threshold.
+The remaining inputs depend on the application binary interface (ABI):
+
+- **Known ABI**: the form lists writable functions and their parameters. Payable functions include an *Amount to pay* field in ETH.
+- **Unknown ABI**: the form accepts raw calldata and an optional ETH amount.
+
+1. Enter the function inputs or calldata.
+2. Select *Review*.
+3. Check the decoded calls and simulation.
+4. Submit the proposal.
+5. Obtain the required signatures.
+
+[Transactions](/transactions) describes proposal execution.
 
 ## Programmatic access
 
-Via the [Splits CLI / MCP](/introduction/agents):
+Through the [Splits CLI / MCP](/introduction/agents):
 
-- `splits transactions create custom --account 0x... --chainId 8453 --calls '[{"to":"0x...","data":"0x..."}]'`: propose 1–20 raw calls in one transaction, each with an optional `value` in wei (**Write** scope)
+- `splits transactions create custom --account 0x... --chainId 8453 --calls '[{"to":"0x...","data":"0x..."}]'`: propose 1–20 calls with optional `value` amounts in wei (**Write** scope).

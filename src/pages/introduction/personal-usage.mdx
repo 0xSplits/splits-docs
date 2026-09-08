@@ -1,28 +1,30 @@
 ---
-title: Personal usage
-description: Patterns from solo builders using Splits. Isolated accounts per project, resilient multisigs, no entity required, and agents as collaborators.
+title: "Personal usage"
+description: "Use Splits as an individual"
 ---
 
-# Personal usage [Patterns from solo builders running Splits as a team of one]
+# Personal usage [Use Splits as an individual]
 
-Splits works for teams of one. A solo builder gets the same setup as a company (accounts, banking, accounting), and it scales when collaborators (human or [agent](/introduction/agents)) join later. Patterns we see from solo builders:
+A **personal team** is a Splits [team](/teams) for one individual. It can contain separate [accounts](/accounts) for personal funds and projects.
 
 ## Isolated accounts
 
-A dedicated [account](/accounts) per project, experiment, or revenue source. If the project flops, close the account; if it succeeds, it can become the start of a new team. Separate accounts per asset type (stables, investments, NFTs) also keep books clean while still exporting as [one CSV](/accounting).
+Separate accounts can group funds by project, source of income, or asset type. [Accounting](/accounting) describes exports across accounts.
 
 ## Multisigs of one
 
-1-of-2 or 2-of-3 accounts where every [signer](/accounts/signers) belongs to the same person: a hardware key plus a password manager, or two devices in different locations. No single device, browser profile, or key is a point of failure.
+One person can control multiple [signers](/accounts/signers) on an account. For example, that person can use separate devices for a 2-of-3 [threshold](/accounts/thresholds).
+
+[Signing keys](/members/keys) describes passkeys and external signing keys. [Recovery](/teams/recovery) describes how to restore account access.
 
 ## Multiple emails
 
-Two members on one team, registered with different emails (e.g. Gmail and Proton), each with its own passkeys. Moving large amounts then requires access to both inboxes.
+One person can register two members with different email addresses. Each member can have separate signing keys. Account signers and thresholds determine the approvals for payments.
 
 ## No entity needed
 
-Before incorporating, connect a personal bank account for [on/offramps](/banking) (KYC as an individual). Pay vendors, reimburse yourself, and keep a clean paper trail; when the project incorporates, swap in company banking. Verifying early also means less history to document later.
+An individual can use personal identity verification for [banking](/banking). A project can use a personal bank account before incorporation. The [entity formation resources](/resources/incorporating-and-raising-capital) link to providers for later setup.
 
 ## Agents as collaborators
 
-Delegate operations to AI tools via the [CLI, API, and MCP server](/introduction/agents): scoped API keys and optional headless signing let an agent work your treasury while you keep custody.
+An agent can use the [CLI, API, and MCP server](/introduction/agents) on behalf of a personal team. API key scopes and account signers control different permissions.

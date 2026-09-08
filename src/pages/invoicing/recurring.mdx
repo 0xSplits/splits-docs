@@ -1,12 +1,30 @@
 ---
-title: Recurring invoices
-description: Issue the same invoice on a weekly or monthly schedule, with due dates relative to each issue date, until paused.
+title: "Recurring invoices"
+description: "Issue invoices at weekly or monthly intervals"
 ---
 
-# Recurring invoices [Issue the same invoice on a schedule]
+# Recurring invoices [Issue invoices at weekly or monthly intervals]
 
-When [issuing an invoice](/invoicing), turn on *Make recurring* and pick a weekly or monthly interval. Each occurrence creates a new invoice with the due date set the same number of days after its issue date, and emails the payer if the invoice has their email.
+A **recurring invoice schedule** creates invoices at weekly or monthly intervals. Each invoice has a due date relative to its issue date.
 
-Schedules run until paused: there is no end date or occurrence limit. If the first issue date is in the future, only the schedule is created, and the first invoice generates on that date. If the issue date is today or in the past but its due date has not passed, the first invoice is issued when the schedule is created. If the first due date has passed, Splits either issues that occurrence at the next available run or skips it and advances to the next occurrence; the form previews which will happen before creation. New occurrences generate daily at 11:00 UTC.
+Prerequisites: you must have the [Owner](/teams/roles) role.
 
-View, edit, and pause schedules from the *Schedules* tab on the *Invoices* page. Like all invoicing, managing schedules requires the [Owner](/teams/roles) role.
+1. Open the [invoice creation form](/invoicing).
+2. Turn on *Make recurring*.
+3. Select a weekly or monthly interval.
+4. Check the first occurrence in the preview.
+5. Create the schedule.
+
+Splits emails each invoice if the schedule includes the payer's email address.
+
+**Schedules have no end date or occurrence limit.** They continue until paused. The daily run creates new occurrences at 11:00 UTC.
+
+The first issue date controls the initial invoice:
+
+| First occurrence | Result |
+| --- | --- |
+| Future issue date | Schedule now, invoice on that date |
+| Issue date reached, due date pending | Invoice at schedule creation |
+| Due date passed | Late issue or next occurrence, as shown in the preview |
+
+The *Schedules* tab on the *Invoices* page provides controls to view, edit, and pause schedules.

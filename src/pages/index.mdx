@@ -1,35 +1,42 @@
 ---
-title: Introduction
-description: Splits is the onchain operations platform for builders. Manage assets, process revenue, move money, and run operations instantly, via the app, API, or CLI.
+title: "Introduction"
+description: "Use Splits to manage accounts, payments, and records"
 ---
 
-# Introduction [What Splits is, who it's for, and how to start]
+# Introduction [Use Splits to manage accounts, payments, and records]
 
-**Splits is the onchain operations platform for builders.** Manage assets, process revenue, move money, and run operations instantly, via [the app](https://app.splits.org) or [API/CLI](/introduction/agents).
+**Splits** is an app for teams that manage assets on blockchain networks. You can use [the app](https://app.splits.org) or the [API and CLI](/introduction/agents).
 
 :::note
-These docs cover the Splits app. Docs for the Splits protocol (the splitter contracts) live at [splits.org/protocol/docs](https://splits.org/protocol/docs).
+These docs describe the Splits app. The [protocol docs](https://splits.org/protocol/docs) describe the Splits splitter contracts.
 :::
 
-Key properties:
+The docs cover these functions:
 
-- **Self-custodied.** No custodian, no gatekeepers, no KYC to get started: anyone, anywhere can create accounts and transact instantly. Splits never has access to private keys and cannot move your funds; if passkeys are lost, [recovery signers](/teams/recovery) regain control.
-- **Isolated by account, operated as one.** Each [account](/accounts) has its own signers and threshold, so a leaked key is capped at that account's balance. One interface covers every account's balances, transactions, and [accounting exports](/accounting).
-- **Crosschain by default.** Accounts keep one address across every [supported network](/introduction/networks-and-assets), with signers and threshold synced automatically. [Swap and bridge](/transactions/swaps) across chains in a single transaction.
-- **Integrated fiat.** Move between tokens and fiat: [on/offramps](/banking) to your bank accounts, invoices [payable by bank transfer](/invoicing#pay-by-bank), and [vendor payments](/banking/paying-vendors).
-- **Composable.** Connect your multi-signature accounts to any app in the ecosystem via the [browser extension](/introduction/extension) or [WalletConnect](/integrations/walletconnect).
-- **Professional workflows.** [Accounting](/accounting) with filters and exports, [invoicing](/invoicing), [bill pay](/banking/paying-vendors), payroll via [schedules](/transactions/schedules), [tax withholding](/accounts#automation-accounts), and [compliant payments](/contacts/compliance) (collect W9s/W8s, issue 1099s), all reachable from the command menu (`⌘K`).
-- **Experiments.** [Experimental products](/experiments) from Splits, early and unproven.
-- **Agent-ready.** Everything is scriptable via the [CLI and MCP](/introduction/agents), and every docs page is available as markdown: append `.md` to any URL, or fetch `/llms.txt` / `/llms-full.txt`.
+- [Accounts](/accounts): asset storage and account ownership.
+- [Transactions](/transactions): payment proposals and approvals.
+- [Networks and assets](/introduction/networks-and-assets): network and token support.
+- [Banking](/banking): transfers between tokens and bank currencies.
+- [Invoicing](/invoicing): payment requests.
+- [Accounting](/accounting): transaction records and exports.
+- [Contacts](/contacts): names for external addresses.
+- [Integrations](/integrations): connections to other apps.
+- [Experiments](/experiments): prototype products.
 
-## Who it's for
+The [glossary](/resources/glossary) defines the technical terms in these docs.
 
-- **Teams and companies operating onchain**: shared treasury with per-account signer sets, roles, and approvals.
-- **Solo builders**: the same setup works for [teams of one](/introduction/personal-usage), with resilient multisigs, clean books, and separation of project and personal funds.
-- **Agents**: AI tools operating on a team's behalf via API keys, with scoped permissions and optional headless signing.
+<a id="who-its-for" />
+
+## Who uses Splits
+
+- Teams and companies that manage shared assets.
+- Individuals who keep project and personal funds in [separate accounts](/introduction/personal-usage).
+- Agents that use the API on behalf of a team.
+
+Each page also has a Markdown version. Its URL ends in `.md`. The documentation indexes are `/docs/llms.txt` and `/docs/llms-full.txt`.
 
 ## Start here
 
-1. Read [Core concepts](/introduction/core-concepts): Team, Member, and Account, the three ideas everything else builds on.
-2. [Create a team](/teams).
-3. Working from an AI tool? Connect it via [Agents & API](/introduction/agents).
+1. Read [Core concepts](/introduction/core-concepts).
+2. Follow the instructions to [create a team](/teams).
+3. For access through an agent, follow [Agents & API](/introduction/agents).

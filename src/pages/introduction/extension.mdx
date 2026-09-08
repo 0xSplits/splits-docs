@@ -1,22 +1,35 @@
 ---
-title: Browser extension
-description: Connect Splits accounts to third-party apps using the Splits Connect browser extension, or WalletConnect as a fallback.
+title: "Browser extension"
+description: "Connect Splits accounts to other apps"
 ---
 
-# Browser extension [Use Splits accounts inside third-party apps]
+# Browser extension [Connect Splits accounts to other apps]
 
-[Splits Connect](https://chromewebstore.google.com/detail/splits/ghfacfafnbcgkielpaeifdpoggfeakif?utm_source=docs-extension&utm_medium=web) is our browser extension. It lets you use Splits accounts inside third-party apps: the app sees Splits as a wallet, and you sign transactions with your passkey. If your browser doesn't support the extension (e.g. Safari), [WalletConnect](/integrations/walletconnect) works as a fallback. The extension works on every [enabled network](/introduction/networks-and-assets).
+**Splits Connect** is the Splits browser extension. It connects a Splits account to another app. The other app shows Splits as a wallet option.
 
-## Connecting
+[WalletConnect](/integrations/walletconnect) provides another connection method for browsers without extension support, such as Safari. The extension works on each [enabled network](/introduction/networks-and-assets).
 
-1. Install the latest version of the [Splits Connect](https://chromewebstore.google.com/detail/splits/ghfacfafnbcgkielpaeifdpoggfeakif?utm_source=docs-extension&utm_medium=web) extension.
-2. Open the third-party app and select Splits as the wallet.
-3. Select the team and account you want to connect and hit *Connect*. The dialog closes on its own and the account appears in the third-party app.
+<a id="connecting" />
 
-## Signing
+## Connect an account
 
-When you perform a transaction in the connected app, the Splits dialog opens and you sign with your passkey, the same way you'd sign any transaction in the Splits app. You can also add transactions from external apps to a [batch](/transactions/batch).
+1. Install [Splits Connect](https://chromewebstore.google.com/detail/splits/ghfacfafnbcgkielpaeifdpoggfeakif?utm_source=docs-extension&utm_medium=web).
+2. Open the other app.
+3. Select Splits as the wallet.
+4. Select the team and account to connect.
+5. Select *Connect*.
+
+The dialog closes. The account appears in the other app.
+
+<a id="signing" />
+
+## Sign transactions
+
+When you request a transaction in the connected app, the Splits dialog opens. You sign with your passkey. You can also add the transaction to a [batch](/transactions/batch).
 
 ## Connection issues
 
-If an app doesn't show Splits as a wallet option, the likely cause is that the app doesn't support [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963) provider discovery. Use [WalletConnect](/integrations/walletconnect) instead, and ask the app's team whether they support EIP-6963.
+An app can omit Splits from its wallet options if it does not support [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963). This standard describes how apps find wallet providers.
+
+1. If Splits does not appear, connect through WalletConnect.
+2. Ask the other app's team to confirm its EIP-6963 support.

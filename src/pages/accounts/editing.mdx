@@ -1,51 +1,80 @@
 ---
-title: Editing
-description: "How an account changes after creation: renaming, changing signers and thresholds with the account's own signers, and resetting signers through the account's owner."
+title: "Editing"
+description: "Change account names, signers, and thresholds"
 ---
 
-# Editing [Change an account's name, signers, or threshold, or reset lost signers]
+# Editing [Change account names, signers, and thresholds]
 
-Everything about an account except its address can change after creation. The name is offchain metadata; the signer set and threshold are onchain state with two paths to change them:
+An **account edit** changes an account's settings. The name is offchain information. The signer set and threshold are onchain state.
 
-- [**Update**](#changing-signers-and-thresholds): the account's own signers approve the change at the current threshold. The everyday path.
-- [**Reset**](#resetting-signers): the account's **owner** replaces the signer set outright, with no approval from the current signers. The path when signers are lost.
+There are two ways to change signers:
 
-Editing account settings requires the **Owner** role in all cases.
+- [Update](#change-signers-and-thresholds): the account's current signers approve the change at its current threshold.
+- [Reset](#reset-signers): the account's onchain owner replaces the signers without their approval.
 
-## Renaming
+Prerequisites: you must have the Owner role to edit account settings.
 
-An account's name is offchain and changes with no signatures: edit it from the account's settings.
+<a id="renaming" />
 
-## Changing signers and thresholds
+## Change the name
 
-An account's signer set and threshold are stored onchain as a single state and edited through a single flow: from the account's settings, edit the signers or the threshold and save, signing an "Update signers state" transaction. One change can add or remove signers, change the threshold, or both; swapping a signer while keeping the threshold is one transaction. The change is approved by the account's current signers at its *current* threshold, the flow is the same for the Treasury and operating accounts, and any [team member](/members) with a [signing key](/members/keys) can be added as a signer.
+1. Open the account's settings.
+2. Edit the account name.
 
-One signing session covers every network: the signers sign the merkle root of a tree containing one copy of the update transaction per active network, and each network's copy executes with a proof against that root. Signer state can't diverge across networks because no network is ever signed for separately.
+A name change does not require signatures.
 
-If the account no longer has enough active signers to meet its threshold, this flow is unavailable (the app says so on the account's settings page) and a [reset](#resetting-signers) is the way forward.
+<a id="changing-signers-and-thresholds" />
 
-## Resetting signers
+## Change signers and thresholds
 
-A reset replaces an account's signers and threshold **without the current signers' approval**. It works because accounts form an [ownership chain](/accounts): an account's owner can execute from it directly, including rewriting its signer set. Who signs depends on the account being reset:
+The signer set and threshold form one onchain state. One transaction can change either or both. The procedure is the same for the Treasury and operating accounts.
 
-| Account being reset | Its owner | Who signs the reset |
+A [team member](/members) needs a [signing key](/members/keys) before that signing key can become an account signer.
+
+1. Open the account's settings.
+2. Edit the signers or threshold.
+3. Save the change.
+4. Sign the *Update signers state* transaction.
+
+The account's current signers approve the change at its current threshold.
+
+One signature covers all active networks through a Merkle root. This root represents a tree with one update transaction for each active network. Each network executes its update with a proof against that root.
+
+If available signers cannot meet the threshold, the app prevents an update. A reset provides the other change method.
+
+<a id="resetting-signers" />
+
+## Reset signers
+
+A **reset** replaces an account's signers and threshold **without approval from its current signers**. The [ownership chain](/accounts) gives the onchain owner this authority.
+
+| Account | Onchain owner | Reset approval |
 | --- | --- | --- |
-| Operating or automation account | Treasury (shown as *Primary*) | Treasury signers, at the Treasury's threshold |
-| Treasury | Root | [Recovery signers](/teams/recovery#recovery-signers), connected as wallets, at the recovery threshold |
+| Operating or automation | Treasury | Treasury signers and threshold |
+| Treasury | Root | Recovery signers and threshold |
 
-The Root itself can't be reset: it has no owner above it and is controlled only by the recovery signers.
+The app can show the Treasury as *Primary*. [Recovery](/teams/recovery#recovery-signers) describes the recovery wallets.
 
-1. Open the account's settings and find **Reset signers**. ([Settings > Recovery](https://app.splits.org/settings/team/recovery/) also lists every account; clicking one lands on the same section.)
-2. Select *Reset signers*, choose the account's new signers and threshold, and save.
-3. Approve: for a sub-account, the Treasury's signers sign; for the Treasury, connect the recovery wallet(s) and sign.
+**The Root has no owner above it and cannot be reset through this procedure.**
 
-If every passkey on the team is lost, reset the Treasury first (recovery wallets), then use the restored Treasury to reset any sub-accounts. See [Recovery](/teams/recovery) for the full lost-passkey scenario.
+1. Open the account's settings.
+2. Select *Reset signers*.
+3. Select the new signers.
+4. Set the new threshold.
+5. Save the change.
+6. For a sub-account reset, obtain the Treasury signers' approvals.
+7. For a Treasury reset, connect the recovery wallets.
+8. For a Treasury reset, sign with those wallets.
+
+[Settings > Recovery](https://app.splits.org/settings/team/recovery/) also lists the accounts and links to their reset settings.
+
+If the team's normal signing keys are unavailable, reset the Treasury first. The restored Treasury can then reset sub-accounts.
 
 ## Programmatic access
 
-Via the [Splits CLI / MCP](/introduction/agents):
+Through the [Splits CLI / MCP](/introduction/agents):
 
-- `splits accounts update-signers <address> --threshold N ...`: propose signer/threshold changes; approval happens in the web UI (**Owner** scope)
-- `splits accounts rename <address>`: rename an account (**Owner** scope)
+- `splits accounts update-signers <address> --threshold N ...`: propose signer or threshold changes for approval in the app (**Owner** scope).
+- `splits accounts rename <address>`: rename an account (**Owner** scope).
 
-Resets are web-only today.
+Resets are available only in the app.

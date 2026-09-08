@@ -1,27 +1,44 @@
 ---
-title: Spam & tokens
-description: How Splits filters spam tokens by default, how a team hides or shows tokens, and what hiding removes from balances, feeds, and exports.
+title: "Spam & tokens"
+description: "Control token visibility for the team"
 ---
 
-# Spam & tokens [Control which tokens the team sees]
+# Spam & tokens [Control token visibility for the team]
 
-Splits classifies spam tokens and hides them by default. The team can override the classification in either direction, per token, and the override always wins. Visibility is team-wide: there is no per-member or per-account token visibility.
+A **spam token** is a token that Splits classifies as unwanted. Splits hides these tokens by default.
 
-A hidden token disappears everywhere: balances, the transaction feed, the [Accounting page](/accounting), and CSV exports.
+A team can change visibility for each token. The team's choice overrides the default classification. **Visibility applies to the entire team.** It cannot differ by member or account.
 
-## Hiding a token
+Hidden tokens do not appear in balances, transaction feeds, [Accounting](/accounting), or CSV exports.
 
-From any transaction feed, open the transaction's row menu and select *Report spam*. This hides the token for the whole team, and also feeds Splits' global spam classification. Any member can report spam. NFTs can be reported the same way from an account's balances.
+<a id="hiding-a-token" />
 
-## Showing a hidden token
+## Hide a token
 
-[Settings > Tokens](https://app.splits.org/settings/team/tokens/) (visible to Owners) lists every token held across the team's accounts, including hidden ones, with a toggle per token: on means displayed, off means hidden. Turn a token on if the default filtering hid something real.
+Any member can report a token as spam.
+
+1. Open a transaction's row menu.
+2. Select *Report spam*.
+
+This hides the token for the team and supplies information to Splits' global spam classification. An account's balances provide the same option for NFTs.
+
+<a id="showing-a-hidden-token" />
+
+## Show a hidden token
+
+Owners can view [Settings > Tokens](https://app.splits.org/settings/team/tokens/). It lists tokens across the team's accounts, including hidden tokens.
+
+1. Open *Settings > Tokens*.
+2. Find the token.
+3. Turn its visibility setting on.
+
+An active setting shows the token. An inactive setting hides it.
 
 ## Programmatic access
 
-Via the [Splits CLI / MCP](/introduction/agents):
+Through the [Splits CLI / MCP](/introduction/agents):
 
-- `splits tokens whitelist`: tokens your team explicitly turned on (**Read** scope)
-- `splits tokens blocklist`: hidden tokens: global spam plus your team's own reports (**Read** scope)
+- `splits tokens whitelist`: list tokens the team explicitly shows (**Read** scope).
+- `splits tokens blocklist`: list hidden tokens from global classification and team reports (**Read** scope).
 
-Changing visibility is web-only today.
+Visibility changes are available only in the app.

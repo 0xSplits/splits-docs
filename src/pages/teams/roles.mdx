@@ -1,38 +1,43 @@
 ---
-title: Roles
-description: The authoritative reference for what each role (Owner, Member) and each API key scope (read, write, owner) can do in Splits.
+title: "Roles"
+description: "Team permissions and API key scopes"
 ---
 
-# Roles [What each role and API key scope can do]
+# Roles [Team permissions and API key scopes]
 
-Every team [member](/members) has exactly one of two roles: **Owner** or **Member**. Roles are stored offchain, govern what a person can see and do in the app, and are scoped to one team: the same person can be an Owner of one team and a Member of another. A role never grants signing authority: approving transactions belongs to an account's onchain signer set, and the boundary is drawn at [Signers](/accounts/signers#signers-vs-membership).
+A **role** controls a [member](/members)'s access to functions in a team. Each membership has one role: **Owner** or **Member**.
 
-A related surface (**API key scopes**) governs what programmatic clients can do; see [below](#api-key-scopes).
+Roles apply to individual teams. One person can be an Owner in one team and a Member in another.
+
+**A role gives no onchain signing authority.** [Signers](/accounts/signers#signers-vs-membership) describes account approval authority.
 
 ## What each role can do
 
 | Capability | Owner | Member |
 | --- | --- | --- |
 | View accounts, balances, and transactions | ✅ | ✅ |
-| Propose transactions from an account | ✅ any account | Only accounts they're a signer on |
+| Propose transactions from an account | ✅ any account | Accounts with their signer |
 | Sign transactions | Only if a signer on that account | Only if a signer on that account |
 | Reject pending transactions | ✅ | Only if a signer on that account |
 | Create new accounts | ✅ | ❌ |
 | Edit account settings (name, signers, threshold) | ✅ | ❌ |
 | Invite, remove, and change roles of members | ✅ | ❌ |
 | Edit team name and logo | ✅ | ❌ |
-| Toggle [*Require memos*](/transactions/memos#requiring-memos) | ✅ | ❌ |
+| Toggle [*Require memos*](/transactions/memos#require-memos) | ✅ | ❌ |
 | Create invoices | ✅ | ❌ |
 | Create and manage automations and schedules | ✅ | ❌ |
-| Onramp / offramp | ✅ | ❌ |
+| Bank transfers | ✅ | ❌ |
 | Entity verification (KYB/KYC) and payment info | ✅ | ❌ |
 | Manage recovery | ✅ | ❌ |
 
 ## Read-only members
 
-A member with the **Member** role whose signing keys aren't signers on any account is effectively read-only: they can see the team's accounts, balances, and transactions, but can't propose or sign any. (Owners can propose from any account, so read-only requires the Member role.)
+A Member without a signing key on any account can view accounts, balances, and transactions. **That member cannot propose or sign transactions.** An Owner can propose from any account.
 
-To set one up, [invite them](/members#inviting) with the Member role and don't add them to any account's signer set. Useful for accountants, auditors, and anyone who needs visibility without the ability to move funds.
+To configure read-only access:
+
+1. [Invite the person](/members#invite-a-member) with the Member role.
+2. Keep their signing keys out of all account signer sets.
 
 ## Settings visibility by role
 
@@ -48,12 +53,12 @@ To set one up, [invite them](/members#inviting) with the Member role and don't a
 
 ## API key scopes
 
-API keys power the [CLI and MCP](/introduction/agents). Each key is scoped at creation:
+An **API key scope** controls functions available through the [CLI and MCP](/introduction/agents). Each API key receives scopes at creation.
 
-| Scope | Grants | Who can create a key with it |
+| Scope | Permissions | Who can create it |
 | --- | --- | --- |
-| `read` | List accounts, transactions, balances, and other team data | Any member |
-| `write` | Read, plus propose transactions and update memos/properties | Any member |
-| `owner` | Admin operations (manage accounts and org settings) | Owners only |
+| `read` | Queries for team data | Any member |
+| `write` | Reads, transaction proposals, memo and property changes | Any member |
+| `owner` | Account and team administration | Owners |
 
-Like roles, API key scopes never grant onchain signing authority by themselves: signing programmatically requires a [registered EOA signer](/introduction/agents#sign-locally-with-an-eoa) on the account.
+**Scopes alone give no onchain signing authority.** CLI signatures also require a registered EOA in the account's signer set.
