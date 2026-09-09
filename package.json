@@ -8,10 +8,9 @@
     "build": "pnpm check && vocs build",
     "preview": "vocs preview",
     "start": "node dist/serve-node.js",
-    "check:docs": "node scripts/ste/glossary.mjs --check && node scripts/check-prose.mjs",
+    "check:docs": "node scripts/check-prose.mjs",
     "test:prose": "node --test scripts/ste/*.test.mjs",
-    "check": "pnpm check:docs && pnpm test:prose",
-    "glossary:generate": "node scripts/ste/glossary.mjs"
+    "check": "pnpm check:docs && pnpm test:prose"
   },
   "dependencies": {
     "react": "^19",

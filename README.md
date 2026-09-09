@@ -32,19 +32,18 @@ How these docs get updated, by humans or agents:
 
 1. **Verify with subagents.** Fan out read-only agents per feature area against the source repos, requiring file:line evidence and an explicit "cannot verify" for anything the code doesn't answer.
 2. **Check source evidence.** Re-check surprising claims in the primary source before writing them. A separate maintainer must complete STE editorial review before merge.
-3. **Check the output.** Run `pnpm build` for mandatory prose checks, glossary verification, checker tests, and link validation, and read the `.md` twin (`curl localhost:5173/docs/<path>.md`); the twin is what agents consume. Twins, `llms.txt`, and `llms-full.txt` all live under the base path, locally and in production.
+3. **Check the output.** Run `pnpm build` for mandatory prose checks, term registry validation, checker tests, and link validation, and read the `.md` twin (`curl localhost:5173/docs/<path>.md`); the twin is what agents consume. Twins, `llms.txt`, and `llms-full.txt` all live under the base path, locally and in production.
 4. **Mind the URLs.** The sidebar lives in `vocs.config.ts` and URLs derive from file paths under `src/pages/`, so moving a file means grepping for inbound links first.
 
 ## STE checks
 
 ```sh
 pnpm check:docs        # scan all public Markdown and MDX
-pnpm glossary:generate # update the glossary after term registry changes
 pnpm test:prose        # test the checker and editorial review gate
 pnpm build            # run all checks and build the site
 ```
 
-Edit technical terms in [scripts/ste/terms.json](scripts/ste/terms.json). The generated glossary is available in both HTML and Markdown. The checker reports file and line locations and fails on findings. New pages enter the scan automatically.
+Edit technical terms in [scripts/ste/terms.json](scripts/ste/terms.json), the internal reference for authors and checks. Define terms for readers on their canonical feature pages. The checker reports file and line locations and fails on findings. New pages enter the scan automatically.
 
 The checker covers a defined subset of STE rules. A qualified editorial review must check vocabulary, meanings, grammar, and instructions against the official standard. The reviewer approves the current commit with `STE review complete` in the review body.
 

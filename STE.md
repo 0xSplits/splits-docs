@@ -16,7 +16,7 @@ To introduce a term:
 2. Check the standard's dictionary and technical terminology categories.
 3. Add an entry with its definition, category, permitted use, and canonical page. For a technical verb, specify its permitted forms.
 4. Define or expand the term at first substantive use on its canonical page. Link to that page at first use elsewhere.
-5. Run `pnpm glossary:generate`. Do not edit the generated [glossary](src/pages/resources/glossary.mdx) directly.
+5. Run `pnpm check:docs` to validate the internal term registry and public prose.
 6. Request terminology review with the content change.
 
 Ordinary synonyms do not qualify as technical terms merely to pass a check. A noun entry never permits its use as a verb. For example, the account *threshold* is a number of approvals. An API key *scope* is a permission. A *member* is a person, while *Member* names a role. An *account owner* is an onchain account, while *Owner* names a role. The registry and canonical pages keep these meanings separate.
@@ -43,14 +43,13 @@ Preserve literal commands, flags, addresses, and interface labels. Rewrite their
 
 ```sh
 pnpm install --frozen-lockfile
-pnpm glossary:generate             # after a term change
-pnpm check:docs                    # all public prose and glossary consistency
+pnpm check:docs                    # all public prose and term registry validation
 node scripts/check-prose.mjs src/pages/accounts  # optional focused check
 pnpm test:prose                    # checker and review-gate regression tests
 pnpm build                        # all checks, then production and link validation
 ```
 
-Findings fail the command. There is no warning-only mode, baseline of ignored pages, or inline suppression mechanism. New `.md` and `.mdx` files enter the scan automatically. The build uses the same checks as CI. A term change also invalidates an outdated generated glossary.
+Findings fail the command. There is no warning-only mode, baseline of ignored pages, or inline suppression mechanism. New `.md` and `.mdx` files enter the scan automatically. The build uses the same checks as CI. The checker also validates term definitions, canonical pages, permitted uses, and technical verb forms in the internal registry.
 
 The checker parses Markdown and MDX. It checks sentence and paragraph limits, selected vocabulary and term variants, contractions, semicolons, em dashes, and common verb problems. It reads prose in metadata, table cells, callouts, link labels, and image descriptions. It excludes code, imports, link destinations, and non-prose component attributes.
 

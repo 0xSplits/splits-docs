@@ -31,7 +31,7 @@ An agent can prepare a complete update from a product PR. A separate STE editori
 
 | Fact | Canonical home |
 | --- | --- |
-| Technical term definitions and permitted uses | `scripts/ste/terms.json`, generated as `/resources/glossary` |
+| Internal terminology reference for authors and checks | `scripts/ste/terms.json` |
 | Team definition, creating a team, setup steps | `/teams` |
 | Roles, capability matrix, settings visibility, API key scopes, read-only members | `/teams/roles` |
 | Recovery, recovery signers, verifying them | `/teams/recovery` |
@@ -103,8 +103,8 @@ If a change moves a fact's canonical home, update this table in the same PR.
 Public prose must follow [STE.md](STE.md), which targets ASD-STE100 Issue 9. This includes titles, subtitles, metadata, tables, link labels, callouts, and image descriptions. Use at most 20 words per sentence and six sentences per paragraph. This sentence limit is stricter than the standard's descriptive limit.
 
 - Use the official dictionary for general words and their meanings and parts of speech. The local linter is not a full dictionary checker.
-- Define technical terms in `scripts/ste/terms.json`, then run `pnpm glossary:generate`. Canonical feature pages own behavior. The glossary owns lexical definitions.
+- Record technical terms in `scripts/ste/terms.json` for authors and checks. Define terms for readers on their canonical feature pages. Run `pnpm check:docs` to validate the registry and public prose.
 - Use one instruction per sentence in numbered procedures. State conditions first. Keep instructions out of notes.
 - Use active voice and simple verb forms. Expand contractions. Preserve literal UI labels, commands, and identifiers.
-- Run `pnpm build`. It runs prose checks, glossary consistency checks, and regression tests before the Vocs build.
+- Run `pnpm build`. It runs prose checks, term registry validation, and regression tests before the Vocs build.
 - A separate maintainer must review the current commit against the official standard and approve with `STE review complete`. An agent must not claim full compliance from a passing linter.

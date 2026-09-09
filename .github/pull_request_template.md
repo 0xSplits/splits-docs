@@ -2,7 +2,7 @@ Describe the documentation change and its source evidence.
 
 - [ ] I followed [CLAUDE.md](../CLAUDE.md) and [STE.md](../STE.md).
 - [ ] I checked new or changed behavior against product source.
-- [ ] I defined new technical terms and regenerated the glossary where necessary.
+- [ ] I defined new technical terms in the internal registry and on their canonical pages.
 - [ ] `pnpm build` passes, including prose checks and checker tests.
 - [ ] I read the rendered pages and their Markdown twins.
 

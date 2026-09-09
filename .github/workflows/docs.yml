@@ -25,5 +25,5 @@ jobs:
           node-version: '22'
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      # Build includes prose checks, glossary consistency, and checker tests.
+      # Build includes prose checks, term registry validation, and checker tests.
       - run: pnpm build
