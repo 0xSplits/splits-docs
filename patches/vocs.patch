@@ -1,17 +1,18 @@
 diff --git a/dist/internal/llms.d.ts b/dist/internal/llms.d.ts
-index 42a1b6d82f03226961d8a1ad91160620139e7518..f5a1896260e404f10b07620ab773267524f5a3f9 100644
+index 42a1b6d82f03226961d8a1ad91160620139e7518..8fdf3fb328aae24d75e450f8561e6e9eb7f030a3 100644
 --- a/dist/internal/llms.d.ts
 +++ b/dist/internal/llms.d.ts
-@@ -19,6 +19,7 @@ export declare function buildLlmsContent(options: buildLlmsContent.Options): Pro
+@@ -19,6 +19,8 @@ export declare function buildLlmsContent(options: buildLlmsContent.Options): Pro
  }>;
  export declare namespace buildLlmsContent {
      type Options = {
 +        basePath?: string | undefined;
++        baseUrl?: string | undefined;
          pages: Page[];
          title: string;
          description?: string | undefined;
 diff --git a/dist/internal/llms.js b/dist/internal/llms.js
-index 6ad2b91c6b8a0a9e64fff6a06da5efa9c56ff0ae..70cfae0441623c1c2b79f9ee248945fdc691e650 100644
+index 6ad2b91c6b8a0a9e64fff6a06da5efa9c56ff0ae..10e70729684a54410e2ea2683ddb0825df689f4e 100644
 --- a/dist/internal/llms.js
 +++ b/dist/internal/llms.js
 @@ -6,7 +6,7 @@ import { unified } from 'unified';
@@ -19,11 +20,11 @@ index 6ad2b91c6b8a0a9e64fff6a06da5efa9c56ff0ae..70cfae0441623c1c2b79f9ee248945fd
  import * as OpenApiMarkdown from './openapi/markdown.js';
  export async function buildLlmsContent(options) {
 -    const { title, description, rehypePlugins, remarkPlugins, sidebar } = options;
-+    const { basePath = '/', title, description, rehypePlugins, remarkPlugins, sidebar } = options;
++    const { basePath = '/', baseUrl, title, description, rehypePlugins, remarkPlugins, sidebar } = options;
      // Dedupe by path (first occurrence wins), so consumer-authored source pages
      // take precedence over generated pages (e.g. OpenAPI) mounted at the same path.
      const seen = new Set();
-@@ -59,12 +59,25 @@ export async function buildLlmsContent(options) {
+@@ -59,15 +59,49 @@ export async function buildLlmsContent(options) {
      }))
          .then((data) => data.filter((data) => data !== null))
          .then((data) => sortResults(data, sidebar));
@@ -33,23 +34,74 @@ index 6ad2b91c6b8a0a9e64fff6a06da5efa9c56ff0ae..70cfae0441623c1c2b79f9ee248945fd
 +    const prefixPath = (path) => basePath === '/' || path === prefix || path.startsWith(`${prefix}/`)
 +        ? path
 +        : `${prefix}${path}`;
-+    const prefixLinks = (content) => basePath === '/'
++    // Markdown output is read off-site (llms.txt, AI crawlers), so links are made
++    // absolute when a baseUrl is known; without one (dev, previews) they stay
++    // root-relative.
++    const origin = (baseUrl ?? '').replace(/\/$/, '');
++    const absolutePath = (path) => `${origin}${prefixPath(path)}`;
++    const pageUrl = (path) => absolutePath(path).replace(/\/?$/, '/');
++    const twinUrl = (path) => `${absolutePath(path === '/' ? '/index' : path)}.md`;
++    const prefixLinks = (content) => basePath === '/' && !origin
 +        ? content
 +        : content
-+            .replace(/(\]\()(\/(?!\/)[^)\s]*)/g, (_match, open, path) => `${open}${prefixPath(path)}`)
-+            .replace(/\b(href|src)=(["'])(\/(?!\/)[^"']*)/g, (_match, attr, quote, path) => `${attr}=${quote}${prefixPath(path)}`);
++            .replace(/(\]\()(\/(?!\/)[^)\s]*)/g, (_match, open, path) => `${open}${absolutePath(path)}`)
++            .replace(/\b(href|src)=(["'])(\/(?!\/)[^"']*)/g, (_match, attr, quote, path) => `${attr}=${quote}${absolutePath(path)}`);
 +    for (const result of results)
 +        result.content = prefixLinks(result.content);
      const llmsTxtContent = [`# ${title}`, ''];
      if (description)
-         llmsTxtContent.push(description, '');
+-        llmsTxtContent.push(description, '');
++        llmsTxtContent.push(`> ${description}`, '');
++    // llmstxt.org shape: H2 per sidebar section, each entry linking the page's
++    // Markdown twin rather than its HTML.
++    const sectionOf = getSidebarSections(sidebar);
      const nav = [];
-     for (const { title, description, path } of results)
+-    for (const { title, description, path } of results)
 -        nav.push(`- [${title}](${path === '/' ? '/index' : path})${description ? `: ${description}` : ''}`);
-+        nav.push(`- [${title}](${prefixPath(path === '/' ? '/index' : path)})${description ? `: ${description}` : ''}`);
++    let section;
++    for (const { title, description, path } of results) {
++        const next = sectionOf.get(normalizePath(path));
++        if (next !== section) {
++            section = next;
++            nav.push(...(nav.length ? [''] : []), `## ${section ?? 'Other'}`, '');
++        }
++        nav.push(`- [${title}](${twinUrl(path)})${description ? `: ${description}` : ''}`);
++    }
      const sitemap = ['<!--', 'Sitemap:', ...nav, '-->', ''].join('\n');
      const short = [...llmsTxtContent, ...nav];
-     const full = [...llmsTxtContent, sitemap, ...results.map((r) => r.content)];
+-    const full = [...llmsTxtContent, sitemap, ...results.map((r) => r.content)];
++    const full = [
++        ...llmsTxtContent,
++        sitemap,
++        ...results.map((r) => ['---', '', `Source: ${pageUrl(r.path)}`, '', r.content].join('\n')),
++    ];
+     return { full: full.join('\n'), results, short: short.join('\n') };
+ }
+ /**
+@@ -102,6 +136,23 @@ function sortResults(results, sidebar) {
+         return a.path.localeCompare(b.path);
+     });
+ }
++function getSidebarSections(sidebar) {
++    const sections = Array.isArray(sidebar)
++        ? sidebar
++        : Object.values(sidebar ?? {}).flatMap((value) => (Array.isArray(value) ? value : (value.items ?? [])));
++    const sectionOf = new Map();
++    const collect = (items, text) => {
++        for (const item of items ?? []) {
++            const link = item.link && normalizePath(item.link);
++            if (link && !isExternalLink(link) && !sectionOf.has(link))
++                sectionOf.set(link, text);
++            collect(item.items, text);
++        }
++    };
++    for (const section of sections)
++        collect([section], section.text);
++    return sectionOf;
++}
+ function getSidebarOrder(sidebar) {
+     const order = new Map();
+     let index = 0;
 diff --git a/dist/internal/markdown-negotiation.js b/dist/internal/markdown-negotiation.js
 index 01c753f7cd9b0043629bd8ff3ea609a6df4f32a6..edba4ef27608ffb45124e77bed34519480bbc25e 100644
 --- a/dist/internal/markdown-negotiation.js
@@ -63,19 +115,58 @@ index 01c753f7cd9b0043629bd8ff3ea609a6df4f32a6..edba4ef27608ffb45124e77bed345194
      'claude-web',
      'PerplexityBot',
      'Perplexity-User',
+diff --git a/dist/internal/mdx.js b/dist/internal/mdx.js
+index 287415a6bb59d7388ee6b3b796196cfe08d17490..6a6e36f738fb0b74dfcb108be550a6ca5c6bdd7b 100644
+--- a/dist/internal/mdx.js
++++ b/dist/internal/mdx.js
+@@ -178,6 +178,7 @@ export function getCompileOptions(type, config) {
+                     // round-trip back to their source form on stringify.
+                     remarkDirective,
+                     [remarkChangelogMarkdown, config],
++                    remarkSubheadingText,
+                     // User plugins extend the parser (e.g. `remark-math`) so syntax
+                     // recognized in the React build also parses for llms/search.
+                     ...(markdown?.remarkPlugins ?? []),
+@@ -992,6 +993,25 @@ export function remarkSubheading() {
+         });
+     };
+ }
++/**
++ * Text-pipeline counterpart of {@link remarkSubheading}: splits `# Title [Subheading]`
++ * into a plain heading plus a paragraph, so remark-stringify has no bracket to escape.
++ */
++export function remarkSubheadingText() {
++    return (tree) => {
++        UnistUtil.visit(tree, 'heading', (node, index, parent) => {
++            if (index === undefined || !parent || node.depth !== 1)
++                return;
++            const subheading = extractSubheading(node.children);
++            if (!subheading)
++                return;
++            node.children = subheading.headingChildren;
++            if (subheading.subheadingChildren.length > 0)
++                parent.children.splice(index + 1, 0, { type: 'paragraph', children: subheading.subheadingChildren });
++            return UnistUtil.SKIP;
++        });
++    };
++}
+ export function extractSubheading(children) {
+     const lastChild = children[children.length - 1];
+     if (!isText(lastChild) || !lastChild.value.endsWith(']'))
 diff --git a/dist/internal/vite-plugins.js b/dist/internal/vite-plugins.js
-index 060cff216573fd043d5fd801e18ad581020e3139..e90efe3b5fc547da7cb0e173bdaac52a7d97a8b0 100644
+index 060cff216573fd043d5fd801e18ad581020e3139..58e6d1697d8292d23470b0af873a9cec5a11e7ff 100644
 --- a/dist/internal/vite-plugins.js
 +++ b/dist/internal/vite-plugins.js
-@@ -175,6 +175,7 @@ export function llms(config) {
+@@ -175,6 +175,8 @@ export function llms(config) {
          // same generated route (`.md` serves the full reference); authored-only guide
          // pages under the section keep their own content.
          return Llms.buildLlmsContent({
 +            basePath: config.basePath,
++            baseUrl: config.baseUrl,
              pages: [...openapiPages, ...pages],
              title,
              description,
-@@ -191,16 +192,30 @@ export function llms(config) {
+@@ -191,16 +193,30 @@ export function llms(config) {
          },
          configureServer(server) {
              let content;
@@ -110,7 +201,7 @@ index 060cff216573fd043d5fd801e18ad581020e3139..e90efe3b5fc547da7cb0e173bdaac52a
                      const result = content.results.find((r) => r.path.replace(/\/$/, '') === pagePath.replace(/\/index$/, ''));
                      if (result) {
                          res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
-@@ -329,7 +344,7 @@ export function mdx(config) {
+@@ -329,7 +345,7 @@ export function mdx(config) {
   * @returns Plugin.
   */
  export function sitemap(config) {
@@ -119,7 +210,7 @@ index 060cff216573fd043d5fd801e18ad581020e3139..e90efe3b5fc547da7cb0e173bdaac52a
      let built = false;
      let viteConfig;
      function getSiteUrl() {
-@@ -340,7 +355,7 @@ export function sitemap(config) {
+@@ -340,7 +356,7 @@ export function sitemap(config) {
              'User-agent: *',
              'Allow: /',
              '',
@@ -128,7 +219,7 @@ index 060cff216573fd043d5fd801e18ad581020e3139..e90efe3b5fc547da7cb0e173bdaac52a
              '',
          ].join('\n');
      }
-@@ -378,7 +393,10 @@ export function sitemap(config) {
+@@ -378,7 +394,10 @@ export function sitemap(config) {
                      .replace(/\.(mdx?|tsx?)$/, '')
                      .replace(/\/index$/, '/')
                      .replace(/\/$/, '') || '/';
