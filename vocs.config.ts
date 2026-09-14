@@ -23,15 +23,16 @@ export default defineConfig({
   trailingSlashRedirect: false,
   // baseUrl is undefined in dev (vocs blanks it); relative is correct there.
   ogImageUrl: (path, { baseUrl }) =>
-    `${baseUrl ?? ''}/docs/api/og?title=%title&path=${encodeURIComponent(path)}`,
+    `${baseUrl ?? ''}/docs/api/og/?title=%title&path=${encodeURIComponent(path)}`,
   accentColor: 'light-dark(#2143FA, #5B78FF)',
   iconUrl: {
     light: '/docs/splits_compressed.svg',
     dark: '/docs/splits_compressed_dark.svg',
   },
   topNav: [
-    { text: 'splits.org', link: 'https://splits.org' },
-    { text: 'Changelog', link: 'https://splits.org/changelog' },
+    { text: 'Home', link: 'https://splits.org' },
+    { text: 'Treasury', link: 'https://splits.org/treasury/' },
+    { text: 'Changelog', link: 'https://splits.org/changelog/' },
   ],
   socials: [
     { icon: 'github', link: 'https://github.com/0xSplits' },
