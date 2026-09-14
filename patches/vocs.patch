@@ -12,7 +12,7 @@ index 42a1b6d82f03226961d8a1ad91160620139e7518..8fdf3fb328aae24d75e450f8561e6e9e
          title: string;
          description?: string | undefined;
 diff --git a/dist/internal/llms.js b/dist/internal/llms.js
-index 6ad2b91c6b8a0a9e64fff6a06da5efa9c56ff0ae..10e70729684a54410e2ea2683ddb0825df689f4e 100644
+index 6ad2b91c6b8a0a9e64fff6a06da5efa9c56ff0ae..ceb00410a0eb8e8f37774930ddc5de80b1288eea 100644
 --- a/dist/internal/llms.js
 +++ b/dist/internal/llms.js
 @@ -6,7 +6,7 @@ import { unified } from 'unified';
@@ -40,7 +40,7 @@ index 6ad2b91c6b8a0a9e64fff6a06da5efa9c56ff0ae..10e70729684a54410e2ea2683ddb0825
 +    const origin = (baseUrl ?? '').replace(/\/$/, '');
 +    const absolutePath = (path) => `${origin}${prefixPath(path)}`;
 +    const pageUrl = (path) => absolutePath(path).replace(/\/?$/, '/');
-+    const twinUrl = (path) => `${absolutePath(path === '/' ? '/index' : path)}.md`;
++    const twinUrl = (path) => `${absolutePath(path === '/' ? '/index' : path.replace(/\/$/, ''))}.md`;
 +    const prefixLinks = (content) => basePath === '/' && !origin
 +        ? content
 +        : content
