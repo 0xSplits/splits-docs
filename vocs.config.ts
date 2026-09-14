@@ -30,7 +30,7 @@ export default defineConfig({
     dark: '/docs/splits_compressed_dark.svg',
   },
   topNav: [
-    { text: 'splits.org', link: 'https://splits.org' },
+    { text: 'Home', link: 'https://splits.org' },
     { text: 'Pricing', link: 'https://splits.org/pricing/' },
     { text: 'Treasury', link: 'https://splits.org/treasury/' },
     { text: 'Changelog', link: 'https://splits.org/changelog/' },
