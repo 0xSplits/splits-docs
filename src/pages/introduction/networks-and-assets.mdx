@@ -41,6 +41,18 @@ On partially supported networks, you can manage balances, send funds, swap, and 
 
 Tokens can be bridged and sent to an external address on Solana and any EVM [Relay network](https://docs.relay.link/references/api/api_resources/supported-chains); see [Swaps](/transactions/swaps).
 
+## Recovering assets from unsupported networks
+
+A Splits account can be reconstructed at the same address on an unsupported EVM network, then used to bridge stranded assets to a supported network.
+
+Prerequisites: an RPC for the unsupported network, the account's original creation parameters, and access to enough [recovery signers](/teams/recovery#recovery-signers) to meet the recovery threshold.
+
+1. Reconstruct the canonical factory deployment and account creation calls from the Splits contracts and the account's original configuration.
+2. Simulate the calls. Confirm the predicted account addresses exactly match the Root, Treasury, and stranded account addresses. **Stop if any address differs.**
+3. Deploy the canonical factory contracts, then the Root, Treasury, and stranded account in ownership order.
+4. Use the recovery signers to authorize a transaction from the stranded account that bridges its assets to a supported network.
+5. Verify the bridge receipt and destination-chain transfer. Activity on the unsupported network does not appear in Splits transaction history or accounting.
+
 ## Browser extension and WalletConnect
 
 The [browser extension](/introduction/extension) and in-app [WalletConnect](/integrations/walletconnect) work on any enabled network, regardless of tier.
