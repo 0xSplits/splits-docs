@@ -7,12 +7,16 @@ description: "Accounts in Splits: the four account types, the onchain ownership 
 
 An account is where assets are stored within a team. Every account exists at the same address on every network it's active on, has a [threshold](/accounts/thresholds) of required approvals, and is controlled by [signers](/accounts/signers), plus, optionally, [modules](/accounts/modules).
 
+## Wallet architecture
+
+Every Splits account, including the Root, is an ERC-4337 v0.7 smart-contract multisig deployed as an ERC-1967 proxy. Signers can be passkeys or EOAs; the Root's recovery signers are EOAs. **A Splits account is not an EOA, MPC wallet, or EIP-7702/EIP-7703 account.** See the [Smart Vault implementation](https://github.com/0xSplits/splits-contracts-monorepo/tree/main/packages/smart-vaults) for the contracts and technical documentation.
+
 | Type | Controlled by | Owned by (onchain) |
 | --- | --- | --- |
 | **Root** | Recovery signers (EOAs) | Itself |
-| **Treasury** | Owners' passkeys | Root |
-| **Operating** | Signers the team configures | Treasury |
-| **Automation** | Owners' passkeys + a Splits server key | Treasury |
+| **Treasury** | Passkeys and/or EOAs | Root |
+| **Operating** | Passkeys and/or EOAs | Treasury |
+| **Automation** | Splits server key, passkeys, and/or EOAs | Treasury |
 
 Accounts form an ownership chain (Root → Treasury → operating and automation accounts) in which each account is the onchain owner of those below it.
 
