@@ -21,9 +21,10 @@ export default defineConfig({
   // and proxies /docs here. Normalize internally instead of redirecting, so the
   // two hosts can never bounce a request between them.
   trailingSlashRedirect: false,
+  // Static cards prebuilt by scripts/og-images.tsx, one per page path.
   // baseUrl is undefined in dev (vocs blanks it); relative is correct there.
   ogImageUrl: (path, { baseUrl }) =>
-    `${baseUrl ?? ''}/docs/api/og/?title=%title&path=${encodeURIComponent(path)}`,
+    `${baseUrl ?? ''}/docs/og${path.replace(/\/$/, '') || '/index'}.webp`,
   accentColor: 'light-dark(#2143FA, #5B78FF)',
   iconUrl: {
     light: '/docs/splits_compressed.svg',

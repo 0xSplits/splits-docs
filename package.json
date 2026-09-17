@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vocs dev",
+    "prebuild": "tsx scripts/og-images.tsx",
     "build": "vocs build",
     "preview": "vocs preview",
     "start": "node dist/serve-node.js"
@@ -16,10 +17,13 @@
     "waku": "^1.0.0-beta.3"
   },
   "devDependencies": {
+    "@takumi-rs/image-response": "0.62.8",
+    "@takumi-rs/wasm": "0.62.8",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^6",
+    "tsx": "^4.23.13",
     "typescript": "^5",
     "vite": "^8"
   }
