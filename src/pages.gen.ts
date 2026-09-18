@@ -50,6 +50,11 @@ type Page =
   | { path: '/resources/how-we-work'; render: 'static' }
   | { path: '/resources/incorporating-and-raising-capital'; render: 'static' }
   | { path: '/resources/security'; render: 'static' }
+  | { path: '/solutions/ai-agents'; render: 'static' }
+  | { path: '/solutions/business-banking'; render: 'static' }
+  | { path: '/solutions'; render: 'static' }
+  | { path: '/solutions/passkey-wallet'; render: 'static' }
+  | { path: '/solutions/revenue-automation'; render: 'static' }
   | { path: '/teams'; render: 'static' }
   | { path: '/teams/recovery'; render: 'static' }
   | { path: '/teams/roles'; render: 'static' }
