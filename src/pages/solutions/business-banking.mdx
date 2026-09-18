@@ -1,0 +1,79 @@
+---
+title: Business bank account for crypto startups
+description: "Self-custodied business accounts with payroll, vendor payments, bank transfers, invoicing and accounting exports. 0.25% per bank transfer."
+---
+
+# Business banking [Self-custodied multi-sig accounts with bank transfers, vendor payments, invoicing, and accounting]
+
+**Business banking** on Splits is a team's own [accounts](/accounts), each a multi-sig smart account that the team's signing keys control, plus opt-in [banking](/banking) that moves between those accounts and bank accounts once the team's entity is verified.
+
+## Splits versus Coinbase Business and Fireblocks
+
+[Coinbase Business](https://www.coinbase.com/business), like a crypto-friendly bank, holds the funds for you. [Fireblocks](https://www.fireblocks.com/) splits MPC key shares with the customer. A Splits account is a contract that the team's own keys control:
+
+| Property | Coinbase Business | Fireblocks | Splits |
+| --- | --- | --- | --- |
+| Custody | Coinbase | Key shares split between the customer and Fireblocks; a transaction needs the customer's signature | The team's own signing keys |
+| Approvals | Set in Coinbase, offchain | Policy Engine rules: block, approve, or require more signers | M-of-N signers per account, onchain |
+| To open | A legal entity in the US or Singapore | Self-serve signup on the Essentials plan | An email; verify a business or an individual to add bank transfers |
+| Pricing | Fees per payment and per conversion ([Coinbase Business](https://www.coinbase.com/business)) | Subscription from $999 per month ([pricing](https://www.fireblocks.com/pricing)) | A per-transfer fee on bank legs ([pricing](https://splits.org/pricing/)) |
+
+## How it works
+
+- **Accounts are self-custodied and multi-sig by default.** Every account has an M-of-N [threshold](/accounts/thresholds) set by the team, the Treasury's at [setup](/teams#the-setup-steps); recovery signers can reset any account ([recovery](/teams/recovery)).
+- **Fiat moves by bank transfer.** After entity verification, money comes in by ACH, wire, or SEPA and goes out to the team's own bank accounts; the fee and jurisdictions are on [Banking](/banking).
+- **Vendors and contractors are paid in fiat from stables.** A vendor's bank account gets a deposit address, and paying it is a stablecoin send approved at the account's threshold ([paying vendors](/banking/paying-vendors)). Tax forms are collected through [Compliance](/contacts/compliance).
+- **Payroll is a schedule.** Each occurrence is a draft that the signers approve ([schedules](/transactions/schedules)).
+- **Invoices reconcile automatically** when paid through the invoice page, in crypto or by bank transfer ([invoicing](/invoicing)).
+- **The books export.** Every transaction across every account is filterable and exportable to CSV, with tax lots and realized gains ([accounting](/accounting)); an accountant joins as a [read-only member](/teams/roles#read-only-members).
+- **Core tools are free.** Accounts, accounting, invoicing, payments, and swaps are free; bank transfers and fiat payments are charged per transfer ([pricing](https://splits.org/pricing/)).
+
+## Opening an account
+
+Prerequisites: a [passkey](/members/keys) saved in a password manager.
+
+::::steps
+
+### Create a team
+
+[Team setup](/teams#the-setup-steps) takes a name, your passkey, the Treasury's threshold, and recovery signers.
+
+### Add accounts per purpose
+
+Create an [operating account](/accounts#operating-accounts) per revenue source, program, or partner, each its own sub-ledger.
+
+### Verify the entity for fiat
+
+Complete [entity verification](/banking#getting-verified) as a business, or as an individual before incorporating ([no entity needed](/introduction/personal-usage#no-entity-needed)).
+
+### Connect banks and vendors
+
+Add the team's bank accounts for [onramps](/banking/onramping) and [offramps](/banking/offramping), and vendors' accounts for [fiat payments](/banking/paying-vendors).
+
+### Run payroll and hand over the books
+
+Set up [schedules](/transactions/schedules) for payroll, and invite the accountant as a [read-only member](/teams/roles#read-only-members).
+
+::::
+
+## Limits
+
+- Fiat legs are available in the [jurisdictions](/banking#jurisdictions) Bridge supports, and each team verifies one entity.
+- Bank settlement follows ACH and SEPA windows ([settlement](/banking/offramping#settlement)).
+- Cards come through the [Rain](/integrations/rain) integration, which controls issuance, limits, and fees.
+
+## Next steps
+
+- [Create a team](https://app.splits.org)
+- [Pricing](https://splits.org/pricing/)
+- [Banking](/banking), [Paying vendors](/banking/paying-vendors), [Invoicing](/invoicing), [Accounting](/accounting)
+- [Splits Treasury](https://splits.org/treasury/): the product overview
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits accounts list`: all accounts in the team (**Read** scope)
+- `splits transactions list`: the books, filterable by account, direction, amount, date, and memo (**Read** scope)
+
+Banking (onramps, offramps, vendor payments) and invoicing are web-only today.

@@ -1,0 +1,66 @@
+---
+title: Onchain revenue automation for startups
+description: "Route revenue to an account per stream, swap long-tail tokens to stables on receipt, schedule payroll and vendor payments, and reconcile invoices automatically."
+---
+
+# Revenue automation [Revenue lands in an account per stream, converts on receipt, and funds scheduled payments, all from self-custodied accounts]
+
+**Revenue automation** on Splits is money movement: an [automation account](/accounts#automation-accounts) per revenue stream that swaps, splits, forwards, or offramps whatever lands at its address, and [schedules](/transactions/schedules) that draft the recurring payments out. Every automation runs from an account that the team's own signers control and that the Treasury owns.
+
+## How it works
+
+- **One automation account per revenue stream.** Each is a deposit address with a policy; runs start automatically once a balance reaches the trigger amount, and each token is swapped, bridged, forwarded, or offramped to the policy's destinations ([automation accounts](/accounts#automation-accounts)). Typical policies sweep everything to USDC, withhold a share for taxes, or split income across accounts, partners, and the bank.
+- **Runs need no approval; scheduled payments do.** An automation's signer set is the Treasury's passkeys plus a Splits server key at 1-of-n, so runs execute on their own. A [schedule](/transactions/schedules) produces a draft proposal per occurrence that the account's signers approve at its [threshold](/accounts/thresholds).
+- **Swaps and bridges carry no Splits fee.** Each quote is routed across several providers, including cross-network routes ([swaps](/transactions/swaps)).
+- **Invoices reconcile onchain.** An invoice paid through its page is marked paid once Splits verifies the transaction; bank payments are marked manually ([tracking payments](/invoicing/tracking)). An invoice can receive directly into an automation's deposit address ([issuing](/invoicing#issuing)).
+- **Idle stables earn without lockup.** Automated Earn deposits an account's idle balance per account; positions can be withdrawn at any time and spent directly ([Earn](/accounts/earn)).
+- **The books follow.** Every run and payment appears on the [Accounting](/accounting) page, filterable and exportable, and an accountant joins as a [read-only member](/teams/roles#read-only-members).
+
+## Setting up a revenue stream
+
+Prerequisites: a [team](/teams) with the [Owner](/teams/roles) role, and [banking](/banking) set up if a destination is a bank account.
+
+::::steps
+
+### Create the automation account
+
+Create one [automation account](/accounts#automation-accounts) per stream and set its policy: the output token, the accounts and partners that each share goes to, and any bank destination.
+
+### Point revenue at it
+
+Give the account's address to whatever pays the stream: a contract, a platform payout, or an [invoice](/invoicing#issuing) whose receiving account is the automation.
+
+### Schedule the payments out
+
+Add a [schedule](/transactions/schedules) from the account that pays payroll and vendors. Vendors paid in fiat need a bank account added first ([paying vendors](/banking/paying-vendors)).
+
+### Turn on Automated Earn
+
+Enable [Automated Earn](/accounts/earn#automated-earn) on the accounts that hold working capital between payment runs.
+
+### Hand over the books
+
+Invite the accountant as a [read-only member](/teams/roles#read-only-members) and export from [Accounting](/accounting).
+
+::::
+
+## Limits
+
+- **Automations and schedules move money.** Schedules handle transfers only ([schedules](/transactions/schedules)). Automating a permissioned contract call takes a [module](/accounts/modules) with a key that you run yourself.
+- Automation accounts are operated by Splits. For a self-hosted equivalent, the open-source [Swapper](https://splits.org/protocol/docs/core/swapper) contract converts incoming tokens to one output token; the trade-offs are in [Automating long-tail token conversion](https://splits.org/blog/automating-long-tail-token-conversion/).
+
+## Next steps
+
+- [Open the app](https://app.splits.org) and create an automation account
+- [Accounts](/accounts#automation-accounts): the automation policy and trigger rules
+- [Schedules](/transactions/schedules), [Swaps](/transactions/swaps), [Earn](/accounts/earn)
+- [Recurring invoices](/invoicing/recurring): the inbound side on a schedule
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits automations list`: the team's automations (**Read** scope)
+- `splits transactions list`: every run and payment, filterable by account, direction, amount, and date (**Read** scope)
+
+Creating automations, schedules, and invoices is web-only today.

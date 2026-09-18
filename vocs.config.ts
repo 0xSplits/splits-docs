@@ -53,6 +53,17 @@ export default defineConfig({
       ],
     },
     {
+      text: 'Solutions',
+      link: '/solutions',
+      collapsed: true,
+      items: [
+        { text: 'AI agents', link: '/solutions/ai-agents' },
+        { text: 'Revenue automation', link: '/solutions/revenue-automation' },
+        { text: 'Business banking', link: '/solutions/business-banking' },
+        { text: 'Passkey wallet', link: '/solutions/passkey-wallet' },
+      ],
+    },
+    {
       text: 'Teams',
       link: '/teams',
       collapsed: true,

@@ -96,3 +96,34 @@ If a change moves a fact's canonical home, update this table in the same PR.
 - If the surface has no CLI coverage and a user might expect it, say so: "X is web-only today."
 - **CLI commands appear nowhere else on a page.** Body prose describes the app flow; conceptual links to `/introduction/agents` (e.g. "registered via the CLI") are fine, inline command names are not.
 - Don't document the full command surface: the CLI is self-describing (`npx @splits/splits-cli@latest --llms`), and `/introduction/agents` owns setup, scopes, and headless signing.
+
+## Adding a solution
+
+A **solution page** (`src/pages/solutions/`) maps one use case onto the product's building blocks. It owns no product fact: each fact it states links the page that owns it, in the same sentence or bullet, and adds no detail the home lacks. Numbers (fees) and procedures (step lists, command flags) link rather than restate. This is the one written exception to "never restate", and it applies only under `src/pages/solutions/`.
+
+Two shapes, chosen from the brief's target query and recorded here, not in frontmatter:
+
+| | Task page | Category page |
+| --- | --- | --- |
+| Question the page answers | How do I make Splits do this? | Why Splits instead of what I use now? |
+| Query shape | A task | A product category |
+| Pages | AI agents, revenue automation | Business banking, passkey wallet |
+
+Every solution page fills these slots in this order. Slots 1, 3, 5, 6, and 7 use these literal headings; slots 2 and 4 carry page-specific H2s. Slot 2 is optional: include it only when there is a real incumbent to compare against (revenue automation skips it).
+
+| # | Slot | Task page | Category page |
+| --- | --- | --- | --- |
+| 1 | Definition paragraph, bold term first | Same | Same |
+| 2 | Problem section (optional), page-specific H2, as a table | Why not the naive way (share a key, do it by hand) | Comparison against the incumbent (a crypto-friendly bank, a seed-phrase wallet) |
+| 3 | `## How it works`, bold-led invariants | Same | Same |
+| 4 | Procedure in `::::steps`, page-specific H2, `Prerequisites:` line first | Setting the job up | Opening the account or migrating |
+| 5 | `## Limits` | What Splits does not enforce | What the incumbent has that Splits lacks |
+| 6 | `## Next steps`, plain Markdown links, app link first | Same | Same |
+| 7 | `## Programmatic access` | Same | Same |
+
+- **Frontmatter is `title` and `description` only.** `title` is the search title without a ` | Splits` suffix (Vocs appends ` – Splits`); it drives `<title>`, the OG card, and the JSON-LD headline and crumb. The H1 and the sidebar label in `vocs.config.ts` stay two words: the recorded deviation from "sidebar labels match titles". The H1 subtitle is the one-line definition.
+- **Calls to action are plain links**, the app link first under `## Next steps`. No `HomePage.Buttons`, no button block at the top.
+- **CLI commands only under `## Programmatic access`**; steps stay prose with links. Pages other than AI agents list only their surface's commands, and say "web-only today" where there are none.
+- **The index** (`src/pages/solutions/index.mdx`) is the H1 with its subtitle and a Markdown list inside `<div className="solutions-grid">`, one `[**Title**: one line](/solutions/<slug>)` item per page, the whole item the link, nothing below the grid.
+
+To add a page: create `src/pages/solutions/<slug>.mdx` on the spine, add its item to the index list, add the sidebar entry under Solutions in `vocs.config.ts`, then run the standard checks. No build check enforces the spine; `check-prose`, `pnpm build`, and human review are the gates.
