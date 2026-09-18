@@ -1,11 +1,11 @@
 ---
-title: Passkey smart wallet with multi-sig and recovery
-description: "A self-custodied ERC-4337 smart wallet secured by passkeys, multi-sig by default, with programmable recovery, subaccounts and fiat ramps. No seed phrase."
+title: Passkey smart wallet with multisig and recovery
+description: "A self-custodied ERC-4337 smart wallet secured by passkeys, multisig by default, with programmable recovery, subaccounts and fiat ramps. No seed phrase."
 ---
 
 # Passkey wallet [A self-custodied ERC-4337 smart account with passkey and EOA signers]
 
-A **Splits account** is an ERC-4337 smart-contract multisig whose signers are passkeys or EOAs on one M-of-N threshold ([wallet architecture](/accounts#wallet-architecture)). There is no seed phrase: a passkey is saved in a password manager and unlocked with biometrics or a PIN ([signing keys](/members/keys)), and a separate set of recovery signers can reset any account's signers onchain ([recovery](/teams/recovery)). The contracts are open source and audited ([security](/resources/security)).
+A **Splits account** is an [ERC-4337 smart-contract multisig](/accounts#wallet-architecture) whose signers are passkeys or EOAs on one M-of-N threshold. There is no seed phrase: a [passkey](/members/keys) is saved in a password manager and unlocked with biometrics or a PIN, and a separate set of [recovery signers](/teams/recovery) can reset any account's signers onchain. The contracts are [open source and audited](/resources/security).
 
 ## Splits versus MetaMask and Rainbow
 
@@ -21,17 +21,16 @@ A **Splits account** is an ERC-4337 smart-contract multisig whose signers are pa
 | Agents | The agent needs the phrase itself | The agent gets its own key on a dedicated account |
 | Fiat | Buy and sell through third-party providers | Bank transfers to and from your own bank account, after [verification](/banking) |
 | Books | The wallet's activity list | The [Accounting](/accounting) page, with CSV export |
-| Dapps | Built in | [Splits Connect](/introduction/extension), the browser extension |
 
 ## How it works
 
-- **Passkeys and EOAs are equal signers.** A signer is any [signing key](/members/keys) added to an account's signer set, counted against the [threshold](/accounts/thresholds); the private key never leaves the member ([signers](/accounts/signers)).
-- **Multi-sig by default.** Every account has its own threshold. A solo builder runs 1-of-2 or 2-of-3 across their own devices and keys ([multisigs of one](/introduction/personal-usage#multisigs-of-one)).
-- **Recovery is contract-enforced.** Recovery signers are EOAs of your choosing, such as hardware wallets or a trusted person's wallet, that control the Root account; because the Root owns every other account, they can reset any account's signers ([recovery](/teams/recovery)).
-- **An account per project.** Each account is a sub-ledger with its own signers and threshold, owned by the Treasury ([operating accounts](/accounts#operating-accounts), [isolated accounts](/introduction/personal-usage#isolated-accounts)).
-- **Start solo, add collaborators later.** Membership and signing are separate: inviting a [member](/members) grants visibility and a role, and adding them as a signer is a separate onchain action ([signers vs membership](/accounts/signers#signers-vs-membership)).
-- **Fiat as an individual.** Verify as an individual to move between the accounts and a personal bank account ([no entity needed](/introduction/personal-usage#no-entity-needed)).
-- **Agents can be signers too.** An agent's own EOA joins an account's signer set like any other key ([AI agents](/solutions/ai-agents)).
+- **Passkeys and EOAs are equal signers.** A [signer](/accounts/signers) is any signing key added to an account's signer set, counted against the [threshold](/accounts/thresholds); the private key never leaves the member.
+- **Multisig by default.** Every account has its own threshold. A solo builder runs a [multisig of one](/introduction/personal-usage#multisigs-of-one): 1-of-2 or 2-of-3 across their own devices and keys.
+- **Recovery is contract-enforced.** Recovery signers are EOAs of your choosing, such as hardware wallets or a trusted person's wallet, that control the Root account; because the Root owns every other account, they can reset any account's signers.
+- **An account per project.** Each [operating account](/accounts#operating-accounts) is a sub-ledger with its own signers and threshold, owned by the Treasury, which keeps [projects isolated](/introduction/personal-usage#isolated-accounts).
+- **Start solo, add collaborators later.** Membership and signing are separate: inviting a [member](/members) grants visibility and a role, and [adding them as a signer](/accounts/signers#signers-vs-membership) is a separate onchain action.
+- **Fiat as an individual.** [Verify as an individual](/introduction/personal-usage#no-entity-needed) to move between the accounts and a personal bank account.
+- **Agents can be signers too.** An [AI agent's](/solutions/ai-agents) own EOA joins an account's signer set like any other key.
 
 ## Creating your wallet
 
@@ -49,7 +48,7 @@ Run [team setup](/teams#the-setup-steps), skipping the Owners and Treasury steps
 
 ### Make it a multisig of one
 
-Add a second passkey or an EOA to the Treasury and raise its threshold ([changing signers and thresholds](/accounts/editing#changing-signers-and-thresholds)).
+Add a second passkey or an EOA to the Treasury and raise its threshold by [changing signers and thresholds](/accounts/editing#changing-signers-and-thresholds).
 
 ### Add an account per project
 
@@ -63,7 +62,7 @@ Create an [operating account](/accounts#operating-accounts) for each project. Ke
 
 ## Limits
 
-- Passkeys are bound to splits.org: if the site were offline, they could not sign, which is why recovery signers are ordinary Ethereum keys ([why recovery exists](/teams/recovery#why-recovery-exists)).
+- Passkeys are bound to splits.org: if the site were offline, they could not sign, which is [why recovery signers](/teams/recovery#why-recovery-exists) are ordinary Ethereum keys.
 - Accounts exist on the [supported networks](/introduction/networks-and-assets).
 
 ## Next steps

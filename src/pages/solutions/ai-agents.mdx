@@ -20,11 +20,11 @@ A key copied to an agent has the human's full authority on every account that ke
 
 ## How it works
 
-- **A dedicated account per agent**, holding only what the agent operates on. A leaked agent key reaches that account's contents and nothing else ([ownership chain](/accounts)).
+- **A dedicated account per agent**, holding only what the agent operates on. Under the [ownership chain](/accounts), a leaked agent key reaches that account's contents and nothing else.
 - **The threshold sets autonomy.** Threshold 1 lets the agent act alone within the account. Threshold 2 or more keeps a human co-signature on every transaction, in the app with a passkey.
-- **Recovery is contract-enforced.** The Treasury owns the account, so its signers can rotate the agent's key out without the account's own signers and without changing the account's address; deposits and integrations pointing at it keep working ([resetting signers](/accounts/editing#resetting-signers)).
+- **Recovery is contract-enforced.** The Treasury owns the account, so its signers can rotate the agent's key out by [resetting signers](/accounts/editing#resetting-signers), without the account's own signers and without changing the account's address; deposits and integrations pointing at it keep working.
 - **Scopes bound the API, signers bound the chain.** The agent's API key carries a [scope](/teams/roles#api-key-scopes) (Read, Write, or Owner) that governs what it can query and propose. Scopes grant **no onchain signing authority**: only its registered key on the account's signer set does.
-- **Every action is a proposal.** The agent proposes transactions like any client; they execute when signatures meet the threshold ([transactions](/transactions)). Signer changes are proposed by the agent and approved by a human in the app.
+- **Every action is a proposal.** The agent proposes [transactions](/transactions) like any client; they execute when signatures meet the threshold. Signer changes are proposed by the agent and approved by a human in the app.
 - **The whole surface is available.** The CLI ships a built-in MCP server, so anything that a human can do in the app, an agent can do over the [CLI or MCP](/introduction/agents).
 
 ## Setting up an agent
@@ -35,15 +35,15 @@ Prerequisites: an [API key](/introduction/agents#get-an-api-key), and the CLI in
 
 ### Sign the agent in
 
-The agent signs in to the CLI with the API key and confirms the team, scopes, and key source ([set up](/introduction/agents#install-the-cli-and-sign-in)).
+The agent [signs in to the CLI](/introduction/agents#install-the-cli-and-sign-in) with the API key and confirms the team, scopes, and key source.
 
 ### Generate the agent's key
 
-The agent generates a local EOA and registers it as a signer candidate ([headless signing](/introduction/agents#sign-locally-with-an-eoa)). The command returns a signer id.
+For [headless signing](/introduction/agents#sign-locally-with-an-eoa), the agent generates a local EOA and registers it as a signer candidate. The command returns a signer id.
 
 ### Put the key on an account
 
-Either add the agent's signer id to an existing operating account, which creates a proposal that a human approves in the app, or create a new operating account with the agent's key and the human's passkey as signers from the start, which needs no approval step ([creating accounts](/accounts#operating-accounts)).
+Either add the agent's signer id to an existing operating account, which creates a proposal that a human approves in the app, or create a new [operating account](/accounts#operating-accounts) with the agent's key and the human's passkey as signers from the start, which needs no approval step.
 
 ### Choose the threshold
 

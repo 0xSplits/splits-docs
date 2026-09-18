@@ -3,9 +3,9 @@ title: Business bank account for crypto startups
 description: "Self-custodied business accounts with payroll, vendor payments, bank transfers, invoicing and accounting exports. 0.25% per bank transfer."
 ---
 
-# Business banking [Self-custodied multi-sig accounts with bank transfers, vendor payments, invoicing, and accounting]
+# Business banking [Self-custodied multisig accounts with bank transfers, vendor payments, invoicing, and accounting]
 
-**Business banking** on Splits is a team's own [accounts](/accounts), each a multi-sig smart account that the team's signing keys control, plus opt-in [banking](/banking) that moves between those accounts and bank accounts once the team's entity is verified.
+**Business banking** on Splits is a team's own [accounts](/accounts), each a multisig smart account that the team's signing keys control, plus opt-in [banking](/banking) that moves between those accounts and bank accounts once the team's entity is verified.
 
 ## Splits versus Coinbase Business and Fireblocks
 
@@ -16,17 +16,17 @@ description: "Self-custodied business accounts with payroll, vendor payments, ba
 | Custody | Coinbase | Key shares split between the customer and Fireblocks; a transaction needs the customer's signature | The team's own signing keys |
 | Approvals | Set in Coinbase, offchain | Policy Engine rules: block, approve, or require more signers | M-of-N signers per account, onchain |
 | To open | A legal entity in the US or Singapore | Self-serve signup on the Essentials plan | An email; verify a business or an individual to add bank transfers |
-| Pricing | Fees per payment and per conversion ([Coinbase Business](https://www.coinbase.com/business)) | Subscription from $999 per month ([pricing](https://www.fireblocks.com/pricing)) | A per-transfer fee on bank legs ([pricing](https://splits.org/pricing/)) |
+| Pricing | [Fees](https://www.coinbase.com/business) per payment and per conversion | [Subscription](https://www.fireblocks.com/pricing) from $999 per month | A [per-transfer fee](https://splits.org/pricing/) on bank legs |
 
 ## How it works
 
-- **Accounts are self-custodied and multi-sig by default.** Every account has an M-of-N [threshold](/accounts/thresholds) set by the team, the Treasury's at [setup](/teams#the-setup-steps); recovery signers can reset any account ([recovery](/teams/recovery)).
+- **Accounts are self-custodied and multisig by default.** Every account has an M-of-N [threshold](/accounts/thresholds) set by the team, the Treasury's at [setup](/teams#the-setup-steps); [recovery signers](/teams/recovery) can reset any account.
 - **Fiat moves by bank transfer.** After entity verification, money comes in by ACH, wire, or SEPA and goes out to the team's own bank accounts; the fee and jurisdictions are on [Banking](/banking).
-- **Vendors and contractors are paid in fiat from stables.** A vendor's bank account gets a deposit address, and paying it is a stablecoin send approved at the account's threshold ([paying vendors](/banking/paying-vendors)). Tax forms are collected through [Compliance](/contacts/compliance).
-- **Payroll is a schedule.** Each occurrence is a draft that the signers approve ([schedules](/transactions/schedules)).
-- **Invoices reconcile automatically** when paid through the invoice page, in crypto or by bank transfer ([invoicing](/invoicing)).
-- **The books export.** Every transaction across every account is filterable and exportable to CSV, with tax lots and realized gains ([accounting](/accounting)); an accountant joins as a [read-only member](/teams/roles#read-only-members).
-- **Core tools are free.** Accounts, accounting, invoicing, payments, and swaps are free; bank transfers and fiat payments are charged per transfer ([pricing](https://splits.org/pricing/)).
+- **Vendors and contractors are paid in fiat from stables.** A [vendor's bank account](/banking/paying-vendors) gets a deposit address, and paying it is a stablecoin send approved at the account's threshold. Tax forms are collected through [Compliance](/contacts/compliance).
+- **Payroll is a [schedule](/transactions/schedules).** Each occurrence is a draft that the signers approve.
+- **[Invoices](/invoicing) reconcile automatically** when paid through the invoice page, in crypto or by bank transfer.
+- **The books export.** In [Accounting](/accounting), every transaction across every account is filterable and exportable to CSV, with tax lots and realized gains; an accountant joins as a [read-only member](/teams/roles#read-only-members).
+- **Core tools are free.** Accounts, accounting, invoicing, payments, and swaps are free; bank transfers and fiat payments are [charged per transfer](https://splits.org/pricing/).
 
 ## Opening an account
 
@@ -44,7 +44,7 @@ Create an [operating account](/accounts#operating-accounts) per revenue source, 
 
 ### Verify the entity for fiat
 
-Complete [entity verification](/banking#getting-verified) as a business, or as an individual before incorporating ([no entity needed](/introduction/personal-usage#no-entity-needed)).
+Complete [entity verification](/banking#getting-verified) as a business, or [as an individual](/introduction/personal-usage#no-entity-needed) before incorporating.
 
 ### Connect banks and vendors
 
@@ -59,7 +59,7 @@ Set up [schedules](/transactions/schedules) for payroll, and invite the accounta
 ## Limits
 
 - Fiat legs are available in the [jurisdictions](/banking#jurisdictions) Bridge supports, and each team verifies one entity.
-- Bank settlement follows ACH and SEPA windows ([settlement](/banking/offramping#settlement)).
+- [Bank settlement](/banking/offramping#settlement) follows ACH and SEPA windows.
 - Cards come through the [Rain](/integrations/rain) integration, which controls issuance, limits, and fees.
 
 ## Next steps

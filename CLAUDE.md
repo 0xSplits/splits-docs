@@ -99,7 +99,7 @@ If a change moves a fact's canonical home, update this table in the same PR.
 
 ## Adding a solution
 
-A **solution page** (`src/pages/solutions/`) maps one use case onto the product's building blocks. It owns no product fact: each fact it states links the page that owns it, in the same sentence or bullet, and adds no detail the home lacks. Numbers (fees) and procedures (step lists, command flags) link rather than restate. This is the one written exception to "never restate", and it applies only under `src/pages/solutions/`.
+A **solution page** (`src/pages/solutions/`) maps one use case onto the product's building blocks. It owns no product fact: each fact it states links the page that owns it, inline on the words that name the fact (never a trailing link in parentheses), and adds no detail the home lacks. Numbers (fees) and procedures (step lists, command flags) link rather than restate. This is the one written exception to "never restate", and it applies only under `src/pages/solutions/`.
 
 Two shapes, chosen from the brief's target query and recorded here, not in frontmatter:
 
