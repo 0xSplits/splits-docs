@@ -1,19 +1,19 @@
 ---
 title: Recovery
-description: "Why recovery exists, the recovery signers that control the Root account, how to verify them, recover a team's accounts, and why changing them changes addresses."
+description: "Why recovery exists, the recovery signers that control the Root account, how to verify them, recover a workspace's accounts, and why changing them changes addresses."
 ---
 
-# Recovery [Regain control of every account if a team's passkeys are lost]
+# Recovery [Regain control of every account if a workspace's passkeys are lost]
 
-Recovery is how a team regains its accounts without Splits' help. [Recovery signers](#recovery-signers) control the [Root account](/accounts#root) at the recovery threshold, and because the Root owns every other account, they can reset any account's signers and threshold.
+Recovery is how a workspace regains its accounts without Splits' help. [Recovery signers](#recovery-signers) control the [Root account](/accounts#root) at the recovery threshold, and because the Root owns every other account, they can reset any account's signers and threshold.
 
 ## Why recovery exists
 
-Splits never has custody of a team's assets, so there must be a way to regain them that depends on neither Splits nor the passkeys. Passkeys are phishing-resistant because they're bound to the issuing domain; the flip side is that if splits.org went offline, or a passkey manager were compromised or lost, the passkeys would become unusable. Recovery signers are ordinary Ethereum keys with no such dependency: they work as long as the chain does.
+Splits never has custody of a workspace's assets, so there must be a way to regain them that depends on neither Splits nor the passkeys. Passkeys are phishing-resistant because they're bound to the issuing domain; the flip side is that if splits.org went offline, or a passkey manager were compromised or lost, the passkeys would become unusable. Recovery signers are ordinary Ethereum keys with no such dependency: they work as long as the chain does.
 
 ## Recovery signers
 
-Recovery signers are EOAs (wallet addresses) chosen at [team setup](/teams), controlling the Root at the recovery threshold set there. They are the backstop beneath the day-to-day signers, and are listed in [Settings > Recovery](https://app.splits.org/settings/team/recovery/) (visible to Owners). Changing them changes the team's account addresses ([why](#changing-recovery-signers)).
+Recovery signers are EOAs (wallet addresses) chosen at [workspace setup](/workspaces), controlling the Root at the recovery threshold set there. They are the backstop beneath the day-to-day signers, and are listed in [Settings > Recovery](https://app.splits.org/settings/team/recovery/) (visible to Owners). Changing them changes the workspace's account addresses ([why](#changing-recovery-signers)).
 
 ### Verifying recovery signers
 
@@ -42,9 +42,9 @@ With the Treasury back under control, [reset any sub-account](/accounts/editing#
 
 ## Changing recovery signers
 
-Account addresses are derived from the recovery configuration using [`CREATE2`](https://docs.openzeppelin.com/cli/2.8/deploying-with-create2). That's what makes every account's address identical on every network (including networks added later) while keeping custody fully with the team. The consequence: **changing recovery signers changes the team's account addresses.**
+Account addresses are derived from the recovery configuration using [`CREATE2`](https://docs.openzeppelin.com/cli/2.8/deploying-with-create2). That's what makes every account's address identical on every network (including networks added later) while keeping custody fully with the workspace. The consequence: **changing recovery signers changes the workspace's account addresses.**
 
-The practical way to change them today is to create a new team. Email support to migrate your offchain data (members, contacts, on/offramp info, schedules), and remember to update any revenue or funding sources (smart contracts, invoices) to the new team's addresses.
+The practical way to change them today is to create a new workspace. Email support to migrate your offchain data (members, contacts, on/offramp info, schedules), and remember to update any revenue or funding sources (smart contracts, invoices) to the new workspace's addresses.
 
 ## Keeping recovery healthy
 

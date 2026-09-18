@@ -18,7 +18,7 @@ An account's name is offchain and changes with no signatures: edit it from the a
 
 ## Changing signers and thresholds
 
-An account's signer set and threshold are stored onchain as a single state and edited through a single flow: from the account's settings, edit the signers or the threshold and save, signing an "Update signers state" transaction. One change can add or remove signers, change the threshold, or both; swapping a signer while keeping the threshold is one transaction. The change is approved by the account's current signers at its *current* threshold, the flow is the same for the Treasury and operating accounts, and any [team member](/members) with a [signing key](/members/keys) can be added as a signer.
+An account's signer set and threshold are stored onchain as a single state and edited through a single flow: from the account's settings, edit the signers or the threshold and save, signing an "Update signers state" transaction. One change can add or remove signers, change the threshold, or both; swapping a signer while keeping the threshold is one transaction. The change is approved by the account's current signers at its *current* threshold, the flow is the same for the Treasury and operating accounts, and any [workspace member](/members) with a [signing key](/members/keys) can be added as a signer.
 
 One signing session covers every network: the signers sign the merkle root of a tree containing one copy of the update transaction per active network, and each network's copy executes with a proof against that root. Signer state can't diverge across networks because no network is ever signed for separately.
 
@@ -31,7 +31,7 @@ A reset replaces an account's signers and threshold **without the current signer
 | Account being reset | Its owner | Who signs the reset |
 | --- | --- | --- |
 | Operating or automation account | Treasury (shown as *Primary*) | Treasury signers, at the Treasury's threshold |
-| Treasury | Root | [Recovery signers](/teams/recovery#recovery-signers), connected as wallets, at the recovery threshold |
+| Treasury | Root | [Recovery signers](/workspaces/recovery#recovery-signers), connected as wallets, at the recovery threshold |
 
 The Root itself can't be reset: it has no owner above it and is controlled only by the recovery signers.
 
@@ -39,7 +39,7 @@ The Root itself can't be reset: it has no owner above it and is controlled only 
 2. Select *Reset signers*, choose the account's new signers and threshold, and save.
 3. Approve: for a sub-account, the Treasury's signers sign; for the Treasury, connect the recovery wallet(s) and sign.
 
-If every passkey on the team is lost, reset the Treasury first (recovery wallets), then use the restored Treasury to reset any sub-accounts. See [Recovery](/teams/recovery) for the full lost-passkey scenario.
+If every passkey on the workspace is lost, reset the Treasury first (recovery wallets), then use the restored Treasury to reset any sub-accounts. See [Recovery](/workspaces/recovery) for the full lost-passkey scenario.
 
 ## Programmatic access
 

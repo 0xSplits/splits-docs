@@ -1,31 +1,31 @@
 ---
 title: Core concepts
-description: The three concepts Splits is built around (Team, Member, and Account) and how they relate to each other.
+description: The three concepts Splits is built around (Workspace, Member, and Account) and how they relate to each other.
 ---
 
-# Core concepts [Team, Member, and Account: the three ideas everything else builds on]
+# Core concepts [Workspace, Member, and Account: the three ideas everything else builds on]
 
-- **[Team](/teams)**: the unit everything is scoped to. One team per set of books: a company, an individual, or a project.
-- **[Member](/members)**: a person who belongs to a team, with a role and their own signing keys.
-- **[Account](/accounts)**: where a team's assets live, at the same address on every network, controlled by signers at a threshold.
+- **[Workspace](/workspaces)**: the unit everything is scoped to. One workspace per set of books: a company, an individual, or a project.
+- **[Member](/members)**: a person who belongs to a workspace, with a role and their own signing keys.
+- **[Account](/accounts)**: where a workspace's assets live, at the same address on every network, controlled by signers at a threshold.
 
-## Team
+## Workspace
 
-Everything in the app (accounts, balances, transactions, bank info) except personal settings is scoped to the current team, shown in the team selector (top left).
+Everything in the app (accounts, balances, transactions, bank info) except personal settings is scoped to the current workspace, shown in the workspace selector (top left).
 
-A team maps to one set of books, whether or not a legal entity exists yet: a company, an individual, or a project that hasn't incorporated. Where an entity does exist, the mapping is one-to-one: on/offramps and compliant payments require [entity verification](/banking), and each team can have only one verified entity. A tax ID is a useful litmus test: Alice belongs to the Splits Labs team (EIN) and her own personal team (SSN), two tax IDs, two teams. A pre-entity project runs as its own team from day one and can [verify through an individual](/introduction/personal-usage#no-entity-needed) until it incorporates.
+A workspace maps to one set of books, whether or not a legal entity exists yet: a company, an individual, or a project that hasn't incorporated. Where an entity does exist, the mapping is one-to-one: on/offramps and compliant payments require [entity verification](/banking), and each workspace can have only one verified entity. A tax ID is a useful litmus test: Alice belongs to the Splits Labs workspace (EIN) and her own personal workspace (SSN), two tax IDs, two workspaces. A pre-entity project runs as its own workspace from day one and can [verify through an individual](/introduction/personal-usage#no-entity-needed) until it incorporates.
 
-When deciding between a new team and an existing one, ask "who are the owners?" Same owners, existing team; different owners, new team. This matters for Recovery: see [Change recovery signers](/teams/recovery#changing-recovery-signers). To create a team, see [Teams](/teams).
+When deciding between a new workspace and an existing one, ask "who are the owners?" Same owners, existing workspace; different owners, new workspace. This matters for Recovery: see [Change recovery signers](/workspaces/recovery#changing-recovery-signers). To create a workspace, see [Workspaces](/workspaces).
 
 ## Member
 
-A member is a person who belongs to a [team](/teams). Members authenticate with email, and one member can belong to many teams. Every member has a [role](/teams/roles) (Owner or Member) that determines what they can administer, and holds **[signing keys](/members/keys)**: passkeys saved in the app, or EOAs [registered via the CLI](/introduction/agents#sign-locally-with-an-eoa).
+A member is a person who belongs to a [workspace](/workspaces). Members authenticate with email, and one member can belong to many workspaces. Every member has a [role](/workspaces/roles) (Owner or Member) that determines what they can administer, and holds **[signing keys](/members/keys)**: passkeys saved in the app, or EOAs [registered via the CLI](/introduction/agents#sign-locally-with-an-eoa).
 
-A member's signing keys can become [signers](/accounts/signers) on accounts; membership alone grants no signing authority. Signing keys, email, display name, and avatar belong to the member, not the team, so they work across every team a member is part of ([Settings > Personal](https://app.splits.org/settings/personal/general/)). For roles, inviting, and removal, see [Members](/members).
+A member's signing keys can become [signers](/accounts/signers) on accounts; membership alone grants no signing authority. Signing keys, email, display name, and avatar belong to the member, not the workspace, so they work across every workspace a member is part of ([Settings > Personal](https://app.splits.org/settings/personal/general/)). For roles, inviting, and removal, see [Members](/members).
 
 ## Account
 
-An account is where a team's assets are stored, at the same address on every network it's active on. Every account has a [threshold](/accounts/thresholds): a transaction executes once that many [signers](/accounts/signers) approve it. Signers are keys held by members; the public key lives onchain, the private key stays with the member, and **Splits never has access to private keys**.
+An account is where a workspace's assets are stored, at the same address on every network it's active on. Every account has a [threshold](/accounts/thresholds): a transaction executes once that many [signers](/accounts/signers) approve it. Signers are keys held by members; the public key lives onchain, the private key stays with the member, and **Splits never has access to private keys**.
 
 For account types and the ownership chain, see [Accounts](/accounts).
 

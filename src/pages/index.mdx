@@ -13,7 +13,7 @@ These docs cover the Splits app. Docs for the Splits protocol (the splitter cont
 
 Key properties:
 
-- **Self-custodied.** No custodian, no gatekeepers, no KYC to get started: anyone, anywhere can create accounts and transact instantly. Splits never has access to private keys and cannot move your funds; if passkeys are lost, [recovery signers](/teams/recovery) regain control.
+- **Self-custodied.** No custodian, no gatekeepers, no KYC to get started: anyone, anywhere can create accounts and transact instantly. Splits never has access to private keys and cannot move your funds; if passkeys are lost, [recovery signers](/workspaces/recovery) regain control.
 - **Isolated by account, operated as one.** Each [account](/accounts) has its own signers and threshold, so a leaked key is capped at that account's balance. One interface covers every account's balances, transactions, and [accounting exports](/accounting).
 - **Crosschain by default.** Accounts keep one address across every [supported network](/introduction/networks-and-assets), with signers and threshold synced automatically. [Swap and bridge](/transactions/swaps) across chains in a single transaction.
 - **Integrated fiat.** Move between tokens and fiat: [on/offramps](/banking) to your bank accounts, invoices [payable by bank transfer](/invoicing#pay-by-bank), and [vendor payments](/banking/paying-vendors).
@@ -26,10 +26,10 @@ Key properties:
 
 - **Teams and companies operating onchain**: shared treasury with per-account signer sets, roles, and approvals.
 - **Solo builders**: the same setup works for [teams of one](/introduction/personal-usage), with resilient multisigs, clean books, and separation of project and personal funds.
-- **Agents**: AI tools operating on a team's behalf via API keys, with scoped permissions and optional headless signing.
+- **Agents**: AI tools operating on a workspace's behalf via API keys, with scoped permissions and optional headless signing.
 
 ## Start here
 
-1. Read [Core concepts](/introduction/core-concepts): Team, Member, and Account, the three ideas everything else builds on.
-2. [Create a team](/teams).
+1. Read [Core concepts](/introduction/core-concepts): Workspace, Member, and Account, the three ideas everything else builds on.
+2. [Create a workspace](/workspaces).
 3. Working from an AI tool? Connect it via [Agents & API](/introduction/agents).

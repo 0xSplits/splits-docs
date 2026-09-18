@@ -50,10 +50,6 @@ type Page =
   | { path: '/resources/how-we-work'; render: 'static' }
   | { path: '/resources/incorporating-and-raising-capital'; render: 'static' }
   | { path: '/resources/security'; render: 'static' }
-  | { path: '/teams'; render: 'static' }
-  | { path: '/teams/recovery'; render: 'static' }
-  | { path: '/teams/roles'; render: 'static' }
-  | { path: '/teams/settings'; render: 'static' }
   | { path: '/transactions/batch'; render: 'static' }
   | { path: '/transactions/custom'; render: 'static' }
   | { path: '/transactions'; render: 'static' }
@@ -61,6 +57,10 @@ type Page =
   | { path: '/transactions/schedules'; render: 'static' }
   | { path: '/transactions/sends'; render: 'static' }
   | { path: '/transactions/swaps'; render: 'static' }
+  | { path: '/workspaces'; render: 'static' }
+  | { path: '/workspaces/recovery'; render: 'static' }
+  | { path: '/workspaces/roles'; render: 'static' }
+  | { path: '/workspaces/settings'; render: 'static' }
 
 // prettier-ignore
 declare module 'waku/router' {

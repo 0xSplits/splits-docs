@@ -31,10 +31,10 @@ Any agent should be able to take a product PR and update these docs without a hu
 
 | Fact | Canonical home |
 | --- | --- |
-| Team definition, creating a team, setup steps | `/teams` |
-| Roles, capability matrix, settings visibility, API key scopes, read-only members | `/teams/roles` |
-| Recovery, recovery signers, verifying them | `/teams/recovery` |
-| Settings map (each section, who sees it) | `/teams/settings` |
+| Workspace definition, creating a workspace, setup steps | `/workspaces` |
+| Roles, capability matrix, settings visibility, API key scopes, read-only members | `/workspaces/roles` |
+| Recovery, recovery signers, verifying them | `/workspaces/recovery` |
+| Settings map (each section, who sees it) | `/workspaces/settings` |
 | Member (the person), signing up, inviting, roles-are-per-team pointer, removal | `/members` |
 | Signing keys: passkeys, password managers, EOAs, verifying access, troubleshooting | `/members/keys` |
 | Account types, ownership chain (Root → Treasury → sub-accounts) | `/accounts` |
@@ -50,32 +50,32 @@ If a change moves a fact's canonical home, update this table in the same PR.
 
 ## Structure
 
-4. **One page, one job.** Each page serves a single job-to-be-done. Sections mirror product surfaces and use cases (Teams, Members, Accounts, Transactions, …), not doc genres.
+4. **One page, one job.** Each page serves a single job-to-be-done. Sections mirror product surfaces and use cases (Workspaces, Members, Accounts, Transactions, …), not doc genres.
 5. **Definition first.** Open with a technical definition of the thing. State only facts this page owns.
    - Every H1 carries a subtitle via Vocs' `# Title [subtitle]` syntax: a one-line grounding summary. Frontmatter descriptions are stripped from the `.md` twin, so the subtitle is the only in-page summary agents see.
 6. **State negative invariants explicitly**, in bold (e.g. "membership confers **no onchain authority**"). Agents need the boundaries, not just the capabilities.
 7. **Tables for matrix-shaped facts** (capabilities, comparisons, support grids). **Numbered steps for procedures**, with a `Prerequisites:` line first when there are any.
 8. **Single H1 per page**, proper H2/H3 hierarchy. Section anchors are API: grep for inbound `#anchor` links before renaming any heading.
-9. **Section landing pages**: each sidebar section's title links to an index page (`src/pages/<section>/index.mdx`) that defines the noun and covers its primary flow (e.g. Teams includes "Creating a team"). No "Overview"/"Creating"-style child pages.
+9. **Section landing pages**: each sidebar section's title links to an index page (`src/pages/<section>/index.mdx`) that defines the noun and covers its primary flow (e.g. Workspaces includes "Creating a workspace"). No "Overview"/"Creating"-style child pages.
 
 ## Terminology
 
-- **Core concepts are Team, Member, Account** (not "Person" or "User"; those nouns don't name product entities in the docs).
+- **Core concepts are Workspace, Member, Account** (not "Person" or "User"; those nouns don't name product entities in the docs).
 - **The product is "the app"** at app.splits.org (teams.splits.org is deprecated). Write "onchain", "offchain", and "crosschain" (no hyphens). No marketing jargon: be explicit and precise about what things are.
-- **Capitalization: product-named entities are proper nouns; generic concepts are lowercase.** Capitalize roles (Owner, Member), named accounts (Root, Treasury), and feature names (Earn, Automated Earn, Splits Connect, Recovery-the-settings-surface). Lowercase concepts: signer, signing key, passkey, threshold, account, team, member-the-person, module, automation, invoice, memo. The pair this enables: "member" = a person in a team; "Member" = the role.
+- **Capitalization: product-named entities are proper nouns; generic concepts are lowercase.** Capitalize roles (Owner, Member), named accounts (Root, Treasury), and feature names (Earn, Automated Earn, Splits Connect, Recovery-the-settings-surface). Lowercase concepts: signer, signing key, passkey, threshold, account, workspace, member-the-person, module, automation, invoice, memo. The pair this enables: "member" = a person in a workspace; "Member" = the role.
 - **"Signing key", not bare "key"**, whenever precision matters (definitions, invariants, table cells). Bare "key" is fine once the page has established context (e.g. within `/members/keys`). A **signer** is always account-relative: a signing key added to an account's signer set. Don't use "signer" for a key that isn't on an account.
 - **"the Root" / "the Treasury" in prose; bare "Root" / "Treasury" in table cells.** Table cells carry no leading articles and no explanations; explanations live in surrounding prose.
 - **"Wallet" means an external EOA wallet** (recovery wallets, MetaMask, hardware wallets), never a Splits account.
 - **Em dashes: never, anywhere.** List items and definition lists use a colon separator (`` `command`: description ``); in prose, a colon, period, comma, semicolon, or parentheses replaces the em dash. The prose linter flags every em dash.
 - **"Email support"** (no address) is the phrasing for manual/support-gated processes.
-- **"Team" → "workspace" rename is planned** in the product. Docs keep saying "team" until the product ships the rename, then migrate in one pass (prose + `/teams/` URLs + section name).
+- **The organizational unit is a "workspace"**, never a "team" (the product renamed it). Old `/teams/` URLs redirect to `/workspaces/` in `vercel.json`. App settings deep links still contain `/settings/team/` because the app kept its routes. "Team" stays where it means people: "the Splits team", "teams of one", "team size".
 
 ## Voice & formatting
 
 - **Facts in declarative present tense; procedures in second person** ("you must be an Owner", "go to…").
 - **UI elements in italics**: button and control labels (*Invite member*, *Reset signers*, *Require memos*). **Settings paths with `>`**: Settings > Members. **In-page click chains with `→`**: three dots → *Verify signer*.
 - **Bold** for: the term a page defines (first use), negative invariants, and scope names in command lists (**Read** scope).
-- **Callouts**: `:::note` sparingly. Beta features get exactly: "This feature is in beta. Email support to enable it for your team."
+- **Callouts**: `:::note` sparingly. Beta features get exactly: "This feature is in beta. Email support to enable it for your workspace."
 - **Page titles ≤ 2 words** where possible; sidebar labels match titles.
 - **No screenshots** until there's a system for generating them automatically. **No "Last updated" lines.**
 - **Cut anything that can be removed without losing meaning.** No welcome fluff, no roadmap promises, no restating what a link target already says. Answer first.

@@ -1,7 +1,9 @@
 {
   "redirects": [
     { "source": "/", "destination": "/docs/", "permanent": false },
-    { "source": "/docs", "destination": "/docs/", "permanent": false }
+    { "source": "/docs", "destination": "/docs/", "permanent": false },
+    { "source": "/docs/teams", "destination": "/docs/workspaces", "permanent": true },
+    { "source": "/docs/teams/:path*", "destination": "/docs/workspaces/:path*", "permanent": true }
   ],
   "rewrites": [
     { "source": "/docs/:path*.md", "destination": "/assets/md/:path*.md" },
