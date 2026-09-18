@@ -1,9 +1,9 @@
 ---
 title: Earn
-description: "Earn interest on idle stablecoins in a team's accounts: how deposits and positions work, the fee, Automated Earn, legacy positions, and the risks."
+description: "Earn interest on idle stablecoins in a workspace's accounts: how deposits and positions work, the fee, Automated Earn, legacy positions, and the risks."
 ---
 
-# Earn [Earn interest on idle stablecoins in a team's accounts]
+# Earn [Earn interest on idle stablecoins in a workspace's accounts]
 
 Earn puts an account's idle stablecoins to work in a yield source. Positions have no lockup, can be withdrawn at any time with no queue, compound automatically (there is nothing to claim), and can be spent directly when sending funds. Splits charges a [performance fee](#fees) on the yield a position earns; **there is no fee on deposits, withdrawals, or principal**.
 
@@ -38,7 +38,7 @@ Enabling it adds the [Auto Earn Module](/accounts/modules) (an open-source [cont
 
 Before Morpho, Earn deposited into an [Aave](https://aave.com/) USDC vault on Base ([`0x4EA7…caCc`](https://basescan.org/address/0x4EA71A20e655794051D1eE8b6e4A3269B13ccaCc)). Those positions are labelled *Legacy* in the app and are **withdraw-only**: they keep earning Aave's rate, but accept no new deposits, manual or automated.
 
-To move them, open the Treasury (or any account holding a legacy position) and choose *Upgrade to Earn 2.0*. This builds one transaction from the Treasury that, for every account in the team:
+To move them, open the Treasury (or any account holding a legacy position) and choose *Upgrade to Earn 2.0*. This builds one transaction from the Treasury that, for every account in the workspace:
 
 1. Withdraws the account's USDC from the Aave vault and deposits it into Splits Earn USDC.
 2. Replaces the legacy Auto Earn Module with the current one, if Automated Earn was enabled.

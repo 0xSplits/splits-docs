@@ -19,11 +19,11 @@ Every command answers `--help` and `--schema`, and over [MCP](#connect-to-ai-too
 
 ### Get an API key
 
-Create a key in [Settings > API Keys](https://app.splits.org/settings/team/api-keys/) with the scopes you need (the full matrix is in [Roles](/teams/roles#api-key-scopes)):
+Create a key in [Settings > API Keys](https://app.splits.org/settings/team/api-keys/) with the scopes you need (the full matrix is in [Roles](/workspaces/roles#api-key-scopes)):
 
 - **Read**: query data only
 - **Write**: create and propose transactions; update transaction memos and properties
-- **Owner**: manage accounts and team settings
+- **Owner**: manage accounts and workspace settings
 
 Copy the key (it starts with `sk_`) and save it somewhere secure. You won't be able to see it again.
 
@@ -32,7 +32,7 @@ Copy the key (it starts with `sk_`) and save it somewhere secure. You won't be a
 ```bash
 npm install -g @splits/splits-cli@latest   # or run via npx @splits/splits-cli@latest
 splits auth login --api-key sk_...
-splits auth whoami   # verify: team, scopes, key source, local signing key
+splits auth whoami   # verify: workspace, scopes, key source, local signing key
 ```
 
 `splits auth logout` removes the saved key.
@@ -57,7 +57,7 @@ For any stdio MCP client, run `SPLITS_API_KEY=sk_... npx @splits/splits-cli --mc
 
 Everything visible in the app is queryable with the **Read** scope: accounts, balances, transactions (filterable by account, direction, amount, date, and memo), contacts, tokens, networks, members, settings, and automations.
 
-Writes follow the same rule as the app: **a transaction is a [proposal](/transactions)** that executes only once signatures meet the account's threshold. `transactions create transfer` and `create custom` produce proposals (**Write** scope); signing happens in the web UI with a passkey, or headlessly with a [registered EOA](#sign-locally-with-an-eoa). **Owner**-scoped commands create and manage accounts and propose signer changes, whose approval always stays in the web UI. A brand-new team can be bootstrapped with `org create`; completion also happens in the web UI.
+Writes follow the same rule as the app: **a transaction is a [proposal](/transactions)** that executes only once signatures meet the account's threshold. `transactions create transfer` and `create custom` produce proposals (**Write** scope); signing happens in the web UI with a passkey, or headlessly with a [registered EOA](#sign-locally-with-an-eoa). **Owner**-scoped commands create and manage accounts and propose signer changes, whose approval always stays in the web UI. A brand-new workspace can be bootstrapped with `org create`; completion also happens in the web UI.
 
 ## Transaction metadata
 
