@@ -47,7 +47,7 @@ export default defineConfig({
       items: [
         { text: 'Core concepts', link: '/introduction/core-concepts' },
         { text: 'Networks & assets', link: '/introduction/networks-and-assets' },
-        { text: 'Browser extension', link: '/introduction/extension' },
+        { text: 'Splits Connect', link: '/introduction/extension' },
         { text: 'Agents & API', link: '/introduction/agents' },
         { text: 'Personal usage', link: '/introduction/personal-usage' },
       ],
