@@ -5,7 +5,7 @@ description: "A self-custodied ERC-4337 smart wallet secured by passkeys, multis
 
 # Passkey wallet [A self-custodied ERC-4337 smart account with passkey and EOA signers]
 
-A **Splits account** is an [ERC-4337 smart-contract multisig](/accounts#wallet-architecture) whose signers are passkeys or EOAs on one M-of-N threshold. There is no seed phrase: a [passkey](/members/keys) is saved in a password manager and unlocked with biometrics or a PIN, and a separate set of [recovery signers](/teams/recovery) can reset any account's signers onchain. The contracts are [open source and audited](/resources/security).
+A **Splits account** is an [ERC-4337 smart-contract multisig](/accounts#wallet-architecture). Its signers are passkeys or EOAs on one M-of-N threshold. There is no seed phrase. You save a [passkey](/members/keys) in a password manager and unlock it with biometrics or a PIN. A separate set of [recovery signers](/teams/recovery) can reset any account's signers onchain. The contracts are open source and audited: see [Security](/resources/security).
 
 ## Splits versus MetaMask and Rainbow
 
@@ -24,13 +24,13 @@ A **Splits account** is an [ERC-4337 smart-contract multisig](/accounts#wallet-a
 
 ## How it works
 
-- **Passkeys and EOAs are equal signers.** A [signer](/accounts/signers) is any signing key added to an account's signer set, counted against the [threshold](/accounts/thresholds); the private key never leaves the member.
+- **Passkeys and EOAs are equal signers.** A [signer](/accounts/signers) is any signing key added to an account's signer set. Each signer counts toward the [threshold](/accounts/thresholds). The private key never leaves the member.
 - **Multisig by default.** Every account has its own threshold. A solo builder runs a [multisig of one](/introduction/personal-usage#multisigs-of-one): 1-of-2 or 2-of-3 across their own devices and keys.
-- **Recovery is contract-enforced.** Recovery signers are EOAs of your choosing, such as hardware wallets or a trusted person's wallet, that control the Root account; because the Root owns every other account, they can reset any account's signers.
-- **An account per project.** Each [operating account](/accounts#operating-accounts) is a sub-ledger with its own signers and threshold, owned by the Treasury, which keeps [projects isolated](/introduction/personal-usage#isolated-accounts).
-- **Start solo, add collaborators later.** Membership and signing are separate: inviting a [member](/members) grants visibility and a role, and [adding them as a signer](/accounts/signers#signers-vs-membership) is a separate onchain action.
-- **Fiat as an individual.** [Verify as an individual](/introduction/personal-usage#no-entity-needed) to move between the accounts and a personal bank account.
-- **Agents can be signers too.** An [AI agent's](/solutions/ai-agents) own EOA joins an account's signer set like any other key.
+- **Recovery is contract-enforced.** Recovery signers are EOAs that you choose, such as hardware wallets or a trusted person's wallet. Recovery signers control the Root account. The Root owns every other account, so recovery signers can reset any account's signers.
+- **An account per project.** Each [operating account](/accounts#operating-accounts) is a sub-ledger with its own signers and threshold. The Treasury owns each operating account. For the pattern, see [Isolated accounts](/introduction/personal-usage#isolated-accounts).
+- **Start solo, add collaborators later.** Membership and signing are separate. Inviting a [member](/members) grants visibility and a role. Adding the member as a signer is a separate onchain action: see [Signers vs membership](/accounts/signers#signers-vs-membership).
+- **Fiat as an individual.** Verify as an individual to move money between the accounts and a personal bank account: see [No entity needed](/introduction/personal-usage#no-entity-needed).
+- **Agents can be signers too.** An agent's own EOA joins an account's signer set like any other key: see [AI agents](/solutions/ai-agents).
 
 ## Creating your wallet
 
@@ -40,29 +40,29 @@ Prerequisites: a [password manager](/members/keys#password-managers) that stores
 
 ### Sign up with a passkey
 
-[Sign up](/members#signing-up) and add a passkey; it becomes your signer on the Treasury.
+[Sign up](/members#signing-up). Add a passkey. The passkey becomes your signer on the Treasury.
 
 ### Create a team of one
 
-Run [team setup](/teams#the-setup-steps), skipping the Owners and Treasury steps, and add recovery signers: at least one EOA, on a hardware wallet if you have one.
+Run [team setup](/teams#the-setup-steps). Skip the Owners and Treasury steps. Add recovery signers: at least one EOA, on a hardware wallet if you have one.
 
 ### Make it a multisig of one
 
-Add a second passkey or an EOA to the Treasury and raise its threshold by [changing signers and thresholds](/accounts/editing#changing-signers-and-thresholds).
+Add a second passkey or an EOA to the Treasury. Then raise the Treasury's threshold: see [Changing signers and thresholds](/accounts/editing#changing-signers-and-thresholds).
 
 ### Add an account per project
 
-Create an [operating account](/accounts#operating-accounts) for each project. Keep the bulk in the Treasury and give day-to-day accounts a lower threshold.
+Create an operating account for each project. Keep most funds in the Treasury. Give day-to-day accounts a lower threshold.
 
 ### Verify recovery periodically
 
-[Verify each recovery signer](/teams/recovery#verifying-recovery-signers) without moving funds; each shows when it was last verified.
+[Verify each recovery signer](/teams/recovery#verifying-recovery-signers). Verification moves no funds. Each recovery signer shows when you last verified it.
 
 ::::
 
 ## Limits
 
-- Passkeys are bound to splits.org: if the site were offline, they could not sign, which is [why recovery signers](/teams/recovery#why-recovery-exists) are ordinary Ethereum keys.
+- Passkeys are bound to splits.org. If the site were offline, passkeys could not sign. For that reason, recovery signers are ordinary Ethereum keys: see [Why recovery exists](/teams/recovery#why-recovery-exists).
 - Accounts exist on the [supported networks](/introduction/networks-and-assets).
 
 ## Next steps
@@ -79,4 +79,4 @@ Via the [Splits CLI / MCP](/introduction/agents):
 - `splits accounts signers <address>`: an account's signers and threshold (**Read** scope)
 - `splits auth register-signer <address>`: register an EOA so it can be added as a signer
 
-Passkeys are added in the app only.
+You add passkeys in the app only.

@@ -5,16 +5,16 @@ description: "Route revenue to an account per stream, swap long-tail tokens to s
 
 # Revenue automation [Revenue lands in an account per stream, converts on receipt, and funds scheduled payments, all from self-custodied accounts]
 
-**Revenue automation** on Splits is money movement: an [automation account](/accounts#automation-accounts) per revenue stream that swaps, splits, forwards, or offramps whatever lands at its address, and [schedules](/transactions/schedules) that draft the recurring payments out. Every automation runs from an account that the team's own signers control and that the Treasury owns.
+**Revenue automation** on Splits is money movement. An [automation account](/accounts#automation-accounts) per revenue stream swaps, splits, forwards, or offramps whatever arrives at its address. [Schedules](/transactions/schedules) draft the recurring outgoing payments. Every automation runs from an account that the team's own signers control and that the Treasury owns.
 
 ## How it works
 
-- **One automation account per revenue stream.** Each [automation account](/accounts#automation-accounts) is a deposit address with a policy; runs start automatically once a balance reaches the trigger amount, and each token is swapped, bridged, forwarded, or offramped to the policy's destinations. Typical policies sweep everything to USDC, withhold a share for taxes, or split income across accounts, partners, and the bank.
-- **Runs need no approval; scheduled payments do.** An automation's signer set is the Treasury's passkeys plus a Splits server key at 1-of-n, so runs execute on their own. A [schedule](/transactions/schedules) produces a draft proposal per occurrence that the account's signers approve at its [threshold](/accounts/thresholds).
-- **Swaps and bridges carry no Splits fee.** Each [swap](/transactions/swaps) quote is routed across several providers, including cross-network routes.
-- **Invoices reconcile onchain.** An invoice paid through its page is marked paid once Splits verifies the transaction; bank payments are [marked manually](/invoicing/tracking). An invoice can be [issued](/invoicing#issuing) to receive directly into an automation's deposit address.
-- **Idle stables earn without lockup.** Automated [Earn](/accounts/earn) deposits an account's idle balance per account; positions can be withdrawn at any time and spent directly.
-- **The books follow.** Every run and payment appears on the [Accounting](/accounting) page, filterable and exportable, and an accountant joins as a [read-only member](/teams/roles#read-only-members).
+- **One automation account per revenue stream.** Each automation account is a deposit address with a policy. A run starts automatically once a balance reaches the trigger amount. The run swaps, bridges, forwards, or offramps each token to the policy's destinations. Typical policies sweep everything to USDC, withhold a share for taxes, or split income across accounts, partners, and the bank.
+- **Runs need no approval. Scheduled payments need approval.** An automation's signer set is the Treasury's passkeys plus a Splits server key at 1-of-n, so runs execute on their own. A schedule produces one draft proposal per occurrence. The account's signers approve each proposal at the account's [threshold](/accounts/thresholds).
+- **Swaps and bridges carry no Splits fee.** Splits routes each [swap](/transactions/swaps) quote across several providers, including cross-network routes.
+- **Invoices reconcile onchain.** When a payer pays an invoice through its page, Splits marks the invoice paid after it verifies the transaction. You mark bank payments manually: see [Tracking payments](/invoicing/tracking). You can [issue](/invoicing#issuing) an invoice that receives directly into an automation's deposit address.
+- **Idle stables earn without lockup.** Automated [Earn](/accounts/earn) deposits an account's idle balance. You enable it per account. You can withdraw positions at any time and spend them directly.
+- **The books follow.** Every run and payment appears on the [Accounting](/accounting) page, where you can filter and export them. An accountant joins as a [read-only member](/teams/roles#read-only-members).
 
 ## Setting up a revenue stream
 
@@ -24,30 +24,34 @@ Prerequisites: a [team](/teams) with the [Owner](/teams/roles) role, and [bankin
 
 ### Create the automation account
 
-Create one [automation account](/accounts#automation-accounts) per stream and set its policy: the output token, the accounts and partners that each share goes to, and any bank destination.
+Create one automation account per stream. Then set its policy:
 
-### Point revenue at it
+- the output token
+- the accounts and partners that receive each share
+- any bank destination
 
-Give the account's address to whatever pays the stream: a contract, a platform payout, or an [invoice](/invoicing#issuing) whose receiving account is the automation.
+### Send revenue to the account
 
-### Schedule the payments out
+Give the account's address to whatever pays the stream. The payer can be a contract, a platform payout, or an invoice whose receiving account is the automation.
 
-Add a [schedule](/transactions/schedules) from the account that pays payroll and vendors. [Vendors paid in fiat](/banking/paying-vendors) need a bank account added first.
+### Schedule the outgoing payments
 
-### Turn on Automated Earn
+Add a schedule from the account that pays payroll and vendors. For a vendor paid in fiat, add the vendor's bank account first: see [Paying vendors](/banking/paying-vendors).
+
+### Enable Automated Earn
 
 Enable [Automated Earn](/accounts/earn#automated-earn) on the accounts that hold working capital between payment runs.
 
-### Hand over the books
+### Invite the accountant
 
-Invite the accountant as a [read-only member](/teams/roles#read-only-members) and export from [Accounting](/accounting).
+Invite the accountant as a [read-only member](/teams/roles#read-only-members). Export the books from Accounting.
 
 ::::
 
 ## Limits
 
-- **Automations and schedules move money.** [Schedules](/transactions/schedules) handle transfers only. Automating a permissioned contract call takes a [module](/accounts/modules) with a key that you run yourself.
-- Automation accounts are operated by Splits. For a self-hosted equivalent, the open-source [Swapper](https://splits.org/protocol/docs/core/swapper) contract converts incoming tokens to one output token; the trade-offs are in [Automating long-tail token conversion](https://splits.org/blog/automating-long-tail-token-conversion/).
+- **Automations and schedules move money.** Schedules handle transfers only. Automating a permissioned contract call needs a [module](/accounts/modules) with a key that you run yourself.
+- Splits operates automation accounts. For a self-hosted equivalent, the open-source [Swapper](https://splits.org/protocol/docs/core/swapper) contract converts incoming tokens to one output token. The trade-offs are in [Automating long-tail token conversion](https://splits.org/blog/automating-long-tail-token-conversion/).
 
 ## Next steps
 
