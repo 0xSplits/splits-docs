@@ -61,6 +61,7 @@ export default defineConfig({
         { text: 'Revenue automation', link: '/solutions/revenue-automation' },
         { text: 'Business banking', link: '/solutions/business-banking' },
         { text: 'Passkey wallet', link: '/solutions/passkey-wallet' },
+        { text: 'Family wallet', link: '/solutions/family-wallet' },
       ],
     },
     {

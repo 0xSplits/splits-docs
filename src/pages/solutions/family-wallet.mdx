@@ -1,0 +1,85 @@
+---
+title: Family crypto wallet with shared access and recovery
+description: "Organize family crypto in purpose-specific accounts with shared signing, recovery, bank transfers, earnings, reports, and agent access."
+---
+
+# Family wallet [Shared family finances with recovery and separate accounts for savings, cash, and investments]
+
+A **family wallet** is a [team](/teams) that gives household members direct access to shared [accounts](/accounts). Each account has its own signers, threshold, and purpose. [Recovery](/teams/recovery) lets chosen guardians restore access if the household loses its signing keys.
+
+## Why not use one wallet
+
+| Requirement | One EOA wallet | A family team in Splits |
+| --- | --- | --- |
+| Shared control | One signing key controls all assets | Each account has an [M-of-N threshold](/accounts/thresholds) |
+| Recovery | The family must find the wallet's secret | Recovery signers can [reset account signers](/accounts/editing#resetting-signers) |
+| Separation | All assets share one address | [Operating accounts](/accounts#operating-accounts) separate assets by purpose |
+| Visibility | One person often controls the wallet interface | Each [member](/members) can view the team's accounts |
+| Records | Activity stays in one wallet history | [Accounting](/accounting) combines transactions, tax lots, and reports |
+
+## How it works
+
+- **The household controls the Treasury together.** Add each adult's signing key as a signer. Select a threshold that matches your approval policy.
+- **Recovery does not hold family assets.** Recovery signers control the Root. The Root can restore the Treasury's signer set.
+- **Each purpose has a separate account.** Keep long-term assets in the Treasury. Use operating accounts for cash and investments.
+- **Daily spending can use a lower threshold.** A 1-of-2 Cash account lets either adult spend. A 2-of-2 Treasury requires both adults.
+- **Idle cash can earn.** [Automated Earn](/accounts/earn#automated-earn) deposits supported idle stablecoins from the Cash account.
+- **Investments stay separate.** Use [just-in-time swaps](/transactions/swaps#just-in-time-swaps) to fund a purchase. Use the [browser extension](/introduction/extension) to connect the Investments account to another app.
+- **Bank transfers connect family income.** After [individual verification](/banking#getting-verified), the household can connect a personal bank account.
+- **An automation can simplify deposits.** An [automation account](/accounts#automation-accounts) can convert incoming tokens and send the output to Cash.
+- **One history supports review and taxes.** Accounting provides balances, tax lots, gains, transactions, and PDF reports.
+- **An agent can help without moving money alone.** An [API key](/introduction/agents#get-an-api-key) lets an agent read data and propose work. Account thresholds control transaction approval.
+
+## Set up a family wallet
+
+Prerequisites: each adult needs a [signing key](/members/keys). The recovery guardians need compatible external wallets.
+
+::::steps
+
+### Create the family team
+
+Complete [team setup](/teams#the-setup-steps). Add both adults as Owners. Select the Treasury threshold and recovery signers.
+
+### Create accounts by purpose
+
+Keep long-term assets in the Treasury. Create a Cash operating account and an Investments operating account.
+
+### Set account thresholds
+
+Set the Treasury threshold for joint approval. Give daily accounts the threshold that matches their risk and use.
+
+### Add cash tools
+
+Complete [individual verification](/banking#getting-verified) for bank transfers. Enable Automated Earn on the Cash account if it holds supported assets.
+
+### Add deposits and reports
+
+Create an automation account if you receive many tokens. Generate [accounting reports](/accounting#reports) for household review and tax preparation.
+
+### Add an agent
+
+Create an API key for an agent. Give it the minimum required [scope](/teams/roles#api-key-scopes). Keep manual approval on financial transactions.
+
+::::
+
+## Limits
+
+- Recovery signers must use EOAs. A passkey cannot be a recovery signer.
+- Splits supports assets and activity on its [supported networks](/introduction/networks-and-assets).
+- Automated Earn supports only the assets and networks listed on [Earn](/accounts/earn).
+- Banking requires verification and supports the jurisdictions listed on [Banking](/banking#jurisdictions).
+
+## Next steps
+
+- [Create a family team](https://app.splits.org)
+- [Teams](/teams): create the household and select Recovery
+- [Accounts](/accounts): separate assets by purpose
+- [Accounting](/accounting): create statements and tax reports
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits accounts list`: list the family's accounts (**Read** scope)
+- `splits transactions list`: review transactions across the team (**Read** scope)
+- `splits accounting reports generate <report>`: create an accounting report (**Read** scope)
