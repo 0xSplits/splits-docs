@@ -5,14 +5,14 @@ description: "Organize family crypto in purpose-specific accounts with shared si
 
 # Family wallet [Shared family finances with recovery and separate accounts for savings, cash, and investments]
 
-A **family wallet** is a [team](/teams) that gives household members direct access to shared [accounts](/accounts). Each account has its own signers, threshold, and purpose. [Recovery](/teams/recovery) lets chosen guardians restore access if the household loses its signing keys.
+A **family wallet** is a [team](/teams) that gives household members direct access to shared [accounts](/accounts). Each account has its own signers, threshold, and purpose. [Email recovery signers](/teams/recovery#recovery-signers) let chosen guardians restore access without managing crypto wallets.
 
 ## Why not use one wallet
 
 | Requirement | One EOA wallet | A family team in Splits |
 | --- | --- | --- |
 | Shared control | One signing key controls all assets | Each account has an [M-of-N threshold](/accounts/thresholds) |
-| Recovery | The family must find the wallet's secret | Recovery signers can [reset account signers](/accounts/editing#resetting-signers) |
+| Recovery | The family must find the wallet's secret | Email or wallet recovery signers can [reset account signers](/accounts/editing#resetting-signers) |
 | Separation | All assets share one address | [Operating accounts](/accounts#operating-accounts) separate assets by purpose |
 | Visibility | One person often controls the wallet interface | Each [member](/members) can view the team's accounts |
 | Records | Activity stays in one wallet history | [Accounting](/accounting) combines transactions, tax lots, and reports |
@@ -20,7 +20,7 @@ A **family wallet** is a [team](/teams) that gives household members direct acce
 ## How it works
 
 - **The household controls the Treasury together.** Add each adult's signing key as a signer. Select a threshold that matches your approval policy.
-- **Recovery does not hold family assets.** Recovery signers control the Root. The Root can restore the Treasury's signer set.
+- **Recovery does not hold family assets.** Email or wallet recovery signers control the Root. The Root can restore the Treasury's signer set.
 - **Each purpose has a separate account.** Keep long-term assets in the Treasury. Use operating accounts for cash and investments.
 - **Daily spending can use a lower threshold.** A 1-of-2 Cash account lets either adult spend. A 2-of-2 Treasury requires both adults.
 - **Idle cash can earn.** [Automated Earn](/accounts/earn#automated-earn) deposits supported idle stablecoins from the Cash account.
@@ -32,13 +32,13 @@ A **family wallet** is a [team](/teams) that gives household members direct acce
 
 ## Set up a family wallet
 
-Prerequisites: each adult needs a [signing key](/members/keys). The recovery guardians need compatible external wallets.
+Prerequisites: each adult needs a [signing key](/members/keys). Each recovery guardian needs an email address or an external wallet.
 
 ::::steps
 
 ### Create the family team
 
-Complete [team setup](/teams#the-setup-steps). Add both adults as Owners. Select the Treasury threshold and recovery signers.
+Complete [team setup](/teams#the-setup-steps). Add both adults as Owners. Add guardians as email recovery signers. Select the recovery threshold.
 
 ### Create accounts by purpose
 
@@ -64,9 +64,6 @@ Create an API key for an agent. Give it the minimum required [scope](/teams/role
 
 ## Limits
 
-- Recovery signers must use EOAs. A passkey cannot be a recovery signer.
-- Splits supports assets and activity on its [supported networks](/introduction/networks-and-assets).
-- Automated Earn supports only the assets and networks listed on [Earn](/accounts/earn).
 - Banking requires verification and supports the jurisdictions listed on [Banking](/banking#jurisdictions).
 
 ## Next steps
