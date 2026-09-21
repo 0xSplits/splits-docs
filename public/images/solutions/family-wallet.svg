@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Family wallet account structure</title>
+  <desc id="desc">A two-of-five Recovery group controls a two-of-two Treasury. The Treasury owns Cash, Investments, and a universal deposit automation. Bank income enters Cash, and the automation converts token deposits before sending them to Cash.</desc>
+  <defs>
+    <style>
+      :root { color-scheme: light dark; }
+      .bg { fill: #fbfcff; }
+      .card { fill: #ffffff; stroke: #d8dee9; stroke-width: 2; }
+      .accent { fill: #eef1ff; stroke: #2143fa; stroke-width: 2.5; }
+      .text { fill: #1e1e1e; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+      .muted { fill: #64748b; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+      .line { fill: none; stroke: #94a3b8; stroke-width: 2.5; }
+      .arrow { fill: none; stroke: #2143fa; stroke-width: 2.5; marker-end: url(#arrow); }
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #0c1018; }
+        .card { fill: #111827; stroke: #334155; }
+        .accent { fill: #17204a; stroke: #5b78ff; }
+        .text { fill: #f8fafc; }
+        .muted { fill: #cbd5e1; }
+        .line { stroke: #64748b; }
+        .arrow { stroke: #5b78ff; }
+      }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2143fa" />
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1200" height="760" rx="12" />
+
+  <text class="text" x="600" y="50" text-anchor="middle" font-size="26" font-weight="650">Family team</text>
+
+  <rect class="accent" x="400" y="78" width="400" height="112" rx="10" />
+  <text class="text" x="600" y="116" text-anchor="middle" font-size="22" font-weight="650">Recovery · 2 of 5</text>
+  <text class="muted" x="600" y="149" text-anchor="middle" font-size="17">Both adults + trusted family or friends</text>
+  <text class="muted" x="600" y="174" text-anchor="middle" font-size="17">Email signers or external wallets</text>
+
+  <path class="line" d="M600 190 V236" />
+  <text class="muted" x="616" y="220" font-size="14">can restore signers</text>
+
+  <rect class="card" x="400" y="238" width="400" height="102" rx="10" />
+  <text class="text" x="600" y="280" text-anchor="middle" font-size="22" font-weight="650">Treasury · 2 of 2</text>
+  <text class="muted" x="600" y="312" text-anchor="middle" font-size="17">Long-term assets · both adults approve</text>
+
+  <path class="line" d="M600 340 V386 H230 V420 M600 386 V420 M600 386 H970 V420" />
+  <text class="muted" x="616" y="374" font-size="14">owns</text>
+
+  <rect class="card" x="70" y="420" width="320" height="126" rx="10" />
+  <text class="text" x="230" y="462" text-anchor="middle" font-size="21" font-weight="650">Cash · 1 of 2</text>
+  <text class="muted" x="230" y="494" text-anchor="middle" font-size="16">Daily spending and purchases</text>
+  <text class="muted" x="230" y="521" text-anchor="middle" font-size="16">Automated Earn</text>
+
+  <rect class="card" x="440" y="420" width="320" height="126" rx="10" />
+  <text class="text" x="600" y="462" text-anchor="middle" font-size="21" font-weight="650">Investments</text>
+  <text class="muted" x="600" y="494" text-anchor="middle" font-size="16">Speculative positions</text>
+  <text class="muted" x="600" y="521" text-anchor="middle" font-size="16">Browser extension access</text>
+
+  <rect class="card" x="810" y="420" width="320" height="126" rx="10" />
+  <text class="text" x="970" y="462" text-anchor="middle" font-size="21" font-weight="650">Universal deposits</text>
+  <text class="muted" x="970" y="494" text-anchor="middle" font-size="16">Accepts incoming tokens</text>
+  <text class="muted" x="970" y="521" text-anchor="middle" font-size="16">Converts and sweeps to Cash</text>
+
+  <rect class="card" x="70" y="640" width="320" height="82" rx="10" />
+  <text class="text" x="230" y="675" text-anchor="middle" font-size="19" font-weight="650">Bank income</text>
+  <text class="muted" x="230" y="701" text-anchor="middle" font-size="15">Paychecks and transfers</text>
+  <path class="arrow" d="M230 640 V558" />
+
+  <rect class="card" x="810" y="640" width="320" height="82" rx="10" />
+  <text class="text" x="970" y="675" text-anchor="middle" font-size="19" font-weight="650">Token deposits</text>
+  <text class="muted" x="970" y="701" text-anchor="middle" font-size="15">Any supported asset</text>
+  <path class="arrow" d="M970 640 V558" />
+
+  <path class="arrow" d="M810 506 C680 604 510 604 390 506" />
+  <text class="muted" x="600" y="598" text-anchor="middle" font-size="15">converted funds</text>
+</svg>
