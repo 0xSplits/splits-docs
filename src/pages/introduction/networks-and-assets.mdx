@@ -1,11 +1,11 @@
 ---
 title: Networks and assets
-description: Networks and asset types supported by Splits, full and partial support, and how to enable networks per team.
+description: Networks and asset types supported by Splits, full and partial support, and how to enable networks per workspace.
 ---
 
 # Networks and assets [Supported networks and asset types]
 
-Splits supports some networks fully (all features available) and a longer tail partially (balances and sending work; accounting history, swaps, bridging, and NFTs may not be available). Owners turn networks on and off per team in [Settings > Networks](https://app.splits.org/settings/team/networks/) (see [Settings](/teams/settings)). Any listed network can be enabled, regardless of tier; **balances are shown for enabled networks only**.
+Splits supports some networks fully (all features available) and a longer tail partially (balances and sending work; accounting history, swaps, bridging, and NFTs may not be available). Owners turn networks on and off per workspace in [Settings > Networks](https://app.splits.org/settings/team/networks/) (see [Settings](/workspaces/settings)). Any listed network can be enabled, regardless of tier; **balances are shown for enabled networks only**.
 
 Enabled networks are kept in sync: an account has the same address, signers, threshold, and owner on all of them, because [signer changes are signed once for every active network](/accounts/thresholds#changing-signers-and-thresholds). An account's state is synced to a newly enabled network before the account is used there; disabling a network requires nothing onchain.
 
@@ -45,7 +45,7 @@ Tokens can be bridged and sent to an external address on Solana and any EVM [Rel
 
 A Splits account can be reconstructed at the same address on an unsupported EVM network, then used to bridge stranded assets to a supported network.
 
-Prerequisites: an RPC for the unsupported network, the account's original creation parameters, and access to enough [recovery signers](/teams/recovery#recovery-signers) to meet the recovery threshold.
+Prerequisites: an RPC for the unsupported network, the account's original creation parameters, and access to enough [recovery signers](/workspaces/recovery#recovery-signers) to meet the recovery threshold.
 
 1. Reconstruct the canonical factory deployment and account creation calls from the Splits contracts and the account's original configuration.
 2. Simulate the calls. Confirm the predicted account addresses exactly match the Root, Treasury, and stranded account addresses. **Stop if any address differs.**

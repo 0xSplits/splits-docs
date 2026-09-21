@@ -91,7 +91,7 @@ table[data-v] {
 }
 
 /*
- * Active state for sidebar section-header links (e.g. Teams, Accounting
+ * Active state for sidebar section-header links (e.g. Workspaces, Accounting
  * landing pages). Vocs sets data-active on the header when its link matches
  * the current path, but only child items ship styling for it — root headers
  * don't. Mirrors the child-item active styles (bg accenta3 / text accent8).

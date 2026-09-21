@@ -5,7 +5,7 @@ description: "A self-custodied ERC-4337 smart wallet secured by passkeys, multis
 
 # Passkey wallet [A self-custodied ERC-4337 smart account with passkey and EOA signers]
 
-A **Splits account** is an [ERC-4337 smart-contract multisig](/accounts#wallet-architecture). Its signers are passkeys or EOAs on one M-of-N threshold. There is no seed phrase. You save a [passkey](/members/keys) in a password manager and unlock it with biometrics or a PIN. A separate set of [recovery signers](/teams/recovery) can reset any account's signers onchain. The contracts are open source and audited: see [Security](/resources/security).
+A **Splits account** is an [ERC-4337 smart-contract multisig](/accounts#wallet-architecture). Its signers are passkeys or EOAs on one M-of-N threshold. There is no seed phrase. You save a [passkey](/members/keys) in a password manager and unlock it with biometrics or a PIN. A separate set of [recovery signers](/workspaces/recovery) can reset any account's signers onchain. The contracts are open source and audited: see [Security](/resources/security).
 
 ## Splits versus MetaMask and Rainbow
 
@@ -44,7 +44,7 @@ Prerequisites: a [password manager](/members/keys#password-managers) that stores
 
 ### Create a team of one
 
-Run [team setup](/teams#the-setup-steps). Skip the Owners and Treasury steps. Add recovery signers: at least one EOA, on a hardware wallet if you have one.
+Run [workspace setup](/workspaces#the-setup-steps). Skip the Owners and Treasury steps. Add recovery signers: at least one EOA, on a hardware wallet if you have one.
 
 ### Make it a multisig of one
 
@@ -56,20 +56,20 @@ Create an operating account for each project. Keep most funds in the Treasury. G
 
 ### Verify recovery periodically
 
-[Verify each recovery signer](/teams/recovery#verifying-recovery-signers). Verification moves no funds. Each recovery signer shows when you last verified it.
+[Verify each recovery signer](/workspaces/recovery#verifying-recovery-signers). Verification moves no funds. Each recovery signer shows when you last verified it.
 
 ::::
 
 ## Limits
 
-- Passkeys are bound to splits.org. If the site were offline, passkeys could not sign. For that reason, recovery signers are ordinary Ethereum keys: see [Why recovery exists](/teams/recovery#why-recovery-exists).
+- Passkeys are bound to splits.org. If the site were offline, passkeys could not sign. For that reason, recovery signers are ordinary Ethereum keys: see [Why recovery exists](/workspaces/recovery#why-recovery-exists).
 - Accounts exist on the [supported networks](/introduction/networks-and-assets).
 
 ## Next steps
 
 - [Create your wallet](https://app.splits.org)
 - [Personal usage](/introduction/personal-usage): patterns from solo builders
-- [Signing keys](/members/keys), [Recovery](/teams/recovery), [Accounts](/accounts)
+- [Signing keys](/members/keys), [Recovery](/workspaces/recovery), [Accounts](/accounts)
 - [Smart Vaults](https://github.com/0xSplits/splits-contracts-monorepo/tree/main/packages/smart-vaults): the contracts, and the [audits](https://github.com/0xSplits/splits-contracts-monorepo/tree/main/audits)
 
 ## Programmatic access

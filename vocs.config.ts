@@ -65,13 +65,13 @@ export default defineConfig({
       ],
     },
     {
-      text: 'Teams',
-      link: '/teams',
+      text: 'Workspaces',
+      link: '/workspaces',
       collapsed: true,
       items: [
-        { text: 'Roles', link: '/teams/roles' },
-        { text: 'Recovery', link: '/teams/recovery' },
-        { text: 'Settings', link: '/teams/settings' },
+        { text: 'Roles', link: '/workspaces/roles' },
+        { text: 'Recovery', link: '/workspaces/recovery' },
+        { text: 'Settings', link: '/workspaces/settings' },
       ],
     },
     {

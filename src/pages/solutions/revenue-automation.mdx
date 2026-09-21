@@ -5,7 +5,7 @@ description: "Route revenue to an account per stream, swap long-tail tokens to s
 
 # Revenue automation [Revenue lands in an account per stream, converts on receipt, and funds scheduled payments, all from self-custodied accounts]
 
-**Revenue automation** on Splits is money movement. An [automation account](/accounts#automation-accounts) per revenue stream swaps, splits, forwards, or offramps whatever arrives at its address. [Schedules](/transactions/schedules) draft the recurring outgoing payments. Every automation runs from an account that the team's own signers control and that the Treasury owns.
+**Revenue automation** on Splits is money movement. An [automation account](/accounts#automation-accounts) per revenue stream swaps, splits, forwards, or offramps whatever arrives at its address. [Schedules](/transactions/schedules) draft the recurring outgoing payments. Every automation runs from an account that the workspace's own signers control and that the Treasury owns.
 
 ## How it works
 
@@ -14,11 +14,11 @@ description: "Route revenue to an account per stream, swap long-tail tokens to s
 - **Swaps and bridges carry no Splits fee.** Splits routes each [swap](/transactions/swaps) quote across several providers, including cross-network routes.
 - **Invoices reconcile onchain.** When a payer pays an invoice through its page, Splits marks the invoice paid after it verifies the transaction. You mark bank payments manually: see [Tracking payments](/invoicing/tracking). You can [issue](/invoicing#issuing) an invoice that receives directly into an automation's deposit address.
 - **Idle stables earn without lockup.** Automated [Earn](/accounts/earn) deposits an account's idle balance. You enable it per account. You can withdraw positions at any time and spend them directly.
-- **The books follow.** Every run and payment appears on the [Accounting](/accounting) page, where you can filter and export them. An accountant joins as a [read-only member](/teams/roles#read-only-members).
+- **The books follow.** Every run and payment appears on the [Accounting](/accounting) page, where you can filter and export them. An accountant joins as a [read-only member](/workspaces/roles#read-only-members).
 
 ## Setting up a revenue stream
 
-Prerequisites: a [team](/teams) with the [Owner](/teams/roles) role, and [banking](/banking) set up if a destination is a bank account.
+Prerequisites: a [workspace](/workspaces) with the [Owner](/workspaces/roles) role, and [banking](/banking) set up if a destination is a bank account.
 
 ::::steps
 
@@ -44,7 +44,7 @@ Enable [Automated Earn](/accounts/earn#automated-earn) on the accounts that hold
 
 ### Invite the accountant
 
-Invite the accountant as a [read-only member](/teams/roles#read-only-members). Export the books from Accounting.
+Invite the accountant as a [read-only member](/workspaces/roles#read-only-members). Export the books from Accounting.
 
 ::::
 
@@ -64,7 +64,7 @@ Invite the accountant as a [read-only member](/teams/roles#read-only-members). E
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits automations list`: the team's automations (**Read** scope)
+- `splits automations list`: the workspace's automations (**Read** scope)
 - `splits transactions list`: every run and payment, filterable by account, direction, amount, and date (**Read** scope)
 
 Creating automations, schedules, and invoices is web-only today.

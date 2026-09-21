@@ -1,11 +1,11 @@
 ---
 title: Accounting
-description: Review transactions, token balances, tax lots, imported account history, and generated reports across a team.
+description: Review transactions, token balances, tax lots, imported account history, and generated reports across a workspace.
 ---
 
-# Accounting [Review activity, balances, tax lots, and reports across a team]
+# Accounting [Review activity, balances, tax lots, and reports across a workspace]
 
-The *Accounting* page combines transactions, token balances, tax lots, imported account history, and generated reports across the team's accounts. To annotate transactions for the books, use [memos](/transactions/memos).
+The *Accounting* page combines transactions, token balances, tax lots, imported account history, and generated reports across the workspace's accounts. To annotate transactions for the books, use [memos](/transactions/memos).
 
 ## Transactions
 
@@ -21,7 +21,7 @@ The *Tokens* tab groups balances by token. For a bounded date range, it shows ea
 
 ## Lots
 
-A **tax lot** records the quantity, USD unit price, acquisition date, remaining quantity, and resulting cost basis for tokens acquired by one account. Lots are account-specific: moving tokens between the team's accounts carries their cost basis and acquisition date into the receiving account.
+A **tax lot** records the quantity, USD unit price, acquisition date, remaining quantity, and resulting cost basis for tokens acquired by one account. Lots are account-specific: moving tokens between the workspace's accounts carries their cost basis and acquisition date into the receiving account.
 
 The *Lots* tab shows lots open at the end of the selected period, or now when no end date is set. Filter by account, token, acquisition date, remaining quantity, or cost basis. Open a lot to review its source, remaining balance, disposals, realized gains or losses, and correction history.
 
@@ -33,12 +33,12 @@ Use *Recompute lots* after a correction when you need updated lots and gains bef
 
 ## Imported accounts
 
-An **imported account** adds an external EVM address's historical activity to the team's accounting records. It does **not become a Splits account or grant the team signing authority**.
+An **imported account** adds an external EVM address's historical activity to the workspace's accounting records. It does **not become a Splits account or grant the workspace signing authority**.
 
 Owners can import an address from the *Imported* tab:
 
 1. Select *Import account*.
-2. Enter the address and a team-visible name.
+2. Enter the address and a workspace-visible name.
 3. Select one or more networks.
 4. Optionally set a cutoff date to import only activity before that date.
 5. Select *Import account*. Indexing continues if you leave the page.

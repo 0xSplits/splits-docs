@@ -5,7 +5,7 @@ description: The authoritative reference for what each role (Owner, Member) and 
 
 # Roles [What each role and API key scope can do]
 
-Every team [member](/members) has exactly one of two roles: **Owner** or **Member**. Roles are stored offchain, govern what a person can see and do in the app, and are scoped to one team: the same person can be an Owner of one team and a Member of another. A role never grants signing authority: approving transactions belongs to an account's onchain signer set, and the boundary is drawn at [Signers](/accounts/signers#signers-vs-membership).
+Every workspace [member](/members) has exactly one of two roles: **Owner** or **Member**. Roles are stored offchain, govern what a person can see and do in the app, and are scoped to one workspace: the same person can be an Owner of one workspace and a Member of another. A role never grants signing authority: approving transactions belongs to an account's onchain signer set, and the boundary is drawn at [Signers](/accounts/signers#signers-vs-membership).
 
 A related surface (**API key scopes**) governs what programmatic clients can do; see [below](#api-key-scopes).
 
@@ -20,7 +20,7 @@ A related surface (**API key scopes**) governs what programmatic clients can do;
 | Create new accounts | ✅ | ❌ |
 | Edit account settings (name, signers, threshold) | ✅ | ❌ |
 | Invite, remove, and change roles of members | ✅ | ❌ |
-| Edit team name and logo | ✅ | ❌ |
+| Edit workspace name and logo | ✅ | ❌ |
 | Toggle [*Require memos*](/transactions/memos#requiring-memos) | ✅ | ❌ |
 | Create invoices | ✅ | ❌ |
 | Create and manage automations and schedules | ✅ | ❌ |
@@ -30,7 +30,7 @@ A related surface (**API key scopes**) governs what programmatic clients can do;
 
 ## Read-only members
 
-A member with the **Member** role whose signing keys aren't signers on any account is effectively read-only: they can see the team's accounts, balances, and transactions, but can't propose or sign any. (Owners can propose from any account, so read-only requires the Member role.)
+A member with the **Member** role whose signing keys aren't signers on any account is effectively read-only: they can see the workspace's accounts, balances, and transactions, but can't propose or sign any. (Owners can propose from any account, so read-only requires the Member role.)
 
 To set one up, [invite them](/members#inviting) with the Member role and don't add them to any account's signer set. Useful for accountants, auditors, and anyone who needs visibility without the ability to move funds.
 
@@ -52,7 +52,7 @@ API keys power the [CLI and MCP](/introduction/agents). Each key is scoped at cr
 
 | Scope | Grants | Who can create a key with it |
 | --- | --- | --- |
-| `read` | List accounts, transactions, balances, and other team data | Any member |
+| `read` | List accounts, transactions, balances, and other workspace data | Any member |
 | `write` | Read, plus propose transactions and update memos/properties | Any member |
 | `owner` | Admin operations (manage accounts and org settings) | Owners only |
 

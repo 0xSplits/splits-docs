@@ -3,9 +3,9 @@ title: Signing keys
 description: "The signing keys a member holds, passkeys and EOAs: password manager guidance, registering an EOA, verifying access, and troubleshooting."
 ---
 
-# Signing keys [The passkeys and EOAs a member signs with, across every team]
+# Signing keys [The passkeys and EOAs a member signs with, across every workspace]
 
-A member's signing keys are what sign transactions: **passkeys** saved in the app, or **EOAs** registered via the CLI. Keys belong to the [member](/members), not to any team, so they work across every team the member is part of. The private key stays with the member; **Splits never has access to private keys.**
+A member's signing keys are what sign transactions: **passkeys** saved in the app, or **EOAs** registered via the CLI. Keys belong to the [member](/members), not to any workspace, so they work across every workspace the member is part of. The private key stays with the member; **Splits never has access to private keys.**
 
 A key on its own moves nothing. It gains signing authority only when added to an account's signer set, becoming one of that account's [signers](/accounts/signers), counted against the account's [threshold](/accounts/thresholds). Managing keys here never edits any account's signer set; see [Signers](/accounts/signers) for that boundary and [Editing](/accounts/editing) for the onchain flow.
 
@@ -23,17 +23,17 @@ Browsers order password manager options differently. If yours doesn't appear, cl
 
 ## EOAs
 
-An EOA (externally owned account, a standard Ethereum keypair) can be [registered via the CLI](/introduction/agents#sign-locally-with-an-eoa) and added as a signer, letting agents and servers sign headlessly. A team's [recovery signers](/teams/recovery#recovery-signers) are also EOAs.
+An EOA (externally owned account, a standard Ethereum keypair) can be [registered via the CLI](/introduction/agents#sign-locally-with-an-eoa) and added as a signer, letting agents and servers sign headlessly. A workspace's [recovery signers](/workspaces/recovery#recovery-signers) are also EOAs.
 
 ## Verifying access
 
 Confirm you still control a passkey's private key without moving funds: Splits has the key sign a test message. Go to *Settings > Personal > Passkeys* → three dots → *Verify access…*. Each passkey shows when it was last verified or used.
 
-Recovery signers have their own verification flow; see [Verifying recovery signers](/teams/recovery#verifying-recovery-signers).
+Recovery signers have their own verification flow; see [Verifying recovery signers](/workspaces/recovery#verifying-recovery-signers).
 
 ## Troubleshooting
 
-**Passkey won't open.** Usually the password manager: 1Password and Bitwarden are finicky, especially in newer browsers (e.g. Arc/Dia), and 1Password's prompt appears in the browser's top-right corner. Isolate the passkey by [verifying it](#verifying-access), toggle the manager's extension off and on, and hard-refresh. Test at [webauthn.io](https://webauthn.io/): reproduces there → the provider; only on our site → email support. Slow Windows passkeys: delete temporary files (`%temp%` and `prefetch` via `Windows + R`) and reboot. If a passkey is unrecoverable, see [Recovery](/teams/recovery).
+**Passkey won't open.** Usually the password manager: 1Password and Bitwarden are finicky, especially in newer browsers (e.g. Arc/Dia), and 1Password's prompt appears in the browser's top-right corner. Isolate the passkey by [verifying it](#verifying-access), toggle the manager's extension off and on, and hard-refresh. Test at [webauthn.io](https://webauthn.io/): reproduces there → the provider; only on our site → email support. Slow Windows passkeys: delete temporary files (`%temp%` and `prefetch` via `Windows + R`) and reboot. If a passkey is unrecoverable, see [Recovery](/workspaces/recovery).
 
 ## Programmatic access
 
