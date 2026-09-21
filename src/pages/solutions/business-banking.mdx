@@ -1,0 +1,79 @@
+---
+title: Business bank account for crypto startups
+description: "Self-custodied business accounts with payroll, vendor payments, bank transfers, invoicing and accounting exports. 0.25% per bank transfer."
+---
+
+# Business banking [Self-custodied multisig accounts with bank transfers, vendor payments, invoicing, and accounting]
+
+**Business banking** on Splits is a workspace's own [accounts](/accounts) plus opt-in [banking](/banking). Each account is a multisig smart account that the workspace's signing keys control. Banking moves money between those accounts and bank accounts after entity verification.
+
+## Splits versus Coinbase Business and Fireblocks
+
+[Coinbase Business](https://www.coinbase.com/business), like a crypto-friendly bank, holds the funds for you. [Fireblocks](https://www.fireblocks.com/) splits MPC key shares with the customer. A Splits account is a contract that the workspace's own keys control:
+
+| Property | Coinbase Business | Fireblocks | Splits |
+| --- | --- | --- | --- |
+| Custody | Coinbase | Key shares split between the customer and Fireblocks. A transaction needs the customer's signature | The workspace's own signing keys |
+| Approvals | Set in Coinbase, offchain | Policy Engine rules: block, approve, or require more signers | M-of-N signers per account, onchain |
+| To open | A legal entity in the US or Singapore | Self-serve signup on the Essentials plan | An email. Verify a business or an individual to add bank transfers |
+| Pricing | [Fees](https://www.coinbase.com/business) per payment and per conversion | [Subscription](https://www.fireblocks.com/pricing) from $999 per month | A [per-transfer fee](https://splits.org/pricing/) on bank legs |
+
+## How it works
+
+- **Accounts are self-custodied and multisig by default.** The workspace sets an M-of-N [threshold](/accounts/thresholds) for every account. The workspace sets the Treasury's threshold at [setup](/workspaces#the-setup-steps). [Recovery signers](/workspaces/recovery) can reset any account's signers.
+- **Fiat moves by bank transfer.** After entity verification, money comes in by ACH, wire, or SEPA. Money goes out to the workspace's own bank accounts. The fee and jurisdictions are on [Banking](/banking).
+- **The workspace pays vendors and contractors in fiat from stables.** A [vendor's bank account](/banking/paying-vendors) gets a deposit address. To pay the vendor, the workspace sends stablecoins to that address, and the account's signers approve the send at its threshold. [Compliance](/contacts/compliance) collects tax forms from payees.
+- **Payroll is a [schedule](/transactions/schedules).** Each occurrence is a draft that the signers approve.
+- **[Invoices](/invoicing) reconcile automatically** when the payer pays onchain through the invoice page. For a bank transfer, you mark the invoice paid manually: see [Tracking payments](/invoicing/tracking).
+- **The books export.** In [Accounting](/accounting), you can filter every transaction across every account and export it to CSV, with tax lots and realized gains. An accountant joins as a [read-only member](/workspaces/roles#read-only-members).
+- **Core tools are free.** Accounts, accounting, invoicing, payments, and swaps are free. Bank transfers and fiat payments carry a per-transfer fee: see [Pricing](https://splits.org/pricing/).
+
+## Opening an account
+
+Prerequisites: a [passkey](/members/keys) saved in a password manager.
+
+::::steps
+
+### Create a workspace
+
+Run [workspace setup](/workspaces#the-setup-steps). Setup takes a name, your passkey, the Treasury's threshold, and recovery signers.
+
+### Add accounts per purpose
+
+Create an [operating account](/accounts#operating-accounts) for each revenue source, program, or partner. Each account is its own sub-ledger.
+
+### Verify the entity for fiat
+
+Complete [entity verification](/banking#getting-verified) as a business. Before you incorporate, you can verify as an individual: see [No entity needed](/introduction/personal-usage#no-entity-needed).
+
+### Connect banks and vendors
+
+Add the workspace's bank accounts for [onramps](/banking/onramping) and [offramps](/banking/offramping). Add vendors' bank accounts for [paying vendors](/banking/paying-vendors).
+
+### Schedule payroll and invite the accountant
+
+Create [schedules](/transactions/schedules) for payroll. Invite the accountant as a [read-only member](/workspaces/roles#read-only-members).
+
+::::
+
+## Limits
+
+- Fiat legs are available in the [jurisdictions](/banking#jurisdictions) that Bridge supports. Each workspace verifies one entity.
+- [Bank settlement](/banking/offramping#settlement) follows ACH and SEPA windows.
+- Cards come through the [Rain](/integrations/rain) integration. Rain controls issuance, limits, and fees.
+
+## Next steps
+
+- [Create a workspace](https://app.splits.org)
+- [Pricing](https://splits.org/pricing/)
+- [Banking](/banking), [Paying vendors](/banking/paying-vendors), [Invoicing](/invoicing), [Accounting](/accounting)
+- [Splits Treasury](https://splits.org/treasury/): the product overview
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits accounts list`: all accounts in the workspace (**Read** scope)
+- `splits transactions list`: the books, filterable by account, direction, amount, date, and memo (**Read** scope)
+
+Banking (onramps, offramps, vendor payments) and invoicing are web-only today.

@@ -1,0 +1,22 @@
+name: Lint prose
+
+# No paths filter: a required check that never runs leaves a PR pending forever.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lint-prose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # check-prose.mjs has no dependencies, so there is no install step.
+      - run: node scripts/check-prose.mjs --selftest
+      - run: node scripts/check-prose.mjs --strict src/pages/solutions
