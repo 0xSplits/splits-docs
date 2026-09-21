@@ -52,6 +52,7 @@ type Page =
   | { path: '/resources/security'; render: 'static' }
   | { path: '/solutions/ai-agents'; render: 'static' }
   | { path: '/solutions/business-banking'; render: 'static' }
+  | { path: '/solutions/family-wallet'; render: 'static' }
   | { path: '/solutions'; render: 'static' }
   | { path: '/solutions/passkey-wallet'; render: 'static' }
   | { path: '/solutions/revenue-automation'; render: 'static' }
