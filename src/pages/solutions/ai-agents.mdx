@@ -1,0 +1,82 @@
+---
+title: Onchain treasury for AI agents
+description: "Give an AI agent its own signing key on a Splits account. The account bounds what the agent can reach, a threshold keeps a human in the loop, and the parent account enforces recovery onchain."
+---
+
+# AI agents [An agent with its own signing key on a dedicated account]
+
+An **agent account** is an [operating account](/accounts#operating-accounts) whose signer set includes a signing key that the agent generated and holds itself. The agent never holds the human's seed phrase, private key, or passkey. The account's balance and its [threshold](/accounts/thresholds) bound what the agent can reach. The account's owner, the Treasury, can remove the agent's key at any time.
+
+## Why not share a key
+
+A key copied to an agent has the human's full authority on every account that the key signs for. To revoke it, the human must rotate their own key on every account. A separate key on a separate account bounds both:
+
+| Property | Shared human key | Agent's own key on an operating account |
+| --- | --- | --- |
+| Reach | Every account that the human signs for | One account's balance |
+| Revocation | Rotate the human's key on every account | Owner rotates one signer set |
+| Audit | Indistinguishable from the human | Every transaction recorded under the agent's key |
+| Human co-signature | None | Threshold 2 or more requires one on every action |
+
+## How it works
+
+- **Each agent has a dedicated account.** The account holds only what the agent operates on. Under the [ownership chain](/accounts), a leaked agent key reaches that account's contents and nothing else.
+- **The threshold sets autonomy.** Threshold 1 lets the agent act alone within the account. Threshold 2 or more keeps a human co-signature on every transaction, in the app with a passkey.
+- **Recovery is contract-enforced.** The Treasury owns the account, so the Treasury's signers can remove the agent's key by [resetting signers](/accounts/editing#resetting-signers). The reset needs no signature from the account's own signers and does not change the account's address. Deposits and integrations that point at the address keep working.
+- **Scopes bound the API, signers bound the chain.** The agent's API key carries a [scope](/teams/roles#api-key-scopes) (Read, Write, or Owner). The scope governs what the agent can query and propose. Scopes grant **no onchain signing authority**. Only the agent's registered key on the account's signer set grants that authority.
+- **Every action is a proposal.** The agent proposes [transactions](/transactions) like any client. A transaction executes when its signatures meet the threshold. The agent proposes signer changes, and a human approves them in the app.
+- **The whole surface is available.** The CLI ships a built-in MCP server. An agent can do over the [CLI or MCP](/introduction/agents) anything that a human can do in the app.
+
+## Setting up an agent
+
+Prerequisites: an [API key](/introduction/agents#get-an-api-key), and the CLI installed where the agent runs.
+
+::::steps
+
+### Sign the agent in
+
+The agent [signs in to the CLI](/introduction/agents#install-the-cli-and-sign-in) with the API key. The agent then confirms the team, scopes, and key source.
+
+### Generate the agent's key
+
+For [headless signing](/introduction/agents#sign-locally-with-an-eoa), the agent generates a local EOA and registers it as a signer candidate. The command returns a signer id.
+
+### Add the key to an account
+
+Choose one:
+
+- Add the agent's signer id to an existing operating account. This creates a proposal that a human approves in the app.
+- Create a new operating account with the agent's key and the human's passkey as signers from the start. This needs no approval step.
+
+### Choose the threshold
+
+Set threshold 1 for autonomous operation inside the account. Set threshold 2 or more to require the human on every transaction. You can change both later: see [Changing signers and thresholds](/accounts/editing#changing-signers-and-thresholds).
+
+### Fund and audit
+
+Fund the account with what the agent operates on. The agent's transactions appear under its own key in the app, the CLI, and [accounting](/accounting).
+
+::::
+
+## Limits
+
+- **Per-signer restrictions by target contract or function do not exist onchain today.** A key that meets the threshold alone can take any action from its account, including changing the account's signer set. The bound is the account.
+- Approval steps that happen only in the app (accepting a signer change, completing team setup) are platform policy.
+- You create the API key in the browser. There is no programmatic route.
+
+## Next steps
+
+- [Create a team](https://app.splits.org) and an operating account for the agent
+- [Agents & API](/introduction/agents): scopes, the proposal model, headless signing, output tuning
+- [Personal usage](/introduction/personal-usage#agents-as-collaborators): agents as collaborators on a team of one
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `npx -y @splits/splits-cli@latest --llms-full`: the full command surface and MCP tool list, no install
+- `splits auth login --api-key sk_...`: sign the agent in
+- `splits auth create-key --register`: generate the agent's EOA and register it as a signer candidate
+- `splits accounts update-signers <account> --add-eoa-signer-ids <id> --threshold N`: propose adding the agent's key, which a human approves in the app (**Owner** scope)
+- `splits accounts create --name "<label>" --eoa-signer-ids <id> --passkey-ids <human-passkey-id> --threshold 2`: create the agent's account with both signers (**Owner** scope)
+- `splits transactions sign <id>`: sign pending proposals with the agent's key (**Write** scope)

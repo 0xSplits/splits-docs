@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vocs dev",
-    "prebuild": "tsx scripts/og-images.tsx",
+    "lint:prose": "node scripts/check-prose.mjs --selftest && node scripts/check-prose.mjs --strict src/pages/solutions",
+    "prebuild": "pnpm lint:prose && tsx scripts/og-images.tsx",
     "build": "vocs build",
     "preview": "vocs preview",
     "start": "node dist/serve-node.js"
