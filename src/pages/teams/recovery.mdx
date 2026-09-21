@@ -9,7 +9,7 @@ Recovery is how a team regains its accounts. [Recovery signers](#recovery-signer
 
 ## Why recovery exists
 
-Splits never has custody of a team's assets, so there must be a way to regain them without passkeys. Passkeys are phishing-resistant because they're bound to the issuing domain. If splits.org went offline, or a passkey manager were compromised or lost, the passkeys would become unusable. Wallet-based recovery signers are ordinary Ethereum keys with no such dependency: they work as long as the chain does.
+Splits never has custody of a team's assets, so there must be a way to regain them without passkeys. Passkeys are phishing-resistant because they're bound to the issuing domain. If splits.org went offline, or a passkey manager were compromised or lost, the passkeys would become unusable. Recovery signers are ordinary Ethereum keys. Signers that use external wallets work as long as the chain does.
 
 ## Recovery signers
 
@@ -22,7 +22,7 @@ Recovery signers are the backstop beneath the day-to-day signers. [Settings > Re
 
 ### Verifying recovery signers
 
-Confirm a wallet-based recovery signer's private key is still accessible without moving funds: Splits has the key sign a test message. In *Settings > Recovery*, open the signer's three-dot menu → *Verify signer*; this requires connecting the wallet. Each verified signer shows when it was last verified.
+Confirm access to a recovery signer that uses an external wallet without moving funds: Splits has the key sign a test message. In *Settings > Recovery*, open the signer's three-dot menu → *Verify signer*; this requires connecting the wallet. Each verified signer shows when it was last verified.
 
 Verification signs the same kind of message a recovery does, so a signer that passes can sign a recovery; see [Known issues when using a Ledger](#known-issues-when-using-a-ledger) for wallets that fail it.
 
@@ -53,5 +53,5 @@ The practical way to change them today is to create a new team. Email support to
 
 ## Keeping recovery healthy
 
-- [Verify wallet-based recovery signers](#verifying-recovery-signers) periodically; each shows when it was last verified.
+- [Verify recovery signers that use external wallets](#verifying-recovery-signers) periodically; each shows when it was last verified.
 - Use multiple signers on hardware wallets; at Splits we use a [2-of-3 with hardware wallets](/resources/how-we-work#our-workspace).
