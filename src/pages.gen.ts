@@ -36,6 +36,7 @@ type Page =
   | { path: '/introduction/extension'; render: 'static' }
   | { path: '/introduction/networks-and-assets'; render: 'static' }
   | { path: '/introduction/personal-usage'; render: 'static' }
+  | { path: '/introduction/pricing'; render: 'static' }
   | { path: '/invoicing'; render: 'static' }
   | { path: '/invoicing/paying'; render: 'static' }
   | { path: '/invoicing/recurring'; render: 'static' }
