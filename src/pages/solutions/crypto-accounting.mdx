@@ -1,0 +1,61 @@
+---
+title: Crypto accounting and taxes
+description: "Track crypto transactions, import external accounts, review tax lots and cost basis, and export reports for bookkeeping and tax preparation."
+---
+
+# Crypto accounting [One workspace for transaction records, cost basis, and tax reports]
+
+**Crypto accounting** in Splits brings [transactions, token balances, tax lots, and reports](/accounting) into one workspace. You can also [import an external address](/accounting#imported-accounts) to include its history without moving funds to Splits.
+
+## How it works
+
+- **Review one transaction history.** [Accounting](/accounting#transactions) combines inbound and outbound activity across the workspace. Filter by account, network, token, date, direction, or memo.
+- **Track each acquisition.** [Lots](/accounting#lots) record the quantity, acquisition date, and USD cost basis of tokens in each account. Splits matches disposals to lots using FIFO.
+- **Preserve basis on internal moves.** A [transfer between workspace accounts](/accounting#lots) carries its original basis and acquisition date into the receiving account.
+- **Bring past activity into view.** [Imported accounts](/accounting#imported-accounts) add external EVM address history. They grant **no signing authority** and do not become Splits accounts.
+- **Correct source data.** [Edit or seed a lot](/accounting#lots) when its price or acquisition date needs correction. The lot detail shows its correction history. Token quantity comes from indexed activity and cannot be edited.
+- **Export records for your books.** [Reports](/accounting#reports) include statements, transaction history, token balances, realized gains and losses, open lots, and a lot timeline. Give an accountant [read-only access](/workspaces/roles#read-only-members) to review the workspace.
+
+## Prepare your books
+
+Prerequisites: create a [workspace](/workspaces). An [Owner](/workspaces/roles) must import external accounts.
+
+::::steps
+
+### Add the accounts you need
+
+Use [Splits accounts](/accounts) for current activity. To include an older address, use *Import account* on the [Imported tab](/accounting#imported-accounts). Select its networks and an optional cutoff date.
+
+### Review transactions and balances
+
+Filter [Transactions](/accounting#transactions) by period, account, and token. Compare the starting and ending balances. Review [hidden tokens](/accounting/spam) if expected activity is absent.
+
+### Review and correct lots
+
+Open [Lots](/accounting#lots) to inspect basis, disposals, and correction history. Seed pre-existing inventory or edit a price or acquisition date if the derived value is wrong. Recompute lots to refresh the results.
+
+### Generate reports
+
+Select a period and account scope in [Reports](/accounting#reports). Generate a statement or export transaction history, token balances, gains, or lots for your accountant.
+
+::::
+
+## Limits
+
+- Accounting history is unavailable on [partially supported networks](/introduction/networks-and-assets).
+- A [lot warning](/accounting#lots) can signal a balance difference or a correction that Splits could not apply. Review warnings before using the reports.
+- Reports support bookkeeping and tax preparation. Splits does not categorize transactions into a P&L or sync with accounting software yet. See the [cost basis deep dive](https://splits.org/blog/how-splits-tracks-cost-basis/).
+
+## Next steps
+
+- [Open Accounting](https://app.splits.org/accounting)
+- [Accounting](/accounting): review the tabs, imported accounts, and report formats
+- [Cost basis deep dive](https://splits.org/blog/how-splits-tracks-cost-basis/): how Splits derives and checks lots
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits accounting lots list`: review tax lots (**Read** scope)
+- `splits accounting imports create`: import an external address (**Write** scope and a user-bound API key)
+- `splits accounting reports generate <report>`: generate a report (**Write** scope and a user-bound API key)
