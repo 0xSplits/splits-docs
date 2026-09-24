@@ -23,6 +23,8 @@ The *Tokens* tab groups balances by token. For a bounded date range, it shows ea
 
 A **tax lot** records the quantity, USD unit price, acquisition date, remaining quantity, and resulting cost basis for tokens acquired by one account. Lots are account-specific: moving tokens between the workspace's accounts carries their cost basis and acquisition date into the receiving account.
 
+For disposals, Splits matches tokens to the oldest available lots first (FIFO). Each disposal records its proceeds, basis, gain or loss, and holding period.
+
 The *Lots* tab shows lots open at the end of the selected period, or now when no end date is set. Filter by account, token, acquisition date, remaining quantity, or cost basis. Open a lot to review its source, remaining balance, disposals, realized gains or losses, and correction history.
 
 Splits derives lots from indexed transactions. If the derived acquisition date or price is wrong, open the lot's actions and select *Edit lot*. The quantity cannot be edited because it comes from the account's actual token activity. Corrections persist when lots are recomputed; use *Revoke edits* to remove them.
