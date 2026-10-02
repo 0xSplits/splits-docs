@@ -46,6 +46,7 @@ export default defineConfig({
       collapsed: false,
       items: [
         { text: 'Core concepts', link: '/introduction/core-concepts' },
+        { text: 'Pricing', link: '/introduction/pricing' },
         { text: 'Networks & assets', link: '/introduction/networks-and-assets' },
         { text: 'Browser extension', link: '/introduction/extension' },
         { text: 'Agents & API', link: '/introduction/agents' },
