@@ -47,13 +47,16 @@ The transaction is approved by the Treasury's signers at its threshold; nothing 
 
 ## Risks
 
-The current offering is lending, and lending carries risk:
+Earn is overcollateralized lending: borrowers post bitcoin or ETH worth more than the USDC they borrow, and depositors earn the interest borrowers pay. These risks apply to every lending product of this kind.
 
-- **Smart-contract risk**: a critical bug in Morpho's markets, the Steakhouse vault, or the Splits wrapper could freeze or drain funds. Each is a separate contract.
-- **Bad-debt risk**: each Morpho market has its own collateral and oracle, chosen by the curator. If collateral falls faster than liquidations clear it, the market's lenders, including the vault, absorb the loss.
-- **Interest-rate variability**: rates in Morpho markets are variable and can fall to nearly zero if borrowing demand drops.
-- **Curator risk**: Steakhouse selects the markets, collateral, and caps the vault lends into, and can change them within the vault's timelocks. Positions are exposed to those choices.
-- **Liquidity exhaustion**: withdrawals draw on the USDC that is not lent out. A withdrawal larger than the available liquidity fails until borrowers repay or the curator reallocates. Short delays are possible; there is no lockup or queue.
+- **Bad debt**: if collateral loses value faster than liquidations clear loans, the market's lenders, including Earn, absorb the shortfall. Steakhouse Prime USDC currently lends only against bitcoin and ETH (including ETH staking tokens), and each market it lends into liquidates a loan by the time the loan reaches 86% of its collateral's value. Lenders lose money only if the collateral's price falls below the loan's value before liquidators repay it. Each vault's current markets are listed on Morpho: [Base](https://app.morpho.org/base/vault/0xbeef0e0834849aCC03f0089F01f4F1Eeb06873C9/steakhouse-prime-usdc), [Ethereum Mainnet](https://app.morpho.org/ethereum/vault/0xbeef088055857739C12CD3765F20b7679Def0f51/steakhouse-prime-usdc).
+- **Smart contracts**: a bug in Morpho's markets, the Steakhouse vault, or the Splits wrapper could freeze or lose deposits. Morpho's markets cannot be upgraded by anyone, including Morpho, and have run since January 2024; on Base, the market where Steakhouse lends most of its USDC has lent over $1 billion against bitcoin. The Steakhouse vault and each Splits wrapper are Morpho's standard Vault V2 contract, not custom code. Both contracts have been audited multiple times: [Morpho markets](https://github.com/morpho-org/morpho-blue/tree/main/audits), [Vault V2](https://github.com/morpho-org/vault-v2/tree/main/audits).
+- **Curator**: Steakhouse chooses the markets, collateral, and limits the vault lends into. Adding a market or raising a limit takes 7 days onchain. Steakhouse charges no fee today.
+- **Splits' control of the wrapper**: Splits administers each wrapper from a multisig account. **Splits cannot send deposits anywhere except the Steakhouse vault**: it permanently removed, onchain, the ability to add any other destination.
+- **Withdrawal liquidity**: withdrawals draw on USDC that is not lent out. When a market is nearly fully lent, its borrowing rate rises, which pulls in repayments and new deposits, and Steakhouse can move funds between markets. Until then, a withdrawal larger than the available USDC fails. There is no lockup or withdrawal queue.
+- **Variable rates**: the APY follows demand, and the app shows the current net APY.
+
+Splits checks each wrapper's owner and fee settings, and each Steakhouse vault's fee settings, every hour and is alerted to any change.
 
 ## Accounting and taxes
 Using Earn does not require you to manually account for vault shares or calculate the yield yourself. [Accounting](/accounting) treats a deposit as a swap of USDC into vault shares and a withdrawal as a swap back. Vault shares are tracked as their own tax lots, and yield is realized as gain on the shares when you withdraw.
