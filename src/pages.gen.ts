@@ -57,7 +57,7 @@ type Page =
   | { path: '/solutions'; render: 'static' }
   | { path: '/solutions/passkey-wallet'; render: 'static' }
   | { path: '/solutions/revenue-automation'; render: 'static' }
-  | { path: '/solutions/splits-business-vs-safe-pro'; render: 'static' }
+  | { path: '/solutions/splits-treasury-vs-safe-pro'; render: 'static' }
   | { path: '/transactions/batch'; render: 'static' }
   | { path: '/transactions/custom'; render: 'static' }
   | { path: '/transactions'; render: 'static' }
