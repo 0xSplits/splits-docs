@@ -1,0 +1,75 @@
+---
+title: Splits Business vs Safe Pro
+description: "Compare Splits Business and Safe Pro features, including Safe Pro's published roadmap."
+---
+
+# Splits Business vs Safe Pro [Compare available features with Safe Pro's published roadmap]
+
+**Splits Business** uses [workspaces](/workspaces) to manage [accounts](/accounts) and [transactions](/transactions). Safe Pro adds a paid organization layer around Safe accounts. This table compares available Splits features with Safe's [product overview](https://www.safe.global/blog/what-is-safe-pro) and [pricing](https://safe.global/pricing). The Splits column describes product availability, not exclusive access under a paid plan.
+
+## Feature comparison
+
+| Feature | Splits today | Safe Pro status | Details |
+| --- | --- | --- | --- |
+| Shared workspace | View accounts, balances, and transactions in one workspace. | Live: Workspace and shared account activity. | [Splits workspaces](/workspaces), [Safe Pro overview](https://www.safe.global/blog/what-is-safe-pro) |
+| Roles and approvals | Owner and Member roles. Each account has signers and a signing threshold. | Live: Admin and Member Workspace roles. Finer role controls remain on the roadmap. | [Splits roles](/workspaces/roles), [Safe roles](https://help.safe.global/articles/5340176864-workspace-roles-and-permissions) |
+| Transaction policies | Signers approve proposals against each account's threshold. | Live on Business and Enterprise: policies and proposer access. | [Splits transactions](/transactions), [Safe Pro pricing](https://safe.global/pricing) |
+| Private accounts | No private account feature. | Roadmap: Private Safes. | [Splits accounts](/accounts), [Safe Pro overview](https://www.safe.global/blog/what-is-safe-pro) |
+| Private transaction queues | Pending proposals need signer approval. Splits has no private queue feature. | Roadmap: private transaction queues. | [Splits transactions](/transactions), [Safe Pro overview](https://www.safe.global/blog/what-is-safe-pro) |
+| Notifications and alerts | Schedule drafts trigger signer emails and reminders. Configurable event alerts are not available. | Roadmap: configurable notifications and alerts. | [Splits schedules](/transactions/schedules), [Safe Pro overview](https://www.safe.global/blog/what-is-safe-pro) |
+| Single sign-on | Not available in the app. | Roadmap: enterprise single sign-on. | [Safe Pro overview](https://www.safe.global/blog/what-is-safe-pro) |
+| DeFi risk monitoring | No position-level risk monitor. | Roadmap: DeFi risk monitoring. Shield checks and Security Hub are live. | [Safe Pro overview](https://www.safe.global/blog/what-is-safe-pro), [Safe Pro pricing](https://safe.global/pricing) |
+| Banking | After verification, receive fiat, withdraw to your bank, and pay vendors by bank transfer. | Roadmap: banking connectivity. | [Splits banking](/banking), [Safe Pro overview](https://www.safe.global/blog/what-is-safe-pro) |
+| Accounting and reports | Export transaction history and token balances. Generate statements and other reports. | Live: activity log. Safe Pro pricing does not list accounting reports. | [Splits accounting](/accounting), [Safe Pro pricing](https://safe.global/pricing) |
+| Recurring payments | Create scheduled transfer drafts that signers approve. | Not listed in Safe Pro's pricing matrix. | [Splits schedules](/transactions/schedules), [Safe Pro pricing](https://safe.global/pricing) |
+| Invoices | Request crypto payments or offer bank payment after verification. | Not listed in Safe Pro's pricing matrix. | [Splits invoicing](/invoicing), [Safe Pro pricing](https://safe.global/pricing) |
+
+Safe calls the seven roadmap features targets, not launch-day features. A roadmap label does not guarantee a release date or plan scope.
+
+## How it works
+
+- **Splits keeps signing with each account.** Workspace roles control app access. An account's signer set controls onchain approvals.
+- **Safe Pro adds organization tools to Safe accounts.** Safe's initial Workspace roles, activity log, Shield checks, and Security Hub are available now.
+- **Bank transfers need verification in Splits.** The workspace verifies a business or individual before it uses fiat features.
+
+## Use Splits
+
+Prerequisites: A signing key and a workspace.
+
+::::steps
+
+### Create a workspace
+
+Follow [workspace setup](/workspaces#the-setup-steps) to create the Treasury and set its signing threshold.
+
+### Add accounts and members
+
+Create [accounts](/accounts) for separate purposes. Invite [members](/members) who need access.
+
+### Add banking when needed
+
+Complete [entity verification](/banking#getting-verified) before you receive or send bank transfers.
+
+::::
+
+## Limits
+
+- Splits does not offer private accounts, private transaction queues, single sign-on, or a position-level DeFi risk monitor.
+- Splits has Owner and Member roles. It does not offer custom workspace roles.
+- Schedule emails do not provide the configurable event alerts on Safe Pro's roadmap.
+- Banking depends on entity verification and the [supported jurisdictions](/banking#jurisdictions).
+- Some accounting reports require access to tax reports. See [Accounting](/accounting#reports).
+
+## Next steps
+
+- [Create a workspace](https://app.splits.org)
+- [Workspaces](/workspaces)
+- [Banking](/banking)
+- [Accounting](/accounting)
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits accounts list`: list workspace accounts (**Read** scope)
+- `splits transactions list`: query transaction history (**Read** scope)
