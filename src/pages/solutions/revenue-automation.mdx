@@ -13,7 +13,7 @@ description: "Route revenue to an account per stream, swap long-tail tokens to s
 - **Runs need no approval. Scheduled payments need approval.** An automation's signer set is the Treasury's passkeys plus a Splits server key at 1-of-n, so runs execute on their own. A schedule produces one draft proposal per occurrence. The account's signers approve each proposal at the account's [threshold](/accounts/thresholds).
 - **Swaps and bridges carry no Splits fee.** Splits routes each [swap](/transactions/swaps) quote across several providers, including cross-network routes.
 - **Invoices reconcile onchain.** When a payer pays an invoice through its page, Splits marks the invoice paid after it verifies the transaction. You mark bank payments manually: see [Tracking payments](/invoicing/tracking). You can [issue](/invoicing#issuing) an invoice that receives directly into an automation's deposit address.
-- **Idle stables earn without lockup.** Automated [Earn](/accounts/earn) deposits an account's idle balance. You enable it per account. You can withdraw positions at any time and spend them directly.
+- **Idle stables earn without lockup.** Automated [Earn](/accounts/earn) deposits an account's idle balance. You enable it for the workspace. You can withdraw positions at any time and spend them directly.
 - **The books follow.** Every run and payment appears on the [Accounting](/accounting) page, where you can filter and export them. An accountant joins as a [read-only member](/workspaces/roles#read-only-members).
 
 ## Setting up a revenue stream
@@ -40,7 +40,7 @@ Add a schedule from the account that pays payroll and vendors. For a vendor paid
 
 ### Enable Automated Earn
 
-Enable [Automated Earn](/accounts/earn#automated-earn) on the accounts that hold working capital between payment runs.
+Enable [Automated Earn](/accounts/earn#automated-earn) for the workspace.
 
 ### Invite the accountant
 
