@@ -15,7 +15,7 @@ A module has full access to the account. Only enable addresses you trust complet
 
 **Automating token transfers only: don't use a module.** Grant an ERC-20 approval instead: call `approve(spender, allowance)` on the token contract via a [custom transaction](/transactions/custom), then have the spender key call `transferFrom`. An approval is scoped to one token up to an allowance; a module can do anything.
 
-**Earning interest.** The [Automated Earn](/accounts/earn#automated-earn) toggle enables Splits' open-source [Auto Earn Module](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vault-modules/src/AutoEarnModule.sol) on the account; no manual setup.
+**Earning interest.** The [Automated Earn](/accounts/earn#automated-earn) setting enables Splits' open-source [Auto Earn Enroller Module](https://github.com/0xSplits/splits-contracts-monorepo/blob/main/packages/smart-vault-modules/src/AutoEarnEnrollerModule.sol) on the Treasury, which can only enable the Auto Earn Module on the Treasury and its operating accounts; no manual setup.
 
 **Deposit-address automation** (split/swap/forward incoming tokens): use an [automation account](/accounts#automation-accounts), not a module.
 
