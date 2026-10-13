@@ -15,8 +15,8 @@ Splits never has custody of a workspace's assets, so there must be a way to rega
 
 Recovery signers are EOAs chosen at [workspace setup](/workspaces), controlling the Root at the recovery threshold set there. You can add two types:
 
-- **Email**: Splits creates a Privy embedded wallet for the email address. The signer authenticates with an email code when a recovery needs their signature. This option lets a trusted person help without managing a crypto wallet.
-- **Wallet**: add an EOA wallet address or ENS name. The signer connects that wallet when a recovery needs their signature.
+- **Email**: Splits creates a Privy embedded wallet for the email address. The signer authenticates with an email code when a recovery needs their signature. This option lets a trusted person help without managing a crypto wallet. Splits creates a separate wallet for each workspace the email is added to.
+- **Wallet**: add an EOA wallet address or ENS name. The signer connects that wallet when a recovery needs their signature. Use an address created for this purpose that has never signed a transaction anywhere; see [Keeping recovery healthy](#keeping-recovery-healthy).
 
 Recovery signers are the backstop beneath the day-to-day signers. [Settings > Recovery](https://app.splits.org/settings/team/recovery/) lists them for Owners. Changing them changes the workspace's account addresses ([why](#changing-recovery-signers)).
 
@@ -55,3 +55,5 @@ The practical way to change them today is to create a new workspace. Email suppo
 
 - [Verify recovery signers that use external wallets](#verifying-recovery-signers) periodically; each shows when it was last verified.
 - Use multiple signers on hardware wallets; at Splits we use a [2-of-3 with hardware wallets](/resources/how-we-work#our-workspace).
+- **Use fresh addresses for wallet signers.** An Ethereum address is a hash of its public key, and the public key only appears onchain when the address signs. A recovery wallet that has never signed anywhere exposes nothing but that hash, which keeps it protected even if ECDSA, the signature scheme behind every Ethereum key, is ever weakened. An address you use day to day has already published its public key. Email signers get a new address per workspace, so they meet this by default.
+- **Don't reuse recovery wallets across workspaces.** The Root's signer set is public onchain, so one wallet on two workspaces links them; see [Keys and privacy](/members/keys#keys-and-privacy).
