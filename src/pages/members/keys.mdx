@@ -39,7 +39,7 @@ Recovery signers have their own verification flow; see [Verifying recovery signe
 
 Every account's signer set is public onchain: passkeys are stored as their public keys, EOAs as their addresses, and account creation and every signer change are logged. A signing key that signs for accounts in two workspaces links those workspaces to anyone reading the chain. **Membership in two workspaces reveals nothing onchain; a shared signer does.** This includes reusing an existing passkey as the Treasury signer when creating a new workspace.
 
-When two workspaces shouldn't be linkable, add a new passkey for the new workspace at [Settings > Personal > Passkeys](https://app.splits.org/settings/personal/passkeys/) and select it as the signer during [setup](/workspaces). The same applies to [recovery wallets](/workspaces/recovery#keeping-recovery-healthy).
+For the practices that keep workspaces unlinked, including a separate passkey per workspace, see [Privacy](/workspaces/privacy).
 
 The two key types also differ in what they expose. A passkey's public key is onchain from the moment it's added to an account. An EOA exposes only its address until it signs; a never-used EOA is protected by the hash, which is why recovery wallets should be fresh addresses.
 
