@@ -11,13 +11,20 @@ See also [Recurring](/invoicing/recurring), [Paying](/invoicing/paying), and [Tr
 
 ## Issuing
 
-From the *Invoices* page, select *Create*:
+From the *Invoices* page, select *Create invoice*:
 
-1. Enter the payee and payer names, the amount and token, and the issue and due dates. A memo and file attachments are optional.
+1. Enter the payee and payer names, the amount and token, and the issue and due dates. A memo and one file attachment are optional.
 2. Pick the receiving account: any of your [accounts](/accounts), including an [automation](/accounts#automation-accounts)'s deposit address.
-3. The payer's email is optional. With it, the invoice is emailed on creation; without it, you get the invoice link to share yourself.
+3. Add a customer email if you want Splits to email the invoice. You can also add comma-separated CC emails when a customer email is present. Without a customer email, copy the invoice link to share it yourself.
+4. Choose *None*, *Weekly*, *Monthly*, or *Annually* under *Repeats*.
+
+A one-off invoice with a customer email is sent when you create it by default. For a future issue date, turn on *Send on issue date* to create a one-time schedule that emails the invoice on that date. From the *Schedules* tab, an Owner can send it now or pause and resume it.
 
 Invoice numbers increment automatically per workspace.
+
+## Managing invoices
+
+From the *Invoices* page, you can copy an invoice link, download a PDF, or duplicate an invoice. Duplicating opens a prefilled create form; re-enter its dates, CC emails, and attachment. Owners can add or edit the memo on an unpaid invoice, resend its email with an optional note if it has a customer email, or void it. See [Tracking](/invoicing/tracking) to mark invoices paid or unpaid.
 
 ## Pay-by-bank
 
