@@ -7,9 +7,15 @@ description: "Move crypto to the workspace's bank accounts: connect banks via Pl
 
 Before you can offramp, add a bank account from [Settings > Banks](https://app.splits.org/settings/team/banks/): connect a US account with [Plaid](https://plaid.com/) or enter its routing and account numbers manually; EU accounts are added by IBAN. You can add as many bank accounts as you wish.
 
-Then offramp either by clicking *Offramp* on the Dashboard, or from Settings > Banks: click the three dots on the target bank account and select *Offramp*.
+To offramp, open *Send* and choose your bank account as the recipient. You can also go to Settings > Banks, click the three dots on the target bank account, and select *Offramp*; this opens *Send* with that bank account selected.
 
-Offramps carry the 0.25% [banking fee](/banking), deducted from the amount. To send fiat to a bank account that isn't yours, see [Paying vendors](/banking/paying-vendors).
+## Exact bank amount
+
+Enter the fiat amount you want the bank to receive in *Recipient gets*. The app increases the token amount sent to cover the 0.25% [banking fee](/banking), so the bank receives the amount entered. For example, to receive $1,995.00, the account sends 2,000.00 USDC: $5.00 covers the fee.
+
+The review step shows the amount sent, the fee, and the amount the bank receives before you confirm. The minimum amount the bank can receive is $10 or €10.
+
+To offramp to someone else's bank account, see [Paying vendors](/banking/paying-vendors).
 
 ## Settlement
 
