@@ -72,6 +72,7 @@ export default defineConfig({
       items: [
         { text: 'Roles', link: '/workspaces/roles' },
         { text: 'Recovery', link: '/workspaces/recovery' },
+        { text: 'Privacy', link: '/workspaces/privacy' },
         { text: 'Settings', link: '/workspaces/settings' },
       ],
     },

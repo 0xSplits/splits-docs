@@ -35,6 +35,14 @@ Recovery signers have their own verification flow; see [Verifying recovery signe
 
 **Passkey won't open.** Usually the password manager: 1Password and Bitwarden are finicky, especially in newer browsers (e.g. Arc/Dia), and 1Password's prompt appears in the browser's top-right corner. Isolate the passkey by [verifying it](#verifying-access), toggle the manager's extension off and on, and hard-refresh. Test at [webauthn.io](https://webauthn.io/): reproduces there → the provider; only on our site → email support. Slow Windows passkeys: delete temporary files (`%temp%` and `prefetch` via `Windows + R`) and reboot. If a passkey is unrecoverable, see [Recovery](/workspaces/recovery).
 
+## Keys and privacy
+
+Every account's signer set is public onchain: passkeys are stored as their public keys, EOAs as their addresses, and account creation and every signer change are logged. A signing key that signs for accounts in two workspaces links those workspaces to anyone reading the chain. **Membership in two workspaces reveals nothing onchain; a shared signer does.** This includes reusing an existing passkey as the Treasury signer when creating a new workspace.
+
+For the practices that keep workspaces unlinked, including a separate passkey per workspace, see [Privacy](/workspaces/privacy).
+
+The two key types also differ in what they expose. A passkey's public key is onchain from the moment it's added to an account. An EOA exposes only its address until it signs; a never-used EOA is protected by the hash, which is why recovery wallets should be fresh addresses.
+
 ## Programmatic access
 
 Via the [Splits CLI / MCP](/introduction/agents):

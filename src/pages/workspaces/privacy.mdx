@@ -1,0 +1,52 @@
+---
+title: Privacy
+description: "How workspaces become linked onchain through signing keys, recovery signers, and transaction flows, and the practices that keep unrelated workspaces isolated."
+---
+
+# Privacy [Keeping unrelated workspaces from being linked onchain]
+
+Splits runs on public blockchains, so **true privacy is not the goal**. Anyone can inspect an account's signers, transactions, and contract interactions, and AI models make everyone a capable onchain sleuth. **If a relationship exists onchain, someone can find it.** Security through obscurity is not a privacy strategy. The goal is narrower: keep workspaces that shouldn't be associated from sharing anything onchain.
+
+Every account in a workspace sits in one [ownership chain](/accounts) (Root → Treasury → sub-accounts), so identifying one account exposes the rest of the workspace. Two workspaces become linked through shared signing keys, shared recovery signers, transaction flows, and contract interactions. **An onchain link between two workspaces is permanent.** The general rule: don't reuse anything across workspaces that creates an onchain relationship.
+
+## Workspace setup
+
+### Recovery signers
+
+Use different [recovery signers](/workspaces/recovery#recovery-signers) for each workspace. An identified account can be traced through the ownership chain to its Root, whose signer set is public, so a shared recovery wallet links the workspaces.
+
+- Don't use a publicly identifiable address, such as one with an ENS name or one already associated with you.
+- Consider email signers. This requires trusting Privy, but each workspace gets its own wallet for the same email, so nothing is shared onchain.
+- For wallet signers, use a fresh address; see [Keeping recovery healthy](/workspaces/recovery#keeping-recovery-healthy).
+
+### Passkeys
+
+A passkey's public key is recorded onchain when it's added as a signer, so reusing one links the workspaces; see [Keys and privacy](/members/keys#keys-and-privacy). **Don't reuse a passkey across workspaces that should stay unlinked.**
+
+A passkey provider won't create a second passkey for the same Splits account (one iCloud Keychain passkey, one 1Password passkey, and so on), so a single account can't hold a separate passkey per workspace. The workaround splits your login identity from your signing identity:
+
+1. **Keep one primary account for logging in.** This is the account you use day to day (e.g. `alice@acme.co`). Make it an [Owner](/workspaces/roles) in each workspace; Owners are the only role that can edit an account's signer set. Propose transactions from it, but don't add its passkey as a signer anywhere and don't sign with it.
+2. **Create a signing-only account per workspace.** Sign up with a workspace-specific email, such as `alice+acme@acme.co` for Acme Co and `alice+beta@acme.co` for Beta Inc, and [invite](/members#inviting) it to its workspace as a Member. On that account, add a passkey at [Settings > Personal > Passkeys](https://app.splits.org/settings/personal/passkeys/). Then, from your primary account, add that passkey as a signer only on accounts in that one workspace.
+3. **Sign from an incognito window.** Stay logged in to your primary account as usual. When a transaction needs your signature, open its link in an incognito window and sign there with the workspace's passkey. Viewing and signing a transaction need no login; the passkey is the only credential.
+
+If you're creating the workspace, create it from the signing-only account: [setup](/workspaces#the-setup-steps) makes the creator's passkey the Treasury's signer. Then invite your primary account as an Owner; invited members get no signer role until one is added.
+
+You keep one login that switches between workspaces, while every signature in a workspace comes from a passkey that exists nowhere else.
+
+### EOAs
+
+Use a fresh [EOA](/members/keys#eoas) for each workspace; register it via the [CLI or API](/introduction/agents#sign-locally-with-an-eoa). An EOA's history travels with it: existing activity may already connect it to you, another company, or another workspace.
+
+## Incoming transactions
+
+Consider the sender. An identifiable sender can identify your workspace, and receiving from the same address in two workspaces links them.
+
+[Onramps](/banking/onramping) and funding from an exchange are generally fine: onramps are routed through [Bridge](/banking#getting-verified), and exchange withdrawals come from intermingled hot wallets. Once assets are onchain, every transfer is public.
+
+[Automation accounts](/accounts#automation-accounts) are owned by the Treasury, so treat their deposit addresses like any other account: identifying one exposes its relationship to the rest of the workspace.
+
+## Outgoing transactions
+
+Consider the recipient. Sending to the same recipient from two workspaces links them, and sending to an identifiable recipient identifies the workspace. Paying the ENS name of someone publicly known to work for you is enough. To avoid it, the recipient needs an address that can't be tied to them and is used only for this purpose.
+
+[Private transfers](/transactions/sends#private-transfers) break the direct onchain connection between your account and the recipient. **They do not make the transaction private**: amounts, timing, payment patterns, and counterparties can still be correlated.

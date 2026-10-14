@@ -34,6 +34,7 @@ Any agent should be able to take a product PR and update these docs without a hu
 | Workspace definition, creating a workspace, setup steps | `/workspaces` |
 | Roles, capability matrix, settings visibility, API key scopes, read-only members | `/workspaces/roles` |
 | Recovery, recovery signers, verifying them | `/workspaces/recovery` |
+| Keeping workspaces unlinked onchain: per-workspace keys and recovery signers, sender/recipient hygiene | `/workspaces/privacy` |
 | Settings map (each section, who sees it) | `/workspaces/settings` |
 | Member (the person), signing up, inviting, roles-are-per-team pointer, removal | `/members` |
 | Signing keys: passkeys, password managers, EOAs, verifying access, troubleshooting | `/members/keys` |
