@@ -1,6 +1,6 @@
 ---
 title: Offramping
-description: "Move crypto to the workspace's bank accounts: connect a bank, choose the exact fiat amount it receives, and review fees and settlement timing."
+description: "Move crypto to the workspace's bank accounts: connect banks via Plaid or manually, initiate an offramp, ACH and SEPA settlement timing, or use your own provider."
 ---
 
 # Offramping [Move crypto out to the workspace's bank accounts]
@@ -11,9 +11,11 @@ To offramp, open *Send* and choose your bank account as the recipient. You can a
 
 ## Exact bank amount
 
-Enter the fiat amount you want the bank to receive in *Recipient gets*. The app adds the 0.25% [banking fee](/banking) to the token amount sent, so the fee is covered without reducing the amount entered. For example, to receive $498.75, the account sends 500.00 USDC: $1.25 covers the fee. Review shows the amount sent, the fee, and the amount the bank receives before you confirm. The minimum amount the bank can receive is $10 or €10.
+Enter the fiat amount you want the bank to receive in *Recipient gets*. The app increases the token amount sent to cover the 0.25% [banking fee](/banking), so the bank receives the amount entered. For example, to receive $498.75, the account sends 500.00 USDC: $1.25 covers the fee.
 
-To send fiat to a bank account that isn't yours, see [Paying vendors](/banking/paying-vendors).
+The review step shows the amount sent, the fee, and the amount the bank receives before you confirm. The minimum amount the bank can receive is $10 or €10.
+
+To offramp to someone else's bank account, see [Paying vendors](/banking/paying-vendors).
 
 ## Settlement
 
