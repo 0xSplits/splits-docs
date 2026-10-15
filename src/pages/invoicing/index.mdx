@@ -11,13 +11,22 @@ See also [Recurring](/invoicing/recurring), [Paying](/invoicing/paying), and [Tr
 
 ## Issuing
 
-From the *Invoices* page, select *Create*:
+From the *Invoices* page, select *Create invoice*:
 
-1. Enter the payee and payer names, the amount and token, and the issue and due dates. A memo and file attachments are optional.
+1. Enter the payee and payer names, the amount and token, and the issue and due dates. A memo and one file attachment are optional.
 2. Pick the receiving account: any of your [accounts](/accounts), including an [automation](/accounts#automation-accounts)'s deposit address.
-3. The payer's email is optional. With it, the invoice is emailed on creation; without it, you get the invoice link to share yourself.
+3. You may add the payer's email to have Splits send the invoice to the payer. You can also copy the invoice link to share it directly.
+4. Choose *None*, *Weekly*, *Monthly*, or *Annually* under *Repeats*.
+
+A one-off invoice with the payer's email is sent when you create it by default. If its issue date is in the future, *Send on issue date* appears: turn it on to create a one-time schedule that emails the invoice on that date. Recurring invoices always send on their issue dates, so this control cannot be changed for them.
 
 Invoice numbers increment automatically per workspace.
+
+## Managing invoices
+
+From the *Invoices* page, any workspace member can copy or open an invoice link, download its PDF or attachments, and open a duplicate in the create form. The duplicate needs new dates, CC emails, and any attachment re-entered; only Owners can create it.
+
+Owners can add or edit the memo, resend the email with an optional note if the payer's email is present, or void an invoice that is neither paid nor void. Owners can mark an invoice paid or mark a paid invoice unpaid; see [Tracking](/invoicing/tracking).
 
 ## Pay-by-bank
 
