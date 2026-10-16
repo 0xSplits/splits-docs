@@ -287,7 +287,7 @@ index 6150cb4c5efe875f37cd00dcda791bdc93e4b0d9..8f470636d4a56cfc37c4d42bfa883789
 -        return window.location.origin + path;
 -    }, [path]);
 +        // Trailing-slash form: splits.org redirects the no-slash URL to it.
-+        return window.location.origin + (basePath && basePath !== '/' ? basePath.replace(/\/$/, '') : '') + path.replace(/\/?$/, '/');
++        return window.location.origin + basePath.replace(/\/$/, '') + path.replace(/\/?$/, '/');
 +    }, [path, basePath]);
      const query = React.useMemo(() => {
          return `Please research and analyze this page: ${pageUrl} so I can ask you questions about it. Once you have read it, prompt me with any questions I have. Do not post content from the page in your response. Any of my follow up questions must reference the site I gave you.`;
@@ -414,12 +414,15 @@ diff --git a/dist/react/internal/markdown-url.js b/dist/react/internal/markdown-
 index 5397bdf40f789fc4f8fe45b3a3e4e71416b5a7f4..e31fcc7036322468eb5e967d41a995f5fabcc874 100644
 --- a/dist/react/internal/markdown-url.js
 +++ b/dist/react/internal/markdown-url.js
-@@ -1,5 +1,5 @@
+@@ -1,5 +1,8 @@
 -export function getMarkdownAssetPath(path) {
 +export function getMarkdownAssetPath(path, basePath = '/') {
      const pagePath = path === '/' ? '/index' : path.replace(/\/$/, '');
 -    return `/assets/md${pagePath}.md`;
-+    return `${basePath.replace(/\/$/, '')}/assets/md${pagePath}.md`;
++    // The public twin URL (what llms.txt links), not /assets/md/: everything
++    // under <basePath>/assets/ is served immutable for a year, and twins are
++    // not content-hashed, so a cached copy would never refresh.
++    return `${basePath.replace(/\/$/, '')}${pagePath}.md`;
  }
  //# sourceMappingURL=markdown-url.js.map
 diff --git a/dist/waku/internal/dedupe-head.js b/dist/waku/internal/dedupe-head.js
