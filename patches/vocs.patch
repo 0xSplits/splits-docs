@@ -267,6 +267,76 @@ index 14b82a21ac7f3f1f1cd8871d7cd1d5e73775ad71..d52361310e500ae73ec5d8d0d0390750
  }
  function getIconType(iconUrl) {
      if (iconUrl.endsWith('.svg'))
+diff --git a/dist/react/internal/AskAi.js b/dist/react/internal/AskAi.js
+index 6150cb4c5efe875f37cd00dcda791bdc93e4b0d9..8f470636d4a56cfc37c4d42bfa883789c2a838b4 100644
+--- a/dist/react/internal/AskAi.js
++++ b/dist/react/internal/AskAi.js
+@@ -14,7 +14,7 @@ import { getMarkdownAssetPath } from './markdown-url.js';
+ export function AskAi(props) {
+     const { className } = props;
+     const { path } = useRouter();
+-    const { mcp } = useConfig();
++    const { mcp, basePath } = useConfig();
+     const [menuOpen, setMenuOpen] = React.useState(false);
+     const [copied, setCopied] = React.useState(false);
+     const [mcpCopied, setMcpCopied] = React.useState(false);
+@@ -50,8 +50,9 @@ export function AskAi(props) {
+     const pageUrl = React.useMemo(() => {
+         if (typeof window === 'undefined')
+             return '';
+-        return window.location.origin + path;
+-    }, [path]);
++        // Trailing-slash form: splits.org redirects the no-slash URL to it.
++        return window.location.origin + basePath.replace(/\/$/, '') + path.replace(/\/?$/, '/');
++    }, [path, basePath]);
+     const query = React.useMemo(() => {
+         return `Please research and analyze this page: ${pageUrl} so I can ask you questions about it. Once you have read it, prompt me with any questions I have. Do not post content from the page in your response. Any of my follow up questions must reference the site I gave you.`;
+     }, [pageUrl]);
+@@ -68,8 +69,8 @@ export function AskAi(props) {
+         },
+     ], [query]);
+     const markdownUrl = React.useMemo(() => {
+-        return getMarkdownAssetPath(path);
+-    }, [path]);
++        return getMarkdownAssetPath(path, basePath);
++    }, [path, basePath]);
+     const copyPageForAi = React.useCallback(async () => {
+         try {
+             const response = await fetch(markdownUrl);
+diff --git a/dist/react/internal/CopyForAi.client.js b/dist/react/internal/CopyForAi.client.js
+index 0ff98da05580f8eda3ab26daaf242c437b2a5a76..eba16f3760ceb77e9c9b2f42faac602c03723ce5 100644
+--- a/dist/react/internal/CopyForAi.client.js
++++ b/dist/react/internal/CopyForAi.client.js
+@@ -5,17 +5,19 @@ import * as React from 'react';
+ import { useRouter } from 'waku';
+ import LucideCheck from '~icons/lucide/check';
+ import LucideClipboard from '~icons/lucide/clipboard';
++import { useConfig } from '../useConfig.js';
+ import { getMarkdownAssetPath } from './markdown-url.js';
+ export function CopyForAi(props) {
+     const { className, frontmatter } = props;
+     const router = useRouter();
++    const { basePath } = useConfig();
+     const [state, setState] = React.useState('idle');
+     const handleCopy = React.useCallback(async () => {
+         if (state === 'copying')
+             return;
+         setState('copying');
+         try {
+-            const response = await fetch(getMarkdownAssetPath(router.path));
++            const response = await fetch(getMarkdownAssetPath(router.path, basePath));
+             if (!response.ok)
+                 throw new Error('Failed to fetch markdown');
+             const markdown = await response.text();
+@@ -28,7 +30,7 @@ export function CopyForAi(props) {
+             setState('error');
+             setTimeout(() => setState('idle'), 2000);
+         }
+-    }, [router.path, state]);
++    }, [router.path, basePath, state]);
+     if (frontmatter?.showAskAi === false)
+         return null;
+     return (_jsxs("button", { "aria-label": "Copy page content as markdown for AI", className: cx('vocs:flex vocs:items-center vocs:gap-2 vocs:text-[13px] vocs:text-secondary vocs:hover:text-heading vocs:cursor-pointer vocs:disabled:cursor-default vocs:transition-colors', className), "data-v-copy-for-ai": true, disabled: state === 'copying', onClick: handleCopy, type: "button", children: [state === 'copied' ? (_jsx(LucideCheck, { className: "vocs:size-4 vocs:text-accent" })) : (_jsx(LucideClipboard, { className: "vocs:size-4" })), _jsx("span", { children: "Copy page for AI" })] }));
 diff --git a/dist/react/internal/Outline.js b/dist/react/internal/Outline.js
 index 4c3f4b9d933367f73b745288ae77e8f46d547932..11399b6155758f157599ec66a0e7841f33a1320d 100644
 --- a/dist/react/internal/Outline.js
@@ -332,6 +402,29 @@ index 8f1ab06a803496231d033e15e1bd0c8be8365e85..db7aaab19fa829deb4211e39ad4f5501
  }
  //# sourceMappingURL=SkipToContent.client.js.map
 \ No newline at end of file
+diff --git a/dist/react/internal/markdown-url.d.ts b/dist/react/internal/markdown-url.d.ts
+index 9be110aed4783e44dfd22b6ed6871524ad218afe..33ccbfced6c2f66c84e0b2cf26792bc592d2acd8 100644
+--- a/dist/react/internal/markdown-url.d.ts
++++ b/dist/react/internal/markdown-url.d.ts
+@@ -1,2 +1,2 @@
+-export declare function getMarkdownAssetPath(path: string): string;
++export declare function getMarkdownAssetPath(path: string, basePath?: string): string;
+ //# sourceMappingURL=markdown-url.d.ts.map
+diff --git a/dist/react/internal/markdown-url.js b/dist/react/internal/markdown-url.js
+index 5397bdf40f789fc4f8fe45b3a3e4e71416b5a7f4..e31fcc7036322468eb5e967d41a995f5fabcc874 100644
+--- a/dist/react/internal/markdown-url.js
++++ b/dist/react/internal/markdown-url.js
+@@ -1,5 +1,8 @@
+-export function getMarkdownAssetPath(path) {
++export function getMarkdownAssetPath(path, basePath = '/') {
+     const pagePath = path === '/' ? '/index' : path.replace(/\/$/, '');
+-    return `/assets/md${pagePath}.md`;
++    // The public twin URL (what llms.txt links), not /assets/md/: everything
++    // under <basePath>/assets/ is served immutable for a year, and twins are
++    // not content-hashed, so a cached copy would never refresh.
++    return `${basePath.replace(/\/$/, '')}${pagePath}.md`;
+ }
+ //# sourceMappingURL=markdown-url.js.map
 diff --git a/dist/waku/internal/dedupe-head.js b/dist/waku/internal/dedupe-head.js
 index 52b95f96fce07b5d4b8d17ae01647a1a14c5c483..7805d2f731efd5f734204da114c9f991f6dde01d 100644
 --- a/dist/waku/internal/dedupe-head.js
