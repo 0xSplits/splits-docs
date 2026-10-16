@@ -268,7 +268,7 @@ index 14b82a21ac7f3f1f1cd8871d7cd1d5e73775ad71..d52361310e500ae73ec5d8d0d0390750
  function getIconType(iconUrl) {
      if (iconUrl.endsWith('.svg'))
 diff --git a/dist/react/internal/AskAi.js b/dist/react/internal/AskAi.js
-index 6150cb4c5efe875f37cd00dcda791bdc93e4b0d9..2d0c0782c488b23ec10db778ddccf3665409330a 100644
+index 6150cb4c5efe875f37cd00dcda791bdc93e4b0d9..89c104ffaa906485268472cc03544ef7fd8781f0 100644
 --- a/dist/react/internal/AskAi.js
 +++ b/dist/react/internal/AskAi.js
 @@ -14,7 +14,7 @@ import { getMarkdownAssetPath } from './markdown-url.js';
@@ -280,6 +280,17 @@ index 6150cb4c5efe875f37cd00dcda791bdc93e4b0d9..2d0c0782c488b23ec10db778ddccf366
      const [menuOpen, setMenuOpen] = React.useState(false);
      const [copied, setCopied] = React.useState(false);
      const [mcpCopied, setMcpCopied] = React.useState(false);
+@@ -50,8 +50,8 @@ export function AskAi(props) {
+     const pageUrl = React.useMemo(() => {
+         if (typeof window === 'undefined')
+             return '';
+-        return window.location.origin + path;
+-    }, [path]);
++        return window.location.origin + (basePath && basePath !== '/' ? basePath.replace(/\/$/, '') : '') + path;
++    }, [path, basePath]);
+     const query = React.useMemo(() => {
+         return `Please research and analyze this page: ${pageUrl} so I can ask you questions about it. Once you have read it, prompt me with any questions I have. Do not post content from the page in your response. Any of my follow up questions must reference the site I gave you.`;
+     }, [pageUrl]);
 @@ -68,8 +68,8 @@ export function AskAi(props) {
          },
      ], [query]);
