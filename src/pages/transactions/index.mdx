@@ -23,16 +23,17 @@ Every transaction can carry a [memo](/transactions/memos), and a workspace can r
 
 ## Gas sponsorship
 
-Splits sponsors transaction fees with a monthly gas stipend, applied at the workspace level and shared across all accounts and networks. The stipend is based on the workspace's [Earn](/accounts/earn) balance:
+Splits can sponsor transaction fees for a workspace, shared across its accounts and networks. Through November 8, 2026, each workspace's assigned gas policies determine its allowance. An [Earn](/accounts/earn) balance of $1k does not automatically grant $5 per month.
 
-| Earn balance | Stipend |
+Starting November 9, 2026, the standard allowance depends on the workspace's Earn balance:
+
+| Earn balance | Standard allowance |
 | --- | --- |
-| $0 | $5, one-time |
-| $1k+ | $5 per month |
+| Below $10k | $5, one-time |
 | $10k+ | $10 per month |
 | $100k+ | $100 per month |
 
-Once the stipend is used, transactions are paid in the network's native token (e.g. ETH); the app tells you at submission if the account doesn't hold enough. There is no way to view the remaining stipend yet. Sponsorship policies can change at any time without notice.
+An explicitly assigned gas policy can replace the standard allowance. [Settings > Gas](https://app.splits.org/settings/team/gas/) shows the remaining sponsored allowance and the workspace's prepaid gas balance. When the allowance cannot cover a manually submitted transaction, Splits uses that gas balance if available; otherwise, the account pays in the network's native token (e.g. ETH). Automations require a sponsorship source that can cover at least $1 before they start. You can top up the gas balance from that settings page.
 
 ## Programmatic access
 
