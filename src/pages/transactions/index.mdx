@@ -23,19 +23,7 @@ Every transaction can carry a [memo](/transactions/memos), and a workspace can r
 
 ## Gas sponsorship
 
-Splits sponsors transaction fees across a workspace's accounts and networks. The allowance depends on the workspace's [Earn](/accounts/earn) balance:
-
-| Earn balance | Allowance |
-| --- | --- |
-| Below $10k | $5, one-time |
-| $10k+ | $10 per month |
-| $100k+ | $100 per month |
-
-## Managing gas
-
-Your workspace's gas balance is managed in a single account to pay transaction fees across all accounts and supported networks, without keeping native tokens in each account. 
-
-In [Settings > Gas](https://app.splits.org/settings/team/gas/), check how much sponsored and prepaid gas remains, and add more when needed. Splits uses sponsored gas first, then pulls from your gas balance.
+Gas is sponsored from the workspace's plan budget, then from its gas balance; when neither covers it, the account pays in the network's native token. [Gas](/transactions/gas) covers the budgets and topping up.
 
 ## Programmatic access
 
