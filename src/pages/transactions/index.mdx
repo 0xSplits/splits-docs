@@ -21,19 +21,19 @@ Who can propose is governed by [roles](/workspaces/roles): Owners can propose fr
 
 Every transaction can carry a [memo](/transactions/memos), and a workspace can require them on all transactions via the *Require memos* [setting](/workspaces/settings).
 
+## Managing gas
+
+[Settings > Gas](https://app.splits.org/settings/team/gas/) shows your workspace's sponsored gas remaining and its prepaid gas balance. Select *Top up* there to add prepaid gas. Splits uses that balance after sponsored gas; manually submitted transactions fall back to the account's native token (e.g. ETH) if both are insufficient.
+
 ## Gas sponsorship
 
-Splits can sponsor transaction fees for a workspace, shared across its accounts and networks. Through November 8, 2026, each workspace's assigned gas policies determine its allowance. An [Earn](/accounts/earn) balance of $1k does not automatically grant $5 per month.
+Splits sponsors transaction fees across a workspace's accounts and networks. Starting November 9, 2026, the allowance depends on the workspace's [Earn](/accounts/earn) balance:
 
-Starting November 9, 2026, the standard allowance depends on the workspace's Earn balance:
-
-| Earn balance | Standard allowance |
+| Earn balance | Allowance |
 | --- | --- |
 | Below $10k | $5, one-time |
 | $10k+ | $10 per month |
 | $100k+ | $100 per month |
-
-An explicitly assigned gas policy can replace the standard allowance. [Settings > Gas](https://app.splits.org/settings/team/gas/) shows the remaining sponsored allowance and the workspace's prepaid gas balance. When the allowance cannot cover a manually submitted transaction, Splits uses that gas balance if available; otherwise, the account pays in the network's native token (e.g. ETH). Automations require a sponsorship source that can cover at least $1 before they start. You can top up the gas balance from that settings page.
 
 ## Programmatic access
 
