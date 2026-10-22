@@ -27,4 +27,10 @@ Swap quotes are signed by the provider and expire quickly, often before an accou
 
 ## Programmatic access
 
-The [CLI / MCP](/introduction/agents) has no dedicated swap command. Agents can propose swaps as raw calls via `splits transactions create custom` (**Write** scope).
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits transactions create swap --account 0x... --chain-id 8453 --sell-token 0x... --buy-token 0x... --amount 0.5`: propose a swap that sells an exact amount; Splits fetches the quote and builds the calls (**Write** scope)
+- `--destination-chain-id <id>`: receive the bought token on another network, with `--buy-token` as its address there
+- `--slippage-bps <n>`: override the pair's default slippage; `--recipient <address>` adds a transfer of the output
+
+A just-in-time swap inside a send is `splits transactions create transfer --source-token`; see [Sends](/transactions/sends#programmatic-access). The [quote expiry](#quotes-and-multisigs) applies to proposals too: sign a multisig swap promptly.

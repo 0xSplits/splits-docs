@@ -1,11 +1,11 @@
 ---
 title: Agents & API
-description: "Operate Splits via the API or self-describing CLI, or connect AI tools over MCP: scopes, the proposal model, headless signing, and output tuning."
+description: "Operate Splits via the API or self-describing CLI, or connect AI tools over MCP: browser login, agent members, scopes, the proposal model, headless signing, and output tuning."
 ---
 
 # Agents & API [Operate Splits programmatically via the API, CLI, or MCP]
 
-The Splits API and CLI let applications, scripts, and agents operate Splits programmatically. The CLI also runs as an MCP server for AI tools (Claude Code, Cursor, Amp).
+The Splits API and CLI let applications, scripts, and agents operate Splits programmatically. The CLI also runs as an MCP server for AI tools (Claude Code, Cursor, Codex, and others).
 
 **The CLI is self-describing, and it, not this page, is the reference for the command surface:**
 
@@ -13,29 +13,50 @@ The Splits API and CLI let applications, scripts, and agents operate Splits prog
 npx @splits/splits-cli@latest --llms   # machine-readable manifest of every command
 ```
 
-Every command answers `--help` and `--schema`, and over [MCP](#connect-to-ai-tools-mcp) each command is exposed as a tool with its schema. This page covers what the manifest doesn't: scopes, the proposal model, headless signing, and output tuning.
+Every command answers `--help` and `--schema`, and over [MCP](#connect-to-ai-tools-mcp) each command is exposed as a tool with its schema. This page covers what the manifest doesn't: how an agent gets access, what an agent is inside a workspace, scopes, the proposal model, headless signing, and output tuning.
 
 ## Get set up
 
-### Get an API key
-
-Create a key in [Settings > API Keys](https://app.splits.org/settings/team/api-keys/) with the scopes you need (the full matrix is in [Roles](/workspaces/roles#api-key-scopes)):
-
-- **Read**: query data only
-- **Write**: create and propose transactions; update transaction memos and properties
-- **Owner**: manage accounts and workspace settings
-
-Copy the key (it starts with `sk_`) and save it somewhere secure. You won't be able to see it again.
-
-### Install the CLI and sign in
+Install the CLI where the agent runs. The published package talks only to the production API.
 
 ```bash
 npm install -g @splits/splits-cli@latest   # or run via npx @splits/splits-cli@latest
-splits auth login --api-key sk_...
-splits auth whoami   # verify: workspace, scopes, key source, local signing key
 ```
 
-`splits auth logout` removes the saved key.
+Then give it access to a workspace in one of two ways.
+
+### Sign in from the browser
+
+The agent asks for access, and you approve it in the browser. No API key is copied or pasted, and the key never appears in the agent's output or conversation.
+
+```bash
+splits auth login --client-name "Claude Code"
+```
+
+1. The CLI generates a local signing key, opens an approval page in the app, and prints a code. The request expires after 10 minutes.
+2. You sign in to Splits, enter the code, and pick a tab:
+   - *Connect*: choose one of your workspaces and the key's [scopes](#scopes). The **Owner** scope is offered only in workspaces where you are an Owner, and granting it makes the agent an Owner too.
+   - *Create*: create a new workspace with the agent's key on its Treasury. See [Creating a workspace from an agent](/workspaces#from-an-agent).
+3. The CLI saves the key as a workspace in `~/.splits/config.json` and makes it active.
+
+The approval makes the agent an [agent member](/members#agent-members) of the workspace, named after the `--client-name` you passed, and the key acts as that member.
+
+Under MCP, or when an agent runs the CLI in a shell tool and can't show you its output while it waits, the same flow is two calls: `splits auth login-start --client-name "..."` returns the URL and the code to show you, and `splits auth login-status` waits for the approval and saves the key.
+
+### Or bring an API key
+
+Create a key in [Settings > API Keys](https://app.splits.org/settings/team/api-keys/) with the scopes you need. Copy the key (it starts with `sk_`) and save it somewhere secure. You won't be able to see it again. A key created here acts as you: the agent's actions are recorded under your member, not under an agent of its own.
+
+```bash
+echo $SPLITS_API_KEY | splits auth login   # pipe it, so the key stays out of shell history and tool-call transcripts
+splits auth whoami                          # verify: workspace, scopes, the user the key acts as, local signing keys
+```
+
+The `SPLITS_API_KEY` environment variable also works and takes precedence over every saved workspace, which suits CI and headless contexts.
+
+### Several workspaces
+
+Each login saves a workspace in the local config, named after the workspace it belongs to (or after `--name`). `splits auth workspaces` lists them, `splits auth use <alias>` switches the active one, and every command takes `--workspace <alias>` (or the `SPLITS_WORKSPACE` variable) to run once in another. `splits auth logout [alias]` removes a saved workspace.
 
 ## Use the API
 
@@ -48,16 +69,28 @@ The [Swagger docs](https://api.splits.org/public/docs) are the source of truth f
 MCP exposes **every CLI command as a tool automatically**, including commands added later.
 
 ```bash
-splits mcp add   # auto-detects Claude Code, Cursor, and other clients
+splits mcp add   # registers the server with the AI tools installed on this machine (Claude Code, Cursor, Codex, and others)
 ```
 
-For any stdio MCP client, run `SPLITS_API_KEY=sk_... npx @splits/splits-cli --mcp`. `splits skills add` syncs ready-made skill files for agents. Verify the connection by asking the tool to run `splits auth whoami`.
+For any stdio MCP client, run `npx @splits/splits-cli --mcp`, with `SPLITS_API_KEY=sk_...` in its environment if you aren't using the browser login. `splits skills add` syncs ready-made skill files for agents. Verify the connection by asking the tool to run `splits auth whoami`. Under MCP, the browser login runs through the `auth_login-start` and `auth_login-status` tools, and `workspace_create` opens the approval page on its *Create* tab.
+
+## Scopes
+
+Every API key carries one or more scopes, whether you created it in Settings or granted it at a browser login. The full matrix is in [Roles](/workspaces/roles#api-key-scopes):
+
+- **Read**: query data only
+- **Write**: create and propose transactions; update transaction memos and properties
+- **Owner**: manage accounts, automations, invoices, and workspace settings
+
+A key acts as a member: the person who created it, or the [agent member](/members#agent-members) it was granted to. Some operations also require that member to hold the Owner role (off-ramps, invoices, automations, signer and network changes), and off-ramps require the workspace's [entity verification](/banking#getting-verified). Each command's description says what it needs. Scopes grant **no onchain signing authority**: moving funds headlessly requires a [registered EOA](#sign-locally-with-an-eoa) on the account's signer set.
 
 ## The model
 
-Everything visible in the app is queryable with the **Read** scope: accounts, balances, transactions (filterable by account, direction, amount, date, and memo), contacts, tokens, networks, members, settings, and automations.
+Everything visible in the app is queryable with the **Read** scope: accounts, balances (including [Earn](/accounts/earn#programmatic-access) positions), transactions (filterable by account, direction, amount, date, and memo), contacts with their send rules, tokens, networks, members, settings, automations, and invoices. Bank accounts need the **Owner** scope.
 
-Writes follow the same rule as the app: **a transaction is a [proposal](/transactions)** that executes only once signatures meet the account's threshold. `transactions create transfer` and `create custom` produce proposals (**Write** scope); signing happens in the web UI with a passkey, or headlessly with a [registered EOA](#sign-locally-with-an-eoa). **Owner**-scoped commands create and manage accounts and propose signer changes, whose approval always stays in the web UI. A brand-new workspace can be bootstrapped with `org create`; completion also happens in the web UI.
+Writes follow the same rule as the app: **a transaction is a [proposal](/transactions)** that executes only once signatures meet the account's threshold. `splits transactions create` has a subcommand per kind: `transfer` (including paying with another held token or an Earn position), `swap` (including across networks), `earn-deposit` and `earn-withdraw`, `auto-earn-on` and `auto-earn-off`, `offramp`, and `custom` (**Write** scope). Signing happens in the web UI with a passkey, or headlessly with a [registered EOA](#sign-locally-with-an-eoa). **Owner**-scoped commands create accounts, automations, and invoices, and propose signer and network changes; those proposals are signed like any other. Each page's "Programmatic access" section lists the commands for its surface.
+
+Every transaction the API returns carries a `dataType` (`transaction`, `merkleTransaction` for a proposal that runs on several networks, such as a signer change, or `assetTransfer`) and one object with that kind's details.
 
 ## Transaction metadata
 
@@ -65,23 +98,30 @@ Every transaction can carry a [memo](/transactions/memos) (max 500 characters) a
 
 ## Sign locally with an EOA
 
-By default, signing happens in the web UI with a passkey. To operate headlessly, register a local EOA and sign from the CLI:
+By default, signing happens in the web UI with a passkey. To operate headlessly, the agent signs with a local EOA that is a signer on the account:
 
-1. `splits auth create-key --register`: generate a local EOA (stored in `~/.splits/config.json`) and register it. Import an existing key instead with `echo $PRIVATE_KEY | splits auth import-key`.
-2. `splits accounts update-signers <account> --addEoaSignerIds ... --threshold N`: propose adding it as a signer (**Owner** scope). A human approves the proposal in the web UI, and the update applies to every active network.
-3. `splits transactions sign <id>`: sign pending proposals with the local key (**Write** scope). Auto-submits once the threshold is met.
+1. `splits auth create-key --register`: generate a local EOA (stored in `~/.splits/config.json`) and register it. Import an existing key instead with `echo $PRIVATE_KEY | splits auth import-key`. `splits auth whoami` lists the local keys and whether each is registered.
+2. `splits accounts update-signers <account> --add-eoa-signer-ids <id> --threshold N`: propose adding it as a signer (**Owner** scope). An agent member can propose adding its own keys, with no other change, and an Owner signs it. A workspace [created from an agent](/workspaces#from-an-agent) already has the agent's key as the Treasury's only signer.
+3. `splits transactions sign <id>`: sign pending proposals with the local key (**Write** scope). Auto-submits once the threshold is met. Signer and network changes sign the same way and execute on every network at once; on a multisig, run `splits transactions update-gas-estimation <id>` before the last signature.
 
-`splits auth delete-key` removes the local key but does **not** revoke it onchain; remove it from accounts via `update-signers`.
+`splits accounts sign-message <address>` signs a message as the account (ERC-1271) with the same key, as the app does for a [WalletConnect](/integrations/walletconnect#programmatic-access) request. `splits auth delete-key` removes the local key but does **not** revoke it onchain; remove it from accounts via `update-signers`.
 
 ## Tune output for agents
 
 The CLI prints tables for humans and JSON when piped or under MCP. Global flags reshape output: `--format toon|json|yaml|md|jsonl` (`toon` is token-efficient for LLM context), `--filter-output <paths>` to project specific fields, and `--token-count` / `--token-limit` / `--token-offset` to measure or budget output tokens.
 
+## Feedback
+
+`splits feedback send --text "..."` sends a note to the Splits team: the goal, the command, what came back, and what was expected. Any scope works, as long as the key acts as a member. Never include keys or other secrets in it.
+
 ## Examples
 
-- "Show me the balances for all my accounts on Base"
+- "Show me the balances for all my accounts on Base, including what's in Earn"
 - "Find all outbound payments to Acme between $4,500 and $5,500 last month"
 - "Tag the last 5 outbound transfers with property `category=payroll`"
 - "Create a new account called 'Ops' with a 2-of-3 threshold"
-- "Send 100 USDC from my account on Base to 0x..."
+- "Send 100 USDC from my account on Base to 0x..., paying from Earn"
+- "Swap 0.5 ETH on Base for USDC on Arbitrum"
+- "Off-ramp $2,000 to our Chase account"
+- "Invoice Globex 1,500 USDC on Base, due November 1st, and email it to billing@globex.com"
 - "Add my local EOA as a signer on the Ops account, then sign the pending transfer"

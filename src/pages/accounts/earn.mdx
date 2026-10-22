@@ -64,3 +64,14 @@ Splits checks each wrapper's owner and fee settings, and each Steakhouse vault's
 Using Earn does not require you to manually account for vault shares or calculate the yield yourself. [Accounting](/accounting) treats a deposit as a swap of USDC into vault shares and a withdrawal as a swap back. Vault shares are tracked as their own tax lots, and yield is realized as gain on the shares when you withdraw.
 
 Deposits and withdrawals remain in the transaction history and CSV exports. The displayed yield is net of the performance fee.
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits accounts balances <address>`: positions appear as vault rows with an `earn` object: the underlying asset and the amount the shares redeem for (**Read** scope)
+- `splits transactions create earn-deposit --account 0x... --chain-id 8453 --asset <usdc> --amount 100`: propose a deposit; the amount is in the asset, not in shares (**Write** scope)
+- `splits transactions create earn-withdraw ...`: propose a withdrawal with the same flags; `--vault` targets a legacy position, and `--pause-auto-earn-seconds 300|3600|86400` keeps Automated Earn from redepositing it (**Write** scope)
+- `splits transactions create transfer --source-token <vault>`: pay a recipient from a position in one proposal; see [Sends](/transactions/sends#programmatic-access)
+- `splits settings get`: the workspace's auto-earn state: the networks it is on, the networks it can be turned on, and any pending toggle (**Read** scope)
+- `splits transactions create auto-earn-on` / `auto-earn-off`: propose the Treasury transaction that turns Automated Earn on or off for the workspace; the key's member must be an Owner or a Treasury signer (**Write** scope)

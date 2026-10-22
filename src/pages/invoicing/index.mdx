@@ -41,4 +41,10 @@ Bank payments settle to the account and network configured in the bank settings,
 
 ## Programmatic access
 
-Invoicing is web-only today: the [CLI / MCP](/introduction/agents) has no invoice commands.
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits invoices list`: the workspace's invoices, newest first, each with the link the payer pays from; `--statuses paid,unpaid,void` filters, and void invoices appear only when asked for (**Read** scope)
+- `splits invoices get <id>`: one invoice (**Read** scope)
+- `splits invoices create`: issue an invoice and, when `--payer-email` is given, email it in the same call; there is no separate send step (**Owner** scope)
+
+Creating an invoice through the CLI requires the Owner role and a workspace on the Pro plan or higher. Attachments, editing, resending, voiding, and marking invoices paid are web-only today.

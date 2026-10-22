@@ -35,5 +35,6 @@ The [Root account](/accounts#root)'s signers are the workspace's recovery signer
 Via the [Splits CLI / MCP](/introduction/agents):
 
 - `splits accounts signers <address>`: an account's signers and threshold (**Read** scope)
-- `splits accounts update-signers <address> ...`: propose signer/threshold changes; approval happens in the web UI (**Owner** scope)
+- `splits accounts update-signers <address> ...`: propose signer/threshold changes, signed in the web UI or with a registered EOA (**Owner** scope; an [agent member](/members#agent-members) may propose adding only its own keys)
+- `splits auth register-signer <address>` / `splits auth signers`: register an EOA under the key's member, and list the ids `update-signers` takes
 - `splits members signers <userId>`: a member's passkey IDs, for adding them as a signer (**Read** scope)

@@ -25,17 +25,18 @@ A key copied to an agent has the human's full authority on every account that th
 - **Recovery is contract-enforced.** The Treasury owns the account, so the Treasury's signers can remove the agent's key by [resetting signers](/accounts/editing#resetting-signers). The reset needs no signature from the account's own signers and does not change the account's address. Deposits and integrations that point at the address keep working.
 - **Scopes bound the API, signers bound the chain.** The agent's API key carries a [scope](/workspaces/roles#api-key-scopes) (Read, Write, or Owner). The scope governs what the agent can query and propose. Scopes grant **no onchain signing authority**. Only the agent's registered key on the account's signer set grants that authority.
 - **Every action is a proposal.** The agent proposes [transactions](/transactions) like any client. A transaction executes when its signatures meet the threshold. The agent proposes signer changes, and a human approves them in the app.
+- **The agent is a member of its own.** When you approve the agent's [browser login](/introduction/agents#sign-in-from-the-browser), it joins the workspace as an [agent member](/members#agent-members) with its own name and key. The workspace records its actions under its name, not yours.
 - **The whole surface is available.** The CLI ships a built-in MCP server. An agent can do over the [CLI or MCP](/introduction/agents) anything that a human can do in the app.
 
 ## Setting up an agent
 
-Prerequisites: an [API key](/introduction/agents#get-an-api-key), and the CLI installed where the agent runs.
+Prerequisites: a [workspace](/workspaces), and the CLI installed where the agent runs.
 
 ::::steps
 
 ### Sign the agent in
 
-The agent [signs in to the CLI](/introduction/agents#install-the-cli-and-sign-in) with the API key. The agent then confirms the workspace, scopes, and key source.
+The agent starts a [browser login](/introduction/agents#sign-in-from-the-browser) and shows you a link and a code. You sign in, enter the code, and connect the workspace with the [scopes](/workspaces/roles#api-key-scopes) you choose. No API key passes through the agent. The agent then confirms the workspace, scopes, and key source.
 
 ### Generate the agent's key
 
@@ -62,7 +63,7 @@ Fund the account with what the agent operates on. The agent's transactions appea
 
 - **Per-signer restrictions by target contract or function do not exist onchain today.** A key that meets the threshold alone can take any action from its account, including changing the account's signer set. The bound is the account.
 - Approval steps that happen only in the app (accepting a signer change, completing workspace setup) are platform policy.
-- You create the API key in the browser. There is no programmatic route.
+- A person approves the agent's access in the browser. The exception is a [workspace the agent creates](/workspaces#from-an-agent), which needs no approval.
 
 ## Next steps
 
@@ -75,7 +76,8 @@ Fund the account with what the agent operates on. The agent's transactions appea
 Via the [Splits CLI / MCP](/introduction/agents):
 
 - `npx -y @splits/splits-cli@latest --llms-full`: the full command surface and MCP tool list, no install
-- `splits auth login --api-key sk_...`: sign the agent in
+- `splits auth login --client-name "<app name>"`: sign the agent in through your browser approval
+- `splits workspace create --name "<name>" --client-name "<app name>"`: create a workspace for the agent, which you approve in the browser
 - `splits auth create-key --register`: generate the agent's EOA and register it as a signer candidate
 - `splits accounts update-signers <account> --add-eoa-signer-ids <id> --threshold N`: propose adding the agent's key, which a human approves in the app (**Owner** scope)
 - `splits accounts create --name "<label>" --eoa-signer-ids <id> --passkey-ids <human-passkey-id> --threshold 2`: create the agent's account with both signers (**Owner** scope)

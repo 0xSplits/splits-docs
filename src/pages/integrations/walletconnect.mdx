@@ -17,3 +17,11 @@ description: Connect a Splits account to third-party apps over WalletConnect whe
 2. On the account's page in Splits, paste the URI into the WalletConnect section and approve the connection.
 
 The app's transaction and signature requests then appear in Splits, where you sign at the account's [threshold](/accounts/thresholds), the same as any transaction. Requests can also be [added to a batch](/transactions/batch#batching-from-external-apps).
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits accounts sign-message <address> --chain-id 8453 --message "..."` (or `--hex`, or `--typed-data` for EIP-712): sign a message as the account with a registered EOA, producing the same ERC-1271 signature the app produces for an app's signature request; on a multisig, other signers add theirs with `--id` (**Write** scope)
+
+Pairing an account with an app is web-only today.

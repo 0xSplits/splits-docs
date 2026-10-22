@@ -73,5 +73,8 @@ Via the [Splits CLI / MCP](/introduction/agents):
 
 - `splits chains list`: every listed network with its tier and per-feature capability flags (**Read** scope)
 - `splits chains get --chainId 8453`: one network's entry (**Read** scope)
+- `splits accounts networks`: the networks enabled on the workspace, and any addition still pending (**Read** scope)
+- `splits accounts add-networks --chain-ids 10,42161`: enable networks on every account; returns a proposal to sign when an onchain change is needed (**Owner** scope)
+- `splits accounts remove-networks --chain-ids 42161`: disable networks; refused while the accounts hold tokens there unless confirmed with a flag (**Owner** scope)
 
 The underlying endpoint is `GET /public/v1/chains` (API key with **Read** scope); see [Use the API](/introduction/agents#use-the-api). Networks in gradual rollout are excluded until fully rolled out.

@@ -46,7 +46,9 @@ Two recipient types are stored separately from contacts but appear alongside the
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits contacts list --q "acme"`: search contacts by name or address; returns up to 500 (**Read** scope)
-- `splits contacts lookup --addresses 0x...,0x...`: batch address-to-name lookup, max 100 addresses (**Read** scope)
+- `splits contacts list --q "acme"`: search contacts by name or address; returns up to 500, each with its send rules (**Read** scope)
+- `splits contacts lookup --addresses 0x...,0x...`: batch address-to-name lookup, max 100 addresses, each with its send rules (**Read** scope)
+
+A contact's `sendRules` say which tokens and networks it accepts, so an agent can tell before proposing a send whether the rules will reject it.
 
 Creating and editing contacts is web-only today.
