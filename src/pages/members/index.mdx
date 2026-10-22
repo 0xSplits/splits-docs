@@ -36,13 +36,13 @@ Removing a member revokes their offchain access only, including any API keys the
 
 ## Agent members
 
-An **agent member** is an AI agent that joined the workspace when a member approved its [browser login](/introduction/agents#sign-in-from-the-browser), or by [creating the workspace](/workspaces#from-an-agent) itself. It is a member of its own, not the person who approved it: [Settings > Members](https://app.splits.org/settings/team/members/) shows it with an *Agent* label, and its proposals, signatures, signer registrations, and invoices are recorded under its name. One agent member exists per agent signing key, reused in every workspace that key is approved in; its display name is the client name the agent gave at login.
+An **agent member** is an AI agent that joined the workspace when a member approved its [browser login](/introduction/agents#sign-in-from-the-browser), or by [creating the workspace](/workspaces#from-an-agent) itself. It is a member of its own, not the person who approved it: [Settings > Members](https://app.splits.org/settings/team/members/) shows it with an *Agent* label, and its proposals, signatures, signer registrations, and invoices are recorded under its name. One agent member exists per agent signing key, reused in every workspace that key is approved in; its display name is the client name the agent gave at its first login.
 
 What differs from a person:
 
 - **It has no email and cannot sign in to the app.** It acts only through its API keys. A key created in Settings > API Keys acts as the person who created it, never as an agent.
 - **Its signing keys are EOAs** registered under it, never passkeys.
-- **Its role is set at approval.** It joins as a Member, or as an Owner when the approver granted its key the **Owner** scope, which only an Owner can grant. An agent that created the workspace is its Owner. Owners can change an agent's role later from its row in Settings > Members; a role change never changes the key's scopes.
+- **Its role is set at approval.** It joins as a Member, or as an Owner when the approver granted its key the **Owner** scope (see [API key scopes](/workspaces/roles#api-key-scopes)). An agent that created the workspace is its Owner. Owners can change an agent's role later from its row in Settings > Members; a role change never changes the key's scopes.
 - **It cannot be invited.** Membership comes only from an approved login or an agent-created workspace.
 - **Removing it also proposes removing its keys.** Removing an agent revokes its access and creates one signer update per account where its keys are signers, dropping them; Owners sign those like any [signer change](/accounts/editing#changing-signers-and-thresholds). An account that the removal would leave below its threshold is reported instead, for a [reset](/accounts/editing#resetting-signers) through its owner.
 
