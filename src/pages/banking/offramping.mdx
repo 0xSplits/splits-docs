@@ -33,8 +33,7 @@ Splits treats these as ordinary sends: the 0.25% banking fee and the settlement 
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits offramp external-accounts`: the workspace's bank accounts, with the currency each receives and the network and token each off-ramp sends (**Owner** scope)
-- `splits transactions create offramp --account 0x... --external-account-id <id> --amount 100`: propose an off-ramp; the amount is the fiat the bank receives, and the proposal adds the fee on top (**Write** and **Owner** scopes, acting as an Owner of a [verified](/banking#getting-verified) workspace)
-- `--source-token <address>`: pay from an [Earn](/accounts/earn) position or another held token in the same proposal
+- `splits offramp external-accounts`: the workspace's bank accounts (**Owner** scope)
+- `splits transactions create offramp --account 0x... --external-account-id <id> --amount 100`: propose an off-ramp of the amount the bank receives (**Write** and **Owner** scopes)
 
 Adding bank accounts and onramping are web-only today.

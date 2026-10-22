@@ -45,7 +45,7 @@ To pay out pre-defined amounts on an interval (e.g. payroll), use [Schedules](/t
 Via the [Splits CLI / MCP](/introduction/agents):
 
 - `splits transactions create transfer --account 0x... --chain-id 8453 --recipient 0x... --token 0x... --amount 100`: propose a transfer, with optional `--memo` and `--properties` (**Write** scope)
-- `--source-token <address>`, and `--source-chain-id` when it sits on another network: pay with a token the account holds, including an [Earn](/accounts/earn) position, like *Pay with* in the app; `--amount` stays what the recipient receives
-- `splits transactions create offramp`: a send to one of the workspace's bank accounts; see [Offramping](/banking/offramping#programmatic-access)
+- `splits transactions create transfer ... --source-token 0x...`: pay with another held token or an Earn position, as *Pay with* does (**Write** scope)
+- `splits transactions create offramp`: send to one of the workspace's bank accounts; see [Offramping](/banking/offramping#programmatic-access)
 
 Multisend and private transfers are web-only today.

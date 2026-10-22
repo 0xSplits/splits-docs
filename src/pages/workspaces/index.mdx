@@ -46,9 +46,9 @@ An agent running the [CLI](/introduction/agents) can create a workspace in two w
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits workspace create --name "Acme" --client-name "Claude Code"`: create a workspace you approve in the browser; `--chain-ids` picks the networks
-- `splits workspace create-agent-owned --name "Acme" --client-name "Claude Code" --recovery-email you@example.com`: create a workspace the agent owns, with no approval
-- `splits org create --email you@example.com`: email yourself a setup link for the app's flow; the agent gets no key and no signer
-- `splits settings get`: the workspace's name, memo requirement, and auto-earn state (**Read** scope)
+- `splits workspace create --name "Acme" --client-name "Claude Code"`: create a workspace you approve in the browser
+- `splits workspace create-agent-owned --name "Acme" --client-name "Claude Code" --recovery-email you@example.com`: create a workspace the agent owns
+- `splits org create --email you@example.com`: email yourself a setup link for the app's flow
+- `splits settings get`: the workspace's settings (**Read** scope)
 
 Changing a workspace's name and logo is web-only today.

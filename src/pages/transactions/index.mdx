@@ -38,10 +38,10 @@ Once the stipend is used, transactions are paid in the network's native token (e
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits transactions list` / `get <id>`: query transactions with rich filters; each row carries a `dataType` and an object with that kind's details (**Read** scope)
-- `splits transactions create transfer` / `swap` / `earn-deposit` / `earn-withdraw` / `auto-earn-on` / `auto-earn-off` / `offramp` / `custom`: propose transactions; each kind's page lists its flags (**Write** scope; `offramp` also needs **Owner**)
-- `splits transactions sign <id>`: sign with a registered EOA, including signer and network changes (**Write** scope)
-- `splits transactions update-gas-estimation <id>`: refresh a multisig proposal's gas before its last signature (**Write** scope)
+- `splits transactions list` / `get <id>`: query transactions with rich filters (**Read** scope)
+- `splits transactions create transfer` / `swap` / `earn-deposit` / `earn-withdraw` / `auto-earn-on` / `auto-earn-off` / `offramp` / `custom`: propose transactions (**Write** scope)
+- `splits transactions sign <id>`: sign with a registered EOA (**Write** scope)
+- `splits transactions update-gas-estimation <id>`: refresh a multisig proposal before its last signature (**Write** scope)
 - `splits transactions cancel <id>`: cancel a pending proposal (**Write** scope)
 
 Batches and schedules are web-only today.

@@ -47,9 +47,9 @@ The two key types also differ in what they expose. A passkey's public key is onc
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits auth create-key --register`: generate a local EOA and register it in one step (**Write** scope)
-- `splits auth register-signer <address>`: register an EOA you already hold so it can be added as a signer (**Write** scope)
-- `splits auth signers`: the EOAs registered under the key's member, with the ids `accounts update-signers` takes (**Read** scope)
+- `splits auth create-key --register`: generate a local EOA and register it (**Write** scope)
+- `splits auth register-signer <address>`: register an EOA so it can be added as a signer (**Write** scope)
+- `splits auth signers`: the EOAs registered under the key's member (**Read** scope)
 - `splits members signers <userId>`: a member's passkey IDs, needed when adding them as a signer (**Read** scope)
 
 For the full headless flow (create key → register → attach → sign), see [Sign locally with an EOA](/introduction/agents#sign-locally-with-an-eoa).

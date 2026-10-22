@@ -15,6 +15,6 @@ From the *Schedules* tab on the *Invoices* page, any workspace member can view a
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits invoices create --interval WEEKLY|MONTHLY|YEARLY --due-date-days <days>`: create a schedule; the first invoice is issued in the same call when its issue date is today or past and its due date has not passed, otherwise the next daily run handles it. The workspace must be on the [Pro plan or higher](/invoicing#programmatic-access) (**Owner** scope)
+- `splits invoices create --interval MONTHLY --due-date-days 14`: create a schedule (**Owner** scope, Pro plan or higher)
 
-Viewing, editing, and pausing schedules are web-only today.
+Managing schedules is web-only today.
