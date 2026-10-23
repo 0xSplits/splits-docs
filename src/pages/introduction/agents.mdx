@@ -17,7 +17,7 @@ Every command answers `--help` and `--schema`, and over [MCP](#connect-to-ai-too
 
 ## Get set up
 
-Install the CLI where the agent runs.
+Install the CLI where the agent runs. The published package talks only to the production API.
 
 ```bash
 npm install -g @splits/splits-cli@latest   # or run via npx @splits/splits-cli@latest
@@ -86,7 +86,7 @@ Scopes don't include each other: a command that needs two, such as an off-ramp (
 
 ## The model
 
-Everything visible in the app is queryable with the **Read** scope: accounts, balances (including [Earn](/accounts/earn#programmatic-access) positions), transactions (filterable by account, direction, amount, date, and memo), contacts with their send rules, tokens, networks, members, settings, automations, and invoices. Bank accounts need the **Owner** scope.
+Everything visible in the app is queryable with the **Read** scope: accounts, balances (including [Earn](/accounts/earn#programmatic-access) positions), transactions (filterable by account, direction, amount, date, and memo), contacts with their send rules, tokens, networks, members, settings, automations, and invoices. Listing bank accounts and transferring to them require the **Owner** scope.
 
 Writes follow the same rule as the app: **a transaction is a [proposal](/transactions)** that executes only once signatures meet the account's threshold. `splits transactions create` has a subcommand per kind: `transfer` (including paying with another held token or an Earn position), `swap` (including across networks), `earn-deposit` and `earn-withdraw`, `auto-earn-on` and `auto-earn-off`, `offramp` (which also needs **Owner**), and `custom` (**Write** scope). Signing happens in the web UI with a passkey, or headlessly with a [registered EOA](#sign-locally-with-an-eoa). **Owner**-scoped commands create accounts, automations, and invoices, and propose signer and network changes; those proposals are signed like any other. Each page's "Programmatic access" section lists the commands for its surface.
 
@@ -101,7 +101,7 @@ Every transaction can carry a [memo](/transactions/memos) (max 500 characters) a
 By default, signing happens in the web UI with a passkey. To operate headlessly, the agent signs with a local EOA that is a signer on the account:
 
 1. `splits auth create-key --register`: generate a local EOA (stored in `~/.splits/config.json`) and register it. Import an existing key instead with `echo $PRIVATE_KEY | splits auth import-key`. `splits auth whoami` lists the local keys and whether each is registered.
-2. `splits accounts update-signers <account> --add-eoa-signer-ids <id> --threshold N`: propose adding it as a signer (**Owner** scope). An agent member can propose adding its own keys, with no other change, and an Owner signs it. A workspace [created from an agent](/workspaces#from-an-agent) already has the agent's key as the Treasury's only signer.
+2. `splits accounts update-signers <account> --add-eoa-signer-ids <id> --threshold N`: propose adding it as a signer (**Owner** scope). An agent member can propose adding its own keys, and an Owner signs it. A workspace [created from an agent](/workspaces#from-an-agent) already has the agent's key as the Treasury's only signer.
 3. `splits transactions sign <id>`: sign pending proposals with the local key (**Write** scope). Auto-submits once the threshold is met. Signer and network changes sign the same way and execute on every network at once; on a multisig, run `splits transactions update-gas-estimation <id>` before the last signature.
 
 `splits accounts sign-message <address>` signs a message as the account (ERC-1271) with the same key, as the app does for a [WalletConnect](/integrations/walletconnect#programmatic-access) request. `splits auth delete-key` removes the local key but does **not** revoke it onchain; remove it from accounts via `update-signers`.

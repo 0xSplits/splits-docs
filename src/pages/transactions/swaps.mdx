@@ -32,4 +32,4 @@ Via the [Splits CLI / MCP](/introduction/agents):
 - `splits transactions create swap --account 0x... --chain-id 8453 --sell-token 0x... --buy-token 0x... --amount 0.5`: propose a swap that sells an exact amount (**Write** scope)
 - `splits transactions create swap ... --destination-chain-id 1`: swap onto another network (**Write** scope)
 
-A just-in-time swap inside a send is a transfer with `--source-token`; see [Sends](/transactions/sends#programmatic-access).
+An agent can swap and send in one proposal: give a transfer a `--source-token` different from the token the recipient receives. See [Sends](/transactions/sends#programmatic-access).
