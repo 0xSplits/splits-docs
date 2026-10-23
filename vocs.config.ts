@@ -107,6 +107,7 @@ export default defineConfig({
         { text: 'Schedules', link: '/transactions/schedules' },
         { text: 'Custom', link: '/transactions/custom' },
         { text: 'Memos', link: '/transactions/memos' },
+        { text: 'Gas', link: '/transactions/gas' },
       ],
     },
     {
