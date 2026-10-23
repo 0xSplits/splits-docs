@@ -30,6 +30,9 @@ Gas is sponsored from the workspace's plan budget, then from its gas balance; wh
 Via the [Splits CLI / MCP](/introduction/agents):
 
 - `splits transactions list` / `get <id>`: query transactions with rich filters (**Read** scope)
-- `splits transactions create transfer` / `create custom`: propose transactions (**Write** scope)
+- `splits transactions create transfer` / `swap` / `earn-deposit` / `earn-withdraw` / `auto-earn-on` / `auto-earn-off` / `offramp` / `custom`: propose transactions (**Write** scope)
 - `splits transactions sign <id>`: sign with a registered EOA (**Write** scope)
+- `splits transactions update-gas-estimation <id>`: refresh a multisig proposal before its last signature (**Write** scope)
 - `splits transactions cancel <id>`: cancel a pending proposal (**Write** scope)
+
+Batches and schedules are web-only today.

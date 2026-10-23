@@ -31,12 +31,12 @@ Any agent should be able to take a product PR and update these docs without a hu
 
 | Fact | Canonical home |
 | --- | --- |
-| Workspace definition, creating a workspace, setup steps | `/workspaces` |
+| Workspace definition, creating a workspace, setup steps, workspaces created from an agent | `/workspaces` |
 | Roles, capability matrix, settings visibility, API key scopes, read-only members | `/workspaces/roles` |
 | Recovery, recovery signers, verifying them | `/workspaces/recovery` |
 | Keeping workspaces unlinked onchain: per-workspace keys and recovery signers, sender/recipient hygiene | `/workspaces/privacy` |
 | Settings map (each section, who sees it) | `/workspaces/settings` |
-| Member (the person), signing up, inviting, roles-are-per-team pointer, removal | `/members` |
+| Member (the person or the agent), signing up, inviting, roles-are-per-team pointer, removal, agent members | `/members` |
 | Signing keys: passkeys, password managers, EOAs, verifying access, troubleshooting | `/members/keys` |
 | Account types, ownership chain (Root → Treasury → sub-accounts) | `/accounts` |
 | Signer definition, signers-vs-membership boundary | `/accounts/signers` |
@@ -44,7 +44,7 @@ Any agent should be able to take a product PR and update these docs without a hu
 | Renaming, changing signers and thresholds, resetting signers via the owner | `/accounts/editing` |
 | Proposal model, transaction types | `/transactions` |
 | Gas sponsorship order, plan budgets, gas balance, top-ups | `/transactions/gas` |
-| API overview, CLI/MCP setup, API key scopes model, headless signing | `/introduction/agents` |
+| API overview, CLI/MCP setup, browser login, API key scopes model, headless signing | `/introduction/agents` |
 | Experiment definition, prototype caveats | `/experiments` |
 | PACT: raise mechanics, contract guarantees, limitations | `/experiments/pact` |
 

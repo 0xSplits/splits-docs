@@ -34,3 +34,21 @@ Finishing setup creates two accounts:
 - The **Treasury**, owned by the Root and controlled by the owners' passkeys. It's intended to hold the bulk of your assets, and it owns every account you create later.
 
 See [Account types](/accounts) for the full ownership model. From your new dashboard you can deposit funds, create accounts, [connect a bank](/banking), and [invite members](/members#inviting).
+
+### From an agent
+
+An agent running the [CLI](/introduction/agents) can create a workspace in two ways. Both create the same two accounts as the app, with two differences: the agent's own signing key is the Treasury's only signer, so the Treasury is the agent's deposit address, and the Root's signer is an [email signer](/workspaces/recovery#recovery-signers) rather than a wallet you connect.
+
+- **You approve it in the browser.** The approval page opens on its *Create* tab, prefilled with a name and networks. You sign in, enter the code the agent shows you, adjust anything, and approve. You become the workspace's Owner, and your login email is the Root's signer, which is what recovers the Treasury. The agent joins as an [agent member](/members#agent-members) with its own API key.
+- **The agent owns it.** No browser opens and nobody approves. The agent is the workspace's only Owner, and a recovery email it names is the Root's signer. **Splits sends nothing to that email and does not verify it**, so the agent must use an address a person gave it. Whoever signs in to Splits with that email becomes an Owner of the workspace, on every sign-in, which is how they recover it. Off-ramps and paid plans stay unavailable until a person has joined. One agent key creates one workspace: a second attempt with the same key is refused.
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits workspace create --name "Acme" --client-name "Claude Code"`: create a workspace you approve in the browser
+- `splits workspace create-agent-owned --name "Acme" --client-name "Claude Code" --recovery-email you@example.com`: create a workspace the agent owns
+- `splits org create --email you@example.com`: email yourself a setup link for the app's flow
+- `splits settings get`: the workspace's settings (**Read** scope)
+
+Changing a workspace's name and logo is web-only today.

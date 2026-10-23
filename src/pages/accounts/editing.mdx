@@ -45,7 +45,7 @@ If every passkey on the workspace is lost, reset the Treasury first (recovery wa
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits accounts update-signers <address> --threshold N ...`: propose signer/threshold changes; approval happens in the web UI (**Owner** scope)
+- `splits accounts update-signers <address> --add-eoa-signer-ids <id> --threshold N`: propose signer/threshold changes, signed in the web UI or with a registered EOA (**Owner** scope)
 - `splits accounts rename <address>`: rename an account (**Owner** scope)
 
 Resets are web-only today.

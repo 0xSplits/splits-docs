@@ -67,4 +67,8 @@ Via the [Splits CLI / MCP](/introduction/agents):
 - `splits accounts list`: all accounts in the workspace (**Read** scope)
 - `splits accounts create --name "Name" --threshold 2`: create an operating account (**Owner** scope)
 - `splits accounts rename <address>` / `archive` / `unarchive`: manage accounts (**Owner** scope)
+- `splits accounts sign-message <address>`: sign a message as the account; see [WalletConnect](/integrations/walletconnect#programmatic-access)
 - `splits automations list`: the workspace's automations (**Read** scope)
+- `splits automations create --name "Name" --forwarder 0x...`: create an automation account with its policy (**Owner** scope)
+
+Editing automations and watching external accounts are web-only today.

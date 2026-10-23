@@ -6,7 +6,7 @@ description: The three concepts Splits is built around (Workspace, Member, and A
 # Core concepts [Workspace, Member, and Account: the three ideas everything else builds on]
 
 - **[Workspace](/workspaces)**: the unit everything is scoped to. One workspace per set of books: a company, an individual, or a project.
-- **[Member](/members)**: a person who belongs to a workspace, with a role and their own signing keys.
+- **[Member](/members)**: a person, or an agent, who belongs to a workspace, with a role and their own signing keys.
 - **[Account](/accounts)**: where a workspace's assets live, at the same address on every network, controlled by signers at a threshold.
 
 ## Workspace
@@ -19,7 +19,7 @@ When deciding between a new workspace and an existing one, ask "who are the owne
 
 ## Member
 
-A member is a person who belongs to a [workspace](/workspaces). Members authenticate with email, and one member can belong to many workspaces. Every member has a [role](/workspaces/roles) (Owner or Member) that determines what they can administer, and holds **[signing keys](/members/keys)**: passkeys saved in the app, or EOAs [registered via the CLI](/introduction/agents#sign-locally-with-an-eoa).
+A member is a person who belongs to a [workspace](/workspaces). Members authenticate with email, and one member can belong to many workspaces. An AI agent can be a member too, with its own name and keys, acting through API keys instead of a login; see [Agent members](/members#agent-members). Every member has a [role](/workspaces/roles) (Owner or Member) that determines what they can administer, and holds **[signing keys](/members/keys)**: passkeys saved in the app, or EOAs [registered via the CLI](/introduction/agents#sign-locally-with-an-eoa).
 
 A member's signing keys can become [signers](/accounts/signers) on accounts; membership alone grants no signing authority. Signing keys, email, display name, and avatar belong to the member, not the workspace, so they work across every workspace a member is part of ([Settings > Personal](https://app.splits.org/settings/personal/general/)). For roles, inviting, and removal, see [Members](/members).
 

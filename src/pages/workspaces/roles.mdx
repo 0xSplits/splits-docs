@@ -7,7 +7,7 @@ description: The authoritative reference for what each role (Owner, Member) and 
 
 Every workspace [member](/members) has exactly one of two roles: **Owner** or **Member**. Roles are stored offchain, govern what a person can see and do in the app, and are scoped to one workspace: the same person can be an Owner of one workspace and a Member of another. A role never grants signing authority: approving transactions belongs to an account's onchain signer set, and the boundary is drawn at [Signers](/accounts/signers#signers-vs-membership).
 
-A related surface (**API key scopes**) governs what programmatic clients can do; see [below](#api-key-scopes).
+[Agent members](/members#agent-members) hold the same two roles. A related surface (**API key scopes**) governs what programmatic clients can do; see [below](#api-key-scopes).
 
 ## What each role can do
 
@@ -50,12 +50,14 @@ To set one up, [invite them](/members#inviting) with the Member role and don't a
 
 ## API key scopes
 
-API keys power the [CLI and MCP](/introduction/agents). Each key is scoped at creation:
+API keys power the [CLI and MCP](/introduction/agents). A key is created in [Settings > API Keys](https://app.splits.org/settings/team/api-keys/), or granted to an agent when a member approves its [browser login](/introduction/agents#sign-in-from-the-browser). Either way it carries one or more scopes:
 
-| Scope | Grants | Who can create a key with it |
+| Scope | Grants | Who can grant it |
 | --- | --- | --- |
 | `read` | List accounts, transactions, balances, and other workspace data | Any member |
 | `write` | Read, plus propose transactions and update memos/properties | Any member |
-| `owner` | Admin operations (manage accounts and org settings) | Owners only |
+| `owner` | Admin operations (manage accounts, automations, invoices, and workspace settings) | Owners only |
+
+Scopes don't include each other: an operation that needs two (an off-ramp needs `write` and `owner`) needs a key granted both. A key acts as a member: the person who created it, or the [agent member](/members#agent-members) it was granted to. Operations the table above reserves for Owners (creating accounts, automations, and invoices, off-ramping, changing signers and networks) also require that member to hold the Owner role, and off-ramps require the workspace's [entity verification](/banking#getting-verified); granting an agent the `owner` scope at login makes it an Owner.
 
 Like roles, API key scopes never grant onchain signing authority by themselves: signing programmatically requires a [registered EOA signer](/introduction/agents#sign-locally-with-an-eoa) on the account.

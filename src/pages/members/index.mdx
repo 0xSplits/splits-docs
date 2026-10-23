@@ -5,7 +5,7 @@ description: "What a member is in Splits: one person across many workspaces, wit
 
 # Members [One person across many workspaces, with their own profile, keys, and a role per workspace]
 
-A **member** is a person in Splits, identified by their email address. One member can belong to any number of [workspaces](/workspaces), and holds two kinds of things:
+A **member** is a person in Splits, identified by their email address, or an [agent](#agent-members) acting through API keys. One member can belong to any number of [workspaces](/workspaces), and holds two kinds of things:
 
 - **Across every workspace**: their profile (display name, email, avatar) and their [signing keys](/members/keys) (passkeys and registered EOAs). These belong to the member, not to any workspace.
 - **Per workspace**: a membership, stored offchain, with a [role](/workspaces/roles) (Owner or Member), granting read access to that workspace's accounts, balances, and transactions plus the role's administrative capabilities.
@@ -32,13 +32,25 @@ To give the new member signing power on an account, continue to [Changing signer
 
 Owners can change a member's role, remove a member, or revoke a pending invitation from the member's row in [Settings > Members](https://app.splits.org/settings/team/members/).
 
-Removing a member revokes their offchain access only. If their signing keys are signers on any account, remove them via a separate onchain [signer update](/accounts/editing#changing-signers-and-thresholds).
+Removing a member revokes their offchain access only, including any API keys they created in the workspace. If their signing keys are signers on any account, remove them via a separate onchain [signer update](/accounts/editing#changing-signers-and-thresholds).
+
+## Agent members
+
+An **agent member** is an AI agent that joined the workspace when a member approved its [sign-in](/introduction/agents#sign-in-from-the-browser), or by [creating the workspace](/workspaces#from-an-agent) itself. [Settings > Members](https://app.splits.org/settings/team/members/) shows it with an *Agent* label, and its activity is recorded under its name. One agent member exists per agent signing key, in every workspace that key is approved in, named after the client name the agent gave at its first sign-in.
+
+What differs from a person:
+
+- **It has no email and cannot sign in to the app.** It acts only through its API keys. A key created in Settings > API Keys acts as the person who created it, never as an agent.
+- **Its signing keys are EOAs** registered under it, never passkeys.
+- **Its role is set at approval.** It joins as a Member, or as an Owner when the approver granted its key the **Owner** scope (see [API key scopes](/workspaces/roles#api-key-scopes)). An agent that created the workspace is its Owner. Owners can change an agent's role later from its row in Settings > Members; a role change never changes the key's scopes.
+- **It cannot be invited.** Membership comes only from an approved login or an agent-created workspace.
+- **Removing it also proposes removing its keys.** Removing an agent revokes its access and creates one signer update per account where its keys are signers, dropping them; Owners sign those like any [signer change](/accounts/editing#changing-signers-and-thresholds). An account that the removal would leave below its threshold is reported instead, for a [reset](/accounts/editing#resetting-signers) through its owner.
 
 ## Programmatic access
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits members list`: list all members of the workspace (requires **Read** scope)
+- `splits members list`: list all members of the workspace, people and agents (requires **Read** scope)
 - `splits members signers <userId>`: list a member's passkey IDs, needed when adding them as a signer via `accounts create` or `accounts update-signers` (requires **Read** scope)
 
 Managing members (inviting, removing, changing roles) is web-only today.
