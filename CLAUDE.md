@@ -42,7 +42,8 @@ Any agent should be able to take a product PR and update these docs without a hu
 | Signer definition, signers-vs-membership boundary | `/accounts/signers` |
 | Thresholds, choosing one | `/accounts/thresholds` |
 | Renaming, changing signers and thresholds, resetting signers via the owner | `/accounts/editing` |
-| Proposal model, transaction types, gas sponsorship | `/transactions` |
+| Proposal model, transaction types | `/transactions` |
+| Gas sponsorship order, plan budgets, gas balance, top-ups | `/transactions/gas` |
 | API overview, CLI/MCP setup, browser login, API key scopes model, headless signing | `/introduction/agents` |
 | Experiment definition, prototype caveats | `/experiments` |
 | PACT: raise mechanics, contract guarantees, limitations | `/experiments/pact` |

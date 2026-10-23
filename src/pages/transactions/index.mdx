@@ -23,16 +23,7 @@ Every transaction can carry a [memo](/transactions/memos), and a workspace can r
 
 ## Gas sponsorship
 
-Splits sponsors transaction fees with a monthly gas stipend, applied at the workspace level and shared across all accounts and networks. The stipend is based on the workspace's [Earn](/accounts/earn) balance:
-
-| Earn balance | Stipend |
-| --- | --- |
-| $0 | $5, one-time |
-| $1k+ | $5 per month |
-| $10k+ | $10 per month |
-| $100k+ | $100 per month |
-
-Once the stipend is used, transactions are paid in the network's native token (e.g. ETH); the app tells you at submission if the account doesn't hold enough. There is no way to view the remaining stipend yet. Sponsorship policies can change at any time without notice.
+Gas is sponsored from the workspace's plan budget, then from its gas balance; when neither covers it, the account pays in the network's native token. [Gas](/transactions/gas) covers the budgets and topping up.
 
 ## Programmatic access
 

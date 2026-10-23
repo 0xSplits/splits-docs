@@ -1,0 +1,47 @@
+---
+title: Gas
+description: "How Splits pays transaction fees: the plan's sponsored gas, the workspace's prepaid gas balance, then the account's own native token."
+---
+
+# Gas [Who pays a transaction's fees: the plan, the gas balance, then the account]
+
+Every transaction's gas is paid by the first of three sources that can cover it:
+
+1. The workspace's plan budget: a fixed amount of sponsored gas per [plan](#plan-budget).
+2. The workspace's **gas balance**: prepaid credit the workspace buys from Splits.
+3. The account itself, in the network's native token (e.g. ETH).
+
+The order is the same for every transaction type, including [schedule](/transactions/schedules) and [automation](/accounts#automation-accounts) runs.
+
+## Plan budget
+
+| Plan | Sponsored gas | Resets |
+| --- | --- | --- |
+| Base | $5 | Never |
+| Pro | $10 | Every month |
+| Premium | $100 | Every month |
+
+## Gas balance
+
+:::note
+This feature is in beta. Email support to enable it for your workspace.
+:::
+
+The gas balance is prepaid credit, in USD, that pays gas once the plan budget is used up. A workspace funds it by sending USDC on Base from one of its own accounts to *Splits gas*; each 1 USDC credits $1. The credit is **non-refundable**.
+
+**Only transfers from the workspace's own accounts are credited.**
+
+### Topping up
+
+1. Go to [Settings > Gas](https://app.splits.org/settings/team/gas/) and select *Top up* on the *Gas balance* card.
+2. The Send page opens prefilled: USDC on Base to *Splits gas*, $25, memo *Gas top-up*. Choose the paying account and edit the amount; the minimum is $5.
+3. Sign the transaction as usual.
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits transactions list` / `get <id>`: the transaction object includes `gasPaidBy` (`plan`, `gas_balance`, or `self`) and `isSponsored` (**Read** scope)
+- `splits transactions create transfer`: a USDC send on Base to *Splits gas* from one of the workspace's accounts credits the gas balance like any top-up (**Write** scope)
+
+Viewing the plan budget and the gas balance is web-only today.
