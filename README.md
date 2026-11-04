@@ -17,6 +17,12 @@ pnpm build     # production build; validates every internal link
 pnpm preview   # preview the build
 ```
 
+## Environment
+
+| Variable | Purpose |
+|----------|---------|
+| `WAKU_PUBLIC_AMPLITUDE_API_KEY` | Amplitude browser SDK key. Waku inlines it into the client bundle at build time, so it is set per Vercel environment (Production: the Splits Teams project, Preview: the Splits Dev project). Unset locally, which keeps the SDK off. |
+
 ## Rules
 
 The full authoring ruleset lives in [CLAUDE.md](CLAUDE.md). The load-bearing ones:

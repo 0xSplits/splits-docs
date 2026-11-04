@@ -12,6 +12,7 @@
     "start": "node dist/serve-node.js"
   },
   "dependencies": {
+    "@amplitude/analytics-browser": "2.45.2",
     "react": "^19",
     "react-dom": "^19",
     "vocs": "2.3.2",
