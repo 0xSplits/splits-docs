@@ -59,6 +59,14 @@ Fund the account with what the agent operates on. The agent's transactions appea
 
 ::::
 
+## Budgets and top-ups
+
+Give an agent a budget by giving it its own operating account (also called a subaccount). The balance is its spending limit.
+
+- **People hold the Treasury.** An agent that signs in through the browser joins the workspace as a member. A member can read and propose, but a role never grants signing, and the agent has no key on the Treasury. Adding its key to an account needs an owner's approval.
+- **The balance is the budget.** Create an operating account where the agent's key is the only signer, at threshold 1, and fund it with what the agent may spend. The agent can spend the whole balance, including in one payment, and nothing beyond it. Splits does not add per-payment limits or allowlists.
+- **The agent asks for more.** An agent with **Write** scope can propose a transfer from the Treasury to its own account, with a memo that says what it is for. An owner approves it with a passkey. Money reaches the agent only because a person approved it.
+
 ## Limits
 
 - **Per-signer restrictions by target contract or function do not exist onchain today.** A key that meets the threshold alone can take any action from its account, including changing the account's signer set. The bound is the account.
@@ -81,4 +89,5 @@ Via the [Splits CLI / MCP](/introduction/agents):
 - `splits auth create-key --register`: generate the agent's EOA and register it as a signer candidate
 - `splits accounts update-signers <account> --add-eoa-signer-ids <id> --threshold N`: propose adding the agent's key, which a human approves in the app (**Owner** scope)
 - `splits accounts create --name "<label>" --eoa-signer-ids <id> --passkey-ids <human-passkey-id> --threshold 2`: create the agent's account with both signers (**Owner** scope)
+- `splits accounts create --name "<label>" --eoa-signer-ids <id> --threshold 1`: create a budget account where the agent is the only signer (**Owner** scope)
 - `splits transactions sign <id>`: sign pending proposals with the agent's key (**Write** scope)
