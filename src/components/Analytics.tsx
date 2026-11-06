@@ -37,8 +37,10 @@ const recordInitialLandingPage = () => {
 const getProxyOptions = () => {
   if (location.host !== AMPLITUDE_PROXY_HOST) return {}
   return {
-    serverUrl: AMPLITUDE_EVENTS_PATH,
-    remoteConfig: { serverUrl: AMPLITUDE_REMOTE_CONFIG_PATH },
+    serverUrl: `${location.origin}${AMPLITUDE_EVENTS_PATH}`,
+    remoteConfig: {
+      serverUrl: `${location.origin}${AMPLITUDE_REMOTE_CONFIG_PATH}`,
+    },
   }
 }
 
