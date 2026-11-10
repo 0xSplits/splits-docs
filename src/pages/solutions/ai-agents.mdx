@@ -86,7 +86,7 @@ Via the [Splits CLI / MCP](/introduction/agents):
 - `npx -y @splits/splits-cli@latest --llms-full`: the full command surface and MCP tool list, no install
 - `splits auth login --client-name "<app name>"`: sign the agent in through your browser approval
 - `splits workspace create --name "<name>" --client-name "<app name>"`: create a workspace for the agent, which you approve in the browser
-- `splits auth create-key --register`: generate the agent's EOA and register it as a signer candidate
+- `splits auth whoami`: find the agent's registered EOA and `signerId` after browser login. Use `splits auth create-key --register` only if you authenticated with an API key
 - `splits accounts update-signers <account> --add-eoa-signer-ids <id> --threshold N`: propose adding the agent's key, which a human approves in the app (**Owner** scope)
 - `splits accounts create --name "<label>" --eoa-signer-ids <id> --passkey-ids <human-passkey-id> --threshold 2`: create the agent's account with both signers (**Owner** scope)
 - `splits accounts create --name "<label>" --eoa-signer-ids <id> --threshold 1`: create a budget account where the agent is the only signer (**Owner** scope)

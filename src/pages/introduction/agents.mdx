@@ -37,9 +37,9 @@ splits auth login --client-name "Claude Code"
 2. You sign in to Splits, enter the code, and pick a tab:
    - *Connect*: choose one of your workspaces and the key's [scopes](#scopes). The **Owner** scope is offered only in workspaces where you are an Owner, and granting it makes the agent an Owner too.
    - *Create*: create a new workspace with the agent's key on its Treasury. See [Creating a workspace from an agent](/workspaces#from-an-agent).
-3. The CLI saves the key as a workspace in `~/.splits/config.json` and makes it active.
+3. The CLI saves the API key as a workspace and the agent's signing key as a local key in `~/.splits/config.json`, then makes the workspace active.
 
-The approval makes the agent an [agent member](/members#agent-members) of the workspace, named after the `--client-name` you passed, and the key acts as that member.
+The approval makes the agent an [agent member](/members#agent-members) of the workspace, named after the `--client-name` you passed. The server registers the agent's signing address, and the API key acts as that member. The signing key is available in `splits auth whoami` with its `signerId`; there is no need to create and register another key after browser login.
 
 Under MCP, or when an agent runs the CLI in a shell tool and can't show you its output while it waits, the same flow is two calls: `splits auth login-start --client-name "..."` returns the URL and the code to show you, and `splits auth login-status` waits for the approval and saves the key.
 
@@ -100,7 +100,7 @@ Every transaction can carry a [memo](/transactions/memos) (max 500 characters) a
 
 By default, signing happens in the web UI with a passkey. To operate headlessly, the agent signs with a local EOA that is a signer on the account:
 
-1. `splits auth create-key --register`: generate a local EOA (stored in `~/.splits/config.json`) and register it. Import an existing key instead with `echo $PRIVATE_KEY | splits auth import-key`. `splits auth whoami` lists the local keys and whether each is registered.
+1. After browser login, use the registered EOA shown in `splits auth whoami` and its `signerId`. If you authenticated with an API key instead, run `splits auth create-key --register` to generate and register a local EOA, or import an existing key with `echo $PRIVATE_KEY | splits auth import-key` and register it. `splits auth whoami` lists local keys and whether each is registered.
 2. `splits accounts update-signers <account> --add-eoa-signer-ids <id> --threshold N`: propose adding it as a signer (**Owner** scope). An agent member can propose adding its own keys, and an Owner signs it. A workspace [created from an agent](/workspaces#from-an-agent) already has the agent's key as the Treasury's only signer.
 3. `splits transactions sign <id>`: sign pending proposals with the local key (**Write** scope). Auto-submits once the threshold is met. Signer and network changes sign the same way and execute on every network at once; on a multisig, run `splits transactions update-gas-estimation <id>` before the last signature.
 
