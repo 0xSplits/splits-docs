@@ -43,6 +43,8 @@ The approval makes the agent an [agent member](/members#agent-members) of the wo
 
 Under MCP, or when an agent runs the CLI in a shell tool and can't show you its output while it waits, the same flow is two calls: `splits auth login-start --client-name "..."` returns the URL and the code to show you, and `splits auth login-status` waits for the approval and saves the key.
 
+A newly generated signing key stays in pending-login data until `splits auth login-status` collects approval. **Browser approval alone does not add it to the local signing-key list.**
+
 ### Or bring an API key
 
 Create a key in [Settings > API Keys](https://app.splits.org/settings/team/api-keys/) with the scopes you need. Copy the key (it starts with `sk_`) and save it somewhere secure. You won't be able to see it again. A key created here acts as you: the agent's actions are recorded under your member, not under an agent of its own.
@@ -58,7 +60,14 @@ The `SPLITS_API_KEY` environment variable also works and takes precedence over e
 
 Each login saves a workspace in the local config, named after the workspace it belongs to (or after `--name`). `splits auth workspaces` lists them, `splits auth use <alias>` switches the active one, and every command takes `--workspace <alias>` (or the `SPLITS_WORKSPACE` variable) to run once in another. `splits auth logout [alias]` removes a saved workspace.
 
-On a shared machine, logging in to the same org again without a distinct `--name` replaces the earlier saved API key, even if the agents have different scopes. Give each agent a unique alias with `auth login-start --name <alias>`, then select it with `--workspace` or `SPLITS_WORKSPACE`. Local signing keys share the config and are not removed by that replacement; pass `--key <address>` when several are saved. Use a separate `HOME` for each agent if their keys must be isolated.
+On a shared machine, logging in to the same workspace again without a distinct `--name` replaces the earlier saved API key, even if the agents have different scopes. Give each agent a unique alias:
+
+1. Start its login with `splits auth login-start --client-name "<app name>" --name <alias>`.
+2. Save the returned `requestId`. Complete that login with `splits auth login-status --request-id <requestId>`.
+
+Without `--request-id`, the CLI selects the most recent pending login, which can belong to another agent. After approval, select the alias for each command with `--workspace <alias>` or `SPLITS_WORKSPACE`.
+
+Local signing keys share the config and are not removed by credential replacement. Pass `--key <address>` when several are saved. A separate `HOME` gives each agent a separate config. **It does not prevent access by other processes running as the same OS user.** Use separate OS users or another enforced filesystem boundary if agents must not read each other's signing keys.
 
 ## Use the API
 
@@ -102,13 +111,13 @@ Every transaction can carry a [memo](/transactions/memos) (max 500 characters) a
 
 By default, signing happens in the web UI with a passkey. To operate headlessly, the agent signs with a local EOA that is a signer on the account:
 
-1. After browser login, use the registered EOA shown in `splits auth whoami` and its `signerId`. If you authenticated with an API key instead, run `splits auth create-key --register` to generate and register a local EOA, or import an existing key with `echo $PRIVATE_KEY | splits auth import-key` and register it. `splits auth whoami` lists local keys and whether each is registered.
-2. `splits accounts update-signers <account> --add-eoa-signer-ids <id> --threshold N`: propose adding it as a signer (**Owner** scope). An agent member can propose adding its own keys, and an Owner signs it. A workspace [created from an agent](/workspaces#from-an-agent) already has the agent's key as the Treasury's only signer.
+1. After browser login, use the registered EOA shown in `splits auth whoami` and its `signerId`. If you authenticated with an API key instead, generate and register a local EOA with `splits auth create-key --register`. To use an existing signing key instead, import it with `echo $PRIVATE_KEY | splits auth import-key`, then register its address with `splits auth register-signer <address>`. Registering an EOA requires both **Read** and **Write** scopes. `splits auth whoami` shows each local key's `signerId`.
+2. `splits accounts update-signers <account> --add-eoa-signer-ids <id>`: propose adding it as a signer. An agent with the Member role needs **Write** scope and can only add its own EOAs. It **cannot add passkeys, remove signers, or include `--threshold`**, even if the threshold value is unchanged. Other callers need both **Write** and **Owner** scopes and the Owner role. To change the threshold, an Owner includes `--threshold N` with those same scopes. The account's current signers approve the proposal at its current threshold. A workspace [created from an agent](/workspaces#from-an-agent) already has the agent's key as the Treasury's only signer.
 3. `splits transactions sign <id>`: sign pending proposals with the local key (**Write** scope). Auto-submits once the threshold is met. Signer and network changes sign the same way and execute on every network at once; on a multisig, run `splits transactions update-gas-estimation <id>` before the last signature.
 
-Use the registration `signerId` from `auth whoami`, `auth signers`, or `auth create-key --register` when **adding** an EOA to an account. The different EOA ID in `accounts signers <address>` identifies that account's signer entry and is used when **removing** it. If `auth whoami` shows `signerId: null`, check `auth signers` before registering again: a rate-limited signer lookup can also leave the ID null.
+When **adding** an EOA to an account, use its registration ID: `localKeys[].signerId` from `splits auth whoami`, `signerId` from `splits auth create-key --register`, or `id` from `splits auth signers` or `splits auth register-signer <address>`. The different EOA ID in `splits accounts signers <address>` identifies that account's signer entry and is used when **removing** it. If `splits auth whoami` shows `signerId: null`, check `splits auth signers` before registering again: a rate-limited signer lookup can also leave the ID null.
 
-`splits accounts sign-message <address>` signs a message as the account (ERC-1271) with the same key, as the app does for a [WalletConnect](/integrations/walletconnect#programmatic-access) request. `splits auth delete-key` removes the local key but does **not** revoke it onchain; remove it from accounts via `update-signers`.
+`splits accounts sign-message <address>` signs a message as the account (ERC-1271) with the same key, as the app does for a [WalletConnect](/integrations/walletconnect#programmatic-access) request. `splits auth delete-key` removes the local key but does **not** revoke it onchain; remove it from accounts via `splits accounts update-signers`.
 
 ## Tune output for agents
 
