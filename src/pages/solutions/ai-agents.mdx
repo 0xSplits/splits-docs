@@ -38,15 +38,15 @@ Prerequisites: a [workspace](/workspaces), and the CLI installed where the agent
 
 The agent starts a [browser login](/introduction/agents#sign-in-from-the-browser) and gives you a code. A Splits login page opens. Sign in, enter the code, and connect the workspace with the [scopes](/workspaces/roles#api-key-scopes) you choose. No API key passes through the agent. The agent then confirms the workspace, scopes, and key source.
 
-### Generate the agent's key
+### Use the agent's signing key
 
-For [headless signing](/introduction/agents#sign-locally-with-an-eoa), the agent generates a local EOA and registers it as a signer candidate. The command returns a signer id.
+Use the EOA registered during browser approval and its signer ID for [headless signing](/introduction/agents#sign-locally-with-an-eoa).
 
 ### Add the key to an account
 
 Choose one:
 
-- Add the agent's signer id to an existing operating account. This creates a proposal that a human approves in the app.
+- Add the agent's signer ID to an existing operating account. This creates a proposal that a human approves in the app.
 - Create a new operating account with the agent's key and the human's passkey as signers from the start. This needs no approval step.
 
 ### Choose the threshold
@@ -86,8 +86,8 @@ Via the [Splits CLI / MCP](/introduction/agents):
 - `npx -y @splits/splits-cli@latest --llms-full`: the full command surface and MCP tool list, no install
 - `splits auth login --client-name "<app name>"`: sign the agent in through your browser approval
 - `splits workspace create --name "<name>" --client-name "<app name>"`: create a workspace for the agent, which you approve in the browser
-- `splits auth create-key --register`: generate the agent's EOA and register it as a signer candidate
-- `splits accounts update-signers <account> --add-eoa-signer-ids <id> --threshold N`: propose adding the agent's key, which a human approves in the app (**Owner** scope)
+- `splits auth whoami`: find the agent's registered EOA and `signerId` after browser login. Use `splits auth create-key --register` with **Read** and **Write** scopes if you authenticated with an API key
+- `splits accounts update-signers <account> --add-eoa-signer-ids <id>`: propose adding only the agent's signing key, with no threshold change (**Write** scope for Member agents, **Write** and **Owner** scopes otherwise)
 - `splits accounts create --name "<label>" --eoa-signer-ids <id> --passkey-ids <human-passkey-id> --threshold 2`: create the agent's account with both signers (**Owner** scope)
 - `splits accounts create --name "<label>" --eoa-signer-ids <id> --threshold 1`: create a budget account where the agent is the only signer (**Owner** scope)
 - `splits transactions sign <id>`: sign pending proposals with the agent's key (**Write** scope)
