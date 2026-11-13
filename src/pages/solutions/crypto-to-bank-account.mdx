@@ -5,7 +5,7 @@ description: "Send USDC from Splits to your business or personal bank account by
 
 # Crypto offramp [Send USDC from a Splits account to a bank account by ACH, wire, or SEPA]
 
-A **crypto offramp** on Splits is a crypto to bank account transfer. Splits converts USDC from a [workspace](/workspaces) account to dollars or euros. Splits then sends the money to your bank account by ACH or wire in the US, or by SEPA in the EU.
+A **crypto offramp** on Splits is a crypto to bank account transfer. Splits' banking provider, Bridge, converts USDC from a [workspace](/workspaces) account to dollars or euros. The money then goes to your bank account by ACH or wire in the US, or by SEPA in the EU.
 
 ## How do I send USDC to my bank account?
 
@@ -37,9 +37,9 @@ The offramp is a [transaction](/transactions) proposal. It executes when signers
 
 ::::
 
-## Which bank accounts can receive USDC?
+## Which bank accounts can receive an offramp?
 
-A business or personal bank account can receive USDC, if the account is in the name of the workspace's verified entity. The workspace verifies as a business with KYB or as an individual with KYC.
+A business or personal bank account can receive an offramp, if the account is in the name of the workspace's verified entity. The workspace verifies as a business with KYB or as an individual with KYC.
 
 US accounts receive by ACH or wire. EU accounts receive by SEPA.
 
@@ -47,9 +47,9 @@ To pay someone else's bank account, see [Paying vendors](/banking/paying-vendors
 
 ## Can I send USDC to my Mercury account?
 
-Yes. Mercury business accounts accept ACH and wire transfers, and Splits sends USDC to Mercury that way.
+Yes. Mercury business accounts accept ACH and wire transfers. Bridge converts the USDC to dollars, and the dollars arrive in Mercury by ACH or wire.
 
-Mercury accounts hold only fiat. Splits converts the USDC to dollars first.
+Mercury accounts hold only fiat, so the conversion happens before the money arrives.
 
 We use this ourselves: Splits offramps to its own Mercury account.
 
