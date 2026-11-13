@@ -60,7 +60,6 @@ export default defineConfig({
         { text: 'AI agents', link: '/solutions/ai-agents' },
         { text: 'Revenue automation', link: '/solutions/revenue-automation' },
         { text: 'Business banking', link: '/solutions/business-banking' },
-        { text: 'Crypto offramp', link: '/solutions/crypto-to-bank-account' },
         { text: 'Crypto accounting', link: '/solutions/crypto-accounting' },
         { text: 'Passkey wallet', link: '/solutions/passkey-wallet' },
         { text: 'Family wallet', link: '/solutions/family-wallet' },

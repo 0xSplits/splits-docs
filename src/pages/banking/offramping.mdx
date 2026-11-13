@@ -1,27 +1,31 @@
 ---
-title: Offramping
-description: "Move crypto to the workspace's bank accounts: connect banks via Plaid or manually, initiate an offramp, ACH and SEPA settlement timing, or use your own provider."
+title: "Crypto to bank account: offramp any token by ACH, wire, or SEPA"
+description: "Send crypto to your bank account: offramp any token to a business or personal bank account by ACH or wire in the US, or SEPA in the EU."
 ---
 
-# Offramping [Move crypto out to the workspace's bank accounts]
+# Offramping [Move crypto out to the workspace's bank accounts by ACH, wire, or SEPA]
+
+An **offramp** is a crypto to bank account transfer: the account sends crypto, and the bank receives fiat. You can offramp any token, such as ETH. The app first sells any token other than the payout stablecoin (such as USDC) at spot. That sale pays the workspace tier's [swap fee](https://splits.org/pricing/), on top of the 0.25% [banking fee](/banking). In the US, offramps go by ACH or wire. In the EU, they go by SEPA.
 
 Before you can offramp, add a bank account from [Settings > Banks](https://app.splits.org/settings/team/banks/): connect a US account with [Plaid](https://plaid.com/) or enter its routing and account numbers manually; EU accounts are added by IBAN. You can add as many bank accounts as you wish.
 
 To offramp, open *Send* and choose your bank account as the recipient. You can also go to Settings > Banks, click the three dots on the target bank account, and select *Offramp*; this opens *Send* with that bank account selected.
 
-See also [Crypto to bank account](/solutions/crypto-to-bank-account).
+## Which bank accounts can receive an offramp?
+
+An offramp goes to a business or personal bank account in the name of the workspace's verified entity: a business after KYB, an individual after KYC. See [Getting verified](/banking#getting-verified). To offramp to someone else's bank account, see [Paying vendors](/banking/paying-vendors).
 
 ## Exact bank amount
 
-Enter the fiat amount you want the bank to receive in *Recipient gets*. The app increases the token amount sent to cover the 0.25% [banking fee](/banking), so the bank receives the amount entered. For example, to receive $1,995.00, the account sends 2,000.00 USDC: $5.00 covers the fee.
+Enter the fiat amount you want the bank to receive in *Recipient gets*. The app increases the token amount sent to cover the 0.25% [banking fee](/banking), so the bank receives the amount entered. For example, to receive $1,995.00, the account sends 2,000.00 USDC: $5.00 covers the fee. For a token other than the payout stablecoin, such as ETH, the account sells it at spot first, and that sale pays the swap fee too.
 
 The review step shows the amount sent, the fee, and the amount the bank receives before you confirm. The minimum amount the bank can receive is $10 or €10.
 
-To offramp to someone else's bank account, see [Paying vendors](/banking/paying-vendors).
-
 ## Settlement
 
-In the US, we send via [Same Day ACH, which settles in batches throughout the day](https://apidocs.bridge.xyz/platform/orchestration/more/cutoffs#processing-windows-and-cutoff-times). In Eastern Time, settlement occurs at 1:00 pm, 5:00 pm, and 6:00 pm, with corresponding cutoffs at 9:15 am, 1:30 pm, and 3:30 pm (we've added a 15m buffer relative to Bridge's documentation, which has been necessary in our experience). Offramps sent after 3:30 pm ET arrive the following business day.
+US offramps go by ACH or wire. The times below are ACH times.
+
+In the US, we send via [Same Day ACH, which settles in batches throughout the day](https://apidocs.bridge.xyz/platform/orchestration/more/cutoffs#processing-windows-and-cutoff-times). In Eastern Time, settlement occurs at 1:00 pm, 5:00 pm, and 6:00 pm, with corresponding cutoffs at 9:15 am, 1:30 pm, and 3:30 pm (we've added a 15m buffer relative to Bridge's documentation, which has been necessary in our experience). ACH offramps sent after 3:30 pm ET arrive the following business day.
 
 For IBAN banks supporting SEPA Instant, settlement occurs in under 30 seconds.
 
