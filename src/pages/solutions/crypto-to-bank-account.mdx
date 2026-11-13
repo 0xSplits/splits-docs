@@ -1,0 +1,89 @@
+---
+title: "Crypto to bank account: send USDC to your bank"
+description: "Send USDC from Splits to your business or personal bank account by ACH or wire in the US, or SEPA in the EU. Works with Mercury."
+---
+
+# Crypto offramp [Send USDC from a Splits account to a bank account by ACH, wire, or SEPA]
+
+A **crypto offramp** on Splits is a crypto to bank account transfer. Splits converts USDC from a [workspace](/workspaces) account to dollars or euros. Splits then sends the money to your bank account by ACH or wire in the US, or by SEPA in the EU.
+
+## How do I send USDC to my bank account?
+
+Verify the workspace, add a bank account, then send USDC to that account from *Send*.
+
+Prerequisites: the [Owner](/workspaces/roles) role in the workspace.
+
+::::steps
+
+### Verify the workspace
+
+Go to [Settings > Banks](https://app.splits.org/settings/team/banks/). Select *KYB* for a business or *KYC* for an individual. Then complete [entity verification](/banking#getting-verified).
+
+### Add a bank account
+
+Connect a US [bank account](/banking/offramping) with Plaid, or enter its routing and account numbers. For an EU account, enter its IBAN.
+
+### Open Send
+
+Open *Send*. Choose the bank account as the recipient.
+
+### Enter the amount
+
+Enter the amount. To set the amount that the bank receives, use [*Recipient gets*](/banking/offramping#exact-bank-amount). The review step shows the amount sent, the fee, and the amount that the bank receives.
+
+### Approve the transaction
+
+The offramp is a [transaction](/transactions) proposal. It executes when signers meet the account's [threshold](/accounts/thresholds).
+
+::::
+
+## Which bank accounts can receive USDC?
+
+A business or personal bank account can receive USDC, if the account is in the name of the workspace's verified entity. The workspace verifies as a business with KYB or as an individual with KYC.
+
+US accounts receive by ACH or wire. EU accounts receive by SEPA.
+
+To pay someone else's bank account, see [Paying vendors](/banking/paying-vendors).
+
+## Can I send USDC to my Mercury account?
+
+Yes. Mercury business accounts accept ACH and wire transfers, and Splits sends USDC to Mercury that way.
+
+Mercury accounts hold only fiat. Splits converts the USDC to dollars first.
+
+We use this ourselves: Splits offramps to its own Mercury account.
+
+Splits is not affiliated with Mercury.
+
+## How long does it take, and what does it cost?
+
+In the US, Same Day ACH settles in batches throughout the day. For IBAN banks that support SEPA Instant, settlement takes under 30 seconds.
+
+In Eastern Time, ACH settlement occurs at 1:00 pm, 5:00 pm, and 6:00 pm. The cutoffs are 9:15 am, 1:30 pm, and 3:30 pm. An offramp sent after 3:30 pm ET arrives the next business day. See [Settlement](/banking/offramping#settlement).
+
+The [fee](/banking) is 0.25%, deducted from the transaction amount. The minimum amount that the bank can receive is $10 or €10.
+
+With *Recipient gets*, the app increases the amount sent to cover the fee. For example, to receive $1,995.00, the account sends 2,000.00 USDC. The $5.00 difference covers the fee.
+
+## Where is it available?
+
+Splits supports US- and EU-based individuals and businesses. The exclusions are [countries that Bridge does not support](https://apidocs.bridge.xyz/platform/customers/compliance/supported-countries-list#supported-countries-list), and New York and Alaska in the US ([Bridge's US details](https://apidocs.bridge.xyz/get-started/introduction/what-we-support/geo#united-states-specific-details)).
+
+If you live elsewhere, you can still offramp. Your entity must be legally registered in the US, and you need a US or EU bank account. See [Jurisdictions](/banking#jurisdictions).
+
+## Next steps
+
+- [Add a bank account](https://app.splits.org/settings/team/banks/)
+- [Banking](/banking): verification, jurisdictions, and the fee
+- [Offramping](/banking/offramping): bank accounts, exact amounts, and settlement
+- [Paying vendors](/banking/paying-vendors): offramp to someone else's bank account
+- [Business banking](/solutions/business-banking): accounts, payroll, invoicing, and accounting
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits offramp external-accounts`: the workspace's bank accounts (**Owner** scope)
+- `splits transactions create offramp --account 0x... --external-account-id <id> --amount 100`: propose an offramp of the amount that the bank receives (**Write** and **Owner** scopes)
+
+Adding bank accounts is web-only today.
