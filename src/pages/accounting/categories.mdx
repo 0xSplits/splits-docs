@@ -1,0 +1,34 @@
+---
+title: Categories
+description: Set up a chart of accounts and categorize accounting activity with rules or manual overrides.
+---
+
+# Categories [Classify accounting activity with a chart of accounts, rules, and manual overrides]
+
+A **category** is an entry in the workspace's chart of accounts. Each category has a name, an income, expense, asset, liability, or equity type, and an optional account code. Accounting exports call categories **book accounts**.
+
+:::note
+This feature is in beta. Email support to enable it for your workspace.
+:::
+
+## Set up categories
+
+The [Settings > Accounting](https://app.splits.org/settings/team/accounting) *Categories* tab starts with a default chart of accounts. Members can add categories, edit their names, types, and codes, or archive them. Archived categories leave existing transactions in place but disappear from category pickers. A category used in a [closed period](/accounting/closing) keeps its type until those books are reopened; its name and code remain editable.
+
+## Categorize activity
+
+The [Accounting](/accounting) *Transactions* tab shows each row's type and category and lets you filter by category. For a transaction you can categorize, open its actions → *Set category*. The dialog shows whether its category came from a manual override, a rule, or a default. Select a category to override the current result; *Reset* removes a manual override.
+
+To categorize transactions with the same address, select *Apply to all* in the category dialog. This creates or updates an address rule for matching transactions in open periods. You can also add a rule in Settings > Accounting > *Rules*. A rule matches inbound or outbound transactions by address, account, network, or token; it needs at least one condition. Rules apply to past and future matches in open periods. When several rules match, the most specific wins, in the order shown. A manual override takes precedence over rules and defaults.
+
+Accruals do not appear on *Transactions*. To categorize one, use *Set category* on its row in [Lots](/accounting#lots). Internal, bridge, swap, and Earn transfers cannot be manually categorized.
+
+**Closed-period categories do not change when you edit a rule or an override.** To change a closed row, [reopen the books](/accounting/closing#reopening-books) first.
+
+## Programmatic access
+
+Via the [Splits CLI / MCP](/introduction/agents):
+
+- `splits accounting categories list`: list the chart of accounts (**Read** scope)
+- `splits accounting rules list`: list categorization rules (**Read** scope)
+- `splits accounting categorize set`: override the category of transfers or accrual lots (**Write** scope and a user-bound API key)

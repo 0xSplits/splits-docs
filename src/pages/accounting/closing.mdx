@@ -1,0 +1,36 @@
+---
+title: Closing books
+description: Freeze an accounting period, review late changes, and reopen books when corrections are needed.
+---
+
+# Closing books [Freeze a period's accounting values and reopen it for corrections]
+
+**Closing the books** fixes the categories, types, USD values, spam visibility, lots, and disposals through a selected day in the workspace's accounting time zone. Activity after that day remains open. A close can take a few minutes, and lots update after it finishes.
+
+:::note
+This feature is in beta. Email support to enable it for your workspace.
+:::
+
+## Close a period
+
+Prerequisites: review [categories and rules](/accounting/categories), [lots](/accounting#lots), and [reports](/accounting#reports) for the period.
+
+1. Go to [Settings > Accounting](https://app.splits.org/settings/team/accounting) > *Closing*.
+2. Select *Close books* and choose a day that has ended in the workspace's accounting time zone.
+3. Confirm *Close books*. The *Closing* tab shows the closed-through date and close history.
+
+Members can close the books. **A closed period cannot be recategorized or have its lots edited or seeded.** The *Lots* tab marks locked lots and shows an Original lot ID on continuation lots. Reports spanning a close use the frozen values for that period.
+
+## Reopening books
+
+Select *Reopen books* in Settings > Accounting > *Closing* and choose a close. The dialog shows which closes will be undone and a count of closed rows that would change. Confirm to reopen that close and every later close. Open periods then pick up rule edits, the disposal method, the time zone, and late activity; lots update after the reopen.
+
+If activity lands in an already closed period, the *Closing* tab warns that closed numbers omit those late changes. Reopen the affected period to include them.
+
+## Accounting settings
+
+Owners can set the workspace's accounting time zone and disposal method in Settings > Accounting > *Settings*. Date ranges, export timestamps, holding periods, and close dates use that time zone. The disposal method chooses which tax lots are sold first: FIFO, LIFO, or HIFO. Changing either setting recomputes open lots and realized gains. Existing closed periods keep their original boundary and dates when the time zone changes.
+
+## Programmatic access
+
+The API supports closing, previewing a reopen, and reopening books. The [Splits CLI / MCP](/introduction/agents) has no commands for these actions.
