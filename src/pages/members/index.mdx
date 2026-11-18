@@ -42,7 +42,7 @@ What differs from a person:
 
 - **It has no email and cannot sign in to the app.** It acts only through its API keys. A key created in Settings > API Keys acts as the person who created it, never as an agent.
 - **Its signing keys are EOAs** registered under it, never passkeys.
-- **Its role is set at approval.** It joins as a Member, or as an Owner when the approver granted its key the **Owner** scope (see [API key scopes](/workspaces/roles#api-key-scopes)). An agent that created the workspace is its Owner. Owners can change an agent's role later from its row in Settings > Members; a role change never changes the key's scopes.
+- **Its role is set at approval.** It joins as a Member, or as an Owner when the approver granted its key the **Owner** scope (see [API key scopes](/workspaces/roles#api-key-scopes)). An agent that created the workspace is its Owner. Owners can change an agent's role later from its row in Settings > Members. A downgrade to Member turns the `owner` scope on its keys into `write`; a promotion leaves the scopes as they are.
 - **It cannot be invited.** Membership comes only from an approved login or an agent-created workspace.
 - **Removing it also proposes removing its keys.** Removing an agent revokes its access and creates one signer update per account where its keys are signers, dropping them; Owners sign those like any [signer change](/accounts/editing#changing-signers-and-thresholds). An account that the removal would leave below its threshold is reported instead, for a [reset](/accounts/editing#resetting-signers) through its owner.
 
