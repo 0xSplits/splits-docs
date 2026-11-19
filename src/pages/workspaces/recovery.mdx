@@ -1,6 +1,6 @@
 ---
 title: Recovery
-description: "Why recovery exists, the recovery signers that control the Root account, how to verify them, recover a workspace's accounts, and why changing them changes addresses."
+description: "How recovery signers control the Root account, how to verify them and recover accounts, and why changing them requires a new workspace today."
 ---
 
 # Recovery [Regain control of every account if a workspace's passkeys are lost]
@@ -18,7 +18,7 @@ Recovery signers are EOAs chosen at [workspace setup](/workspaces), controlling 
 - **Email**: Splits creates a Privy embedded wallet for the email address. The signer authenticates with an email code when a recovery needs their signature. This option lets a trusted person help without managing a crypto wallet. Splits creates a separate wallet for each workspace the email is added to.
 - **Wallet**: add an EOA wallet address or ENS name. The signer connects that wallet when a recovery needs their signature. Use an address created for this purpose that has never signed a transaction anywhere; see [Keeping recovery healthy](#keeping-recovery-healthy).
 
-Recovery signers are the backstop beneath the day-to-day signers. [Settings > Recovery](https://app.splits.org/settings/team/recovery/) lists them for Owners. Changing them changes the workspace's account addresses ([why](#changing-recovery-signers)).
+Recovery signers are the backstop beneath the day-to-day signers. [Settings > Recovery](https://app.splits.org/settings/team/recovery/) lists them for Owners. See [Changing recovery signers](#changing-recovery-signers) before choosing them.
 
 ### Verifying recovery signers
 
@@ -47,9 +47,11 @@ With the Treasury back under control, [reset any sub-account](/accounts/editing#
 
 ## Changing recovery signers
 
-Account addresses are derived from the recovery configuration using [`CREATE2`](https://docs.openzeppelin.com/cli/2.8/deploying-with-create2). That's what makes every account's address identical on every network (including networks added later) while keeping custody fully with the workspace. The consequence: **changing recovery signers changes the workspace's account addresses.**
+The Root's original signers and threshold are part of its [`CREATE2`](https://docs.openzeppelin.com/cli/2.8/deploying-with-create2) address calculation. Changing those *creation parameters* creates a different Root address and therefore different account addresses beneath it. Changing the signer set of an already deployed Root onchain would keep its address, but **Splits does not support rotating the Root's signers in an existing workspace**, in the app, API, or CLI.
 
-The practical way to change them today is to create a new workspace. Email support to migrate your offchain data (members, contacts, on/offramp info, schedules), and remember to update any revenue or funding sources (smart contracts, invoices) to the new workspace's addresses.
+A quorum of the current recovery signers can technically submit a transaction directly to the Root contract to change its signers or threshold on a deployed network. This also means a compromised recovery quorum can do so. Splits does not synchronize such a change: on a network enabled later, the Root is deployed from its original creation parameters, with its original signers and threshold. The old recovery quorum could still control that Root. **Do not rely on a direct onchain rotation as a workspace-wide recovery change.**
+
+To change recovery signers with product support today, create a new workspace with the intended recovery configuration. Email support to migrate your offchain data (members, contacts, on/offramp info, schedules), and update any revenue or funding sources (smart contracts, invoices) to the new workspace's addresses.
 
 ## Keeping recovery healthy
 

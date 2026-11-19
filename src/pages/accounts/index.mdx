@@ -13,18 +13,18 @@ Every Splits account, including the Root, is an ERC-4337 v0.7 smart-contract mul
 
 | Type | Controlled by | Owned by (onchain) |
 | --- | --- | --- |
-| **Root** | Recovery signers (EOAs) | Itself |
+| **Root** | Recovery signers (EOAs) | No external owner |
 | **Treasury** | Passkeys and/or EOAs | Root |
 | **Operating** | Passkeys and/or EOAs | Treasury |
 | **Automation** | Splits server key, passkeys, and/or EOAs | Treasury |
 
 Accounts form an ownership chain (Root → Treasury → operating and automation accounts) in which each account is the onchain owner of those below it.
 
-Ownership carries the powers signers don't have. An account's signers can change the account's own signer set and threshold, but **only its owner can upgrade the account's contract implementation or transfer its ownership**, and the owner can execute from the account directly, which is how a [signer reset](/accounts/editing#resetting-signers) and [recovery](/workspaces/recovery) work. A rogue signer on a low-threshold account can therefore reach at most that account's balance, never its ownership or code. The Root has no external owner and owns itself: owner actions on it fall to its own signers, the recovery signers, at the recovery threshold.
+Ownership carries the powers signers don't have. An account's signers can change the account's own signer set and threshold, but **only its owner can upgrade the account's contract implementation or transfer its ownership**, and the owner can execute from the account directly, which is how a [signer reset](/accounts/editing#resetting-signers) and [recovery](/workspaces/recovery) work. A rogue signer on a low-threshold account can therefore reach at most that account's balance, never its ownership or code. The Root has no external owner: its recovery signers can authorize owner actions at the recovery threshold. See [Changing recovery signers](/workspaces/recovery#changing-recovery-signers) for the limits of changing the Root's own signers.
 
 ## Root
 
-The Root is created from the workspace's recovery signers during [workspace setup](/workspaces), with the recovery threshold. It never appears in the app: it can't be viewed or transacted from. It exists so the recovery signers can regain control of everything below it if the workspace's passkeys are lost, and its composition determines every address derived beneath it, which is why changing recovery signers changes the workspace's account addresses ([more](/workspaces/recovery#changing-recovery-signers)).
+The Root is created from the workspace's recovery signers during [workspace setup](/workspaces), with the recovery threshold. It has no account page in the app; the app uses it for recovery transactions. It exists so the recovery signers can regain control of everything below it if the workspace's passkeys are lost. Its *original creation configuration* determines its address and every address derived beneath it. See [Changing recovery signers](/workspaces/recovery#changing-recovery-signers).
 
 ## Treasury
 
