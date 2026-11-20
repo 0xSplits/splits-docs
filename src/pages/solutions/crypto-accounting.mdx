@@ -12,12 +12,12 @@ It serves onchain startups and the accountants who work with them. [Imported acc
 ## How it works
 
 - **Review one transaction history.** [Accounting](/accounting#transactions) combines inbound and outbound activity across the workspace. Filter by account, network, token, date, direction, memo, or category.
-- **Track each acquisition.** [Lots](/accounting#lots) record the quantity, acquisition date, and USD cost basis of tokens in each account. Splits matches disposals to lots using FIFO, LIFO, or HIFO. FIFO is the default, and an Owner chooses the method for the workspace.
+- **Track each acquisition.** [Lots](/accounting#lots) record the quantity, acquisition date, and USD cost basis of tokens in each account. Splits matches disposals to lots using FIFO, LIFO, or HIFO. FIFO is the default, and an Owner chooses the method for the workspace. Included in Pro and Premium.
 - **Preserve basis on internal moves.** A [transfer between workspace accounts](/accounting#lots) carries its original basis and acquisition date into the receiving account.
-- **Categorize every transaction.** Categories are your chart of accounts. Each workspace starts with a default chart, and you can add, rename, or archive categories and give each one an account code. A rule matches inbound or outbound transactions by address, account, network, or token. You can also set a category on a single transaction.
-- **Read your profit and loss.** The [profit and loss report](/accounting#reports) shows income and expenses by category, plus realized gains.
-- **Close the books.** Closing a period freezes its categories, USD values, lots, and disposals through the day you choose. Reopen the books to correct a closed period.
-- **Bring past activity into view.** [Imported accounts](/accounting#imported-accounts) add external EVM address history. They grant **no signing authority** and do not become Splits accounts.
+- **Categorize every transaction.** Categories are your chart of accounts. Each workspace starts with a default chart, and you can add, rename, or archive categories and give each one an account code. A rule matches inbound or outbound transactions by address, account, network, or token. You can also set a category on a single transaction. Included in Premium.
+- **Read your profit and loss.** The [profit and loss report](/accounting#reports) shows income and expenses by category, plus realized gains. Included in Pro and Premium.
+- **Close the books.** Closing a period freezes its categories, USD values, lots, and disposals through the day you choose. Reopen the books to correct a closed period. Included in Premium.
+- **Bring past activity into view.** [Imported accounts](/accounting#imported-accounts) add external EVM address history. They grant **no signing authority** and do not become Splits accounts. Included in Pro and Premium.
 - **Correct source data.** [Edit or seed a lot](/accounting#lots) when its price or acquisition date needs correction. The lot detail shows its correction history. Token quantity comes from indexed activity and cannot be edited.
 - **Export records for your books.** [Reports](/accounting#reports) include statements, profit and loss, transaction history, token balances, realized gains and losses, open lots, and a lot timeline. Transaction exports carry each row's book account, account type, and account code. Give an accountant [read-only access](/workspaces/roles#read-only-members) to review the workspace.
 
@@ -53,10 +53,6 @@ On the *Closing* tab in Settings > Accounting, select *Close books* and choose a
 
 ::::
 
-## Import your books into QuickBooks Online or Xero
-
-Set each category's account code to the matching account number in your accounting software. Export the transaction history as CSV. Each row includes its book account, account type, and account code. Then import the file into QuickBooks Online or Xero.
-
 ## Common questions
 
 ### What is crypto accounting software?
@@ -79,9 +75,9 @@ Yes. Invite your accountant with the Member role and do not add them to any acco
 
 Open *Reports* in [Accounting](/accounting#reports), select a period and account scope, and generate *Transaction history* as CSV or PDF. To download only the rows you filtered, select *Export CSV* on the *Transactions* tab.
 
-### Which plan includes cost basis tracking?
+### Which plan do I need?
 
-Pro includes cost basis tracking, transaction exports, and monthly statements. A workspace needs $10K in Earn to be on Pro. See [pricing](https://splits.org/pricing/) for every plan.
+Pro includes lots and cost basis tracking, imported accounts, reports including profit and loss, transaction exports, and monthly statements. Premium adds categories, rules, and closing the books. A workspace is on Pro with $10K in Earn and on Premium with $100K in Earn. See [pricing](https://splits.org/pricing/) for every plan.
 
 ## Next steps
 
