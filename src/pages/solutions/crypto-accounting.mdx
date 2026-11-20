@@ -3,28 +3,33 @@ title: Crypto accounting software for startups
 description: "Crypto accounting software for startups: track cost basis per wallet, import external accounts, and export accountant-ready reports."
 ---
 
-# Crypto accounting [Cost basis per wallet, transaction history, and accountant-ready reports for onchain teams]
+# Crypto accounting [Cost basis, categories, and accountant-ready reports for onchain teams]
 
-**Crypto accounting** in Splits brings [transactions, token balances, tax lots, and reports](/accounting) into one workspace. You can also [import an external address](/accounting#imported-accounts) to include its history without moving funds to Splits.
+Splits is **crypto accounting software** built into your workspace's onchain accounts. It records every transaction, tracks the cost basis of each lot, and categorizes activity into your chart of accounts. You export the books as reports and CSV files for your accountant.
+
+It serves onchain startups and the accountants who work with them. [Imported accounts](/accounting#imported-accounts) add the history of an external address without moving funds to Splits.
 
 ## How it works
 
-- **Review one transaction history.** [Accounting](/accounting#transactions) combines inbound and outbound activity across the workspace. Filter by account, network, token, date, direction, or memo.
-- **Track each acquisition.** [Lots](/accounting#lots) record the quantity, acquisition date, and USD cost basis of tokens in each account. Splits matches disposals to lots using FIFO.
+- **Review one transaction history.** [Accounting](/accounting#transactions) combines inbound and outbound activity across the workspace. Filter by account, network, token, date, direction, memo, or category.
+- **Track each acquisition.** [Lots](/accounting#lots) record the quantity, acquisition date, and USD cost basis of tokens in each account. Splits matches disposals to lots using FIFO, LIFO, or HIFO. FIFO is the default, and an Owner chooses the method for the workspace.
 - **Preserve basis on internal moves.** A [transfer between workspace accounts](/accounting#lots) carries its original basis and acquisition date into the receiving account.
+- **Categorize every transaction.** Categories are your chart of accounts. Each workspace starts with a default chart, and you can add, rename, or archive categories and give each one an account code. A rule matches inbound or outbound transactions by address, account, network, or token. You can also set a category on a single transaction.
+- **Read your profit and loss.** The [profit and loss report](/accounting#reports) shows income and expenses by category, plus realized gains.
+- **Close the books.** Closing a period freezes its categories, USD values, lots, and disposals through the day you choose. Reopen the books to correct a closed period.
 - **Bring past activity into view.** [Imported accounts](/accounting#imported-accounts) add external EVM address history. They grant **no signing authority** and do not become Splits accounts.
 - **Correct source data.** [Edit or seed a lot](/accounting#lots) when its price or acquisition date needs correction. The lot detail shows its correction history. Token quantity comes from indexed activity and cannot be edited.
-- **Export records for your books.** [Reports](/accounting#reports) include statements, transaction history, token balances, realized gains and losses, open lots, and a lot timeline. Give an accountant [read-only access](/workspaces/roles#read-only-members) to review the workspace.
+- **Export records for your books.** [Reports](/accounting#reports) include statements, profit and loss, transaction history, token balances, realized gains and losses, open lots, and a lot timeline. Transaction exports carry each row's book account, account type, and account code. Give an accountant [read-only access](/workspaces/roles#read-only-members) to review the workspace.
 
 ## Prepare your books
 
-Prerequisites: create a [workspace](/workspaces). An [Owner](/workspaces/roles) must import external accounts.
+Prerequisites: create a [workspace](/workspaces). An [Owner](/workspaces/roles) must import external accounts and choose the disposal method.
 
 ::::steps
 
 ### Add the accounts you need
 
-Use [Splits accounts](/accounts) for current activity. To include an older address, use *Import account* on the [Imported tab](/accounting#imported-accounts). Select its networks and an optional cutoff date.
+Use [Splits accounts](/accounts) for current activity. To include an older address, use *Import account* on the [Imported tab](/accounting#imported-accounts). Select its networks and an optional cutoff date. Accounting works on [fully supported networks](/introduction/networks-and-assets#fully-supported-networks).
 
 ### Review transactions and balances
 
@@ -32,24 +37,51 @@ Filter [Transactions](/accounting#transactions) by period, account, and token. C
 
 ### Review and correct lots
 
-Open [Lots](/accounting#lots) to inspect basis, disposals, and correction history. Seed pre-existing inventory or edit a price or acquisition date if the derived value is wrong. Recompute lots to refresh the results.
+Open [Lots](/accounting#lots) to inspect basis, disposals, and correction history. Seed pre-existing inventory or edit a price or acquisition date if the derived value is wrong. Recompute lots to refresh the results. A warning above the table identifies a balance difference or a correction that Splits could not apply, so review warnings before you generate reports.
+
+### Categorize transactions
+
+Open Settings > Accounting to review the default categories and set an account code on each. Add a rule for each recurring counterparty, or select *Set category* on a transaction. Filter Transactions by *Uncategorized* to find the rest.
 
 ### Generate reports
 
-Select a period and account scope in [Reports](/accounting#reports). Generate a statement or export transaction history, token balances, gains, or lots for your accountant.
+Select a period and account scope in [Reports](/accounting#reports). Generate a statement or a profit and loss report. You can also export transaction history, token balances, gains, or lots for your accountant.
+
+### Close the period
+
+On the *Closing* tab in Settings > Accounting, select *Close books* and choose a completed day. Lots update after the close finishes. Select *Reopen books* if the period needs a correction.
 
 ::::
 
-## Limits
+## Import your books into QuickBooks Online or Xero
 
-- Accounting history is unavailable on [partially supported networks](/introduction/networks-and-assets).
-- A [lot warning](/accounting#lots) can signal a balance difference or a correction that Splits could not apply. Review warnings before using the reports.
-- Reports support bookkeeping and tax preparation. Splits does not sync with accounting software. You import an export. See the [cost basis deep dive](https://splits.org/blog/how-splits-tracks-cost-basis/).
-- Categorization into a chart of accounts and a P&L is available only in workspaces that have it enabled.
+Set each category's account code to the matching account number in your accounting software. Export the transaction history as CSV. Each row includes its book account, account type, and account code. Then import the file into QuickBooks Online or Xero.
 
-:::note
-This feature is in beta. Email support to enable it for your workspace.
-:::
+## Common questions
+
+### What is crypto accounting software?
+
+Crypto accounting software, also called crypto bookkeeping software, records onchain transactions and tracks the cost basis of each lot. It also organizes activity into a chart of accounts for reports. In Splits, these records sit in the same workspace as the accounts that hold the funds.
+
+### Which cost basis methods does Splits support?
+
+Splits supports FIFO, LIFO, and HIFO. FIFO is the default. An Owner chooses the method in Settings > Accounting, and Splits recomputes open lots and realized gains.
+
+### What if I do not know my cost basis?
+
+[Seed a lot](/accounting#lots) with the amount, original USD unit price, and original acquisition date. The seeded portion carries that cost basis and holding period.
+
+### Can my accountant review the workspace without signing authority?
+
+Yes. Invite your accountant with the Member role and do not add them to any account's signer set. They can see the workspace's accounts, balances, and transactions, but they cannot propose or sign. See [read-only members](/workspaces/roles#read-only-members).
+
+### How do I export crypto transactions for my accountant?
+
+Open *Reports* in [Accounting](/accounting#reports), select a period and account scope, and generate *Transaction history* as CSV or PDF. To download only the rows you filtered, select *Export CSV* on the *Transactions* tab.
+
+### Which plan includes cost basis tracking?
+
+Pro includes cost basis tracking, transaction exports, and monthly statements. A workspace needs $10K in Earn to be on Pro. See [pricing](https://splits.org/pricing/) for every plan.
 
 ## Next steps
 
