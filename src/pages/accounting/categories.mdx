@@ -21,9 +21,9 @@ The [Accounting](/accounting) *Transactions* tab shows each row's type and categ
 
 To categorize transactions with the same address, select *Apply to all* in the category dialog. This creates or updates an address rule for matching transactions in open periods. You can also add a rule in Settings > Accounting > *Rules*. A rule matches inbound or outbound transactions by address, account, network, or token; it needs at least one condition. Rules apply to past and future matches in open periods. When several rules match, the most specific wins, in the order shown. A manual override takes precedence over rules and defaults.
 
-Accruals do not appear on *Transactions*. To categorize one, use *Set category* on its row in [Lots](/accounting#lots). Internal, bridge, swap, and Earn transfers cannot be manually categorized.
+A rebasing token can increase an account's balance without an onchain transfer. Splits records that increase as an accrual lot in [Lots](/accounting#lots), not *Transactions*. To categorize it, use *Set category* on its row. Internal, bridge, swap, and Earn transfers cannot be manually categorized.
 
-**Closed-period categories do not change when you edit a rule or an override.** To change a closed row, [reopen the books](/accounting/closing#reopening-books) first.
+**You cannot change a closed row's assigned category by editing a rule or an override.** To change a closed row, [reopen the books](/accounting/closing#reopening-books) first.
 
 ## Programmatic access
 
