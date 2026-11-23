@@ -8,6 +8,8 @@ type Page =
   | { path: '/_api/api/og'; render: 'static' }
   | { path: '/_mdx-wrapper'; render: 'static' }
   | { path: '/_slots'; render: 'static' }
+  | { path: '/accounting/categories'; render: 'static' }
+  | { path: '/accounting/closing'; render: 'static' }
   | { path: '/accounting'; render: 'static' }
   | { path: '/accounting/spam'; render: 'static' }
   | { path: '/accounts/earn'; render: 'static' }
@@ -52,18 +54,21 @@ type Page =
   | { path: '/resources/security'; render: 'static' }
   | { path: '/solutions/ai-agents'; render: 'static' }
   | { path: '/solutions/business-banking'; render: 'static' }
+  | { path: '/solutions/crypto-accounting'; render: 'static' }
   | { path: '/solutions/family-wallet'; render: 'static' }
   | { path: '/solutions'; render: 'static' }
   | { path: '/solutions/passkey-wallet'; render: 'static' }
   | { path: '/solutions/revenue-automation'; render: 'static' }
   | { path: '/transactions/batch'; render: 'static' }
   | { path: '/transactions/custom'; render: 'static' }
+  | { path: '/transactions/gas'; render: 'static' }
   | { path: '/transactions'; render: 'static' }
   | { path: '/transactions/memos'; render: 'static' }
   | { path: '/transactions/schedules'; render: 'static' }
   | { path: '/transactions/sends'; render: 'static' }
   | { path: '/transactions/swaps'; render: 'static' }
   | { path: '/workspaces'; render: 'static' }
+  | { path: '/workspaces/privacy'; render: 'static' }
   | { path: '/workspaces/recovery'; render: 'static' }
   | { path: '/workspaces/roles'; render: 'static' }
   | { path: '/workspaces/settings'; render: 'static' }

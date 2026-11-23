@@ -116,6 +116,8 @@ export default defineConfig({
       collapsed: true,
       items: [
         { text: 'Spam & tokens', link: '/accounting/spam' },
+        { text: 'Categories', link: '/accounting/categories' },
+        { text: 'Closing books', link: '/accounting/closing' },
       ],
     },
     {
