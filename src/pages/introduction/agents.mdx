@@ -148,19 +148,19 @@ What to check in each call:
 - `value` is the native amount you expect to send, usually `0` for a token transfer.
 - `data` encodes the function and arguments you expect. Decode it against the target contract's ABI. For example, an ERC-20 transfer starts with the selector `0xa9059cbb` (`transfer(address,uint256)`), followed by the recipient and the amount in the token's base units.
 
-**The `callsHash` proves that the calls did not change between your review and your signature. It does not check that the calls are safe, or that they match the title or recipients.** That check is yours.
+**The `callsHash` proves that the calls did not change between your review and your signature. It does not check that the calls are safe, or that they match the title or recipients.** That check is yours. **The CLI does not recompute the `signingHash` from the calls**: it trusts the API that the `signingHash` commits to them.
 
 A gas re-estimation (`splits transactions update-gas-estimation <id>`) or a nonce refresh changes the `signingHash` but not the `callsHash`, so a `callsHash` you reviewed stays valid. When a signature fails on a stale signer nonce, the CLI fetches the transaction again and checks the digest again before it signs once more.
 
-The CLI refuses to sign, exits non-zero, and signs nothing in these cases:
+The CLI refuses to sign, exits non-zero, and signs nothing in these cases. The `CALLS_HASH_REQUIRED` and `CALLS_HASH_MISMATCH` errors carry the current calls and their `callsHash`. A mismatch means the calls changed since your review, or the hash came from another transaction. On `CALLS_NOT_EXPOSED`, sign in the app instead.
 
 | Code | Cause |
 | --- | --- |
-| `CALLS_HASH_REQUIRED` | No `--calls-hash` was passed. The error carries the calls and their `callsHash` |
-| `CALLS_HASH_MISMATCH` | The calls now hash to a different value than `--calls-hash`: they changed since your review. The error carries the current calls |
-| `SERVER_CALLS_HASH_MISMATCH` | The API's `callsHash` does not match the calls it returned |
-| `CALLS_NOT_EXPOSED` | The API did not return the calls or `callsHash`. Sign in the app instead |
-| `INVALID_CALLS` | The API returned calls that are not well-formed |
+| `CALLS_HASH_REQUIRED` | No `--calls-hash` passed |
+| `CALLS_HASH_MISMATCH` | Calls differ from `--calls-hash` |
+| `SERVER_CALLS_HASH_MISMATCH` | API `callsHash` differs from its calls |
+| `CALLS_NOT_EXPOSED` | API returned no calls or `callsHash` |
+| `INVALID_CALLS` | Malformed calls from the API |
 
 Both runs need a local signing key. To read the calls without one, use `splits transactions get <id>`.
 
