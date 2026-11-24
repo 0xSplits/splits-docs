@@ -29,9 +29,9 @@ Gas is sponsored from the workspace's plan budget, then from its gas balance; wh
 
 Via the [Splits CLI / MCP](/introduction/agents):
 
-- `splits transactions list` / `get <id>`: query transactions with rich filters (**Read** scope)
+- `splits transactions list` / `get <id>`: query transactions with rich filters. `get` also returns the raw calls and their `callsHash` (**Read** scope)
 - `splits transactions create transfer` / `swap` / `earn-deposit` / `earn-withdraw` / `auto-earn-on` / `auto-earn-off` / `offramp` / `custom`: propose transactions (**Write** scope)
-- `splits transactions sign <id>`: sign with a registered EOA (**Write** scope)
+- `splits transactions sign <id> --calls-hash <callsHash>`: sign with a registered EOA after you [review the calls](/introduction/agents#review-the-calls-before-signing). Without `--calls-hash`, it signs nothing and returns the calls and their `callsHash` (**Write** scope)
 - `splits transactions update-gas-estimation <id>`: refresh a multisig proposal before its last signature (**Write** scope)
 - `splits transactions cancel <id>`: cancel a pending proposal (**Write** scope)
 

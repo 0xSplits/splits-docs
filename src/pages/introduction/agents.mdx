@@ -113,11 +113,60 @@ By default, signing happens in the web UI with a passkey. To operate headlessly,
 
 1. After browser login, use the registered EOA shown in `splits auth whoami` and its `signerId`. If you authenticated with an API key instead, generate and register a local EOA with `splits auth create-key --register`. To use an existing signing key instead, import it with `echo $PRIVATE_KEY | splits auth import-key`, then register its address with `splits auth register-signer <address>`. Registering an EOA requires both **Read** and **Write** scopes. `splits auth whoami` shows each local key's `signerId`.
 2. `splits accounts update-signers <account> --add-eoa-signer-ids <id>`: propose adding it as a signer. An agent with the Member role needs **Write** scope and can only add its own EOAs. It **cannot add passkeys, remove signers, or include `--threshold`**, even if the threshold value is unchanged. Other callers need both **Write** and **Owner** scopes and the Owner role. To change the threshold, an Owner includes `--threshold N` with those same scopes. The account's current signers approve the proposal at its current threshold. A workspace [created from an agent](/workspaces#from-an-agent) already has the agent's key as the Treasury's only signer.
-3. `splits transactions sign <id>`: sign pending proposals with the local key (**Write** scope). Auto-submits once the threshold is met. Signer and network changes sign the same way and execute on every network at once; on a multisig, run `splits transactions update-gas-estimation <id>` before the last signature.
+3. `splits transactions sign <id> --calls-hash <callsHash>`: sign a pending proposal with the local key (**Write** scope), after you [review its calls](#review-the-calls-before-signing). Auto-submits once the threshold is met. Signer and network changes sign the same way and execute on every network at once; on a multisig, run `splits transactions update-gas-estimation <id>` before the last signature.
 
 When **adding** an EOA to an account, use its registration ID: `localKeys[].signerId` from `splits auth whoami`, `signerId` from `splits auth create-key --register`, or `id` from `splits auth signers` or `splits auth register-signer <address>`. The different EOA ID in `splits accounts signers <address>` identifies that account's signer entry and is used when **removing** it. If `splits auth whoami` shows `signerId: null`, check `splits auth signers` before registering again: a rate-limited signer lookup can also leave the ID null.
 
 `splits accounts sign-message <address>` signs a message as the account (ERC-1271) with the same key, as the app does for a [WalletConnect](/integrations/walletconnect#programmatic-access) request. `splits auth delete-key` removes the local key but does **not** revoke it onchain; remove it from accounts via `splits accounts update-signers`.
+
+### Review the calls before signing
+
+A proposal's title, memo, and recipients describe it. Its **calls** are what executes. Each call has three raw fields:
+
+- `to`: the contract or account the call targets
+- `value`: the native amount the call sends, in wei, as a decimal string
+- `data`: the raw calldata, `0x` for a plain native transfer
+
+The `signingHash` that a signer signs commits to these calls. `splits transactions get <id>` returns them, and a `callsHash` next to `signingHash`:
+
+- A proposal on one network carries its calls in `transactionData.calls`.
+- A proposal on several networks (`merkleTransaction`) carries each network's calls in `merkleTransactionData.chainTransactions[].transactionData.calls`.
+- `callsHash` is one digest over every network's calls: `keccak256(abi.encode(ChainCalls[]))`, where `ChainCalls` is `(uint256 chainId, (address to, uint256 value, bytes data)[] calls)`. A single-network proposal is a one-element array. A multi-network proposal has one element per network, sorted by `chainId` ascending. Calls keep their order.
+
+The detail endpoint, `GET /public/v1/transactions/:id`, returns the calls and `callsHash`. `splits transactions list` does not.
+
+Signing takes two runs of `splits transactions sign`:
+
+1. `splits transactions sign <id>`, without `--calls-hash`, **signs nothing**. It exits with `CALLS_HASH_REQUIRED`, and the error carries the transaction ID, the `callsHash`, and the calls per network.
+2. Check the calls. If they are what you expect, run `splits transactions sign <id> --calls-hash <callsHash>`. The CLI fetches the transaction again, computes the digest from the calls the API returns, and signs the `signingHash` only when that digest matches both `--calls-hash` and the API's `callsHash`.
+
+Over MCP, pass the same value to `transactions_sign` as its `callsHash` input. A call without it signs nothing, and its error text carries the calls and the `callsHash`.
+
+What to check in each call:
+
+- `to` is the contract you expect: the token contract for a token transfer, the recipient for a native transfer, the target contract for a [custom transaction](/transactions/custom).
+- `value` is the native amount you expect to send, usually `0` for a token transfer.
+- `data` encodes the function and arguments you expect. Decode it against the target contract's ABI. For example, an ERC-20 transfer starts with the selector `0xa9059cbb` (`transfer(address,uint256)`), followed by the recipient and the amount in the token's base units.
+
+**The `callsHash` proves that the calls did not change between your review and your signature. It does not check that the calls are safe, or that they match the title or recipients.** That check is yours.
+
+A gas re-estimation (`splits transactions update-gas-estimation <id>`) or a nonce refresh changes the `signingHash` but not the `callsHash`, so a `callsHash` you reviewed stays valid. When a signature fails on a stale signer nonce, the CLI fetches the transaction again and checks the digest again before it signs once more.
+
+The CLI refuses to sign, exits non-zero, and signs nothing in these cases:
+
+| Code | Cause |
+| --- | --- |
+| `CALLS_HASH_REQUIRED` | No `--calls-hash` was passed. The error carries the calls and their `callsHash` |
+| `CALLS_HASH_MISMATCH` | The calls now hash to a different value than `--calls-hash`: they changed since your review. The error carries the current calls |
+| `SERVER_CALLS_HASH_MISMATCH` | The API's `callsHash` does not match the calls it returned |
+| `CALLS_NOT_EXPOSED` | The API did not return the calls or `callsHash`. Sign in the app instead |
+| `INVALID_CALLS` | The API returned calls that are not well-formed |
+
+Both runs need a local signing key. To read the calls without one, use `splits transactions get <id>`.
+
+**The check runs in the CLI, not in the API.** `PUT /public/v1/transactions/:id/sign` accepts a signature without a `callsHash`. A client that signs through the API directly must fetch the calls and check them itself.
+
+**CLI versions released before this check sign without showing the calls.** Update with `npm install -g @splits/splits-cli@latest`, or run `npx @splits/splits-cli@latest`. An MCP server started from an older install keeps the old behavior until you restart it on the new version.
 
 ## Tune output for agents
 

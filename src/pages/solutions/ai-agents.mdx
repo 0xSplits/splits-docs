@@ -90,4 +90,4 @@ Via the [Splits CLI / MCP](/introduction/agents):
 - `splits accounts update-signers <account> --add-eoa-signer-ids <id>`: propose adding only the agent's signing key, with no threshold change (**Write** scope for Member agents, **Write** and **Owner** scopes otherwise)
 - `splits accounts create --name "<label>" --eoa-signer-ids <id> --passkey-ids <human-passkey-id> --threshold 2`: create the agent's account with both signers (**Owner** scope)
 - `splits accounts create --name "<label>" --eoa-signer-ids <id> --threshold 1`: create a budget account where the agent is the only signer (**Owner** scope)
-- `splits transactions sign <id>`: sign pending proposals with the agent's key (**Write** scope)
+- `splits transactions sign <id> --calls-hash <callsHash>`: sign a pending proposal with the agent's key after a [review of its calls](/introduction/agents#review-the-calls-before-signing) (**Write** scope)
